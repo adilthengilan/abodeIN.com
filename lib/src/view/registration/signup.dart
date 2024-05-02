@@ -1,3 +1,4 @@
+import 'package:abodein/src/Utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class Signup_Screen extends StatelessWidget {
@@ -6,9 +7,28 @@ class Signup_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [],
+      // backgroundColor: backgroundColor,
+      body: Column(mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 100,
+          ),
+          Text(
+            'Signup',
+            style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: largetextcolor),
+          )
+        ],
       ),
     );
   }
+}
+
+Widget Input_Text_Field() {
+  return TextField(
+    decoration: InputDecoration(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30))),
+  );
 }

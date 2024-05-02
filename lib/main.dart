@@ -1,3 +1,4 @@
+import 'package:abodein/src/view/registration/signup.dart';
 import 'package:abodein/src/view/splashScreen/getstarted_screen.dart';
 import 'package:abodein/src/view/splashScreen/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,6 @@ class MyApp extends StatelessWidget {
           // tested with just a hot reload.
           useMaterial3: true,
         ),
-        home: GetStartedScreen());
+        home: Splash_Screen());
   }
 }
