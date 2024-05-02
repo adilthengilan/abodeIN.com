@@ -1,5 +1,6 @@
 import 'package:abodein/src/Utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class GetStartedScreen extends StatefulWidget {
   const GetStartedScreen({super.key});
@@ -17,13 +18,13 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       backgroundColor: backgroundColor,
       body: Column(
         children: [
-          SizedBox(),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: width * 0.004),
-              child: Image(
-                image: AssetImage("assets/images/get_started_image_1.png"),
-                        ),
+          SizedBox(height: height * .045),
+          Align(
+            alignment: Alignment.center,
+            child: Image(
+              image: AssetImage("assets/images/get_started_image_1.png"),
             ),
+          ),
         ],
       ),
     );
