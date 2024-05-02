@@ -17,9 +17,13 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       backgroundColor: backgroundColor,
       body: Column(
         children: [
-          Image(
-            image: AssetImage("Assets/Images/GetStartedImage.png"),
-          )
+          SizedBox(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: width * 0.004),
+              child: Image(
+                image: AssetImage("assets/images/get_started_image_1.png"),
+                        ),
+            ),
         ],
       ),
     );
