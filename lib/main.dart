@@ -1,4 +1,4 @@
-import 'package:abodein/src/view/registration/login.dart';
+import 'package:abodein/src/view/splashScreen/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,6 +17,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
         ),
-        home: LoginScreen());
+        home: Splash_Screen());
   }
 }

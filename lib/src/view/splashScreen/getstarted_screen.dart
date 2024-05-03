@@ -1,6 +1,7 @@
 import 'package:abodein/src/Utils/app_colors.dart';
 import 'package:abodein/src/utils/style.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
+import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:flutter/material.dart';
 
 class GetStartedScreen extends StatefulWidget {
@@ -29,9 +30,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
         children: [
           SizedBox(height: height * .04),
           listingGetStartedImages(height, width),
-          SizedBox(height: height * 0.03),
+          SizedBox(height: height * 0.04),
           showingIndicators(),
-          SizedBox(height: height * 0.03),
+          SizedBox(height: height * 0.04),
           SizedBox(
             height: height * 0.17,
             width: width / 1.5,
@@ -82,12 +83,12 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
         },
       );
     } else {
-      // Navigator.pushAndRemoveUntil(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) => LoginScreen(),
-      //     ),
-      //     (route) => false);
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoginScreen(),
+          ),
+          (route) => false);
     }
   }
 

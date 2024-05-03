@@ -82,22 +82,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _loginButton() {
     return Padding(
-        padding: const EdgeInsets.all(50),
-        child: ElevatedButton(
-          onPressed: () {},
-          child: const SizedBox(
-            width: double.infinity,
-            child: Text(
-              'Send Otp',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 15, color: Colors.white),
-            ),
+      padding: const EdgeInsets.all(50),
+      child: ElevatedButton(
+        onPressed: () {},
+        child: const SizedBox(
+          width: double.infinity,
+          child: Text(
+            'Send Otp',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 15, color: Colors.white),
           ),
-          style: ElevatedButton.styleFrom(
-              shape: StadiumBorder(),
-              backgroundColor: primarycolor,
-              padding: const EdgeInsets.symmetric(vertical: 16)),
-        ));
+        ),
+        style: ElevatedButton.styleFrom(
+            shape: StadiumBorder(),
+            backgroundColor: primarycolor,
+            padding: const EdgeInsets.symmetric(vertical: 16)),
+      ),
+    );
   }
 }
 

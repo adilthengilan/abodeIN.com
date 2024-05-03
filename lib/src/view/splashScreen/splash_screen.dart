@@ -1,4 +1,3 @@
-import 'package:abodein/src/view/registration/signup.dart';
 import 'package:abodein/src/view/splashScreen/getstarted_screen.dart';
 import 'package:flutter/material.dart';
 
