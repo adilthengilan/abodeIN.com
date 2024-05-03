@@ -1,5 +1,6 @@
 import 'package:abodein/src/Utils/app_colors.dart';
 import 'package:abodein/src/utils/style.dart';
+import 'package:abodein/src/view/registration/login.dart';
 import 'package:flutter/material.dart';
 
 class GetStartedScreen extends StatefulWidget {
@@ -166,16 +167,3 @@ class LargeTextButton extends StatelessWidget {
   }
 }
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
-  }
-}
