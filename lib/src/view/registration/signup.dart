@@ -18,7 +18,7 @@ class Signup_Screen extends StatelessWidget {
             style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
-                color: largetextcolor),
+                color: Color.fromARGB(255, 75, 75, 75),),
           )
         ],
       ),
