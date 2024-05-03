@@ -7,6 +7,6 @@ class Splash_Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Signup_Screen();
+    return GetStartedScreen();
   }
 }
