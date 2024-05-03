@@ -20,7 +20,7 @@ class LargeTextButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        height: height * 0.8,
+        height: height * 0.07,
         width: width,
         margin: EdgeInsets.symmetric(horizontal: width * 0.06),
         decoration: BoxDecoration(

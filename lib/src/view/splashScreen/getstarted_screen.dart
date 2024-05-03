@@ -1,8 +1,9 @@
 import 'package:abodein/src/Utils/app_colors.dart';
 import 'package:abodein/src/utils/style.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
-import 'package:abodein/src/view/registration/login_page.dart';
+import 'package:abodein/src/view_Model/splash_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class GetStartedScreen extends StatefulWidget {
   const GetStartedScreen({super.key});
@@ -28,7 +29,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       backgroundColor: backgroundColor,
       body: Column(
         children: [
-          SizedBox(height: height * .04),
+          SizedBox(height: height * .03),
           listingGetStartedImages(height, width),
           SizedBox(height: height * 0.04),
           showingIndicators(),
@@ -57,39 +58,18 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             ),
           ),
           SizedBox(height: height * 0.03),
-          LargeTextButton(
-            text: _currentPage == 2 ? "Get Start Now" : "Next",
-            height: height * 0.08,
-            width: width,
-            onPressed: () {
-              moveToNextImage();
-            },
-          )
+          Consumer<SplashProvider>(
+            builder: (context, value, child) => LargeTextButton(
+              text: _currentPage == 2 ? "Get Start Now" : "Next",
+              height: height,
+              width: width,
+              onPressed: () {
+              },
+            ),
+          ),
         ],
       ),
     );
-  }
-
-  void moveToNextImage() {
-    if (_currentPage < _getStartedImage.length - 1) {
-      setState(
-        () {
-          _currentPage++;
-          _pageController.animateToPage(
-            _currentPage,
-            duration: Duration(milliseconds: 500),
-            curve: Curves.linear,
-          );
-        },
-      );
-    } else {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => LoginScreen(),
-          ),
-          (route) => false);
-    }
   }
 
 //The List of Get Started Images
