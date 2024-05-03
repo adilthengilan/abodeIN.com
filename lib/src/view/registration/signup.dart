@@ -20,82 +20,82 @@ class Signup_Screen extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: backgroundColor,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: height * 0.14,
-            ),
-            Text('SignUp',
-                style: GoogleFonts.poppins(
-                    fontSize: 25, fontWeight: FontWeight.bold)),
-            SizedBox(
-              height: height * 0.03,
-            ),
-            //---------------------------------- Here are the Text Field ---------\
-            //--------------------------------
-            Input_Text_Field(email_controller, 'Email'),
-            Input_Text_Field(first_name, 'First Name'),
-            Input_Text_Field(last_name, 'Last Name'),
-            Input_Text_Field(password, 'Password'),
-            Input_Text_Field(password_confirmation, 'Confirm Password'),
-
-            //------------------------------------
-            InkWell(
-              onTap: () {},
-              child: Container(
-                height: height * 0.07,
-                margin: const EdgeInsets.only(left: 25, right: 25, top: 25),
-                child: Center(
-                    child: Text(
-                  'Next',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400),
-                )),
-                decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(20)),
+        backgroundColor: backgroundColor,
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: height * 0.14,
               ),
-            ),
-            SizedBox(
-              height: height * 0.03,
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: width * 0.2,
+              Text('SignUp',
+                  style: GoogleFonts.poppins(
+                      fontSize: 25, fontWeight: FontWeight.bold)),
+              SizedBox(
+                height: height * 0.03,
+              ),
+              //---------------------------------- Here are the Text Field ---------\
+              //--------------------------------
+              Input_Text_Field(email_controller, 'Email'),
+              Input_Text_Field(first_name, 'First Name'),
+              Input_Text_Field(last_name, 'Last Name'),
+              Input_Text_Field(password, 'Password'),
+              Input_Text_Field(password_confirmation, 'Confirm Password'),
+
+              //------------------------------------
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  height: height * 0.07,
+                  margin: const EdgeInsets.only(left: 25, right: 25, top: 25),
+                  child: Center(
+                      child: Text(
+                    'Next',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400),
+                  )),
+                  decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(20)),
                 ),
-                Text(
-                  'Already have an account ?',
-                  style: GoogleFonts.poppins(color: Colors.grey, fontSize: 15),
-                ),
-                // SizedBox(
-                //   width: width * 0.01,
-                // ),
-                // Text(
-                //   'Login',
-                //   style: GoogleFonts.poppins(
-                //       color: Colors.blue,
-                //       fontSize: 16,
-                //       fontWeight: FontWeight.w500),
-                // )
-                TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Login',
-                      style:
-                          GoogleFonts.poppins(color: Colors.blue, fontSize: 16),
-                    ))
-              ],
-            )
-          ],
-        ),
-      ),
-    );
+              ),
+              SizedBox(
+                height: height * 0.03,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: width * 0.2,
+                  ),
+                  Text(
+                    'Already have an account ?',
+                    style:
+                        GoogleFonts.poppins(color: Colors.grey, fontSize: 15),
+                  ),
+                  // SizedBox(
+                  //   width: width * 0.01,
+                  // ),
+                  // Text(
+                  //   'Login',
+                  //   style: GoogleFonts.poppins(
+                  //       color: Colors.blue,
+                  //       fontSize: 16,
+                  //       fontWeight: FontWeight.w500),
+                  // )
+                  TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Login',
+                        style: GoogleFonts.poppins(
+                            color: Colors.blue, fontSize: 16),
+                      ))
+                ],
+              )
+            ],
+          ),
+        ));
   }
 }
 
