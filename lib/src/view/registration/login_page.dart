@@ -1,5 +1,9 @@
 import 'package:abodein/src/Utils/app_colors.dart';
+import 'package:abodein/src/Utils/style.dart';
+import 'package:abodein/src/view/registration/verification.dart';
+import 'package:abodein/src/view/splashScreen/getstarted_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -20,21 +24,27 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             sizedBox(height * 0.3, width),
-            const Text(
+            Text(
               'Login',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1),
+              textAlign: TextAlign.center,
+              style: largeTextStyle,
             ),
             sizedBox(height * 0.06, width),
             _inputField("Mobile Number", mobilenumbercontrollor),
             _buildemaillogin(),
-            _loginButton(),
+            sizedBox(35, width),
+            LargeTextButton(
+              text: "Send Otp",
+              height: height * 0.08,
+              width: width,
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Verification()));
+              },
+            ),
+            sizedBox(20, width),
             _extraText(),
           ],
         ),
@@ -46,20 +56,21 @@ class _LoginScreenState extends State<LoginScreen> {
     String hintText,
     TextEditingController controller,
   ) {
-    var border = OutlineInputBorder(
-        borderRadius: BorderRadius.circular(25),
-        borderSide: const BorderSide(color: Colors.grey));
-
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-      child: TextField(
-        style: const TextStyle(color: Colors.grey),
-        controller: controller,
-        decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: const TextStyle(color: Colors.grey),
-          enabledBorder: border,
-          focusedBorder: border,
+      padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
+      child: Container(
+        height: 60,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            border:
+                Border.all(color: const Color.fromARGB(255, 206, 206, 206))),
+        child: TextField(
+          controller: controller,
+          decoration: InputDecoration(
+              border: InputBorder.none,
+              hintStyle: GoogleFonts.poppins(
+                  color: Colors.grey, fontWeight: FontWeight.w400),
+              contentPadding: EdgeInsets.only(left: 20, top: 10)),
         ),
       ),
     );
@@ -79,38 +90,18 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
-  Widget _loginButton() {
-    return Padding(
-        padding: const EdgeInsets.all(50),
-        child: ElevatedButton(
-          onPressed: () {},
-          child: const SizedBox(
-            width: double.infinity,
-            child: Text(
-              'Send Otp',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 15, color: Colors.white),
-            ),
-          ),
-          style: ElevatedButton.styleFrom(
-              shape: StadiumBorder(),
-              backgroundColor: primarycolor,
-              padding: const EdgeInsets.symmetric(vertical: 16)),
-        ));
-  }
 }
 
 Widget _extraText() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      const Text(
+      Text(
         "Don't Have An Account?",
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 16, color: Colors.black),
+        style: smallTextStyle,
       ),
-      const Text(
+      Text(
         " Signup",
         style: TextStyle(color: Colors.blue, fontSize: 16),
       )
