@@ -1,6 +1,5 @@
 import 'package:abodein/src/Utils/app_colors.dart';
 import 'package:abodein/src/utils/style.dart';
-import 'package:abodein/src/view/registration/login.dart';
 import 'package:flutter/material.dart';
 
 class GetStartedScreen extends StatefulWidget {
@@ -83,12 +82,12 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
         },
       );
     } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginScreen(),
-        ),
-      );
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => LoginScreen(),
+      //   ),
+      // );
     }
   }
 
