@@ -1,6 +1,6 @@
 import 'package:abodein/src/Utils/app_colors.dart';
 import 'package:abodein/src/utils/style.dart';
-import 'package:abodein/src/view/registration/login.dart';
+import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:flutter/material.dart';
 
 class GetStartedScreen extends StatefulWidget {
@@ -18,7 +18,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   ];
   int _currentPage = 0;
   PageController _pageController = PageController();
- 
 
   @override
   Widget build(BuildContext context) {
@@ -77,22 +76,22 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           _currentPage++;
           _pageController.animateToPage(
             _currentPage,
-            duration: Duration(milliseconds: 1000),
-            curve: Curves.easeInOut,
+            duration: Duration(milliseconds: 500),
+            curve: Curves.linear,
           );
         },
       );
     } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginScreen(),
-        ),
-      );
+      // Navigator.pushAndRemoveUntil(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => LoginScreen(),
+      //     ),
+      //     (route) => false);
     }
   }
 
-//
+//The List of Get Started Images
   Widget listingGetStartedImages(height, width) {
     return Container(
       height: height / 2.2,
@@ -112,13 +111,15 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     );
   }
 
+// This is an indicator that displays a list of images with 3 dots.
+// The dot corresponding to the current image will be filled, while the others will remain empty.
   Widget showingIndicators() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(
         _getStartedImage.length,
         (index) => Container(
-          margin: const EdgeInsets.symmetric(horizontal: 5),
+          margin: const EdgeInsets.symmetric(horizontal: 10),
           width: _currentPage == index ? 30 : 10,
           height: 10,
           decoration: BoxDecoration(
@@ -133,37 +134,3 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     );
   }
 }
-
-class LargeTextButton extends StatelessWidget {
-  final String text;
-  final VoidCallback onPressed;
-  final double height;
-  final double width;
-  const LargeTextButton({
-    super.key,
-    required this.text,
-    required this.onPressed,
-    required this.height,
-    required this.width,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        height: height * 0.8,
-        width: width,
-        margin: EdgeInsets.symmetric(horizontal: width * 0.06),
-        decoration: BoxDecoration(
-          color: primarycolor,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Center(
-          child: Text(text, style: buttonTextStyle),
-        ),
-      ),
-    );
-  }
-}
-
