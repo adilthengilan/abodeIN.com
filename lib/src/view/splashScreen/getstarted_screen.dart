@@ -13,14 +13,6 @@ class GetStartedScreen extends StatefulWidget {
 }
 
 class _GetStartedScreenState extends State<GetStartedScreen> {
-  final List<String> _getStartedImage = [
-    "assets/images/get_started_image_1.png",
-    "assets/images/get_started_image_2.png",
-    "assets/images/get_started_image_3.png",
-  ];
-  int _currentPage = 0;
-  PageController _pageController = PageController();
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -59,35 +51,44 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           ),
           SizedBox(height: height * 0.03),
           Consumer<SplashProvider>(
-            builder: (context, value, child) => LargeTextButton(
-              text: _currentPage == 2 ? "Get Start Now" : "Next",
-              height: height,
-              width: width,
-              onPressed: () {
-              },
-            ),
+            builder: (context, value, child) {
+              return LargeTextButton(
+                text: value.currentPage == 2 ? "Get Start Now" : "Next",
+                height: height,
+                width: width,
+                onPressed: () {
+                  value.moveToNextImage(context);
+                },
+              );
+            },
           ),
         ],
       ),
     );
   }
 
-//The List of Get Started Images
+//The List of Get Started Scrolling Images, when clicked Next Button the image is scroll it to left side
   Widget listingGetStartedImages(height, width) {
     return Container(
       height: height / 2.2,
       width: width,
       margin: EdgeInsets.symmetric(horizontal: width * 0.06),
-      child: PageView.builder(
-        controller: _pageController,
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: _getStartedImage.length,
-        itemBuilder: (context, index) {
-          return Image(
-            fit: BoxFit.contain,
-            image: AssetImage(_getStartedImage[_currentPage]),
-          );
-        },
+      child: Consumer<SplashProvider>(
+        builder: (context, value, child) => PageView.builder(
+          controller: value.pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: value.getStartedImage.length,
+          itemBuilder: (context, index) {
+            return Consumer<SplashProvider>(
+              builder: (context, value, child) => Image(
+                fit: BoxFit.contain,
+                image: AssetImage(
+                  value.getStartedImage[value.currentPage],
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -95,23 +96,28 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
 // This is an indicator that displays a list of images with 3 dots.
 // The dot corresponding to the current image will be filled, while the others will remain empty.
   Widget showingIndicators() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(
-        _getStartedImage.length,
-        (index) => Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          width: _currentPage == index ? 30 : 10,
-          height: 10,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(blurStyle: BlurStyle.solid, color: Colors.black)
-            ],
-            color: _currentPage == index ? indicatorColorOn : indicatorColorOff,
+    return Consumer<SplashProvider>(builder: (context, value, child) {
+      print(value.currentPage);
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(
+          value.getStartedImage.length,
+          (index) => Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            width: value.currentPage == index ? 30 : 10,
+            height: 10,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(blurStyle: BlurStyle.solid, color: Colors.black)
+              ],
+              color: value.currentPage == index
+                  ? indicatorColorOn
+                  : indicatorColorOff,
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

@@ -27,8 +27,14 @@ final TextStyle smallTextStyle = GoogleFonts.poppins(
 
 final TextStyle buttonTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: Color.fromARGB(255, 255, 255, 255)),
+);
+final TextStyle blueSmallTextButtons = GoogleFonts.poppins(
+  textStyle: TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
-    color: Color.fromARGB(255, 255, 255, 255)
+    color: Colors.blue,
   ),
 );
