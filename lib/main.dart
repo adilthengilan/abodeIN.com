@@ -1,5 +1,6 @@
-import 'package:abodein/src/view/registration/login_page.dart';
+import 'package:abodein/src/view/registration/login.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +12,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          useMaterial3: true,
-        ),
-        home: LoginScreen());
+    return MultiProvider(
+      providers: providers,
+      child: MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            useMaterial3: true,
+          ),
+          debugShowCheckedModeBanner: false,
+          home: Splash_Screen()),
+    );
   }
 }

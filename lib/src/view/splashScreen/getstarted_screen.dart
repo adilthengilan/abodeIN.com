@@ -1,6 +1,8 @@
 import 'package:abodein/src/Utils/app_colors.dart';
 import 'package:abodein/src/utils/style.dart';
+import 'package:abodein/src/view/registration/login.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class GetStartedScreen extends StatefulWidget {
   const GetStartedScreen({super.key});
@@ -10,15 +12,6 @@ class GetStartedScreen extends StatefulWidget {
 }
 
 class _GetStartedScreenState extends State<GetStartedScreen> {
-  final List<String> _getStartedImage = [
-    "assets/images/get_started_image_1.png",
-    "assets/images/get_started_image_2.png",
-    "assets/images/get_started_image_3.png",
-  ];
-  int _currentPage = 0;
-  PageController _pageController = PageController();
- 
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -27,11 +20,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       backgroundColor: backgroundColor,
       body: Column(
         children: [
-          SizedBox(height: height * .04),
+          SizedBox(height: height * .03),
           listingGetStartedImages(height, width),
-          SizedBox(height: height * 0.03),
+          SizedBox(height: height * 0.04),
           showingIndicators(),
-          SizedBox(height: height * 0.03),
+          SizedBox(height: height * 0.04),
           SizedBox(
             height: height * 0.17,
             width: width / 1.5,
@@ -56,14 +49,18 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             ),
           ),
           SizedBox(height: height * 0.03),
-          LargeTextButton(
-            text: _currentPage == 2 ? "Get Start Now" : "Next",
-            height: height * 0.08,
-            width: width,
-            onPressed: () {
-              moveToNextImage();
+          Consumer<SplashProvider>(
+            builder: (context, value, child) {
+              return LargeTextButton(
+                text: value.currentPage == 2 ? "Get Start Now" : "Next",
+                height: height,
+                width: width,
+                onPressed: () {
+                  value.moveToNextImage(context);
+                },
+              );
             },
-          )
+          ),
         ],
       ),
     );
@@ -82,12 +79,12 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
         },
       );
     } else {
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => LoginScreen(),
-      //   ),
-      // );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginScreen(),
+        ),
+      );
     }
   }
 
@@ -97,72 +94,51 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       height: height / 2.2,
       width: width,
       margin: EdgeInsets.symmetric(horizontal: width * 0.06),
-      child: PageView.builder(
-        controller: _pageController,
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: _getStartedImage.length,
-        itemBuilder: (context, index) {
-          return Image(
-            fit: BoxFit.contain,
-            image: AssetImage(_getStartedImage[_currentPage]),
-          );
-        },
+      child: Consumer<SplashProvider>(
+        builder: (context, value, child) => PageView.builder(
+          controller: value.pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: value.getStartedImage.length,
+          itemBuilder: (context, index) {
+            return Consumer<SplashProvider>(
+              builder: (context, value, child) => Image(
+                fit: BoxFit.contain,
+                image: AssetImage(
+                  value.getStartedImage[value.currentPage],
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
 
+// This is an indicator that displays a list of images with 3 dots.
+// The dot corresponding to the current image will be filled, while the others will remain empty.
   Widget showingIndicators() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(
-        _getStartedImage.length,
-        (index) => Container(
-          margin: const EdgeInsets.symmetric(horizontal: 5),
-          width: _currentPage == index ? 30 : 10,
-          height: 10,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(blurStyle: BlurStyle.solid, color: Colors.black)
-            ],
-            color: _currentPage == index ? indicatorColorOn : indicatorColorOff,
+    return Consumer<SplashProvider>(builder: (context, value, child) {
+      print(value.currentPage);
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(
+          value.getStartedImage.length,
+          (index) => Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            width: value.currentPage == index ? 30 : 10,
+            height: 10,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(blurStyle: BlurStyle.solid, color: Colors.black)
+              ],
+              color: value.currentPage == index
+                  ? indicatorColorOn
+                  : indicatorColorOff,
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
-
-class LargeTextButton extends StatelessWidget {
-  final String text;
-  final VoidCallback onPressed;
-  final double height;
-  final double width;
-  const LargeTextButton({
-    super.key,
-    required this.text,
-    required this.onPressed,
-    required this.height,
-    required this.width,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        height: height * 0.8,
-        width: width,
-        margin: EdgeInsets.symmetric(horizontal: width * 0.06),
-        decoration: BoxDecoration(
-          color: primarycolor,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Center(
-          child: Text(text, style: buttonTextStyle),
-        ),
-      ),
-    );
-  }
-}
-
