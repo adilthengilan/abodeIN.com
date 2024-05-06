@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
               text: "Send Otp",
               onPressed: () {
                 Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => OTPScreen()));
+                    .push(MaterialPageRoute(builder: (context) => OTPScreen(MobileNumber: mobilenumbercontrollor.text,)));
               },
               height: height,
               width: width,

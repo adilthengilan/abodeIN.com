@@ -1,11 +1,13 @@
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
+import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OTPScreen extends StatefulWidget {
-  const OTPScreen({super.key});
+  final String MobileNumber;
+  const OTPScreen({super.key, required this.MobileNumber});
 
   @override
   _OTPScreenState createState() => _OTPScreenState();
@@ -45,32 +47,48 @@ class _OTPScreenState extends State<OTPScreen> {
           SizedBox(height: height * 0.10),
           //---------------------------------- Here are the Text Field -----------------------------------------
 
-          AppTextField(
-            controller: email_controller,
-            hintText: "E - mail",
-            height: height,
-            width: width,
-          ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 28.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _inputtextbox(context, otp1controller),
-                _inputtextbox(context, otp2controller),
-                _inputtextbox(context, otp3controller),
-                _inputtextbox(context, otp4controller),
-              ],
-            ),
-          ),
+          // AppTextField(
+          //   controller: email_controller,
+          //   hintText: "E - mail",
+          //   height: height,
+          //   width: width,
+          // ),
+          // Padding(
+          //   padding:
+          //       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 28.0),
+          //   child: Row(
+          //     mainAxisSize: MainAxisSize.max,
+          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //     children: [
+          //       _inputtextbox(context, otp1controller),
+          //       _inputtextbox(context, otp2controller),
+          //       _inputtextbox(context, otp3controller),
+          //       _inputtextbox(context, otp4controller),
+          //     ],
+          //   ),
+          // ),
+          OTPTextField(
+              length: 4,
+              onCompleted: (value) {
+                verifyOTP(value);
+              }),
           sizedBox(height * 0.02, width),
           _extraText(),
           _buildResendcode(),
         ]),
       ),
     );
+  }
+
+// --------------------Enter the function here when otp is submitted.-------------------------
+  void verifyOTP(String otp) {
+    // Perform OTP verification here
+    print('Entered OTP:============================ $otp');
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DashBoard(),
+        ));
   }
 
   Widget _inputtextbox(BuildContext context, TextEditingController controller) {
@@ -130,6 +148,74 @@ class _OTPScreenState extends State<OTPScreen> {
           style: TextStyle(color: Colors.blue, fontSize: 16),
         ),
       ],
+    );
+  }
+}
+
+class OTPTextField extends StatefulWidget {
+  final int length;
+  final ValueChanged<String>? onCompleted;
+
+  OTPTextField({required this.length, this.onCompleted});
+
+  @override
+  _OTPTextFieldState createState() => _OTPTextFieldState();
+}
+
+class _OTPTextFieldState extends State<OTPTextField> {
+  late List<FocusNode> _focusNodes;
+  late List<TextEditingController> _controllers;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNodes = List.generate(widget.length, (index) => FocusNode());
+    _controllers =
+        List.generate(widget.length, (index) => TextEditingController());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: List.generate(
+        widget.length,
+        (index) => Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: Colors.grey)),
+          width: 60,
+          height: 60,
+          child: Center(
+            child: TextField(
+              controller: _controllers[index],
+              focusNode: _focusNodes[index],
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              maxLength: 1,
+              onChanged: (value) {
+                if (value.length == 1 && index < widget.length - 1) {
+                  _focusNodes[index].unfocus();
+                  FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
+                } else if (value.isEmpty && index > 0) {
+                  _focusNodes[index].unfocus();
+                  FocusScope.of(context).requestFocus(_focusNodes[index - 1]);
+                }
+
+                // Combine all OTP digits and pass it to the parent widget
+                String otp =
+                    _controllers.map((controller) => controller.text).join();
+                if (otp.length == widget.length) {
+                  widget.onCompleted?.call(otp);
+                }
+              },
+              decoration: InputDecoration(
+                  counterText: '',
+                  border: UnderlineInputBorder(borderSide: BorderSide.none)),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
