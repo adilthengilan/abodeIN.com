@@ -38,3 +38,35 @@ final TextStyle blueSmallTextButtons = GoogleFonts.poppins(
     color: Colors.blue,
   ),
 );
+
+final TextStyle mediumTextStyleLight = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 20,
+    color: Color.fromARGB(255, 75, 75, 75),
+    fontWeight: FontWeight.w500,
+  ),
+);
+
+final TextStyle whiteMediumTextStyle = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 20,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
+final TextStyle whiteSmallTextStyle = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+    fontWeight: FontWeight.w400,
+  ),
+);
+
+final TextStyle whiteLightTextStyle = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 12,
+    color: Colors.white,
+    fontWeight: FontWeight.w400,
+  ),
+);

@@ -1,4 +1,4 @@
-import 'package:abodein/src/Utils/app_colors.dart';
+import 'package:abodein/src/utils/app_colors.dart';
 import 'package:abodein/src/utils/style.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
@@ -105,8 +105,8 @@ class GetStartedScreen extends StatelessWidget {
                 BoxShadow(color: Color.fromARGB(255, 188, 188, 188),offset: Offset(0, 4),blurRadius: 4)
               ],
               color: value.currentPage == index
-                  ? indicatorColorOn
-                  : indicatorColorOff,
+                  ? orangeColor
+                  : greyShadeLight,
             ),
           ),
         ),
