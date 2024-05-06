@@ -1,6 +1,7 @@
 import 'package:abodein/src/Utils/app_colors.dart';
 import 'package:abodein/src/utils/style.dart';
-import 'package:abodein/src/view/registration/login.dart';
+import 'package:abodein/src/view/common_Widgets/text_button.dart';
+import 'package:abodein/src/view_Model/splash_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -64,28 +65,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
         ],
       ),
     );
-  }
-
-  void moveToNextImage() {
-    if (_currentPage < _getStartedImage.length - 1) {
-      setState(
-        () {
-          _currentPage++;
-          _pageController.animateToPage(
-            _currentPage,
-            duration: Duration(milliseconds: 1000),
-            curve: Curves.easeInOut,
-          );
-        },
-      );
-    } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginScreen(),
-        ),
-      );
-    }
   }
 
 //

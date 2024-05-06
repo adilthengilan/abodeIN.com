@@ -5,7 +5,6 @@ import 'package:abodein/src/view/common_Widgets/text_field.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Signup_Screen extends StatelessWidget {
   const Signup_Screen({super.key});
