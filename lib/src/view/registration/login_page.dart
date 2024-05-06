@@ -1,6 +1,6 @@
+import 'package:abodein/src/view/registration/signup.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:flutter/material.dart';
-
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
             _inputField("Mobile Number", mobilenumbercontrollor),
             _buildemaillogin(),
             _loginButton(),
-            _extraText(),
+            _extraText(context),
           ],
         ),
       ),
@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-Widget _extraText() {
+Widget _extraText(BuildContext context) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
@@ -112,9 +112,18 @@ Widget _extraText() {
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: 16, color: Colors.black),
       ),
-      const Text(
-        " Signup",
-        style: TextStyle(color: Colors.blue, fontSize: 16),
+      GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SignupScreen(),
+              ));
+        },
+        child: const Text(
+          " Signup",
+          style: TextStyle(color: Colors.blue, fontSize: 16),
+        ),
       )
     ],
   );

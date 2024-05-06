@@ -1,5 +1,4 @@
-
-import 'package:abodein/src/Utils/app_colors.dart';
+import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
@@ -78,17 +77,11 @@ class SignupScreen extends StatelessWidget {
               children: [
                 SizedBox(width: width * 0.2),
                 Text('Already have an account?', style: smallTextStyle),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
-                      ),
-                    );
-                  },
-                  child: Text('Login', style: blueSmallTextButtons),
-                ),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(' Login', style: blueSmallTextButtons))
               ],
             )
           ],
