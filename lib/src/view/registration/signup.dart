@@ -1,4 +1,4 @@
-import 'package:abodein/src/Utils/app_colors.dart';
+import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
