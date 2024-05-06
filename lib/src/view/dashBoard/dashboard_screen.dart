@@ -65,8 +65,7 @@ class DashBoard extends StatelessWidget {
             categoriesList(
               width,
               height,
-              DashboardProvider.categoryName,
-              DashboardProvider.categoryImages,
+              DashboardProvider.categories,
               (){}
             ),
             sizedBox(height * 0.04, 0.0),
@@ -172,14 +171,14 @@ class DashBoard extends StatelessWidget {
   }
 // this Method is List Which Type of Stay Rooms in the App, Displaying The Categories by a row
 //It has A image and a text and its Scrollable
-  Widget categoriesList(width, height, categoryName, categoryImages,ontap) {
+  Widget categoriesList(width, height, categoryList,ontap) {
     return SizedBox(
       width: width,
       height: height * 0.058,
       child: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: width * 0.06),
         scrollDirection: Axis.horizontal,
-        itemCount: categoryName.length,
+        itemCount: categoryList.length,
         itemBuilder: (context, index) => InkWell(
           onTap: ontap,
           child: Container(
@@ -199,7 +198,7 @@ class DashBoard extends StatelessWidget {
                       right: width * 0.01),
                   child: Image(
                     image: AssetImage(
-                      categoryImages[index],
+                      categoryList[index]["image"],
                     ),
                   ),
                 ),
@@ -207,7 +206,7 @@ class DashBoard extends StatelessWidget {
                   width: width * 0.2,
                   child: Center(
                     child: Text(
-                      categoryName[index],
+                      categoryList[index]["Name"],
                       style: smallTextStyle,
                     ),
                   ),
