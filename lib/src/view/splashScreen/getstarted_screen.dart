@@ -52,7 +52,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           SizedBox(height: height * 0.03),
           Consumer<SplashProvider>(
             builder: (context, value, child) {
-              return LargeTextButton(
+              return AppTextButton(
                 text: value.currentPage == 2 ? "Get Start Now" : "Next",
                 height: height,
                 width: width,

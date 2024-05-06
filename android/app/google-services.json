@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "243013125958",
+    "project_id": "booking-app-19ce9",
+    "storage_bucket": "booking-app-19ce9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243013125958:android:9ed8ad78bae1305e3cc747",
+        "android_client_info": {
+          "package_name": "com.example.abodein"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMCWGta29AERfoRSmBcFolJcy_ACmKY8k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

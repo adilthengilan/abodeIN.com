@@ -69,7 +69,7 @@ class Signup_Screen extends StatelessWidget {
             ),
             sizedBox(height * 0.039, 0.0),
             //------------------------------------ Text Button --------------------------------------------------------------------
-            LargeTextButton(
+            AppTextButton(
               text: "Next",
               onPressed: () {},
               height: height,
