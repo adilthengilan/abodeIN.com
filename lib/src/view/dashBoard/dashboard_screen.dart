@@ -1,3 +1,4 @@
+
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
@@ -5,7 +6,6 @@ import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 class DashBoard extends StatelessWidget {
   const DashBoard({super.key});
 
