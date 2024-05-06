@@ -19,16 +19,18 @@ class AppTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
-      child: Container(
-        height: 60,
-        width: width,
-        margin: EdgeInsets.symmetric(horizontal: width * 0.06),
-        decoration: BoxDecoration(
-          color: primarycolor,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Center(
-          child: Text(text, style: buttonTextStyle),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: width * 0.06),
+        child: Container(
+          height: 60,
+          width: width * 0.12,
+          decoration: BoxDecoration(
+            color: primarycolor,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Center(
+            child: Text(text, style: buttonTextStyle),
+          ),
         ),
       ),
     );
