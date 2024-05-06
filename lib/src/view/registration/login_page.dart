@@ -1,4 +1,4 @@
-import 'package:abodein/src/utils/app_colors.dart';
+import 'package:abodein/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 
