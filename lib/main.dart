@@ -1,6 +1,7 @@
 import 'package:abodein/src/Utils/providers.dart';
-import 'package:abodein/src/view/face_authentication.dart/face_authentication.dart';
+import 'package:abodein/src/view/face_authentication.dart/verifying_faceauth.dart';
 import 'package:abodein/src/view/registration/signup.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          home: SignupScreen()),
+          home: VerifyingFaceAuth()),
     );
   }
 }

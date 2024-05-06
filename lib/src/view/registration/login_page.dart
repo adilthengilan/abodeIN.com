@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             sizedBox(height * 0.039, 0.0),
             //------------------------------------ Text Button --------------------------------------------------------------------
-            LargeTextButton(
+            AppTextButton(
               text: "Send Otp",
               onPressed: () {
                 Navigator.of(context).push(

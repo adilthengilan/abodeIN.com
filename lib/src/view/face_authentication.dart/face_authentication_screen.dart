@@ -45,7 +45,7 @@ class _FaceAuthenticationState extends State<FaceAuthentication> {
             ),
             sizedBox(height * 0.120, 0.0),
             //------------------------------------ Text Button --------------------------------------------------------------------
-            LargeTextButton(
+            AppTextButton(
               text: "Get Start",
               onPressed: () {},
               height: height,
