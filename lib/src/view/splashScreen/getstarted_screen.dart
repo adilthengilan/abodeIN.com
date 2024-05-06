@@ -1,18 +1,13 @@
-import 'package:abodein/src/Utils/app_colors.dart';
+import 'package:abodein/src/utils/app_colors.dart';
 import 'package:abodein/src/utils/style.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class GetStartedScreen extends StatefulWidget {
+class GetStartedScreen extends StatelessWidget {
   const GetStartedScreen({super.key});
 
-  @override
-  State<GetStartedScreen> createState() => _GetStartedScreenState();
-}
-
-class _GetStartedScreenState extends State<GetStartedScreen> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -94,11 +89,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   }
 
 // This is an indicator that displays a list of images with 3 dots.
-// The dot corresponding to the current image will be filled, while the others will remain empty.
   Widget showingIndicators() {
-    return Consumer<SplashProvider>(builder: (context, value, child) {
-      print(value.currentPage);
-      return Row(
+    return Consumer<SplashProvider>(
+      builder: (context, value, child) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
           value.getStartedImage.length,
@@ -109,15 +102,15 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
-                BoxShadow(blurStyle: BlurStyle.solid, color: Colors.black)
+                BoxShadow(color: Color.fromARGB(255, 188, 188, 188),offset: Offset(0, 4),blurRadius: 4)
               ],
               color: value.currentPage == index
-                  ? indicatorColorOn
-                  : indicatorColorOff,
+                  ? orangeColor
+                  : greyShadeLight,
             ),
           ),
         ),
-      );
-    });
+      ),
+    );
   }
 }

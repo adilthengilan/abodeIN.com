@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 
 class SplashProvider extends ChangeNotifier {
   PageController pageController = PageController();
-
   int currentPage = 0;
-
+  // get started Screen Images
   final List<String> getStartedImage = [
     "assets/images/get_started_image_1.png",
     "assets/images/get_started_image_2.png",
     "assets/images/get_started_image_3.png",
   ];
-
+// This function for Moving to Next Image, if
   void moveToNextImage(context) {
     if (currentPage < getStartedImage.length - 1) {
       currentPage++;

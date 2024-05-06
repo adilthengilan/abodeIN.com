@@ -4,22 +4,20 @@ import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-class Signup_Screen extends StatelessWidget {
-  const Signup_Screen({super.key});
+
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     //-----------------------SignUp Page Text Field Controllers-------------------------------
-    //---------------------
     final TextEditingController firstNameController = TextEditingController();
     final TextEditingController lastNameController = TextEditingController();
     final TextEditingController mobileNumberController =
         TextEditingController();
 
-    //-------------------------
-//---------------------Media Query is for assign with responsive size--------------
+    //---------------------Media Query is for assign with responsive size--------------
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -53,6 +51,7 @@ class Signup_Screen extends StatelessWidget {
               width: width,
             ),
             sizedBox(height * 0.02, 0.0),
+            //---------------------------------- Use Email Button ---------------------------------------------------------------------
             Padding(
               padding: EdgeInsets.only(right: width * 0.04),
               child: Align(
@@ -80,9 +79,16 @@ class Signup_Screen extends StatelessWidget {
                 SizedBox(width: width * 0.2),
                 Text('Already have an account?', style: smallTextStyle),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                    );
+                  },
                   child: Text('Login', style: blueSmallTextButtons),
-                )
+                ),
               ],
             )
           ],
