@@ -1,3 +1,4 @@
+import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
@@ -52,7 +53,15 @@ class GetStartedScreen extends StatelessWidget {
                 height: height,
                 width: width,
                 onPressed: () {
-                  value.moveToNextImage(context);
+                  value.currentPage == 2
+                      ? [
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginScreen(),
+                              ))
+                        ]
+                      : [value.moveToNextImage(context)];
                 },
               );
             },
@@ -102,11 +111,12 @@ class GetStartedScreen extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
-                BoxShadow(color: Color.fromARGB(255, 188, 188, 188),offset: Offset(0, 4),blurRadius: 4)
+                BoxShadow(
+                    color: Color.fromARGB(255, 188, 188, 188),
+                    offset: Offset(0, 4),
+                    blurRadius: 4)
               ],
-              color: value.currentPage == index
-                  ? orangeColor
-                  : greyShadeLight,
+              color: value.currentPage == index ? orangeColor : greyShadeLight,
             ),
           ),
         ),
