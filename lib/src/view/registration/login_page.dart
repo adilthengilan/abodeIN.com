@@ -1,4 +1,3 @@
-
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
 import 'package:abodein/src/view/registration/signup.dart';
