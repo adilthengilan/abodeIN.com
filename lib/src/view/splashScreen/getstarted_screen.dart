@@ -1,5 +1,5 @@
-import 'package:abodein/src/utils/app_colors.dart';
-import 'package:abodein/src/utils/style.dart';
+import 'package:abodein/utils/app_colors.dart';
+import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
 import 'package:flutter/material.dart';
