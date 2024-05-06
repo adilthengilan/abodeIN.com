@@ -1,4 +1,4 @@
-import 'package:abodein/src/utils/providers.dart';
+import 'package:abodein/utils/providers.dart';
 import 'package:abodein/src/view/splashScreen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
