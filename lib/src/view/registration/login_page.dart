@@ -6,6 +6,7 @@ import 'package:abodein/src/view/registration/signup.dart';
 import 'package:abodein/src/view/registration/verification.dart';
 import 'package:flutter/material.dart';
 
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
