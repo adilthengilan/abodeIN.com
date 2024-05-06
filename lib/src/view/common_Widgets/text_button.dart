@@ -2,12 +2,12 @@ import 'package:abodein/src/Utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
 
-class LargeTextButton extends StatelessWidget {
+class AppTextButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final double height;
   final double width;
-  const LargeTextButton({
+  const AppTextButton({
     super.key,
     required this.text,
     required this.onPressed,
