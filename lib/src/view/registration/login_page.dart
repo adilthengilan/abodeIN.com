@@ -2,6 +2,7 @@ import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
 import 'package:abodein/src/view/registration/signup.dart';
 import 'package:abodein/src/view/registration/verification.dart';
+import 'package:abodein/src/view_model/registration.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
@@ -57,8 +58,13 @@ class _LoginScreenState extends State<LoginScreen> {
             AppTextButton(
               text: "Send Otp",
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => OTPScreen(MobileNumber: mobilenumbercontrollor.text,)));
+                String phonenumberwithcode =
+                    '+91${mobilenumbercontrollor.text}';
+                verifyPhoneNumber(context, phonenumberwithcode);
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => OTPScreen(
+                          MobileNumber: mobilenumbercontrollor.text,
+                        )));
               },
               height: height,
               width: width,

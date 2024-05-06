@@ -1,6 +1,7 @@
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
+import 'package:abodein/src/view_model/registration.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -68,9 +69,9 @@ class _OTPScreenState extends State<OTPScreen> {
           //   ),
           // ),
           OTPTextField(
-              length: 4,
+              length: 6,
               onCompleted: (value) {
-                verifyOTP(value);
+                otpverification(value);
               }),
           sizedBox(height * 0.02, width),
           _extraText(),
@@ -81,14 +82,10 @@ class _OTPScreenState extends State<OTPScreen> {
   }
 
 // --------------------Enter the function here when otp is submitted.-------------------------
-  void verifyOTP(String otp) {
+  void otpverification(String otp) {
+    verifyOTP(context, otp);
     // Perform OTP verification here
     print('Entered OTP:============================ $otp');
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DashBoard(),
-        ));
   }
 
   Widget _inputtextbox(BuildContext context, TextEditingController controller) {
@@ -182,10 +179,10 @@ class _OTPTextFieldState extends State<OTPTextField> {
         widget.length,
         (index) => Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(15),
               border: Border.all(color: Colors.grey)),
-          width: 60,
-          height: 60,
+          width: 40,
+          height: 40,
           child: Center(
             child: TextField(
               controller: _controllers[index],
