@@ -1,6 +1,7 @@
 import 'package:abodein/src/Utils/app_colors.dart';
 import 'package:abodein/src/Utils/style.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
+import 'package:abodein/src/view/face_authentication.dart/verifying_faceauth.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +48,10 @@ class _FaceAuthenticationState extends State<FaceAuthentication> {
             //------------------------------------ Text Button --------------------------------------------------------------------
             AppTextButton(
               text: "Get Start",
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => VerifyingFaceAuth()));
+              },
               height: height,
               width: width,
             ),
