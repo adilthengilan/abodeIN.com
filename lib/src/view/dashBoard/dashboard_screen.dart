@@ -1,7 +1,6 @@
 import 'package:abodein/src/Utils/style.dart';
 import 'package:abodein/src/utils/app_colors.dart';
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
-import 'package:abodein/src/view/dashBoard/navbar.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,6 @@ class DashBoard extends StatelessWidget {
         Provider.of<DashBoardProvider>(context, listen: false);
     TextEditingController searchBarController = TextEditingController();
     return Scaffold(
-      drawer: NavBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

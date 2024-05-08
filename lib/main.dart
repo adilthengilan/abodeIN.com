@@ -1,4 +1,5 @@
 import 'package:abodein/src/Utils/providers.dart';
+import 'package:abodein/src/view/Booking/booking_screen.dart';
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/dashBoard/navbar.dart';
 import 'package:abodein/src/view/face_authentication.dart/face_authentication_screen.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          home: NavBar()),
+          home: BookingScreen()),
     );
   }
 }
