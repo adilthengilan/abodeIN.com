@@ -1,11 +1,5 @@
 import 'package:abodein/src/Utils/providers.dart';
 import 'package:abodein/src/view/Booking/booking_screen.dart';
-import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
-import 'package:abodein/src/view/dashBoard/navbar.dart';
-import 'package:abodein/src/view/face_authentication.dart/face_authentication_screen.dart';
-import 'package:abodein/src/view/face_authentication.dart/verifying_faceauth.dart';
-import 'package:abodein/src/view/registration/signup.dart';
-import 'package:abodein/src/view/splashScreen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +23,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          home: BookingScreen()),
+          home: BookingScreen ()),
     );
   }
 }
