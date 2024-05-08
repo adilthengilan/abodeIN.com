@@ -1,3 +1,4 @@
+import 'package:abodein/src/view/dashBoard/hotel_details_screen/hotel_details_screen.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
@@ -68,7 +69,18 @@ class DashBoard extends StatelessWidget {
             headingAndSeeAllButton(width, "Suggestions For You"),
             sizedBox(10.0, 0.0),
             SuggestionsForYouRow(
-                width, height, DashboardProvider.SuggestionsHotel, () {}),
+                width, height, DashboardProvider.SuggestionsHotel, () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HotelDetailePage(
+                        images: [DashboardProvider.SuggestionsHotel[0].image],
+                        hotelName: 'Baithan',
+                        location: 'Dubai',
+                        price: 599,
+                        rating: 4.5),
+                  ));
+            }),
             sizedBox(height * 0.03, 0.0),
             headingAndSeeAllButton(width, "Popular Hotels"),
             sizedBox(10.0, 0.0),
