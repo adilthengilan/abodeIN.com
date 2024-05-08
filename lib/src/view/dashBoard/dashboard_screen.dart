@@ -74,7 +74,7 @@ class DashBoard extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => HotelDetailePage(
-                        images: [DashboardProvider.SuggestionsHotel[0].image],
+                        images: ['assets/images/popular_hotel_image_1.png'],
                         hotelName: 'Baithan',
                         location: 'Dubai',
                         price: 599,

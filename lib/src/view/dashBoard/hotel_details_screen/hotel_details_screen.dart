@@ -33,195 +33,190 @@ class HotelDetailePage extends StatelessWidget {
     final width = mediaQuery.width;
     final height = mediaQuery.height;
     return Scaffold(
-      backgroundColor: backgroundColor,
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Column(
-            children: [
-              Stack(
-                children: [
-                  SizedBox(
-                    height: height * 0.35,
+        backgroundColor: backgroundColor,
+        body: SingleChildScrollView(
+          child: Column(children: [
+            Stack(
+              children: [
+                SizedBox(
+                  height: height * 0.3,
+                  width: width,
+                  child: Image(
                     width: width,
-                    child: Image(
-                      width: width,
-                      image: AssetImage(images[0]),
-                      fit: BoxFit.cover,
-                    ),
+                    image: AssetImage(images[0]),
+                    fit: BoxFit.cover,
                   ),
-                  Positioned(
-                    top: height * 0.03,
-                    left: width * 0.04,
-                    right: width * 0.04,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        iconsOnTheImage(
-                          width * 0.15,
-                          height,
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(
-                              Icons.arrow_back,
-                              color: backgroundColor,
-                              size: width * 0.045,
-                            ),
+                ),
+                Positioned(
+                  top: height * 0.03,
+                  left: width * 0.04,
+                  right: width * 0.04,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      iconsOnTheImage(
+                        width * 0.15,
+                        height,
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: backgroundColor,
+                            size: width * 0.045,
                           ),
                         ),
-                        Row(
-                          children: [
-                            iconsOnTheImage(
-                              width * 0.1,
-                              height,
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: Icon(
-                                  Icons.favorite_border,
-                                  color: backgroundColor,
-                                  size: width * 0.045,
-                                ),
+                      ),
+                      Row(
+                        children: [
+                          iconsOnTheImage(
+                            width * 0.1,
+                            height,
+                            IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(
+                                Icons.favorite_border,
+                                color: backgroundColor,
+                                size: width * 0.045,
                               ),
                             ),
-                            sizedBox(0.0, width * 0.03),
-                            iconsOnTheImage(
-                              width * 0.1,
-                              height,
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: Icon(
-                                  Icons.share,
-                                  color: backgroundColor,
-                                  size: width * 0.045,
-                                ),
+                          ),
+                          sizedBox(0.0, width * 0.03),
+                          iconsOnTheImage(
+                            width * 0.1,
+                            height,
+                            IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(
+                                Icons.share,
+                                color: backgroundColor,
+                                size: width * 0.045,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Positioned(
+              top: height * 0.33,
+              child: SingleChildScrollView(
+                child: Container(
+                  height: height,
+                  width: width,
+                  decoration: BoxDecoration(
+                    color: backgroundColor,
+                    borderRadius: BorderRadius.horizontal(
+                      left: Radius.circular(20),
+                      right: Radius.circular(20),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: width * 0.06,
+                      right: width * 0.06,
+                      top: height * 0.03,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(hotelName, style: largeTextStyle),
+                        sizedBox(height * 0.008, 0.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.location_on,
+                              color: greyShadeMedium,
+                              size: height * 0.02,
+                            ),
+                            sizedBox(0.0, 5.0),
+                            Text(location, style: smallTextStyle),
+                          ],
+                        ),
+                        // ------------------------ It Shows Rating of Hotel And Price -----------------------------------
+                        Row(
+                          children: [
+                            ratingStarIcon(height),
+                            sizedBox(0.0, 5.0),
+                            Text("${rating}", style: smallTextStyle),
+                            Spacer(),
+                            RichText(
+                              text: TextSpan(
+                                text: "\$${price}",
+                                style: mediumTextStyleSemiBold,
+                                children: [
+                                  TextSpan(
+                                      text: "/Night", style: smallTextStyle)
+                                ],
                               ),
                             ),
                           ],
                         ),
+                        //------------------------------------------------------------------------------------------------------
+                        sizedBox(height * 0.03, 0.0),
+                        descriptionOfTheHotel(width),
+                        sizedBox(height * 0.045, 0.0),
+                        Text("What We Offer", style: mediumTextStyleSemiBold),
+                        sizedBox(height * 0.02, width),
+                        // seen this metho has Icons and services like wifi, Ac, Bar
+                        WhatWeOffer(width, height, detailpageProvider),
+                        sizedBox(height * 0.045, 0.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Location", style: mediumTextStyleSemiBold),
+                            InkWell(
+                              onTap: () {},
+                              child: Text(
+                                "See map",
+                                style: smallTextStyle,
+                              ),
+                            )
+                          ],
+                        ),
+                        sizedBox(height * 0.01, 0.0),
+                        // LocationOfTheHotel(width),
+                        sizedBox(height * 0.045, 0.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Reviews", style: mediumTextStyleSemiBold),
+                            InkWell(
+                              onTap: () {},
+                              child: Text(
+                                "See all reviews",
+                                style: smallTextStyle,
+                              ),
+                            )
+                          ],
+                        ),
+                        // reviewsOfUSers(height, detailpageProvider, width),
                       ],
                     ),
-                  )
-                ],
+                  ),
+                ),
               ),
-            ],
-          ),
-          Positioned(
-            top: height * 0.33,
-            child: SingleChildScrollView(
-              child: Container(
+            ),
+            Positioned(
+              top: height * 0.9,
+              child: AppTextButton(
+                text: "Book Now",
+                onPressed: () {},
                 height: height,
                 width: width,
-                decoration: BoxDecoration(
-                  color: backgroundColor,
-                  borderRadius: BorderRadius.horizontal(
-                    left: Radius.circular(20),
-                    right: Radius.circular(20),
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    left: width * 0.06,
-                    right: width * 0.06,
-                    top: height * 0.03,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(hotelName, style: largeTextStyle),
-                      sizedBox(height * 0.008, 0.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.location_on,
-                            color: greyShadeMedium,
-                            size: height * 0.02,
-                          ),
-                          sizedBox(0.0, 5.0),
-                          Text(location, style: smallTextStyle),
-                        ],
-                      ),
-                      // ------------------------ It Shows Rating of Hotel And Price -----------------------------------
-                      Row(
-                        children: [
-                          ratingStarIcon(height),
-                          sizedBox(0.0, 5.0),
-                          Text("${rating}", style: smallTextStyle),
-                          Spacer(),
-                          RichText(
-                            text: TextSpan(
-                              text: "\$${price}",
-                              style: mediumTextStyleSemiBold,
-                              children: [
-                                TextSpan(text: "/Night", style: smallTextStyle)
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      //------------------------------------------------------------------------------------------------------
-                      sizedBox(height * 0.03, 0.0),
-                      descriptionOfTheHotel(width),
-                      sizedBox(height * 0.045, 0.0),
-                      Text("What We Offer", style: mediumTextStyleSemiBold),
-                      sizedBox(height * 0.02, width),
-                      // seen this metho has Icons and services like wifi, Ac, Bar
-                      WhatWeOffer(width, height, detailpageProvider),
-                      sizedBox(height * 0.045, 0.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Location", style: mediumTextStyleSemiBold),
-                          InkWell(
-                            onTap: () {},
-                            child: Text(
-                              "See map",
-                              style: smallTextStyle,
-                            ),
-                          )
-                        ],
-                      ),
-                      sizedBox(height * 0.01, 0.0),
-                      // LocationOfTheHotel(width),
-                      sizedBox(height * 0.045, 0.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Reviews", style: mediumTextStyleSemiBold),
-                          InkWell(
-                            onTap: () {},
-                            child: Text(
-                              "See all reviews",
-                              style: smallTextStyle,
-                            ),
-                          )
-                        ],
-                      ),
-                      // reviewsOfUSers(height, detailpageProvider, width),
-                    ],
-                  ),
-                ),
               ),
             ),
-          ),
-          Positioned(
-            top: height * 0.9,
-            child: AppTextButton(
-              text: "Book Now",
-              onPressed: () {},
-              height: height,
-              width: width,
-            ),
-          ),
-        ],
-      ),
-    );
+          ]),
+        ));
   }
 
 // The icons On the images Like Back button
