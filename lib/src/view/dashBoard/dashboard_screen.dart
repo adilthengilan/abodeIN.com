@@ -154,8 +154,8 @@ class DashBoard extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: height * 0.188,
-              left: width * 0.05,
+              top: height * 0.16,
+              left: width * 0.03,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

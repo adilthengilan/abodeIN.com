@@ -34,86 +34,88 @@ class HotelDetailePage extends StatelessWidget {
     final height = mediaQuery.height;
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Column(
-            children: [
-              Stack(
-                children: [
-                  SizedBox(
-                    height: height * 0.35,
-                    width: width,
-                    child: Image(
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Stack(
+          clipBehavior: Clip.none,
+          alignment: Alignment.center,
+          children: [
+            Column(
+              children: [
+                Stack(
+                  children: [
+                    SizedBox(
+                      height: height * 0.36,
                       width: width,
-                      image: AssetImage(images[0]),
-                      fit: BoxFit.cover,
+                      child: Image(
+                        width: width,
+                        image: AssetImage(images[0]),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  Positioned(
-                    top: height * 0.03,
-                    left: width * 0.04,
-                    right: width * 0.04,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        iconsOnTheImage(
-                          width * 0.15,
-                          height,
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(
-                              Icons.arrow_back,
-                              color: backgroundColor,
-                              size: width * 0.045,
+                    Positioned(
+                      top: height * 0.033,
+                      left: width * 0.03,
+                      right: width * 0.03,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          iconsOnTheImage(
+                            width * 0.15,
+                            height,
+                            IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(
+                                Icons.arrow_back,
+                                color: backgroundColor,
+                                size: width * 0.045,
+                              ),
                             ),
                           ),
-                        ),
-                        Row(
-                          children: [
-                            iconsOnTheImage(
-                              width * 0.1,
-                              height,
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: Icon(
-                                  Icons.favorite_border,
-                                  color: backgroundColor,
-                                  size: width * 0.045,
+                          Row(
+                            children: [
+                              iconsOnTheImage(
+                                width * 0.1,
+                                height,
+                                IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: Icon(
+                                    Icons.favorite_border,
+                                    color: backgroundColor,
+                                    size: width * 0.045,
+                                  ),
                                 ),
                               ),
-                            ),
-                            sizedBox(0.0, width * 0.03),
-                            iconsOnTheImage(
-                              width * 0.1,
-                              height,
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: Icon(
-                                  Icons.share,
-                                  color: backgroundColor,
-                                  size: width * 0.045,
+                              sizedBox(0.0, width * 0.03),
+                              iconsOnTheImage(
+                                width * 0.1,
+                                height,
+                                IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: Icon(
+                                    Icons.share,
+                                    color: backgroundColor,
+                                    size: width * 0.045,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-          Positioned(
-            top: height * 0.33,
-            child: SingleChildScrollView(
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+            Positioned(
+              top: height * 0.33,
               child: Container(
                 height: height,
                 width: width,
@@ -188,7 +190,7 @@ class HotelDetailePage extends StatelessWidget {
                         ],
                       ),
                       sizedBox(height * 0.01, 0.0),
-                      // LocationOfTheHotel(width),
+                      LocationOfTheHotel(width),
                       sizedBox(height * 0.045, 0.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -203,23 +205,23 @@ class HotelDetailePage extends StatelessWidget {
                           )
                         ],
                       ),
-                      // reviewsOfUSers(height, detailpageProvider, width),
+                      reviewsOfUSers(height, detailpageProvider, width),
                     ],
                   ),
                 ),
               ),
             ),
-          ),
-          Positioned(
-            top: height * 0.9,
-            child: AppTextButton(
-              text: "Book Now",
-              onPressed: () {},
-              height: height,
-              width: width,
+            Positioned(
+              top: height * 0.9,
+              child: AppTextButton(
+                text: "Book Now",
+                onPressed: () {},
+                height: height,
+                width: width,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
