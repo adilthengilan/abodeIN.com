@@ -1,3 +1,4 @@
+import 'package:abodein/src/view/hotel_details_screen.dart/hotel_details_screen.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
@@ -13,79 +14,83 @@ class DashBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+
     final DashboardProvider =
         Provider.of<DashBoardProvider>(context, listen: false);
+
     TextEditingController searchBarController = TextEditingController();
+
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                  left: width * 0.06, top: height * 0.033, right: width * 0.06),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Location", style: smallTextStyle),
-                      Row(
-                        children: [
-                          Icon(Icons.location_on,
-                              size: 20, color: primarycolor),
-                          sizedBox(0.0, 5.0),
-                          Text("Kerala, India", style: smallTextStyle)
-                        ],
-                      ),
-                    ],
-                  ),
-                  Image(
-                    height: height * 0.06,
-                    image: AssetImage("assets/images/account_circle.png"),
-                    fit: BoxFit.fill,
-                  ),
-                ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding:
+                    EdgeInsets.only(left: width * 0.06, right: width * 0.06),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Location", style: smallTextStyle),
+                        Row(
+                          children: [
+                            Icon(Icons.location_on,
+                                size: 20, color: primarycolor),
+                            sizedBox(0.0, 5.0),
+                            Text("Kerala, India", style: smallTextStyle)
+                          ],
+                        ),
+                      ],
+                    ),
+                    Image(
+                      height: height * 0.06,
+                      image: AssetImage("assets/images/account_circle.png"),
+                      fit: BoxFit.fill,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            sizedBox(height * 0.03, 0.0),
-            AppSearchBar(
-              controller: searchBarController,
-              hintText: "Search",
-              width: width,
-              height: height,
-            ),
-            sizedBox(height * 0.04, width),
-            Padding(
-              padding: EdgeInsets.only(left: width * 0.06),
-              child: Text("Categories", style: mediumTextStyleLight),
-            ),
-            sizedBox(height * 0.015, 0.0),
-            categoriesList(
-              width,
-              height,
-              DashboardProvider.categories,
-              (){}
-            ),
-            sizedBox(height * 0.04, 0.0),
-            headingAndSeeAllButton(width, "Suggestions For You"),
-            sizedBox(10.0, 0.0),
-            SuggestionsForYouRow(
+              sizedBox(height * 0.03, 0.0),
+              AppSearchBar(
+                controller: searchBarController,
+                hintText: "Search",
+                width: width,
+                height: height,
+              ),
+              sizedBox(height * 0.04, width),
+              Padding(
+                padding: EdgeInsets.only(left: width * 0.06),
+                child: Text("Categories", style: mediumTextStyleLight),
+              ),
+              sizedBox(height * 0.015, 0.0),
+              categoriesList(
+                width,
+                height,
+                DashboardProvider.categories,
+                () {},
+              ),
+              sizedBox(height * 0.04, 0.0),
+              headingAndSeeAllButton(width, "Suggestions For You"),
+              sizedBox(10.0, 0.0),
+              SuggestionsForYouRow(
                 width,
                 height,
                 DashboardProvider.SuggestionsHotel,
-                () {}),
-            sizedBox(height * 0.03, 0.0),
-            headingAndSeeAllButton(width, "Popular Hotels"),
-            sizedBox(10.0, 0.0),
-            PopularHotelscolumn(
-              width,
-              height,
-              DashboardProvider.popularHotels,
-              () {},
-            ),
-          ],
+              ),
+              sizedBox(height * 0.03, 0.0),
+              headingAndSeeAllButton(width, "Popular Hotels"),
+              sizedBox(10.0, 0.0),
+              PopularHotelscolumn(
+                width,
+                height,
+                DashboardProvider.popularHotels,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -109,7 +114,7 @@ class DashBoard extends StatelessWidget {
     );
   }
 
-  Widget SuggestionsForYouRow(width, height, suggestionsHotel, ontap) {
+  Widget SuggestionsForYouRow(width, height, suggestionsHotel) {
     return SizedBox(
       width: width,
       height: height * 0.29,
@@ -120,7 +125,20 @@ class DashBoard extends StatelessWidget {
         itemBuilder: (context, index) => Stack(
           children: [
             InkWell(
-              onTap: ontap,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HotelDetailePage(
+                      images: suggestionsHotel[index].image,
+                      hotelName: suggestionsHotel[index].name,
+                      location: suggestionsHotel[index].location,
+                      price: suggestionsHotel[index].price,
+                      rating: suggestionsHotel[index].rating,
+                    ),
+                  ),
+                );
+              },
               child: Container(
                 height: height * 0.280,
                 width: width * 0.488,
@@ -131,9 +149,7 @@ class DashBoard extends StatelessWidget {
                 ),
                 child: Image(
                   fit: BoxFit.fill,
-                  image: AssetImage(
-                    suggestionsHotel[index].image
-                  ),
+                  image: AssetImage(suggestionsHotel[index].image[0]),
                 ),
               ),
             ),
@@ -143,7 +159,8 @@ class DashBoard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Lux Hotel", style: whiteMediumTextStyle),
+                  Text(suggestionsHotel[index].name,
+                      style: whiteMediumTextStyle),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -159,8 +176,10 @@ class DashBoard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Text("\$${suggestionsHotel[index].price}/Night",
-                      style: whiteSmallTextStyle),
+                  Text(
+                    "\$${suggestionsHotel[index].price}/Night",
+                    style: whiteSmallTextStyle,
+                  ),
                 ],
               ),
             ),
@@ -169,9 +188,10 @@ class DashBoard extends StatelessWidget {
       ),
     );
   }
+
 // this Method is List Which Type of Stay Rooms in the App, Displaying The Categories by a row
 //It has A image and a text and its Scrollable
-  Widget categoriesList(width, height, categoryList,ontap) {
+  Widget categoriesList(width, height, categoryList, ontap) {
     return SizedBox(
       width: width,
       height: height * 0.058,
@@ -219,8 +239,12 @@ class DashBoard extends StatelessWidget {
     );
   }
 
-// this method showing Popular Hotels List in the Screen 
-  Widget PopularHotelscolumn(width, height, popularHotels, ontap) {
+// this method showing Popular Hotels List in the Screen
+  Widget PopularHotelscolumn(
+    width,
+    height,
+    popularHotels,
+  ) {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
@@ -228,7 +252,20 @@ class DashBoard extends StatelessWidget {
       scrollDirection: Axis.vertical,
       itemCount: popularHotels.length,
       itemBuilder: (context, index) => InkWell(
-        onTap: ontap,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HotelDetailePage(
+                images: popularHotels[index].image,
+                hotelName: popularHotels[index].name,
+                location: popularHotels[index].location,
+                price: popularHotels[index].price,
+                rating: popularHotels[index].rating,
+              ),
+            ),
+          );
+        },
         child: Container(
           height: height * 0.225,
           width: 312,
@@ -243,7 +280,7 @@ class DashBoard extends StatelessWidget {
               Image(
                 fit: BoxFit.fill,
                 image: AssetImage(
-                  popularHotels[index].image,
+                  popularHotels[index].image[0],
                 ),
               ),
               Positioned(
@@ -286,7 +323,8 @@ class DashBoard extends StatelessWidget {
                               color: orangeColor,
                             ),
                             sizedBox(0.0, 10.0),
-                            Text("${popularHotels[index].rating}", style: whiteSmallTextStyle)
+                            Text("${popularHotels[index].rating}",
+                                style: whiteSmallTextStyle)
                           ],
                         ),
                         RichText(

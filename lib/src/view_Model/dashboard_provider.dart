@@ -28,28 +28,36 @@ class DashBoardProvider extends ChangeNotifier {
   List<dynamic> SuggestionsHotel = [
     Hotel(
       name: "Lux Hotel",
-      image: "assets/images/suggetion_hotel_image_1.png",
+      image: [
+        "assets/images/suggetion_hotel_image_1.png",
+      ],
       price: 488,
       rating: 4.88,
       location: "Kochi, India",
     ),
     Hotel(
       name: "Lux Hotel",
-      image: "assets/images/suggetion_hotel_image_2.png",
+      image: [
+        "assets/images/suggetion_hotel_image_2.png",
+      ],
       price: 488,
       rating: 4.88,
       location: "Kochi, India",
     ),
     Hotel(
       name: "Lux Hotel",
-      image: "assets/images/suggetion_hotel_image_1.png",
+      image: [
+        "assets/images/suggetion_hotel_image_1.png",
+      ],
       price: 488,
       rating: 4.88,
       location: "Kochi, India",
     ),
     Hotel(
       name: "Lux Hotel",
-      image: "assets/images/suggetion_hotel_image_2.png",
+      image: [
+        "assets/images/suggetion_hotel_image_2.png",
+      ],
       price: 488,
       rating: 4.88,
       location: "Kochi, India",
@@ -59,21 +67,27 @@ class DashBoardProvider extends ChangeNotifier {
   List<dynamic> popularHotels = [
     Hotel(
       name: "Lux Hotel",
-      image: "assets/images/popular_hotel_image_1.png",
+      image: [
+        "assets/images/popular_hotel_image_1.png",
+      ],
       price: 488,
       rating: 4.88,
       location: "Kochi, India",
     ),
     Hotel(
       name: "Lux Hotel",
-      image: "assets/images/popular_hotels_image_2.png",
+      image: [
+        "assets/images/popular_hotels_image_2.png",
+      ],
       price: 488,
       rating: 4.88,
       location: "Kochi, India",
     ),
     Hotel(
       name: "Lux Hotel",
-      image: "assets/images/popular_hotel_image_3.png",
+      image: [
+        "assets/images/popular_hotel_image_3.png",
+      ],
       price: 488,
       rating: 4.88,
       location: "Kochi, India",

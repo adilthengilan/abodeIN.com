@@ -3,11 +3,18 @@ import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     //-----------------------SignUp Page Text Field Controllers-------------------------------
@@ -15,6 +22,8 @@ class SignupScreen extends StatelessWidget {
     final TextEditingController lastNameController = TextEditingController();
     final TextEditingController mobileNumberController =
         TextEditingController();
+
+    String _selectedCountryCode = '+1';
 
     //---------------------Media Query is for assign with responsive size--------------
     final height = MediaQuery.of(context).size.height;
@@ -49,6 +58,7 @@ class SignupScreen extends StatelessWidget {
               height: height,
               width: width,
             ),
+            
             sizedBox(height * 0.02, 0.0),
             //---------------------------------- Use Email Button ---------------------------------------------------------------------
             Padding(
