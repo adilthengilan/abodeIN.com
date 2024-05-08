@@ -1,4 +1,3 @@
-
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
@@ -6,6 +5,7 @@ import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 class DashBoard extends StatelessWidget {
   const DashBoard({super.key});
 
@@ -21,6 +21,7 @@ class DashBoard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            sizedBox(height * 0.03, width),
             Padding(
               padding: EdgeInsets.only(
                   left: width * 0.06, top: height * 0.033, right: width * 0.06),
@@ -62,20 +63,12 @@ class DashBoard extends StatelessWidget {
               child: Text("Categories", style: mediumTextStyleLight),
             ),
             sizedBox(height * 0.015, 0.0),
-            categoriesList(
-              width,
-              height,
-              DashboardProvider.categories,
-              (){}
-            ),
+            categoriesList(width, height, DashboardProvider.categories, () {}),
             sizedBox(height * 0.04, 0.0),
             headingAndSeeAllButton(width, "Suggestions For You"),
             sizedBox(10.0, 0.0),
             SuggestionsForYouRow(
-                width,
-                height,
-                DashboardProvider.SuggestionsHotel,
-                () {}),
+                width, height, DashboardProvider.SuggestionsHotel, () {}),
             sizedBox(height * 0.03, 0.0),
             headingAndSeeAllButton(width, "Popular Hotels"),
             sizedBox(10.0, 0.0),
@@ -131,9 +124,7 @@ class DashBoard extends StatelessWidget {
                 ),
                 child: Image(
                   fit: BoxFit.fill,
-                  image: AssetImage(
-                    suggestionsHotel[index].image
-                  ),
+                  image: AssetImage(suggestionsHotel[index].image),
                 ),
               ),
             ),
@@ -169,9 +160,10 @@ class DashBoard extends StatelessWidget {
       ),
     );
   }
+
 // this Method is List Which Type of Stay Rooms in the App, Displaying The Categories by a row
 //It has A image and a text and its Scrollable
-  Widget categoriesList(width, height, categoryList,ontap) {
+  Widget categoriesList(width, height, categoryList, ontap) {
     return SizedBox(
       width: width,
       height: height * 0.058,
@@ -219,7 +211,7 @@ class DashBoard extends StatelessWidget {
     );
   }
 
-// this method showing Popular Hotels List in the Screen 
+// this method showing Popular Hotels List in the Screen
   Widget PopularHotelscolumn(width, height, popularHotels, ontap) {
     return ListView.builder(
       shrinkWrap: true,
@@ -286,7 +278,8 @@ class DashBoard extends StatelessWidget {
                               color: orangeColor,
                             ),
                             sizedBox(0.0, 10.0),
-                            Text("${popularHotels[index].rating}", style: whiteSmallTextStyle)
+                            Text("${popularHotels[index].rating}",
+                                style: whiteSmallTextStyle)
                           ],
                         ),
                         RichText(

@@ -5,6 +5,8 @@ import 'package:abodein/src/view/registration/verification.dart';
 import 'package:abodein/src/view_model/registration.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -57,14 +59,37 @@ class _LoginScreenState extends State<LoginScreen> {
             //------------------------------------ Text Button --------------------------------------------------------------------
             AppTextButton(
               text: "Send Otp",
-              onPressed: () {
-                String phonenumberwithcode =
-                    '+91${mobilenumbercontrollor.text}';
-                verifyPhoneNumber(context, phonenumberwithcode);
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => OTPScreen(
-                          MobileNumber: mobilenumbercontrollor.text,
-                        )));
+              onPressed: () async {
+                // String phonenumberwithcode =
+                //     '+91${mobilenumbercontrollor.text}';
+                // verifyPhoneNumber(context, phonenumberwithcode);
+                // Navigator.of(context).push(MaterialPageRoute(
+                //     builder: (context) => OTPScreen(
+                //           MobileNumber: mobilenumbercontrollor.text,
+                //         )));
+
+                FirebaseAuth.instance.verifyPhoneNumber(
+                  phoneNumber: mobilenumbercontrollor.text,
+                  verificationCompleted: (phoneAuthCredential) {},
+                  verificationFailed: (error) {
+                    print('$error=====================================');
+                  },
+                  codeSent: (verificationId, forceResendingToken) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OTPScreen(
+                            MobileNumber: mobilenumbercontrollor.text,
+                            veirificatioId: verificationId,
+                          ),
+                        ));
+                  },
+                  codeAutoRetrievalTimeout: (
+                    verificationId,
+                  ) {
+                    print('====================timout');
+                  },
+                );
               },
               height: height,
               width: width,

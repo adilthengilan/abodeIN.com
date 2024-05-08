@@ -72,12 +72,8 @@ class SignupScreen extends StatelessWidget {
             AppTextButton(
               text: "Next",
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          OTPScreen(MobileNumber: mobileNumberController.text),
-                    ));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => DashBoard()));
               },
               height: height,
               width: width,

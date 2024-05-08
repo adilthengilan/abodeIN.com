@@ -3,12 +3,15 @@ import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_model/registration.dart';
 import 'package:abodein/utils/style.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OTPScreen extends StatefulWidget {
   final String MobileNumber;
-  const OTPScreen({super.key, required this.MobileNumber});
+  final String veirificatioId;
+  const OTPScreen(
+      {super.key, required this.MobileNumber, required this.veirificatioId});
 
   @override
   _OTPScreenState createState() => _OTPScreenState();
@@ -82,8 +85,15 @@ class _OTPScreenState extends State<OTPScreen> {
   }
 
 // --------------------Enter the function here when otp is submitted.-------------------------
-  void otpverification(String otp) {
-    verifyOTP(context, otp);
+  void otpverification(String otp) async {
+    final cred = PhoneAuthProvider.credential(
+        verificationId: widget.veirificatioId, smsCode: otp);
+    await FirebaseAuth.instance.signInWithCredential(cred);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DashBoard(),
+        ));
     // Perform OTP verification here
     print('Entered OTP:============================ $otp');
   }
@@ -93,31 +103,34 @@ class _OTPScreenState extends State<OTPScreen> {
       height: 60,
       width: 60,
       decoration: BoxDecoration(
+        color: Color.fromARGB(198, 163, 213, 255),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
           width: 1,
           color: const Color.fromARGB(255, 206, 206, 206),
         ),
       ),
-      child: TextField(
-        controller: controller,
-        maxLength: 1,
-        textAlign: TextAlign.center,
-        keyboardType: TextInputType.number,
-        style: const TextStyle(fontSize: 25),
-        decoration: InputDecoration(
-          counterText: " ",
-          //     onChanged: (value) {
-          //   if (value.length == 1) {
-          //     FocusScope.of(context).nextFocus();
-          //   }
-          // },
-          border: InputBorder.none,
-          hintStyle: GoogleFonts.poppins(
-            color: Colors.grey,
-            fontWeight: FontWeight.w400,
+      child: Center(
+        child: TextField(
+          controller: controller,
+          maxLength: 1,
+          textAlign: TextAlign.center,
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 25),
+          decoration: InputDecoration(
+            counterText: " ",
+            //     onChanged: (value) {
+            //   if (value.length == 1) {
+            //     FocusScope.of(context).nextFocus();
+            //   }
+            // },
+            border: InputBorder.none,
+            hintStyle: GoogleFonts.poppins(
+              color: Colors.grey,
+              fontWeight: FontWeight.w400,
+            ),
+            contentPadding: EdgeInsets.only(left: 8, top: 15),
           ),
-          contentPadding: EdgeInsets.only(left: 8, top: 15),
         ),
       ),
     );
@@ -179,6 +192,7 @@ class _OTPTextFieldState extends State<OTPTextField> {
         widget.length,
         (index) => Container(
           decoration: BoxDecoration(
+              color: Color.fromARGB(255, 226, 242, 255),
               borderRadius: BorderRadius.circular(15),
               border: Border.all(color: Colors.grey)),
           width: 40,
