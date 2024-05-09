@@ -215,8 +215,7 @@ class HotelDetailePage extends StatelessWidget {
             top: height * 0.9,
             child: AppTextButton(
               text: "Book Now",
-              onPressed: () {
-              },
+              onPressed: () {},
               height: height,
               width: width,
             ),
