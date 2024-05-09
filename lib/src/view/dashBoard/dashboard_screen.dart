@@ -1,4 +1,4 @@
-import 'package:abodein/src/view/hotel_details_screen.dart/hotel_details_screen.dart';
+import 'package:abodein/src/view/hotel_details.dart/hotel_details_screen.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
@@ -154,7 +154,7 @@ class DashBoard extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: height * 0.16,
+              top: height * 0.175,
               left: width * 0.03,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -240,11 +240,7 @@ class DashBoard extends StatelessWidget {
   }
 
 // this method showing Popular Hotels List in the Screen
-  Widget PopularHotelscolumn(
-    width,
-    height,
-    popularHotels,
-  ) {
+  Widget PopularHotelscolumn(width, height, popularHotels) {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
@@ -284,8 +280,8 @@ class DashBoard extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: height * 0.16,
-                left: width * 0.05,
+                top: height * 0.148,
+                left: width * 0.03,
                 right: width * 0.05,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -304,6 +300,7 @@ class DashBoard extends StatelessWidget {
                               color: backgroundColor,
                               size: 20,
                             ),
+                            sizedBox(0.0, width* 0.002),
                             Text(
                               popularHotels[index].location,
                               style: whiteSmallTextStyle,
@@ -323,8 +320,10 @@ class DashBoard extends StatelessWidget {
                               color: orangeColor,
                             ),
                             sizedBox(0.0, 10.0),
-                            Text("${popularHotels[index].rating}",
-                                style: whiteSmallTextStyle)
+                            Text(
+                              "${popularHotels[index].rating}",
+                              style: whiteSmallTextStyle,
+                            )
                           ],
                         ),
                         RichText(

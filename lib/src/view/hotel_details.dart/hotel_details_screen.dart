@@ -1,4 +1,5 @@
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
+import 'package:abodein/src/view/hotel_rooms/hotel_rooms_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/hotel_detail_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
@@ -81,7 +82,6 @@ class HotelDetailePage extends StatelessWidget {
                                 height,
                                 IconButton(
                                   onPressed: () {
-                                    Navigator.pop(context);
                                   },
                                   icon: Icon(
                                     Icons.favorite_border,
@@ -96,7 +96,6 @@ class HotelDetailePage extends StatelessWidget {
                                 height,
                                 IconButton(
                                   onPressed: () {
-                                    Navigator.pop(context);
                                   },
                                   icon: Icon(
                                     Icons.share,
@@ -211,16 +210,25 @@ class HotelDetailePage extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              top: height * 0.9,
-              child: AppTextButton(
-                text: "Book Now",
-                onPressed: () {},
-                height: height,
-                width: width,
-              ),
-            ),
           ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: Center(
+          child: AppTextButton(
+            text: "Book Now",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HotelRoomsScreen(height: height, width: width)  //This Button Navigating to Hotel's Rooms Screen, it has seen Every Romms in the Hotel is Visible, and it Passing mediquery Hight And Width by Parameter
+                ),
+              );
+            },
+            height: height,
+            width: width,
+          ),
         ),
       ),
     );
@@ -295,7 +303,7 @@ class HotelDetailePage extends StatelessWidget {
     );
   }
 
-  Widget ratingStarIcon(height){
+  Widget ratingStarIcon(height) {
     return Icon(
       Icons.star,
       color: orangeColor,

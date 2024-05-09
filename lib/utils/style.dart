@@ -19,7 +19,7 @@ final TextStyle mediumTextStyle = GoogleFonts.poppins(
 
 final TextStyle mediumTextStyleSemiBold = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 23,
+    fontSize: 20,
     fontWeight: FontWeight.w600,
     color: Color.fromARGB(255, 75, 75, 75),
   )
