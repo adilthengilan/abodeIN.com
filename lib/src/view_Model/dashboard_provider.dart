@@ -16,7 +16,7 @@ class DashBoardProvider extends ChangeNotifier {
       "image": "assets/images/resort_category_image.png",
     },
     {
-      "Name": "Bed &Breakfast",
+      "Name": "Bed & Breakfast",
       "image": "assets/images/bed_and_breakfast_category_Image.png",
     },
     {
@@ -29,15 +29,6 @@ class DashBoardProvider extends ChangeNotifier {
     Hotel(
       name: "Lux Hotel",
       image: [
-        "assets/images/suggetion_hotel_image_1.png",
-      ],
-      price: 488,
-      rating: 4.88,
-      location: "Kochi, India",
-    ),
-    Hotel(
-      name: "Lux Hotel",
-      image: [
         "assets/images/suggetion_hotel_image_2.png",
       ],
       price: 488,
@@ -57,6 +48,15 @@ class DashBoardProvider extends ChangeNotifier {
       name: "Lux Hotel",
       image: [
         "assets/images/suggetion_hotel_image_2.png",
+      ],
+      price: 488,
+      rating: 4.88,
+      location: "Kochi, India",
+    ),
+    Hotel(
+      name: "Lux Hotel",
+      image: [
+        "assets/images/suggetion_hotel_image_1.png",
       ],
       price: 488,
       rating: 4.88,

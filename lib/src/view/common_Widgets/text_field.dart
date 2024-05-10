@@ -59,11 +59,34 @@ class AppSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
-      margin: EdgeInsets.symmetric(horizontal: width * 0.06),
+      height: height * 0.055,
+      width: width * 0.72,
+      margin: EdgeInsets.only(left: width * 0.06),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-        border: Border.all(color: greyShadeLight,),
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromARGB(255, 205, 205, 205), // Shadow color
+            spreadRadius: 0.5,
+            blurRadius: 2,
+            offset: Offset(0, 1), // Bottom shadow
+          ),
+          BoxShadow(
+            color: Color.fromARGB(255, 239, 239, 239), // Shadow color
+            offset: Offset(1.5, 0), // Right shadow
+          ),
+          BoxShadow(
+            color: Color.fromARGB(255, 205, 205, 205), // Shadow color
+            spreadRadius: 1,
+            blurRadius: 1,
+            offset: Offset(0, -1), // Top shadow
+          ),
+          BoxShadow(
+            color: Color.fromARGB(255, 239, 239, 239), // Shadow color
+            offset: Offset(-3, 0), // Left shadow
+          ),
+        ],
       ),
       child: TextField(
         controller: controller,
@@ -71,14 +94,18 @@ class AppSearchBar extends StatelessWidget {
           border: InputBorder.none,
           hintText: hintText,
           hintStyle: smallTextStyle,
-          contentPadding: EdgeInsets.only(top: 15),
-          suffixIcon: Padding(
-            padding: EdgeInsets.only(top: 10,right: 15),
-            child: Image.asset("assets/images/filter_icon.png"),
-          ),
+          contentPadding: EdgeInsets.only(top: height * 0.013),
           prefixIcon: Padding(
-            padding: EdgeInsets.only(top: 10, left: 15, right: 5),
-            child: Icon(Icons.search, color: greyShadeMedium, size: 30),
+            padding: EdgeInsets.only(
+              top: height * 0.006,
+              left: width * 0.04,
+              right: width * 0.02,
+            ),
+            child: Icon(
+              Icons.search,
+              color: greyShadeMedium,
+              size: height * 0.033,
+            ),
           ),
         ),
       ),
