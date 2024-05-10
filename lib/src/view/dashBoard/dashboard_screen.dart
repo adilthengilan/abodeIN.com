@@ -27,10 +27,11 @@ class DashBoard extends StatelessWidget {
             //------------------------------------------------------------------ Pinned App Bar ( Silver App Bar For Floating False)
             surfaceTintColor: backgroundColor,
             backgroundColor: backgroundColor,
-            leadingWidth: width * 0.0,
-            title: GestureDetector(
+            leadingWidth: width * 0.54,
+            leading: GestureDetector(
               onTap: (){},
               child: Container(
+                margin: EdgeInsets.symmetric(horizontal: width * 0.06,vertical: height *0.01),
                 padding: EdgeInsets.symmetric(
                   horizontal: width * 0.02,
                 ),
