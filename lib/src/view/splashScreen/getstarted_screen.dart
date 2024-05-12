@@ -1,9 +1,7 @@
-import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
+import 'package:abodein/src/view_Model/splash_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
-import 'package:abodein/src/view/common_Widgets/text_button.dart';
-import 'package:abodein/src/view_Model/splash_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,68 +14,108 @@ class GetStartedScreen extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: Column(
+      body: Stack(
         children: [
-          SizedBox(height: height * .03),
-          listingGetStartedImages(height, width),
-          SizedBox(height: height * 0.04),
-          showingIndicators(),
-          SizedBox(height: height * 0.04),
-          SizedBox(
-            height: height * 0.17,
-            width: width / 1.5,
-            child: Center(
-              child: Text("Easy way to book your hotel with us!",
-                  textAlign: TextAlign.center, style: largeTextStyle),
-            ),
-          ),
-          SizedBox(height: height * 0.03),
+          listingGetStartedImages(context),
           Container(
-            height: height / 12,
-            width: width,
-            margin: EdgeInsets.symmetric(horizontal: width * 0.06),
-            child: Center(
-              child: Column(
-                children: [
-                  Text("Lorem ipsum dolor sit amet,", style: smallTextStyle),
-                  Text("consectetuer adipiscing elit. Aenean",
-                      style: smallTextStyle),
-                ],
-              ),
+            margin: EdgeInsets.only(top: 520, left: 10),
+            child: Text(
+              "Now Let's Turn This into A Life",
+              style: whiteSmallTextStyle,
+              textAlign: TextAlign.start,
             ),
           ),
-          SizedBox(height: height * 0.03),
+          Container(
+            margin: EdgeInsets.only(top: 550, left: 10),
+            child: Text(
+              "Easy way to\nbook your hotel\nwith us!",
+              style: mediumTextStyle,
+              textAlign: TextAlign.start,
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 730, right: 230),
+            child: showingIndicators(),
+          ),
           Consumer<SplashProvider>(
             builder: (context, value, child) {
-              return AppTextButton(
-                text: value.currentPage == 2 ? "Get Start Now" : "Next",
-                height: height,
-                width: width,
-                onPressed: () {
-                  value.currentPage == 2
-                      ? [
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DashBoard(),
-                              ))
-                        ]
-                      : [value.moveToNextImage(context)];
-                },
+              return Container(
+                margin: EdgeInsets.fromLTRB(250, 700, 10, 20),
+                height: 70,
+                width: 120,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: const Color.fromARGB(255, 214, 212, 212)),
+                child: Row(
+                  children: [
+//       widget to be dragged____________________________________
+                    Draggable(
+                      axis: Axis.horizontal,
+                      feedback: Container(
+                        // feedback > the widget that actually gets dragged
+                        margin: EdgeInsets.only(left: 10),
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: Colors.black),
+                      ),
+                      childWhenDragging: Container(
+                        height: 45,
+                        width: 45,
+                        color: Colors.transparent,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(0.9),
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Colors.black),
+                          child: Center(
+                            child: Text(
+                              "Go",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                      onDragEnd: (details) {
+                        value.moveToNextImage(context);
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => DashBoard(),
+                        //     ));
+                      },
+                    ),
+                    sizedBox(height, width * 0.04),
+                    Icon(
+                      Icons.arrow_forward_ios_outlined,
+                      size: 16,
+                      color: greyShadeLight,
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios_outlined,
+                      size: 16,
+                      color: greyShadeMedium,
+                    ),
+                  ],
+                ),
               );
             },
-          ),
+          )
         ],
       ),
     );
   }
 
-//The List of Get Started Scrolling Images, when clicked Next Button the image is scroll it to left side
-  Widget listingGetStartedImages(height, width) {
+  //The List of Get Started Scrolling Images, when clicked Next Button the image is scroll it to left side
+  Widget listingGetStartedImages(BuildContext context) {
     return Container(
-      height: height / 2.2,
-      width: width,
-      margin: EdgeInsets.symmetric(horizontal: width * 0.06),
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
       child: Consumer<SplashProvider>(
         builder: (context, value, child) => PageView.builder(
           controller: value.pageController,
@@ -86,7 +124,7 @@ class GetStartedScreen extends StatelessWidget {
           itemBuilder: (context, index) {
             return Consumer<SplashProvider>(
               builder: (context, value, child) => Image(
-                fit: BoxFit.contain,
+                fit: BoxFit.fill,
                 image: AssetImage(
                   value.getStartedImage[value.currentPage],
                 ),
@@ -98,7 +136,6 @@ class GetStartedScreen extends StatelessWidget {
     );
   }
 
-// This is an indicator that displays a list of images with 3 dots.
   Widget showingIndicators() {
     return Consumer<SplashProvider>(
       builder: (context, value, child) => Row(
@@ -108,7 +145,7 @@ class GetStartedScreen extends StatelessWidget {
           (index) => Container(
             margin: const EdgeInsets.symmetric(horizontal: 10),
             width: value.currentPage == index ? 30 : 10,
-            height: 10,
+            height: 5,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
@@ -117,7 +154,7 @@ class GetStartedScreen extends StatelessWidget {
                     offset: Offset(0, 4),
                     blurRadius: 4)
               ],
-              color: value.currentPage == index ? orangeColor : greyShadeLight,
+              color: value.currentPage == index ? Colors.white : Colors.white,
             ),
           ),
         ),

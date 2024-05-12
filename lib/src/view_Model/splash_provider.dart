@@ -6,9 +6,9 @@ class SplashProvider extends ChangeNotifier {
   int currentPage = 0;
   // get started Screen Images
   final List<String> getStartedImage = [
-    "assets/images/get_started_image_1.png",
-    "assets/images/get_started_image_2.png",
-    "assets/images/get_started_image_3.png",
+    "assets/images/ashim-d-silva-CwJb7ly-iqc-unsplash.jpg",
+    "assets/images/getstart_image2.jpg",
+    "assets/images/getstartedimage3.jpg",
   ];
 // This function for Moving to Next Image, if
   void moveToNextImage(context) {

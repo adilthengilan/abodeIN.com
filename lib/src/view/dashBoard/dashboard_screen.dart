@@ -70,16 +70,16 @@ class DashBoard extends StatelessWidget {
             sizedBox(10.0, 0.0),
             SuggestionsForYouRow(
                 width, height, DashboardProvider.SuggestionsHotel, () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HotelDetailePage(
-                        images: ['assets/images/popular_hotel_image_1.png'],
-                        hotelName: 'Baithan',
-                        location: 'Dubai',
-                        price: 599,
-                        rating: 4.5),
-                  ));
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //       builder: (context) => HotelDetailePage(
+              //           images: ['assets/images/popular_hotel_image_1.png'],
+              //           hotelName: 'Baithan',
+              //           location: 'Dubai',
+              //           price: 599,
+              //           rating: 4.5),
+              //     ));
             }),
             sizedBox(height * 0.03, 0.0),
             headingAndSeeAllButton(width, "Popular Hotels"),

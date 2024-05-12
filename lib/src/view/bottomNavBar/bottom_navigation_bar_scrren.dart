@@ -1,5 +1,7 @@
 import 'package:abodein/src/view/Favourites/favourites.dart';
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
+import 'package:abodein/src/view/profile/profile_screen.dart';
+import 'package:abodein/src/view/reward/reward.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -16,11 +18,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
   List Pages = const [
     DashBoard(),
     Favorites(),
+    Reward(),
+    ProfileScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       bottomNavigationBar: Container(
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         decoration: BoxDecoration(boxShadow: [
@@ -33,9 +38,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
           borderRadius: BorderRadius.circular(30),
           child: BottomNavigationBar(
               backgroundColor: backgroundColor,
-              selectedItemColor: primarycolor,
+              selectedItemColor: Colors.black,
               currentIndex: mycurrentIndex,
               unselectedItemColor: greyShadeLight,
+              showSelectedLabels: false,
               onTap: (index) {
                 setState(() {
                   mycurrentIndex = index;
@@ -44,13 +50,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
               items: [
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.home_outlined,
+                    Icons.home,
                   ),
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.favorite_border_outlined,
+                      Icons.favorite,
                     ),
                     label: 'Favorites'),
                 BottomNavigationBarItem(
@@ -60,7 +66,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     label: 'Notifications'),
                 BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.person_outline,
+                      Icons.person,
                     ),
                     label: 'Profile'),
               ]),

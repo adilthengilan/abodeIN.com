@@ -1,5 +1,5 @@
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
-import 'package:abodein/src/view/dashBoard/booking/hotel_booking_screen.dart';
+import 'package:abodein/src/view/booking/hotel_booking_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_model/hote_details_provider.dart';
 import 'package:abodein/utils/app_colors.dart';

@@ -1,5 +1,4 @@
-import 'package:abodein/src/view/bottomNavBar/bottom_navigation_bar_scrren.dart';
-import 'package:abodein/src/view/dashBoard/booking/hotel_booking_screen.dart';
+import 'package:abodein/src/view/splashScreen/splash_screen.dart';
 import 'package:abodein/utils/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +23,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          home: BookingScreen()),
+          home: Splash_Screen()),
     );
   }
 }
