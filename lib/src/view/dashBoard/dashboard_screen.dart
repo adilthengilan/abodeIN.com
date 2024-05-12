@@ -86,7 +86,7 @@ class DashBoard extends StatelessWidget {
                                     color: value.selectedCategoryIndex == index
                                         ? primarycolor
                                         : shadeColor,
-                                    borderRadius: BorderRadius.circular(25),
+                                    borderRadius: BorderRadius.circular(30),
                                   ),
                                   child: Center(
                                     child: Text(
