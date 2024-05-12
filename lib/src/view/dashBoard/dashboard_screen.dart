@@ -2,7 +2,6 @@ import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/src/view/hotel_details.dart/hotel_details_screen.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
-import 'package:abodein/src/view/common_Widgets/text_field.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +14,8 @@ class DashBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final dashboardProvider = Provider.of<DashBoardProvider>(context, listen: false);
-    TextEditingController searchBarController = TextEditingController();
+    final dashboardProvider =
+        Provider.of<DashBoardProvider>(context, listen: false);
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -28,123 +27,373 @@ class DashBoard extends StatelessWidget {
             surfaceTintColor: backgroundColor,
             backgroundColor: backgroundColor,
             leadingWidth: width * 0.54,
-            leading: GestureDetector(
-              onTap: (){},
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: width * 0.06,vertical: height *0.01),
-                padding: EdgeInsets.symmetric(
-                  horizontal: width * 0.02,
-                ),
-                decoration: BoxDecoration(
-                  color: blueColorShadeLight,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  children: [
-                    AppIcon(
-                      iconData: Icons.location_on,
-                      color: primarycolor,
-                      height: height,
-                    ),
-                    sizedBox(0.0, width * 0.015),
-                    Text(
-                      "Kerala, India", //-------------------------------------------- location of The User ----------------------
-                      style: smallTextStyle,
-                    ),
-                    sizedBox(0.0, width * 0.015),
-                    Icon(
-                      //------------------------------------------------------------- Arrow icon ---------------------------
-                      Icons.keyboard_arrow_down_sharp,
-                      color: greyShadeDark,
-                    ),
-                  ],
-                ),
-              ),
+            leading: Padding(
+              padding: EdgeInsets.only(left: width * 0.04, top: 5),
+              child: Text("Discover", style: largeTextStyle),
             ),
             actions: [
               CircleAvatar(
-                radius: height * 0.028,
-                backgroundImage: AssetImage(
-                  // --------------------------------------------------- Profile Picture (Person) On the App Bar  ---------------------
-                  "assets/images/reviewers_person_2.png",
+                radius: height * 0.03,
+                backgroundColor: shadeColor,
+                child: Center(
+                  child: AppIcon(
+                    iconData: Icons.search_outlined,
+                    color: greyShadeDark,
+                    height: height * 0.03,
+                  ),
                 ),
               ),
-              sizedBox(0.0, width * 0.06),
+              sizedBox(0.0, width * 0.025),
+              CircleAvatar(
+                radius: height * 0.03,
+                backgroundColor: shadeColor,
+                child: Center(
+                  child: AppIcon(
+                    iconData: Icons.notifications_outlined,
+                    color: greyShadeDark,
+                    height: height * 0.03,
+                  ),
+                ),
+              ),
+              sizedBox(0.0, width * 0.04),
             ],
           ),
           SliverList(
             delegate: SliverChildListDelegate(
               [
+                sizedBox(height * 0.03, 0.0),
                 SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      sizedBox(height * 0.038, 0.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          //---------------------------------------------------------- SEARCH BAR-----------------------------------
-                          AppSearchBar(
-                            controller: searchBarController,
-                            hintText: "Search",
-                            width: width,
-                            height: height,
-                          ),
-                          //----------------------------------------------------------- FILTER ICON ----------------------------------
-                          Container(
-                            height: height * 0.055,
-                            width: width * 0.12,
-                            margin: EdgeInsets.only(right: width * 0.06),
-                            decoration: BoxDecoration(
-                              color: backgroundColor,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: containerBoxShadow,
-                            ),
-                            child: Center(
-                              //------------------------------------------------------- The Filter Icon -------------------------------
-                              child: Image(
-                                image:
-                                    AssetImage("assets/images/filter_icon.png"),
-                                fit: BoxFit.contain,
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+                    child: Row(
+                      children: [
+                        Wrap(
+                          spacing: width * 0.025,
+                          children: List.generate(
+                            dashboardProvider.categories.length,
+                            (index) => Consumer<DashBoardProvider>(
+                              builder: (context, value, child) => InkWell(
+                                onTap: () {
+                                  value.setCategoryButtonColor(index);
+                                },
+                                child: Container(
+                                  height: height * 0.063,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: width * 0.05,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: value.selectedCategoryIndex == index
+                                        ? primarycolor
+                                        : shadeColor,
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      dashboardProvider.categories[index],
+                                      style:
+                                          value.selectedCategoryIndex == index
+                                              ? whiteSmallTextStyle
+                                              : smallTextStyle,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                sizedBox(height * 0.03, 0.0),
+                SizedBox(
+                  height: height * 0.29,
+                  width: width,
+                  child: ListView.builder(
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 3,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => Stack(
+                      children: [
+                        Container(
+                          width: width * 0.6,
+                          height: height,
+                          margin: EdgeInsets.only(right: width * 0.04),
+                          decoration: BoxDecoration(
+                            color: shadeColor,
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: Image(
+                            fit: BoxFit.fill,
+                            image: AssetImage(
+                                "assets/images/suggetion_hotel_image_2.png"),
+                          ),
+                        ),
+                        // ============================================================================================================
+                        //======================================================= Rating Icon & Text ===========================================
+                        Positioned(
+                          top: height * 0.015,
+                          left: width * 0.02,
+                          child: Container(
+                            height: height * 0.053,
+                            padding: EdgeInsets.only(right: width * 0.02),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: transparantColor,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(height * 0.006),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: height * 0.022,
+                                    backgroundColor: transparantColor,
+                                    child: Center(
+                                      child: AppIcon(
+                                        iconData: Icons.star_border_outlined,
+                                        color: backgroundColor,
+                                        height: height * 0.022,
+                                      ),
+                                    ),
+                                  ),
+                                  sizedBox(0.0, width * 0.0035),
+                                  Text("4.8", style: whiteSmallTextStyle)
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        // ============================================================================================================
+                        //================================================== 3D View ======================================================
+                        Positioned(
+                          top: height * 0.015,
+                          right: width * 0.06,
+                          child: Container(
+                            height: height * 0.053,
+                            padding: EdgeInsets.only(right: width * 0.02),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: transparantColor,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(height * 0.006),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: height * 0.022,
+                                    backgroundColor: transparantColor,
+                                    child: Center(
+                                      child: AppIcon(
+                                        iconData: Icons.share_outlined,
+                                        color: backgroundColor,
+                                        height: height * 0.022,
+                                      ),
+                                    ),
+                                  ),
+                                  sizedBox(0.0, width * 0.0035),
+                                  Text("3D View", style: whiteSmallTextStyle)
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        // ============================================================================================================
+                        //================================================== Price $ Booking Person Count ======================================================
+                        Positioned(
+                          bottom: height * 0.015,
+                          left: width * 0.04,
+                          right: width * 0.075,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Bankok", style: whiteSmallTextStyle),
+                                  Text("Phuket", style: whiteMediumTextStyle)
+                                ],
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  text: "\$${599}",
+                                  style: whiteMediumTextStyle,
+                                  children: [
+                                    TextSpan(
+                                      text: "/${2}Persons",
+                                      style: whiteSmallTextStyle,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                sizedBox(height * 0.025, 0.0),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+                  child: Text("Top Destination", style: largeTextStyle),
+                ),
+                sizedBox(height * 0.015, 0.0),
+                //=======================================================================================================================================
+                ListView.builder(
+                  itemCount: 2,
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+                  itemBuilder: (context, index) => Stack(
+                    children: [
+                      Container(
+                        height: height * 0.265,
+                        width: width,
+                        margin: EdgeInsets.only(bottom: height * 0.02),
+                        decoration: BoxDecoration(
+                          color: shadeColor,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: Image(
+                          fit: BoxFit.fill,
+                          image: AssetImage(
+                              "assets/images/popular_hotel_image_3.png"),
+                        ),
                       ),
-                      sizedBox(height * 0.04, width),
-                      Padding(
-                        padding: EdgeInsets.only(left: width * 0.06),
-                        //------------------------------------------------------------------ Category Heading ------------------------------
-                        child:
-                            Text("Categories", style: mediumTextStyleSemiBold),
+                      // ============================================================================================================
+                      //================================================== 3D View ======================================================
+                      Positioned(
+                        top: height * 0.015,
+                        right: width * 0.03,
+                        child: Container(
+                          height: height * 0.0505,
+                          padding: EdgeInsets.only(right: width * 0.02),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: transparantColor,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(height * 0.006),
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: height * 0.022,
+                                  backgroundColor: transparantColor,
+                                  child: Center(
+                                    child: AppIcon(
+                                      iconData: Icons.share_outlined,
+                                      color: backgroundColor,
+                                      height: height * 0.022,
+                                    ),
+                                  ),
+                                ),
+                                sizedBox(0.0, width * 0.0035),
+                                Text("3D View", style: whiteSmallTextStyle)
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                      sizedBox(height * 0.015, 0.0),
-                      //--------------------------------------------------------------- Category List With List View Builder ------------------------------
-                      categoriesList(
-                        width,
-                        height,
-                        dashboardProvider.categories,
-                        () {},
+                      // ============================================================================================================
+                      //======================================================= Rating Icon & Text ===========================================
+                      Positioned(
+                        top: height * 0.015,
+                        right: width * 0.35,
+                        child: Container(
+                          height: height * 0.0505,
+                          padding: EdgeInsets.only(right: width * 0.02),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: transparantColor,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(height * 0.005),
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: height * 0.022,
+                                  backgroundColor: transparantColor,
+                                  child: Center(
+                                    child: AppIcon(
+                                      iconData: Icons.star_border_outlined,
+                                      color: backgroundColor,
+                                      height: height * 0.022,
+                                    ),
+                                  ),
+                                ),
+                                sizedBox(0.0, width * 0.0035),
+                                Text("4.8", style: whiteSmallTextStyle)
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                      sizedBox(height * 0.04, 0.0),
-                      //============================================================= Suggetion For You Heading and See All button --------------------------
-                      headingAndSeeAllButton(width, "Suggestions For You"),
-                      sizedBox(height * 0.015, 0.0),
-                      //============================================================ Suggetion For You with List View Builder ----------------------------
-                      SuggestionsForYouRow(
-                        width,
-                        height,
-                        dashboardProvider.SuggestionsHotel,
+                      // ============================================================================================================
+                      //======================================================= Map & Map View ===========================================
+                      Positioned(
+                        top: height * 0.015,
+                        left: width * 0.03,
+                        child: Container(
+                          height: height * 0.0505,
+                          padding: EdgeInsets.only(right: width * 0.02),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: transparantColor,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(height * 0.005),
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: height * 0.022,
+                                  backgroundColor: transparantColor,
+                                  child: Center(
+                                    child: AppIcon(
+                                      iconData: Icons.map_outlined,
+                                      color: backgroundColor,
+                                      height: height * 0.022,
+                                    ),
+                                  ),
+                                ),
+                                sizedBox(0.0, width * 0.0035),
+                                Text("Map", style: whiteSmallTextStyle)
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                      sizedBox(height * 0.04, 0.0),
-                      //------------------------------------------------------------------ Popular Hotel Heading -------------------------
-                      headingAndSeeAllButton(width, "Popular Hotels"),
-                      sizedBox(height * 0.02, 0.0),
-                      // ---------------------------------------------------------------- Popular Hotels Box of Grid View -----------------------------
-                      PopularHotelscolumn(
-                        width,
-                        height,
-                        dashboardProvider.popularHotels,
+                      // ============================================================================================================
+                      //================================================== Price $ Booking Person Count ======================================================
+                      Positioned(
+                        bottom: height * 0.04,
+                        left: width * 0.04,
+                        right: width * 0.05,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Bankok", style: whiteSmallTextStyle),
+                                Text("Phuket", style: whiteMediumTextStyle)
+                              ],
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                text: "\$${599}",
+                                style: whiteMediumTextStyle,
+                                children: [
+                                  TextSpan(
+                                    text: "/${2}Persons",
+                                    style: whiteSmallTextStyle,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

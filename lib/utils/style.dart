@@ -3,8 +3,8 @@ import "package:google_fonts/google_fonts.dart";
 
 final TextStyle largeTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 31,
-    fontWeight: FontWeight.bold,
+    fontSize: 30,
+    fontWeight: FontWeight.w600,
     color: Color.fromARGB(255, 75, 75, 75),
   ),
 );
