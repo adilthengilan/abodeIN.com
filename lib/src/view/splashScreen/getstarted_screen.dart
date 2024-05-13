@@ -37,6 +37,9 @@ class GetStartedScreen extends StatelessWidget {
             margin: EdgeInsets.only(top: 730, right: 230),
             child: showingIndicators(),
           ),
+//********************************************************************************************************************************************* */
+//**************************************************Swipable Buttton************************************************************************** */
+//*********************************************************************************************************************************************** */
           Consumer<SplashProvider>(
             builder: (context, value, child) {
               return Container(
@@ -68,6 +71,7 @@ class GetStartedScreen extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.all(0.9),
                         child: Container(
+                          margin: EdgeInsets.only(left: 7),
                           height: 50,
                           width: 50,
                           decoration: BoxDecoration(
@@ -88,6 +92,9 @@ class GetStartedScreen extends StatelessWidget {
                         //     MaterialPageRoute(
                         //       builder: (context) => DashBoard(),
                         //     ));
+                      },
+                      onDragCompleted: () {
+                        
                       },
                     ),
                     sizedBox(height, width * 0.04),

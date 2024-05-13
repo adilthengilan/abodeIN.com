@@ -20,30 +20,19 @@ final TextStyle mediumTextStyleSemiBold = GoogleFonts.poppins(
     textStyle: TextStyle(
   fontSize: 23,
   fontWeight: FontWeight.w600,
-  color: Color.fromARGB(255, 75, 75, 75),
+  color: Colors.white,
 ));
 
 final TextStyle smallTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.w400,
-    color: Color.fromARGB(255, 75, 75, 75),
+    color: Colors.white,
   ),
 );
 final TextStyle smallTextStyleSemiBold = GoogleFonts.poppins(
-  textStyle: TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w600,
-    color: Color.fromARGB(255, 75, 75, 75),
-  ),
-);
-
-final TextStyle smallTextStyleLight = GoogleFonts.poppins(
-  textStyle: TextStyle(
-    fontSize: 20,
-    color: Color.fromARGB(255, 97, 97, 97),
-    fontWeight: FontWeight.w400,
-  ),
+  textStyle:
+      TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
 );
 
 final TextStyle buttonTextStyle = GoogleFonts.poppins(
@@ -63,7 +52,7 @@ final TextStyle blueSmallTextButtons = GoogleFonts.poppins(
 final TextStyle mediumTextStyleLight = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 20,
-    color: Color.fromARGB(255, 75, 75, 75),
+    color: Colors.white,
     fontWeight: FontWeight.w500,
   ),
 );
@@ -88,6 +77,13 @@ final TextStyle whiteLightTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 12,
     color: Colors.white,
+    fontWeight: FontWeight.w400,
+  ),
+);
+final TextStyle blackSmallTextStyle = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 16,
+    color: Colors.black,
     fontWeight: FontWeight.w400,
   ),
 );

@@ -12,3 +12,5 @@ const Color greyShadeLightboxshadow = Color.fromARGB(255, 246, 246, 246);
 
 const Color greyShadeMedium = Color.fromARGB(255, 136, 136, 136);
 const Color greyShadeDark = Color.fromARGB(255, 136, 136, 136);
+const Color transparantColor = Color.fromARGB(86, 162, 162, 162);
+const Color shadeColor = Color.fromARGB(216, 244, 244, 244);
