@@ -13,7 +13,8 @@ class DashBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final dashboardProvider = Provider.of<DashBoardProvider>(context, listen: false);
+    final dashboardProvider =
+        Provider.of<DashBoardProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: CustomScrollView(
@@ -70,10 +71,39 @@ class DashBoard extends StatelessWidget {
                     ),
                   ),
                 ),
-                sizedBox(height * 0.025, 0.0),
+                sizedBox(height * 0.03, 0.0),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-                  child: Text("Top Destination", style: largeTextStyle),
+                  padding: EdgeInsets.only(
+                    left: width * 0.04,
+                    right: width * 0.05,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      //======================================================== Top Destination ========================================
+                      Text("Top Destination", style: largeTextStyle),
+                      InkWell(
+                        onTap: (){},
+                        child: Container(
+                          height: height * 0.05,
+                          width: width * 0.095,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: backgroundColor,
+                            border: Border.all(color: greyShadeDark),
+                          ),
+                          // =========================================================== View all Button ====================================
+                          child: Center(
+                            child: AppIcon(
+                              iconData: Icons.arrow_forward,
+                              color: greyShadeDark,
+                              height: height * 0.028,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 sizedBox(height * 0.015, 0.0),
                 //====================================== ListView Builder ========= Top Destination ===========================================================================
@@ -162,7 +192,7 @@ class DashBoard extends StatelessWidget {
             ),
           ),
         ),
-        sizedBox(0.0, width * 0.025),
+        sizedBox(0.0, width * 0.015),
         //================================================================ Notification Icon
         CircleAvatar(
           radius: height * 0.032,
