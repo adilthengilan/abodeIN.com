@@ -152,7 +152,6 @@ class DashBoard extends StatelessWidget {
       //====================================================== Silver App Bar For Customization, I make this AppBar Un Floatable
       surfaceTintColor: backgroundColor,
       backgroundColor: backgroundColor,
-      leadingWidth: width * 0.54,
       title: Padding(
         padding: EdgeInsets.only(left: width * 0.006, top: 5),
         child: Text("Discover", style: largeTextStyle),
