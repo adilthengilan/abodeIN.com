@@ -1,8 +1,8 @@
-import 'package:abodein/src/Utils/providers.dart';
-import 'package:abodein/src/view/Booking/booking_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:abodein/src/utils/providers.dart';
+import 'package:abodein/src/view/splashScreen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          home: BookingScreen ()),
+          home: Splash_Screen()),
     );
   }
 }

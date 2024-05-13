@@ -1,9 +1,4 @@
 import 'package:abodein/src/Utils/app_colors.dart';
-import 'package:abodein/src/Utils/style.dart';
-import 'package:abodein/src/view/common_Widgets/text_button.dart';
-import 'package:abodein/src/view/common_Widgets/text_field.dart';
-import 'package:abodein/src/view/registration/signup.dart';
-import 'package:abodein/src/view/registration/verification.dart';
 import 'package:flutter/material.dart';
 
 

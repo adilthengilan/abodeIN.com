@@ -1,5 +1,5 @@
-import 'package:abodein/src/Utils/app_colors.dart';
-import 'package:abodein/src/utils/style.dart';
+import 'package:abodein/utils/app_colors.dart';
+import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
 
 class AppTextButton extends StatelessWidget {
@@ -21,8 +21,7 @@ class AppTextButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         height: 60,
-        width: width,
-        margin: EdgeInsets.symmetric(horizontal: width * 0.06),
+        width: width * 0.87,
         decoration: BoxDecoration(
           color: primarycolor,
           borderRadius: BorderRadius.circular(20),

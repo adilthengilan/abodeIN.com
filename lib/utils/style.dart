@@ -47,11 +47,6 @@ final TextStyle mediumTextStyleLight = GoogleFonts.poppins(
   ),
 );
 
-final TextStyle whitelargeTextStyle = GoogleFonts.poppins(
-  textStyle:
-      TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-);
-
 final TextStyle whiteMediumTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 20,
@@ -70,7 +65,7 @@ final TextStyle whiteSmallTextStyle = GoogleFonts.poppins(
 
 final TextStyle whiteLightTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 14,
+    fontSize: 12,
     color: Colors.white,
     fontWeight: FontWeight.w400,
   ),

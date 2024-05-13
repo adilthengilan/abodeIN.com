@@ -1,28 +1,20 @@
-import 'package:abodein/src/model/hotel_model_class.dart';
 import 'package:flutter/material.dart';
 
 class DashBoardProvider extends ChangeNotifier {
-  List<dynamic> categories = [
-    {
-      "Name": "Hotels",
-      "image": "assets/images/hotels_category_image.png",
-    },
-    {
-      "Name": "Motels",
-      "image": "assets/images/motels_category_image.png",
-    },
-    {
-      "Name": "Resorts",
-      "image": "assets/images/resort_category_image.png",
-    },
-    {
-      "Name": "Bed &Breakfast",
-      "image": "assets/images/bed_and_breakfast_category_Image.png",
-    },
-    {
-      "Name": "Hostels",
-      "image": "assets/images/hostels_category_image.png",
-    }
+  List<String> categoryName = [
+    "Hotels",
+    "Motels",
+    "Resort",
+    "Bed & Breakfast",
+    "Hostels",
+  ];
+
+  List<String> categoryImages = [
+    "assets/images/hotels_category_image.png",
+    "assets/images/motels_category_image.png",
+    "assets/images/resort_category_image.png",
+    "assets/images/bed_and_breakfast_category_Image.png",
+    "assets/images/hostels_category_image.png",
   ];
 
   List<dynamic> SuggestionsHotel = [

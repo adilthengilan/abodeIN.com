@@ -1,5 +1,5 @@
-import 'package:abodein/src/Utils/style.dart';
 import 'package:abodein/src/utils/app_colors.dart';
+import 'package:abodein/src/utils/style.dart';
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
@@ -13,31 +13,94 @@ class DashBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final DashboardProvider =
+    final dashboardProvider =
         Provider.of<DashBoardProvider>(context, listen: false);
-    TextEditingController searchBarController = TextEditingController();
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                  left: width * 0.06, top: height * 0.033, right: width * 0.06),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      backgroundColor: backgroundColor,
+      body: CustomScrollView(
+        slivers: <Widget>[
+          // Silver App Bar For custumization, utilize un Floatable App Bar
+          SilverAppBar(width, height),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                sizedBox(height * 0.025, 0.0),
+                //==================================================== The Category Horizontal List With List Generator wrap with Wrap Widget
+                CategoryLayoutRow(height, width, dashboardProvider),
+                sizedBox(height * 0.03, 0.0),
+                SizedBox(
+                  height: height * 0.29,
+                  width: width,
+                  //========================================================= ListView Builder ================================================
+                  child: ListView.builder(
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 3,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => Stack(
+                      children: [
+                        // Square Box Under The Categories List with Hotel Image And it Details
+                        SquereBoxWithImages(width, height),
+                        //================================================ Rating Icon & Text ===========================================
+                        RatingBoxTransparant(
+                          height: height,
+                          width: width,
+                          rating: 4.8,
+                          top: height * 0.015,
+                          left: width * 0.02,
+                        ),
+                        //========================================= 3D View TransParant Box ======================================================
+                        ThreeDView(
+                          top: height * 0.015,
+                          right: width * 0.06,
+                          onTap: () {},
+                          height: height,
+                          width: width,
+                        ),
+                        // This Class Price $ Booking Person Count, and it passing Bottom positioned,left Positione,Right Positioned, City Name, Location Of Hotel, Price of Hotel and person count
+                        PriceAndBookingPersons(
+                          bottom: height * 0.015,
+                          left: width * 0.04,
+                          right: width * 0.075,
+                          city: "Bankok",
+                          location: "Phuket",
+                          price: 599,
+                          personCount: 2,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                sizedBox(height * 0.03, 0.0),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: width * 0.04,
+                    right: width * 0.05,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Location", style: smallTextStyle),
-                      Row(
-                        children: [
-                          Icon(Icons.location_on,
-                              size: 20, color: primarycolor),
-                          sizedBox(0.0, 5.0),
-                          Text("Kerala, India", style: smallTextStyle)
-                        ],
+                      //======================================================== Top Destination ========================================
+                      Text("Top Destination", style: largeTextStyle),
+                      InkWell(
+                        onTap: (){},
+                        child: Container(
+                          height: height * 0.05,
+                          width: width * 0.095,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: backgroundColor,
+                            border: Border.all(color: greyShadeDark),
+                          ),
+                          // =========================================================== View all Button ====================================
+                          child: Center(
+                            child: AppIcon(
+                              iconData: Icons.arrow_forward,
+                              color: greyShadeDark,
+                              height: height * 0.028,
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -62,12 +125,21 @@ class DashBoard extends StatelessWidget {
               child: Text("Categories", style: mediumTextStyleLight),
             ),
             sizedBox(height * 0.015, 0.0),
-            categoriesList(width, height, DashboardProvider.categories, () {}),
+            categoriesList(
+              width,
+              height,
+              DashboardProvider.categoryName,
+              DashboardProvider.categoryImages,
+              (){}
+            ),
             sizedBox(height * 0.04, 0.0),
             headingAndSeeAllButton(width, "Suggestions For You"),
             sizedBox(10.0, 0.0),
             SuggestionsForYouRow(
-                width, height, DashboardProvider.SuggestionsHotel, () {}),
+                width,
+                height,
+                DashboardProvider.SuggestionsHotel,
+                () {}),
             sizedBox(height * 0.03, 0.0),
             headingAndSeeAllButton(width, "Popular Hotels"),
             sizedBox(10.0, 0.0),
@@ -83,20 +155,36 @@ class DashBoard extends StatelessWidget {
     );
   }
 
-// This Method is To Display "See all" Button in the DashBoard Every where
-  Widget headingAndSeeAllButton(width, text) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: width * 0.06),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(text, style: mediumTextStyleLight),
-          Text(
-            "See all",
-            style: smallTextStyle,
-          )
-        ],
+  // This an category Box with container and it looks like button, when clicked the Button change the color of the button to Black
+  Widget CategoryTextButtons(height, width, index) {
+    return Consumer<DashBoardProvider>(
+      builder: (context, value, child) => InkWell(
+        onTap: () {
+          //This Method is changing Button Color with Index
+          value.setCategoryButtonColor(index);
+        },
+        child: Container(
+          height: height * 0.0685,
+          padding: EdgeInsets.symmetric(
+            horizontal: width * 0.05,
+          ),
+          decoration: BoxDecoration(
+            color: value.selectedCategoryIndex == index
+                ? primarycolor
+                : shadeColor, // white shade color
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Center(
+            //========================================================Category Text
+            child: Text(
+              value.categories[index],
+              style: value.selectedCategoryIndex ==
+                      index // when selected button Index and list index is same
+                  ? whiteSmallTextStyle // white text  style for selected category button
+                  : smallTextStyle, // Black text Style
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -123,7 +211,9 @@ class DashBoard extends StatelessWidget {
                 ),
                 child: Image(
                   fit: BoxFit.fill,
-                  image: AssetImage(suggestionsHotel[index].image),
+                  image: AssetImage(
+                    suggestionsHotel[index].image
+                  ),
                 ),
               ),
             ),
@@ -159,17 +249,16 @@ class DashBoard extends StatelessWidget {
       ),
     );
   }
-
 // this Method is List Which Type of Stay Rooms in the App, Displaying The Categories by a row
 //It has A image and a text and its Scrollable
-  Widget categoriesList(width, height, categoryList, ontap) {
+  Widget categoriesList(width, height, categoryName, categoryImages,ontap) {
     return SizedBox(
       width: width,
       height: height * 0.058,
       child: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: width * 0.06),
         scrollDirection: Axis.horizontal,
-        itemCount: categoryList.length,
+        itemCount: categoryName.length,
         itemBuilder: (context, index) => InkWell(
           onTap: ontap,
           child: Container(
@@ -180,7 +269,6 @@ class DashBoard extends StatelessWidget {
                 color: blueColorShadeLight,
                 borderRadius: BorderRadius.circular(10)),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
                   padding: EdgeInsets.only(
@@ -189,7 +277,7 @@ class DashBoard extends StatelessWidget {
                       right: width * 0.01),
                   child: Image(
                     image: AssetImage(
-                      categoryList[index]["image"],
+                      categoryImages[index],
                     ),
                   ),
                 ),
@@ -197,11 +285,13 @@ class DashBoard extends StatelessWidget {
                   width: width * 0.2,
                   child: Center(
                     child: Text(
-                      categoryList[index]["Name"],
+                      categoryName[index],
                       style: smallTextStyle,
                     ),
                   ),
                 ),
+                sizedBox(0.0, width * 0.0035),
+                Text("3D View", style: whiteLightTextStyle)
               ],
             ),
           ),
@@ -210,7 +300,7 @@ class DashBoard extends StatelessWidget {
     );
   }
 
-// this method showing Popular Hotels List in the Screen
+// this method showing Popular Hotels List in the Screen 
   Widget PopularHotelscolumn(width, height, popularHotels, ontap) {
     return ListView.builder(
       shrinkWrap: true,
@@ -277,8 +367,7 @@ class DashBoard extends StatelessWidget {
                               color: orangeColor,
                             ),
                             sizedBox(0.0, 10.0),
-                            Text("${popularHotels[index].rating}",
-                                style: whiteSmallTextStyle)
+                            Text("${popularHotels[index].rating}", style: whiteSmallTextStyle)
                           ],
                         ),
                         RichText(

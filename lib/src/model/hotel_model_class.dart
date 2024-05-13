@@ -1,7 +1,7 @@
 class Hotel {
   final String name;
-  final String image;
-  final double price;
+  final List <String> image;
+  final int price;
   final double rating;
   final String location;
   const Hotel({
