@@ -1,5 +1,4 @@
 import 'package:abodein/src/view/common_Widgets/icon.dart';
-import 'package:abodein/src/view/hotel_details.dart/hotel_details_screen.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
@@ -14,102 +13,24 @@ class DashBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final dashboardProvider =
-        Provider.of<DashBoardProvider>(context, listen: false);
-
+    final dashboardProvider = Provider.of<DashBoardProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: CustomScrollView(
-        // ---------------------------------------------------------------------- Costom App bar For silver App Bar
         slivers: <Widget>[
-          SliverAppBar(
-            //------------------------------------------------------------------ Pinned App Bar ( Silver App Bar For Floating False)
-            surfaceTintColor: backgroundColor,
-            backgroundColor: backgroundColor,
-            leadingWidth: width * 0.54,
-            leading: Padding(
-              padding: EdgeInsets.only(left: width * 0.04, top: 5),
-              child: Text("Discover", style: largeTextStyle),
-            ),
-            actions: [
-              CircleAvatar(
-                radius: height * 0.03,
-                backgroundColor: shadeColor,
-                child: Center(
-                  child: AppIcon(
-                    iconData: Icons.search_outlined,
-                    color: greyShadeDark,
-                    height: height * 0.03,
-                  ),
-                ),
-              ),
-              sizedBox(0.0, width * 0.025),
-              CircleAvatar(
-                radius: height * 0.03,
-                backgroundColor: shadeColor,
-                child: Center(
-                  child: AppIcon(
-                    iconData: Icons.notifications_outlined,
-                    color: greyShadeDark,
-                    height: height * 0.03,
-                  ),
-                ),
-              ),
-              sizedBox(0.0, width * 0.04),
-            ],
-          ),
+          // Silver App Bar For custumization, utilize un Floatable App Bar
+          SilverAppBar(width, height),
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                sizedBox(height * 0.03, 0.0),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-                    child: Row(
-                      children: [
-                        Wrap(
-                          spacing: width * 0.025,
-                          children: List.generate(
-                            dashboardProvider.categories.length,
-                            (index) => Consumer<DashBoardProvider>(
-                              builder: (context, value, child) => InkWell(
-                                onTap: () {
-                                  value.setCategoryButtonColor(index);
-                                },
-                                child: Container(
-                                  height: height * 0.063,
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: width * 0.05,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: value.selectedCategoryIndex == index
-                                        ? primarycolor
-                                        : shadeColor,
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      dashboardProvider.categories[index],
-                                      style:
-                                          value.selectedCategoryIndex == index
-                                              ? whiteSmallTextStyle
-                                              : smallTextStyle,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                sizedBox(height * 0.025, 0.0),
+                //==================================================== The Category Horizontal List With List Generator wrap with Wrap Widget
+                CategoryLayoutRow(height, width, dashboardProvider),
                 sizedBox(height * 0.03, 0.0),
                 SizedBox(
                   height: height * 0.29,
                   width: width,
+                  //========================================================= ListView Builder ================================================
                   child: ListView.builder(
                     padding: EdgeInsets.symmetric(horizontal: width * 0.04),
                     scrollDirection: Axis.horizontal,
@@ -117,118 +38,33 @@ class DashBoard extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (context, index) => Stack(
                       children: [
-                        Container(
-                          width: width * 0.6,
+                        // Square Box Under The Categories List with Hotel Image And it Details
+                        SquereBoxWithImages(width, height),
+                        //================================================ Rating Icon & Text ===========================================
+                        RatingBoxTransparant(
                           height: height,
-                          margin: EdgeInsets.only(right: width * 0.04),
-                          decoration: BoxDecoration(
-                            color: shadeColor,
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: Image(
-                            fit: BoxFit.fill,
-                            image: AssetImage(
-                                "assets/images/suggetion_hotel_image_2.png"),
-                          ),
-                        ),
-                        // ============================================================================================================
-                        //======================================================= Rating Icon & Text ===========================================
-                        Positioned(
+                          width: width,
+                          rating: 4.8,
                           top: height * 0.015,
                           left: width * 0.02,
-                          child: Container(
-                            height: height * 0.053,
-                            padding: EdgeInsets.only(right: width * 0.02),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              color: transparantColor,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(height * 0.006),
-                              child: Row(
-                                children: [
-                                  CircleAvatar(
-                                    radius: height * 0.022,
-                                    backgroundColor: transparantColor,
-                                    child: Center(
-                                      child: AppIcon(
-                                        iconData: Icons.star_border_outlined,
-                                        color: backgroundColor,
-                                        height: height * 0.022,
-                                      ),
-                                    ),
-                                  ),
-                                  sizedBox(0.0, width * 0.0035),
-                                  Text("4.8", style: whiteSmallTextStyle)
-                                ],
-                              ),
-                            ),
-                          ),
                         ),
-                        // ============================================================================================================
-                        //================================================== 3D View ======================================================
-                        Positioned(
+                        //========================================= 3D View TransParant Box ======================================================
+                        ThreeDView(
                           top: height * 0.015,
                           right: width * 0.06,
-                          child: Container(
-                            height: height * 0.053,
-                            padding: EdgeInsets.only(right: width * 0.02),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              color: transparantColor,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(height * 0.006),
-                              child: Row(
-                                children: [
-                                  CircleAvatar(
-                                    radius: height * 0.022,
-                                    backgroundColor: transparantColor,
-                                    child: Center(
-                                      child: AppIcon(
-                                        iconData: Icons.share_outlined,
-                                        color: backgroundColor,
-                                        height: height * 0.022,
-                                      ),
-                                    ),
-                                  ),
-                                  sizedBox(0.0, width * 0.0035),
-                                  Text("3D View", style: whiteSmallTextStyle)
-                                ],
-                              ),
-                            ),
-                          ),
+                          onTap: () {},
+                          height: height,
+                          width: width,
                         ),
-                        // ============================================================================================================
-                        //================================================== Price $ Booking Person Count ======================================================
-                        Positioned(
+                        // This Class Price $ Booking Person Count, and it passing Bottom positioned,left Positione,Right Positioned, City Name, Location Of Hotel, Price of Hotel and person count
+                        PriceAndBookingPersons(
                           bottom: height * 0.015,
                           left: width * 0.04,
                           right: width * 0.075,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Bankok", style: whiteSmallTextStyle),
-                                  Text("Phuket", style: whiteMediumTextStyle)
-                                ],
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  text: "\$${599}",
-                                  style: whiteMediumTextStyle,
-                                  children: [
-                                    TextSpan(
-                                      text: "/${2}Persons",
-                                      style: whiteSmallTextStyle,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                          city: "Bankok",
+                          location: "Phuket",
+                          price: 599,
+                          personCount: 2,
                         ),
                       ],
                     ),
@@ -240,7 +76,7 @@ class DashBoard extends StatelessWidget {
                   child: Text("Top Destination", style: largeTextStyle),
                 ),
                 sizedBox(height * 0.015, 0.0),
-                //=======================================================================================================================================
+                //====================================== ListView Builder ========= Top Destination ===========================================================================
                 ListView.builder(
                   itemCount: 2,
                   physics: NeverScrollableScrollPhysics(),
@@ -249,7 +85,7 @@ class DashBoard extends StatelessWidget {
                   itemBuilder: (context, index) => Stack(
                     children: [
                       Container(
-                        height: height * 0.265,
+                        height: height * 0.3,
                         width: width,
                         margin: EdgeInsets.only(bottom: height * 0.02),
                         decoration: BoxDecoration(
@@ -262,138 +98,38 @@ class DashBoard extends StatelessWidget {
                               "assets/images/popular_hotel_image_3.png"),
                         ),
                       ),
-                      // ============================================================================================================
-                      //================================================== 3D View ======================================================
-                      Positioned(
-                        top: height * 0.015,
-                        right: width * 0.03,
-                        child: Container(
-                          height: height * 0.0505,
-                          padding: EdgeInsets.only(right: width * 0.02),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: transparantColor,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(height * 0.006),
-                            child: Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: height * 0.022,
-                                  backgroundColor: transparantColor,
-                                  child: Center(
-                                    child: AppIcon(
-                                      iconData: Icons.share_outlined,
-                                      color: backgroundColor,
-                                      height: height * 0.022,
-                                    ),
-                                  ),
-                                ),
-                                sizedBox(0.0, width * 0.0035),
-                                Text("3D View", style: whiteSmallTextStyle)
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      // ============================================================================================================
-                      //======================================================= Rating Icon & Text ===========================================
-                      Positioned(
-                        top: height * 0.015,
-                        right: width * 0.35,
-                        child: Container(
-                          height: height * 0.0505,
-                          padding: EdgeInsets.only(right: width * 0.02),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: transparantColor,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(height * 0.005),
-                            child: Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: height * 0.022,
-                                  backgroundColor: transparantColor,
-                                  child: Center(
-                                    child: AppIcon(
-                                      iconData: Icons.star_border_outlined,
-                                      color: backgroundColor,
-                                      height: height * 0.022,
-                                    ),
-                                  ),
-                                ),
-                                sizedBox(0.0, width * 0.0035),
-                                Text("4.8", style: whiteSmallTextStyle)
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      // ============================================================================================================
                       //======================================================= Map & Map View ===========================================
-                      Positioned(
+                      MapViewButton(
+                        height: height,
+                        width: width,
                         top: height * 0.015,
                         left: width * 0.03,
-                        child: Container(
-                          height: height * 0.0505,
-                          padding: EdgeInsets.only(right: width * 0.02),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: transparantColor,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(height * 0.005),
-                            child: Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: height * 0.022,
-                                  backgroundColor: transparantColor,
-                                  child: Center(
-                                    child: AppIcon(
-                                      iconData: Icons.map_outlined,
-                                      color: backgroundColor,
-                                      height: height * 0.022,
-                                    ),
-                                  ),
-                                ),
-                                sizedBox(0.0, width * 0.0035),
-                                Text("Map", style: whiteSmallTextStyle)
-                              ],
-                            ),
-                          ),
-                        ),
                       ),
-                      // ============================================================================================================
-                      //================================================== Price $ Booking Person Count ======================================================
-                      Positioned(
-                        bottom: height * 0.04,
+                      //======================================================= Rating Icon & Text ===========================================
+                      RatingBoxTransparant(
+                        top: height * 0.015,
+                        right: width * 0.31,
+                        height: height,
+                        width: width,
+                        rating: 4.8,
+                      ),
+                      //================================================== 3D View Transparant Box ============================================
+                      ThreeDView(
+                        top: height * 0.015,
+                        right: width * 0.03,
+                        onTap: () {},
+                        height: height,
+                        width: width,
+                      ),
+                      //================================================== Price $ Booking Person Count ===================================
+                      PriceAndBookingPersons(
+                        bottom: height * 0.038,
                         left: width * 0.04,
-                        right: width * 0.05,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Bankok", style: whiteSmallTextStyle),
-                                Text("Phuket", style: whiteMediumTextStyle)
-                              ],
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                text: "\$${599}",
-                                style: whiteMediumTextStyle,
-                                children: [
-                                  TextSpan(
-                                    text: "/${2}Persons",
-                                    style: whiteSmallTextStyle,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                        right: width * 0.04,
+                        city: "Bankok",
+                        location: "phuket",
+                        price: 589,
+                        personCount: 4,
                       ),
                     ],
                   ),
@@ -403,153 +139,69 @@ class DashBoard extends StatelessWidget {
           ),
         ],
       ),
+      //=========================================================== Botton Navigation Bar
+      // bottomNavigationBar: BottomNavigationBar(items: [
+      //   BottomNavigationBarItem(icon: Icon(Icons.abc_outlined))
+      // ])
     );
   }
 
-// This Method is To Display "See all" Button in the DashBoard Every where
-  Widget headingAndSeeAllButton(width, text) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: width * 0.06),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(text, style: mediumTextStyleLight),
-          Text(
-            // ------------------- See All Button
-            "See all",
-            style: smallTextStyle,
-          ),
-        ],
+  // Silver App Bar for Customization, Utilize This Method Unfloatable AppBar and It Has a Title, Search Icon, Notification Icon
+  Widget SilverAppBar(width, height) {
+    return SliverAppBar(
+      //====================================================== Silver App Bar For Customization, I make this AppBar Un Floatable
+      surfaceTintColor: backgroundColor,
+      backgroundColor: backgroundColor,
+      leadingWidth: width * 0.54,
+      title: Padding(
+        padding: EdgeInsets.only(left: width * 0.006, top: 5),
+        child: Text("Discover", style: largeTextStyle),
       ),
+      actions: [
+        //========================================================================= Search Icon
+        CircleAvatar(
+          radius: height * 0.032,
+          backgroundColor: shadeColor,
+          child: Center(
+            child: AppIcon(
+              iconData: Icons.search_outlined,
+              color: greyShadeDark,
+              height: height * 0.03,
+            ),
+          ),
+        ),
+        sizedBox(0.0, width * 0.025),
+        //================================================================ Notification Icon
+        CircleAvatar(
+          radius: height * 0.032,
+          backgroundColor: shadeColor,
+          child: Center(
+            child: AppIcon(
+              iconData: Icons.notifications_outlined,
+              color: greyShadeDark,
+              height: height * 0.03,
+            ),
+          ),
+        ),
+        sizedBox(0.0, width * 0.04),
+      ],
     );
   }
 
-  Widget SuggestionsForYouRow(width, height, suggestionsHotel) {
-    return Container(
-      color: backgroundColor,
-      width: width,
-      height: height * 0.35,
-      //---------------------------------------------------- List View Builder
-      child: ListView.builder(
-        padding: EdgeInsets.symmetric(
-          horizontal: width * 0.06,
-          vertical: height * 0.008,
-        ),
-        scrollDirection: Axis.horizontal,
-        itemCount: suggestionsHotel.length,
-        itemBuilder: (context, index) => Stack(
+  //This Method shows category Layout Button, it Implement with wrap Widget
+  Widget CategoryLayoutRow(height, width, dashboardProvider) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+        child: Row(
           children: [
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    //---------Navigating to Hotel Detaile Page [Hotel Image, Hotel Name, Location, Price, Rating]
-                    builder: (context) => HotelDetailePage(
-                      images: suggestionsHotel[index].image,
-                      hotelName: suggestionsHotel[index].name,
-                      location: suggestionsHotel[index].location,
-                      price: suggestionsHotel[index].price,
-                      rating: suggestionsHotel[index].rating,
-                    ),
-                  ),
-                );
-              },
-              child: Container(
-                width: width * 0.60,
-                margin: EdgeInsets.only(right: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: backgroundColor,
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(-0.5, 1),
-                      color: greyShadeLight,
-                      blurRadius: 2,
-                    ),
-                  ],
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: width * 0.03,
-                    vertical: height * 0.013,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: height * 0.23,
-                        width: width,
-                        child: Image(
-                          fit: BoxFit.fill,
-                          image: AssetImage(
-                            // ----------------------------------- Hotel Image
-                            suggestionsHotel[index].image[0],
-                          ),
-                        ),
-                      ),
-                      sizedBox(height * 0.015, 0.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            //------------------------------------------- Hotel Name
-                            "Lux Hotel",
-                            style: mediumTextStyleSemiBold,
-                          ),
-                          Row(
-                            children: [
-                              //------------------------------------ Rating Star Icon
-                              AppIcon(
-                                iconData: Icons.star,
-                                color: orangeColor,
-                                height: height,
-                              ),
-                              sizedBox(0.0, width * 0.01),
-                              Text(
-                                // ------------------------------------------- Hotel Rating
-                                "${suggestionsHotel[index].rating}",
-                                style: smallTextStyle,
-                              ),
-                              sizedBox(0.0, width * 0.01),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              // -------------------------------------- Location Icon
-                              AppIcon(
-                                iconData: Icons.location_on,
-                                color: greyShadeMedium,
-                                height: height,
-                              ),
-                              sizedBox(0.0, width * 0.01),
-                              Text(
-                                // -------------------------------------------- Hotel Location
-                                suggestionsHotel[index].location,
-                                style: smallTextStyle,
-                              ),
-                            ],
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              //----------------------------------------------------- Hotel Price
-                              text: "${suggestionsHotel[index].price}",
-                              style: smallTextStyleSemiBold,
-                              children: [
-                                TextSpan(text: "/Night", style: smallTextStyle),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+            //  Wrap widget for Layout Box
+            Wrap(
+              spacing: width * 0.025,
+              children: List.generate(
+                dashboardProvider.categories.length,
+                (index) => CategoryTextButtons(height, width, index),
               ),
             ),
           ],
@@ -558,65 +210,33 @@ class DashBoard extends StatelessWidget {
     );
   }
 
-// this Method is List Which Type of Stay Rooms in the App, Displaying The Categories by a row
-//It has A image and a text and its Scrollable
-  Widget categoriesList(width, height, categoryList, ontap) {
-    return SizedBox(
-      width: width,
-      height: height * 0.07,
-      child: ListView.builder(
-        // -----------------------------------------ListView Builder
-        padding: EdgeInsets.symmetric(
-          horizontal: width * 0.06,
-          vertical: height * 0.004,
-        ),
-        scrollDirection: Axis.horizontal,
-        itemCount: categoryList.length,
-        itemBuilder: (context, index) => InkWell(
-          onTap: ontap,
-          child: Container(
-            //----------------------------------------------------- Category Box
-            height: height * 0.04,
-            width: width * 0.33,
-            margin: EdgeInsets.only(right: 15),
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(-1, 1),
-                  color: greyShadeLight,
-                  blurRadius: 2,
-                )
-              ],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: width * 0.015,
-                      top: height * 0.006,
-                      right: width * 0.01),
-                  child: Image(
-                    //------------------------------------------------------ Category Image
-                    image: AssetImage(
-                      categoryList[index]["image"],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: width * 0.16,
-                  height: height * 0.053,
-                  child: Center(
-                    child: Text(
-                      // ---------------------------------------------------- Category Name
-                      categoryList[index]["Name"],
-                      style: smallTextStyleSemiBold,
-                    ),
-                  ),
-                ),
-              ],
+  // This an category Box with container and it looks like button, when clicked the Button change the color of the button to Black
+  Widget CategoryTextButtons(height, width, index) {
+    return Consumer<DashBoardProvider>(
+      builder: (context, value, child) => InkWell(
+        onTap: () {
+          //This Method is changing Button Color with Index
+          value.setCategoryButtonColor(index);
+        },
+        child: Container(
+          height: height * 0.0685,
+          padding: EdgeInsets.symmetric(
+            horizontal: width * 0.05,
+          ),
+          decoration: BoxDecoration(
+            color: value.selectedCategoryIndex == index
+                ? primarycolor
+                : shadeColor, // white shade color
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Center(
+            //========================================================Category Text
+            child: Text(
+              value.categories[index],
+              style: value.selectedCategoryIndex ==
+                      index // when selected button Index and list index is same
+                  ? whiteSmallTextStyle // white text  style for selected category button
+                  : smallTextStyle, // Black text Style
             ),
           ),
         ),
@@ -624,117 +244,238 @@ class DashBoard extends StatelessWidget {
     );
   }
 
-// this method showing Popular Hotels List in the Screen
-  Widget PopularHotelscolumn(width, height, popularHotels) {
-    return GridView.builder(
-      //----------------------------------Grid View Builder
-      physics: NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.only(
-        left: width * 0.06,
-        right: width * 0.06,
-        bottom: height * 0.04,
+  // This Method Shows A Square Buttons with images, it Listing Hotels
+  Widget SquereBoxWithImages(width, height) {
+    return Container(
+      width: width * 0.6,
+      height: height,
+      margin: EdgeInsets.only(right: width * 0.04),
+      decoration: BoxDecoration(
+        color: shadeColor,
+        borderRadius: BorderRadius.circular(25),
       ),
-      shrinkWrap: true,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, // Set the number of columns in the grid
-        crossAxisSpacing: 15,
-        mainAxisSpacing: 15,
-        childAspectRatio: 6.5 / 10,
+      child: Image(
+        fit: BoxFit.fill,
+        image: AssetImage("assets/images/suggetion_hotel_image_2.png"),
       ),
-      itemCount: 3,
-      itemBuilder: (context, index) => InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              //----------------------------------------- Navigating to Hotel Detaile Page with [Image, Name, Location, Price, Rating] By parameter
-              builder: (context) => HotelDetailePage(
-                images: popularHotels[index].image,
-                hotelName: popularHotels[index].name,
-                location: popularHotels[index].location,
-                price: popularHotels[index].price,
-                rating: popularHotels[index].rating,
+    );
+  }
+}
+
+// it shows A Transparant Box Of Rating, It Has Rating Icon and a Rating Text, And The Icon show on the circle Avatar
+class RatingBoxTransparant extends StatelessWidget {
+  final double height;
+  final double width;
+  final double rating;
+  final double? top;
+  final double? left;
+  final double? right;
+  final double? bottom;
+  const RatingBoxTransparant({
+    super.key,
+    required this.height,
+    required this.width,
+    required this.rating,
+    this.top,
+    this.left,
+    this.right,
+    this.bottom,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: top,
+      left: left,
+      right: right,
+      bottom: bottom,
+      child: Container(
+        height: height * 0.053,
+        padding: EdgeInsets.only(right: width * 0.025),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: transparantColor,
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(height * 0.006),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: height * 0.022,
+                backgroundColor: transparantColor,
+                child: Center(
+                  child: AppIcon(
+                    iconData: Icons.star_border_outlined,
+                    color: backgroundColor,
+                    height: height * 0.022,
+                  ),
+                ),
               ),
-            ),
-          );
-        },
-        child: Container(
-          //------------------------------------------ Container
-          padding: EdgeInsets.only(
-              right: width * 0.025,
-              left: width * 0.025,
-              top: height * 0.01,
-              bottom: height * 0.015),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              //-------------------------------------------- Box Shadow
-              BoxShadow(
-                offset: Offset(0, 2),
-                color: greyShadeLight,
-                blurRadius: 2,
-              )
+              sizedBox(0.0, width * 0.0035),
+              Text("${rating}", style: whiteLightTextStyle),
             ],
-            color: backgroundColor,
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        ),
+      ),
+    );
+  }
+}
+
+//This Class show Hotel price, Location and Booking for how many Persons
+class PriceAndBookingPersons extends StatelessWidget {
+  final double? top;
+  final double? left;
+  final double? right;
+  final double? bottom;
+  final String city;
+  final String location;
+  final int price;
+  final int personCount;
+  const PriceAndBookingPersons({
+    super.key,
+    this.top,
+    this.left,
+    this.right,
+    this.bottom,
+    required this.city,
+    required this.location,
+    required this.price,
+    required this.personCount,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: bottom,
+      left: left,
+      right: right,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: height * 0.14,
-                child: Image(
-                  image: AssetImage(
-                    //-------------------------------------------------- Popular Hotel Images
-                    popularHotels[index].image[0],
+              Text(city, style: whiteSmallTextStyle),
+              Text(location, style: whiteMediumTextStyle)
+            ],
+          ),
+          RichText(
+            text: TextSpan(
+              text: "\$${price}",
+              style: whiteMediumTextStyle,
+              children: [
+                TextSpan(
+                  text: "/${personCount}Persons",
+                  style: whiteLightTextStyle,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// it shows A Transparant Box Of 3d View, It Has Rating Icon and a Rating Text, And The Icon show on the circle Avatar
+class ThreeDView extends StatelessWidget {
+  final double top;
+  final double right;
+  final VoidCallback onTap;
+  final double height;
+  final double width;
+  const ThreeDView({
+    super.key,
+    required this.top,
+    required this.right,
+    required this.onTap,
+    required this.height,
+    required this.width,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: top,
+      right: right,
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          height: height * 0.053,
+          padding: EdgeInsets.only(right: width * 0.02),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            color: transparantColor,
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(height * 0.006),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: height * 0.022,
+                  backgroundColor: transparantColor,
+                  child: Center(
+                    child: AppIcon(
+                      iconData: Icons.share_outlined,
+                      color: backgroundColor,
+                      height: height * 0.022,
+                    ),
                   ),
-                  fit: BoxFit.fill,
+                ),
+                sizedBox(0.0, width * 0.0035),
+                Text("3D View", style: whiteLightTextStyle)
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+//This Class Shows The Map View Of The Hotel, It a button, and it Passing height, width, top, left by Parameter
+class MapViewButton extends StatelessWidget {
+  final double height;
+  final double width;
+  final double top;
+  final double left;
+  const MapViewButton({
+    super.key,
+    required this.height,
+    required this.width,
+    required this.top,
+    required this.left,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: top,
+      left: left,
+      child: Container(
+        height: height * 0.0505,
+        padding: EdgeInsets.only(right: width * 0.02),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: transparantColor,
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(height * 0.0055),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: height * 0.022,
+                backgroundColor: transparantColor,
+                child: Center(
+                  child: AppIcon(
+                    iconData: Icons.map_outlined,
+                    color: backgroundColor,
+                    height: height * 0.022,
+                  ),
                 ),
               ),
-              sizedBox(height * 0.01, 0.0),
-              //----------------------------------------------------------------- Popular Hotel Name
-              Text(popularHotels[index].name, style: mediumTextStyleSemiBold),
-              Row(
-                children: [
-                  AppIcon(
-                    iconData: Icons.location_on,
-                    color: greyShadeMedium,
-                    height: height,
-                  ),
-                  sizedBox(0.0, width * 0.01),
-                  Text(
-                    popularHotels[index]
-                        .location, // ---------------------------------- Location Icon
-                    style: smallTextStyle,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  AppIcon(
-                    // ---------------------------------------- Rating Star Icon
-                    iconData: Icons.star,
-                    color: orangeColor,
-                    height: height,
-                  ),
-                  sizedBox(0.0, width * 0.01),
-                  Text(
-                    // ------------------------------------------------Hotel Rating
-                    "${popularHotels[index].rating}",
-                    style: smallTextStyle,
-                  ),
-                ],
-              ),
-              RichText(
-                text: TextSpan(
-                  // ----------------------------------------------------- Hotel Price
-                  text: "${popularHotels[index].price}",
-                  style: smallTextStyleSemiBold,
-                  children: [
-                    TextSpan(text: "/Night", style: smallTextStyle),
-                  ],
-                ),
-              ),
+              sizedBox(0.0, width * 0.0035),
+              Text("Map", style: whiteLightTextStyle)
             ],
           ),
         ),
