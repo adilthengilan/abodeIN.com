@@ -139,10 +139,6 @@ class DashBoard extends StatelessWidget {
           ),
         ],
       ),
-      //=========================================================== Botton Navigation Bar
-      // bottomNavigationBar: BottomNavigationBar(items: [
-      //   BottomNavigationBarItem(icon: Icon(Icons.abc_outlined))
-      // ])
     );
   }
 
@@ -152,10 +148,7 @@ class DashBoard extends StatelessWidget {
       //====================================================== Silver App Bar For Customization, I make this AppBar Un Floatable
       surfaceTintColor: backgroundColor,
       backgroundColor: backgroundColor,
-      title: Padding(
-        padding: EdgeInsets.only(left: width * 0.006, top: 5),
-        child: Text("Discover", style: largeTextStyle),
-      ),
+      title: Text("Discover", style: largeTextStyle),
       actions: [
         //========================================================================= Search Icon
         CircleAvatar(
