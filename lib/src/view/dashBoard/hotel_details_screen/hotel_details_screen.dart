@@ -282,7 +282,7 @@ class HotelDetailePage extends StatelessWidget {
           sizedBox(height, width * 0.10),
           Text(
             "Book Now",
-            style: blackSmallTextStyle,
+            style: smallTextStyle,
           ),
           sizedBox(height, width * 0.20),
 

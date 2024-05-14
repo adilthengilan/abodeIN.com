@@ -29,7 +29,7 @@ class GetStartedScreen extends StatelessWidget {
             margin: EdgeInsets.only(top: 550, left: 10),
             child: Text(
               "Easy way to\nbook your hotel\nwith us!",
-              style: mediumTextStyle,
+              style: whiteLargeTextStyle,
               textAlign: TextAlign.start,
             ),
           ),
@@ -93,9 +93,7 @@ class GetStartedScreen extends StatelessWidget {
                         //       builder: (context) => DashBoard(),
                         //     ));
                       },
-                      onDragCompleted: () {
-                        
-                      },
+                      onDragCompleted: () {},
                     ),
                     sizedBox(height, width * 0.04),
                     Icon(
