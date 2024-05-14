@@ -2,6 +2,13 @@ import 'package:abodein/src/model/hotel_model_class.dart';
 import 'package:flutter/material.dart';
 
 class DashBoardProvider extends ChangeNotifier {
+  int selectedCategoryIndex = 0;
+
+  void setCategoryButtonColor(index) {
+    selectedCategoryIndex = index;
+    notifyListeners();
+  }
+
   List<dynamic> categories = [
     {
       "Name": "Hotels",
