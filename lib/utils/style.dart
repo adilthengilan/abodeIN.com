@@ -86,26 +86,3 @@ final TextStyle whiteLightTextStyle = GoogleFonts.poppins(
     fontWeight: FontWeight.w400,
   ),
 );
-
-final List<BoxShadow> containerBoxShadow = [
-  BoxShadow(
-    color: Color.fromARGB(255, 205, 205, 205), // Shadow color
-    spreadRadius: 0.5,
-    blurRadius: 2,
-    offset: Offset(0, 1), // Bottom shadow
-  ),
-  BoxShadow(
-    color: Color.fromARGB(255, 239, 239, 239), // Shadow color
-    offset: Offset(1.5, 0), // Right shadow
-  ),
-  BoxShadow(
-    color: Color.fromARGB(255, 205, 205, 205), // Shadow color
-    spreadRadius: 1,
-    blurRadius: 1,
-    offset: Offset(0, -1), // Top shadow
-  ),
-  BoxShadow(
-    color: Color.fromARGB(255, 239, 239, 239), // Shadow color
-    offset: Offset(-3, 0), // Left shadow
-  ),
-];

@@ -5,16 +5,22 @@ import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_location_search/flutter_location_search.dart';
 
-class DashBoard extends StatelessWidget {
+class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
 
+  @override
+  State<DashBoard> createState() => _DashBoardState();
+}
+
+class _DashBoardState extends State<DashBoard> {
+  String locationText = "London";
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final dashboardProvider =
-        Provider.of<DashBoardProvider>(context, listen: false);
+    final dashboardProvider = Provider.of<DashBoardProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: CustomScrollView(
@@ -31,7 +37,7 @@ class DashBoard extends StatelessWidget {
                 SizedBox(
                   height: height * 0.29,
                   width: width,
-                  //========================================================= ListView Builder ================================================
+                  //================================================================= ListView Builder ============================================
                   child: ListView.builder(
                     padding: EdgeInsets.symmetric(horizontal: width * 0.04),
                     scrollDirection: Axis.horizontal,
@@ -41,7 +47,7 @@ class DashBoard extends StatelessWidget {
                       children: [
                         // Square Box Under The Categories List with Hotel Image And it Details
                         SquereBoxWithImages(width, height),
-                        //================================================ Rating Icon & Text ===========================================
+                        //=========================================================== Rating Icon & Text ===========================================
                         RatingBoxTransparant(
                           height: height,
                           width: width,
@@ -49,7 +55,7 @@ class DashBoard extends StatelessWidget {
                           top: height * 0.015,
                           left: width * 0.02,
                         ),
-                        //========================================= 3D View TransParant Box ======================================================
+                        //=========================================================== 3D View TransParant Box =======================================
                         ThreeDView(
                           top: height * 0.015,
                           right: width * 0.06,
@@ -83,14 +89,16 @@ class DashBoard extends StatelessWidget {
                       //======================================================== Top Destination ========================================
                       Text("Top Destination", style: largeTextStyle),
                       InkWell(
-                        onTap: (){},
+                        borderRadius: BorderRadius.circular(50),
+                        onTap: () {},
                         child: Container(
                           height: height * 0.05,
                           width: width * 0.095,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: backgroundColor,
-                            border: Border.all(color: greyShadeDark),
+                            border:
+                                Border.all(color: greyShadeLight, width: 0.5),
                           ),
                           // =========================================================== View all Button ====================================
                           child: Center(
@@ -106,29 +114,35 @@ class DashBoard extends StatelessWidget {
                   ),
                 ),
                 sizedBox(height * 0.015, 0.0),
-                //====================================== ListView Builder ========= Top Destination ===========================================================================
+                //==================================================== ListView Builder ========= Top Destination ==============================================
                 ListView.builder(
-                  itemCount: 2,
+                  itemCount: 5,
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   padding: EdgeInsets.symmetric(horizontal: width * 0.04),
                   itemBuilder: (context, index) => Stack(
                     children: [
-                      Container(
-                        height: height * 0.3,
-                        width: width,
-                        margin: EdgeInsets.only(bottom: height * 0.02),
-                        decoration: BoxDecoration(
-                          color: shadeColor,
+                      Padding(
+                        padding: EdgeInsets.only(bottom: height * 0.02),
+                        child: InkWell(
                           borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: Image(
-                          fit: BoxFit.fill,
-                          image: AssetImage(
-                              "assets/images/popular_hotel_image_3.png"),
+                          onTap: () {},
+                          child: Container(
+                            height: height * 0.3,
+                            width: width,
+                            decoration: BoxDecoration(
+                              color: shadeColor,
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            child: Image(
+                              fit: BoxFit.fill,
+                              image: AssetImage(
+                                  "assets/images/popular_hotel_image_3.png"),
+                            ),
+                          ),
                         ),
                       ),
-                      //======================================================= Map & Map View ===========================================
+                      //======================================================= Map View Button ===========================================
                       MapViewButton(
                         height: height,
                         width: width,
@@ -172,36 +186,80 @@ class DashBoard extends StatelessWidget {
     );
   }
 
-  // Silver App Bar for Customization, Utilize This Method Unfloatable AppBar and It Has a Title, Search Icon, Notification Icon
+  // Silver App Bar for Customization, Utilize This Method Floatable AppBar and It Has a Title, Search Icon and Notification Icon
   Widget SilverAppBar(width, height) {
     return SliverAppBar(
-      //====================================================== Silver App Bar For Customization, I make this AppBar Un Floatable
+      //====================================================== Silver App Bar For Customization, I make this AppBar Floatable
       surfaceTintColor: backgroundColor,
       backgroundColor: backgroundColor,
-      title: Text("Discover", style: largeTextStyle),
+      floating: true,
+      toolbarHeight: height * 0.09,
+      title: Text(
+        locationText,
+        // "Discover",
+        style: smallTextStyle,
+      ),
       actions: [
-        //========================================================================= Search Icon
-        CircleAvatar(
-          radius: height * 0.032,
-          backgroundColor: shadeColor,
-          child: Center(
-            child: AppIcon(
-              iconData: Icons.search_outlined,
-              color: greyShadeDark,
-              height: height * 0.03,
+        //================================================================= Search Icon ==========================================
+        Consumer<DashBoardProvider>(
+          builder: (context, value, child) => InkWell(
+            borderRadius: BorderRadius.circular(50),
+            onTap: () async {
+              // LocationData? locationData = await LocationSearch.show(
+              //   context: context,
+              //   lightAdress: true,
+              //   mode: Mode.fullscreen,
+              //   language: 'en',
+              //   iconColor: greyShadeMedium,
+              //   historyMaxLength: 10,
+              //   searchBarTextColor: shadeColor,
+              // );
+              // value.setLocationAddress(locationData!.address);
+            },
+            child: CircleAvatar(
+              radius: height * 0.032,
+              backgroundColor: shadeColor,
+              child: Center(
+                child: AppIcon(
+                  iconData: Icons.location_on_outlined,
+                  color: greyShadeDark,
+                  height: height * 0.03,
+                ),
+              ),
             ),
           ),
         ),
         sizedBox(0.0, width * 0.015),
-        //================================================================ Notification Icon
-        CircleAvatar(
-          radius: height * 0.032,
-          backgroundColor: shadeColor,
-          child: Center(
-            child: AppIcon(
-              iconData: Icons.notifications_outlined,
-              color: greyShadeDark,
-              height: height * 0.03,
+        //================================================================= Search Button ==========================================
+        InkWell(
+          borderRadius: BorderRadius.circular(50),
+          onTap: () {},
+          child: CircleAvatar(
+            radius: height * 0.032,
+            backgroundColor: shadeColor,
+            child: Center(
+              child: AppIcon(
+                iconData: Icons.search_rounded,
+                color: greyShadeDark,
+                height: height * 0.03,
+              ),
+            ),
+          ),
+        ),
+        sizedBox(0.0, width * 0.015),
+        //================================================================ Notification Icon =========================================
+        InkWell(
+          borderRadius: BorderRadius.circular(50),
+          onTap: () {},
+          child: CircleAvatar(
+            radius: height * 0.032,
+            backgroundColor: shadeColor,
+            child: Center(
+              child: AppIcon(
+                iconData: Icons.notifications_outlined,
+                color: greyShadeDark,
+                height: height * 0.03,
+              ),
             ),
           ),
         ),
@@ -236,6 +294,7 @@ class DashBoard extends StatelessWidget {
   Widget CategoryTextButtons(height, width, index) {
     return Consumer<DashBoardProvider>(
       builder: (context, value, child) => InkWell(
+        borderRadius: BorderRadius.circular(30),
         onTap: () {
           //This Method is changing Button Color with Index
           value.setCategoryButtonColor(index);
@@ -252,7 +311,7 @@ class DashBoard extends StatelessWidget {
             borderRadius: BorderRadius.circular(30),
           ),
           child: Center(
-            //========================================================Category Text
+            //======================================================== Category Text ===============================================
             child: Text(
               value.categories[index],
               style: value.selectedCategoryIndex ==
@@ -268,17 +327,23 @@ class DashBoard extends StatelessWidget {
 
   // This Method Shows A Square Buttons with images, it Listing Hotels
   Widget SquereBoxWithImages(width, height) {
-    return Container(
-      width: width * 0.6,
-      height: height,
-      margin: EdgeInsets.only(right: width * 0.04),
-      decoration: BoxDecoration(
-        color: shadeColor,
+    return Padding(
+      padding: EdgeInsets.only(right: width * 0.04),
+      child: InkWell(
         borderRadius: BorderRadius.circular(25),
-      ),
-      child: Image(
-        fit: BoxFit.fill,
-        image: AssetImage("assets/images/suggetion_hotel_image_2.png"),
+        onTap: () {},
+        child: Container(
+          width: width * 0.58,
+          height: height,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage("assets/images/suggetion_hotel_image_2.png"),
+            ),
+            color: shadeColor,
+            borderRadius: BorderRadius.circular(25),
+          ),
+        ),
       ),
     );
   }

@@ -39,6 +39,8 @@ dependencies:
   provider: ^6.1.2
   firebase_core: ^2.24.2
   firebase_auth: ^4.16.0
+  flutter_floating_bottom_bar: ^1.2.0
+  flutter_location_search: ^1.1.4
 
 
 

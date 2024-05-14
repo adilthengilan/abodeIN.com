@@ -1,3 +1,4 @@
+import 'package:abodein/src/view/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 
