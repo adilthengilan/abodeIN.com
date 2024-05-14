@@ -20,6 +20,38 @@ class AppTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
+      child: Container(
+        height: 60,
+        width: width,
+        margin: EdgeInsets.symmetric(horizontal: width * 0.06),
+        decoration: BoxDecoration(
+          color: primarycolor,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Center(
+          child: Text(text, style: buttonTextStyle),
+        ),
+      ),
+    );
+  }
+}
+
+class AppDragButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+  final double height;
+  final double width;
+  const AppDragButton(
+      {super.key,
+      required this.text,
+      required this.onPressed,
+      required this.height,
+      required this.width});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onPressed,
       child: Stack(children: [
         Container(
           margin: EdgeInsets.fromLTRB(250, 700, 10, 20),
@@ -30,7 +62,7 @@ class AppTextButton extends StatelessWidget {
               color: const Color.fromARGB(255, 214, 212, 212)),
           child: Row(
             children: [
-//       widget to be dragged____________________________________
+              //       widget to be dragged____________________________________
               Draggable(
                 axis: Axis.horizontal,
                 feedback: Container(
@@ -67,7 +99,7 @@ class AppTextButton extends StatelessWidget {
                   onPressed;
                 },
               ),
-             
+
               sizedBox(height, width * 0.04),
               Icon(
                 Icons.arrow_forward_ios_outlined,
@@ -85,16 +117,4 @@ class AppTextButton extends StatelessWidget {
       ]),
     );
   }
-  // child: Container(
-  //   height: 60,
-  //   width: width,
-  //   margin: EdgeInsets.symmetric(horizontal: width * 0.06),
-  //   decoration: BoxDecoration(
-  //     color: primarycolor,
-  //     borderRadius: BorderRadius.circular(20),
-  //   ),
-  //   child: Center(
-  //     child: Text(text, style: buttonTextStyle),
-  //   ),
-  // ),
 }

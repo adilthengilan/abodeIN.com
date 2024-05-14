@@ -1,4 +1,3 @@
-
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/utils/app_colors.dart';

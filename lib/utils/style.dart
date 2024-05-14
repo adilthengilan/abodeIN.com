@@ -13,7 +13,7 @@ final TextStyle mediumTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 31,
     fontWeight: FontWeight.w500,
-    color: Colors.white,
+    color: Colors.black,
   ),
 );
 final TextStyle mediumTextStyleSemiBold = GoogleFonts.poppins(

@@ -6,6 +6,7 @@ import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -29,7 +30,9 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: height * 0.255),
-            Text('Login', style: mediumTextStyle),
+            Text('Login',
+                style: GoogleFonts.poppins(
+                    color: Colors.blue, fontWeight: FontWeight.w500)),
             SizedBox(height: height * 0.12),
             //---------------------------------- Here are the Text Field -----------------------------------------
 
@@ -89,8 +92,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 );
               },
-              height: height,
-              width: width,
+              height: height * 0.1,
+              width: width * 0.5,
             ),
             SizedBox(height: height * 0.034),
             Center(
