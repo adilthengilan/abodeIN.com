@@ -1,4 +1,4 @@
-import 'package:abodein/src/Utils/app_colors.dart';
+import 'package:abodein/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 
@@ -23,67 +23,104 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: height * 0.255),
-            Text('Login', style: mediumTextStyle),
-            SizedBox(height: height * 0.12),
-            //---------------------------------- Here are the Text Field -----------------------------------------
-
-            AppTextField(
-              controller: mobilenumbercontrollor,
-              hintText: "Mobile Number",
-              height: height,
-              width: width,
+            sizedBox(height * 0.3, width),
+            const Text(
+              'Login',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1),
             ),
-            sizedBox(height * 0.02, 0.0),
-            Padding(
-              padding: EdgeInsets.only(right: width * 0.04),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Use Email",
-                    style: blueSmallTextButtons,
-                  ),
-                ),
-              ),
-            ),
-            sizedBox(height * 0.039, 0.0),
-            //------------------------------------ Text Button --------------------------------------------------------------------
-            AppTextButton(
-              text: "Send Otp",
-              onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => OTPScreen()));
-              },
-              height: height,
-              width: width,
-            ),
-            SizedBox(height: height * 0.034),
-            Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Don't Have An Account?",
-                      textAlign: TextAlign.center, style: smallTextStyle),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => SignupScreen()));
-                    },
-                    child: Text('Signup', style: blueSmallTextButtons),
-                  )
-                ],
-              ),
-            )
+            sizedBox(height * 0.06, width),
+            _inputField("Mobile Number", mobilenumbercontrollor),
+            _buildemaillogin(),
+            _loginButton(),
+            _extraText(),
           ],
         ),
       ),
     );
   }
+
+  Widget _inputField(
+    String hintText,
+    TextEditingController controller,
+  ) {
+    var border = OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25),
+        borderSide: const BorderSide(color: Colors.grey));
+
+    return Padding(
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+      child: TextField(
+        style: const TextStyle(color: Colors.grey),
+        controller: controller,
+        decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: const TextStyle(color: Colors.grey),
+          enabledBorder: border,
+          focusedBorder: border,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildemaillogin() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(
+            "Use Email",
+            style: TextStyle(color: Colors.blue),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _loginButton() {
+    return Padding(
+      padding: const EdgeInsets.all(50),
+      child: ElevatedButton(
+        onPressed: () {},
+        child: const SizedBox(
+          width: double.infinity,
+          child: Text(
+            'Send Otp',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 15, color: Colors.white),
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+            shape: StadiumBorder(),
+            backgroundColor: primarycolor,
+            padding: const EdgeInsets.symmetric(vertical: 16)),
+      ),
+    );
+  }
 }
 
-Widget sizedBox(height, width,) {
+Widget _extraText() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      const Text(
+        "Don't Have An Account?",
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 16, color: Colors.black),
+      ),
+      const Text(
+        " Signup",
+        style: TextStyle(color: Colors.blue, fontSize: 16),
+      )
+    ],
+  );
+}
+
+Widget sizedBox(height, width) {
   return SizedBox(
     height: height,
     width: width,

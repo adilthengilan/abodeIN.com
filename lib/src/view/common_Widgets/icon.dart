@@ -20,3 +20,10 @@ class AppIcon extends StatelessWidget {
     );
   }
 }
+
+Widget sizedbox(height, width) {
+  return SizedBox(
+    height: height,
+    width: width,
+  );
+}

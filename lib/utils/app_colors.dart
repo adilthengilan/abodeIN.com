@@ -10,3 +10,8 @@ const Color orangeColor = Color.fromARGB(255, 250, 143, 29);
 const Color greyShadeLight = Color.fromARGB(255, 188, 188, 188);
 const Color greyShadeMedium = Color.fromARGB(255, 136, 136, 136);
 const Color greyShadeDark = Color.fromARGB(255, 136, 136, 136);
+const Color shadeColor = Color.fromARGB(216, 244, 244, 244);
+const Color transparantColor = Color.fromARGB(85, 147, 147, 147);
+
+const Color blackShadeColor = Colors.black;
+const Color transparantdrawerColor = Color.fromARGB(82, 54, 44, 44);

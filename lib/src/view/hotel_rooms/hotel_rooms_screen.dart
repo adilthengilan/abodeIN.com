@@ -35,7 +35,7 @@ class HotelRoomsScreen extends StatelessWidget {
               roomBookingDetailes(), //It Shows How many Rooms are available and its Rooms Category, and The Date of Booking Date
               sizedBox(height * 0.04, 0.0),
               // ---------------------------------------------------------- CHOOSE YOUR ROOM---------------------------
-              Text("Choose Your Room", style: mediumTextStyleSemiBold),
+              Text("Choose Your Room", style: mediumTextStyle),
               Text("Showing 2 of 2 rooms",
                   style: smallTextStyle), // AVAILABLE ROOMS COUNT
               sizedBox(height * 0.03, 0.0),
@@ -163,7 +163,7 @@ class HotelRoomsScreen extends StatelessWidget {
               ),
               child: Text(
                   "${hotelRoomProvider.RoomType[index]}", //--------------------- The Type Of Room like PREMIUM, STANDARD etc...
-                  style: mediumTextStyleSemiBold),
+                  style: mediumTextStyle),
             ),
             Padding(
               padding: EdgeInsets.only(
