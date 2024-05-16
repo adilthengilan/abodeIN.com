@@ -2,6 +2,7 @@ import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HotelDetailePage extends StatelessWidget {
   @override
@@ -86,7 +87,7 @@ class HotelDetailePage extends StatelessWidget {
             width: 370,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: transparantColor),
+                color: IcontransparantColor),
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> >  Map   >>>>>>>>>>>>>>>>>>>>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,13 +98,13 @@ class HotelDetailePage extends StatelessWidget {
                   width: width * 0.25,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: transparantColor,
+                    color: IcontransparantColor,
                   ),
                   child: Row(
                     children: [
                       CircleAvatar(
                         radius: height * 0.030,
-                        backgroundColor: transparantColor,
+                        backgroundColor: IcontransparantColor,
                         child: Center(
                           child: Icon(
                             Icons.map_outlined,
@@ -129,13 +130,13 @@ class HotelDetailePage extends StatelessWidget {
                   width: width * 0.25,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: transparantColor,
+                    color: IcontransparantColor,
                   ),
                   child: Row(
                     children: [
                       CircleAvatar(
                         radius: height * 0.030,
-                        backgroundColor: transparantColor,
+                        backgroundColor: IcontransparantColor,
                         child: Center(
                           child: Icon(
                             Icons.star_border_outlined,
@@ -155,13 +156,13 @@ class HotelDetailePage extends StatelessWidget {
                   width: width * 0.30,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: transparantColor,
+                    color: IcontransparantColor,
                   ),
                   child: Row(
                     children: [
                       CircleAvatar(
                         radius: height * 0.030,
-                        backgroundColor: transparantColor,
+                        backgroundColor: IcontransparantColor,
                         child: Center(
                           child: Icon(
                             Icons.align_vertical_center_rounded,
@@ -170,7 +171,7 @@ class HotelDetailePage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Text("3D View", style: whiteSmallTextStyle)
+                      Text("Rooms", style: whiteSmallTextStyle)
                     ],
                   ),
                 ),
@@ -216,9 +217,10 @@ class HotelDetailePage extends StatelessWidget {
                   margin: EdgeInsets.only(top: 10),
                   child: Text(
                     "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis partu",
-                    style: smallTextStyle,
+                    style: smallTextStylewhite,
                   ),
                 ),
+                sizedBox(height * 0.1, width)
               ],
             ),
           ),
@@ -226,77 +228,103 @@ class HotelDetailePage extends StatelessWidget {
               top: height * 0.88,
               left: width * 0.05,
               right: width * 0.075,
-              child: SwipeableButton(height, width))
+              child: Container(
+                height: 70,
+                width: 120,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Color.fromARGB(167, 214, 212, 212)),
+                child: SlideToUnlock(),
+              ))
         ],
       ),
     );
   }
+}
 
-  Widget SwipeableButton(height, width) {
-    return Container(
-      height: 70,
-      width: 120,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: const Color.fromARGB(255, 214, 212, 212)),
-      child: Row(
-        children: [
-//       widget to be dragged____________________________________
-          Draggable(
-            axis: Axis.horizontal,
-            feedback: Container(
-              // feedback > the widget that actually gets dragged
-              height: 60,
-              width: 60,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50), color: Colors.black),
-            ),
-            childWhenDragging: Container(
-              height: 60,
-              width: 60,
-              color: Colors.transparent,
-            ),
-            child: Container(
-              margin: EdgeInsets.only(left: 7),
-              height: 60,
-              width: 60,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50), color: Colors.black),
-              child: Center(
-                child: Icon(
-                  Icons.arrow_forward,
-                  color: backgroundColor,
+//-----------------Slide to book button with its functions and logic here.-----------------
+class SlideToUnlock extends StatefulWidget {
+  @override
+  _SlideToUnlockState createState() => _SlideToUnlockState();
+}
+
+class _SlideToUnlockState extends State<SlideToUnlock> {
+  double _position = 0.0;
+
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    return GestureDetector(
+      onHorizontalDragUpdate: (DragUpdateDetails details) {
+        setState(() {
+          _position += details.primaryDelta!;
+          if (_position < 0) {
+            _position = 0;
+          } else if (_position > MediaQuery.of(context).size.width - 130) {
+            // Adjust 100 according to the width of your unlock button
+            _position = MediaQuery.of(context).size.width - 130;
+          }
+        });
+      },
+      onHorizontalDragEnd: (DragEndDetails details) {
+        if (_position >= MediaQuery.of(context).size.width - 200) {
+          // Unlock logic here, e.g., navigating to a new screen
+          print('Unlocked!');
+        }
+        setState(() {
+          _position = 0.0;
+        });
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.01,
+        height: 100,
+        child: Stack(
+          children: [
+            Row(
+              children: [
+                sizedBox(height, width * 0.25),
+                Text(
+                  "Book Now",
+                  style: GoogleFonts.poppins(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500),
                 ),
+                sizedBox(height, width * 0.20),
+                Icon(
+                  Icons.arrow_forward_ios_outlined,
+                  size: 16,
+                  color: greyShadeLight,
+                ),
+                Icon(
+                  Icons.arrow_forward_ios_outlined,
+                  size: 16,
+                  color: greyShadeMedium,
+                ),
+              ],
+            ),
+            Positioned(
+              left: _position,
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.black),
+                margin: EdgeInsets.only(
+                  top: 5,
+                  left: 5,
+                ),
+                width: 60,
+                height: 60,
+                child: Center(
+                    child: Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.white,
+                )),
               ),
             ),
-            // onDragEnd: (details) {
-            //   value.moveToNextImage(context);
-            //   // Navigator.push(
-            //   //     context,
-            //   //     MaterialPageRoute(
-            //   //       builder: (context) => DashBoard(),
-            //   //     ));
-            // },
-          ),
-
-          sizedBox(height, width * 0.10),
-          Text(
-            "Book Now",
-            style: smallTextStyle,
-          ),
-          sizedBox(height, width * 0.20),
-
-          Icon(
-            Icons.arrow_forward_ios_outlined,
-            size: 16,
-            color: greyShadeLight,
-          ),
-          Icon(
-            Icons.arrow_forward_ios_outlined,
-            size: 16,
-            color: greyShadeMedium,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

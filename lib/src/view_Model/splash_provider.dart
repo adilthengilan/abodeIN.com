@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 class SplashProvider extends ChangeNotifier {
   PageController pageController = PageController();
   int currentPage = 0;
+  SplashProvider() {
+    notifyListeners();
+  }
   // get started Screen Images
   final List<String> getStartedImage = [
     "assets/images/ashim-d-silva-CwJb7ly-iqc-unsplash.jpg",
-    "assets/images/getstart_image2.jpg",
-    "assets/images/getstartedimage3.jpg",
+    "assets/images/getstart_image.jpg",
+    "assets/images/christian-lambert-vmIWr0NnpCQ-unsplash.jpg",
   ];
 // This function for Moving to Next Image, if
   void moveToNextImage(context) {
@@ -30,6 +33,13 @@ class SplashProvider extends ChangeNotifier {
         (route) => false,
       );
     }
+
     notifyListeners();
+  }
+
+  @override
+  void notifyListeners() {
+    // TODO: implement notifyListeners
+    super.notifyListeners();
   }
 }

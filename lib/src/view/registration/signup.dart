@@ -82,7 +82,7 @@ class SignupScreen extends StatelessWidget {
             Row(
               children: [
                 SizedBox(width: width * 0.2),
-                Text('Already have an account?', style: smallTextStyle),
+                Text('Already have an account?', style: smallTextStylewhite),
                 GestureDetector(
                     onTap: () {
                       Navigator.pop(context);

@@ -143,7 +143,7 @@ class _OTPScreenState extends State<OTPScreen> {
         Text(
           "Didn't Recieve Verification Code ?",
           textAlign: TextAlign.center,
-          style: smallTextStyle,
+          style: smallTextStylewhite,
         ),
       ],
     );

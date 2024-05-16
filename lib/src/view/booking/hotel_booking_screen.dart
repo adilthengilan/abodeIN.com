@@ -75,7 +75,7 @@ class BookingScreen extends StatelessWidget {
                       children: [
                         sizedBox(0.0, 5.0),
                         Text("Your tickets are successfully booked",
-                            style: smallTextStyle),
+                            style: smallTextStylewhite),
                       ],
                     ),
                     sizedBox(height * 0.008, 0.0),
@@ -88,7 +88,7 @@ class BookingScreen extends StatelessWidget {
                           "Booking ID",
                           style: smallTextStyleSemiBold,
                         ),
-                        Text("#459AXD", style: smallTextStyle),
+                        Text("#459AXD", style: smallTextStylewhite),
                       ],
                     ),
                     sizedBox(height * 0.008, 0.0),
@@ -100,7 +100,7 @@ class BookingScreen extends StatelessWidget {
                           "Booking On",
                           style: smallTextStyleSemiBold,
                         ),
-                        Text("10/05/2024", style: smallTextStyle),
+                        Text("10/05/2024", style: smallTextStylewhite),
                       ],
                     ),
                   ],
@@ -140,7 +140,7 @@ class BookingScreen extends StatelessWidget {
                             sizedBox(height * 0.03, width * 0.01),
                             Text(
                               "Arrival",
-                              style: smallTextStyle,
+                              style: smallTextStylewhite,
                             ),
                             sizedBox(height * 0.01, width * 0.02),
                             Text(
@@ -154,7 +154,7 @@ class BookingScreen extends StatelessWidget {
                             sizedBox(height * 0.03, width * 0.01),
                             Text(
                               "Departure",
-                              style: smallTextStyle,
+                              style: smallTextStylewhite,
                             ),
                             sizedBox(height * 0.01, width * 0.02),
                             Text(
@@ -204,12 +204,12 @@ class BookingScreen extends StatelessWidget {
                       children: [
                         Text(
                           "4000 × 8 persons ",
-                          style: smallTextStyle,
+                          style: smallTextStylewhite,
                         ),
                         sizedBox(0.0, 70.0),
                         Text(
                           "#36,000 THB",
-                          style: smallTextStyle,
+                          style: smallTextStylewhite,
                         )
                       ],
                     ),
@@ -218,12 +218,12 @@ class BookingScreen extends StatelessWidget {
                       children: [
                         Text(
                           "Tax",
-                          style: smallTextStyle,
+                          style: smallTextStylewhite,
                         ),
                         sizedBox(0.0, 230.0),
                         Text(
                           "50 THB",
-                          style: smallTextStyle,
+                          style: smallTextStylewhite,
                         ),
                       ],
                     ),
@@ -238,7 +238,7 @@ class BookingScreen extends StatelessWidget {
                         sizedBox(0.0, 160.0),
                         Text(
                           "36,050 THB",
-                          style: smallTextStyle,
+                          style: smallTextStylewhite,
                         ),
                       ],
                     )

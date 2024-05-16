@@ -63,17 +63,19 @@ class AppSearchBar extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: width * 0.06),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
-        border: Border.all(color: greyShadeLight,),
+        border: Border.all(
+          color: greyShadeLight,
+        ),
       ),
       child: TextField(
         controller: controller,
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: hintText,
-          hintStyle: smallTextStyle,
+          hintStyle: smallTextStylewhite,
           contentPadding: EdgeInsets.only(top: 15),
           suffixIcon: Padding(
-            padding: EdgeInsets.only(top: 10,right: 15),
+            padding: EdgeInsets.only(top: 10, right: 15),
             child: Image.asset("assets/images/filter_icon.png"),
           ),
           prefixIcon: Padding(

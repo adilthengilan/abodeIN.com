@@ -41,7 +41,7 @@ class _FaceAuthenticationState extends State<FaceAuthentication> {
 
             Text(
               "Lorem ipsum dolor sit amet,consdddd",
-              style: smallTextStyle,
+              style: smallTextStylewhite,
             ),
             sizedBox(height * 0.120, 0.0),
             //------------------------------------ Text Button --------------------------------------------------------------------

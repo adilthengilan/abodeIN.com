@@ -1,3 +1,4 @@
+import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
@@ -5,9 +6,14 @@ import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class GetStartedScreen extends StatelessWidget {
+class GetStartedScreen extends StatefulWidget {
   const GetStartedScreen({super.key});
 
+  @override
+  State<GetStartedScreen> createState() => _GetStartedScreenState();
+}
+
+class _GetStartedScreenState extends State<GetStartedScreen> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -16,7 +22,36 @@ class GetStartedScreen extends StatelessWidget {
       backgroundColor: backgroundColor,
       body: Stack(
         children: [
-          listingGetStartedImages(context),
+          // listingGetStartedImages(context),
+          //---------------------------------------Here we can see the Background image of getstarted screen ---------------------------------------------------
+          //------------------------------------------------------------------------------------------------------------------------------------------------------
+
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Consumer<SplashProvider>(
+              builder: (context, value, child) => PageView.builder(
+                controller: value.pageController,
+                itemCount: value.getStartedImage.length,
+                itemBuilder: (context, index) {
+                  return Consumer<SplashProvider>(
+                    builder: (context, value, child) => Image(
+                      fit: BoxFit.fill,
+                      image: AssetImage(
+                        value.getStartedImage[index],
+                      ),
+                    ),
+                  );
+                },
+                onPageChanged: (index) {
+                  setState(() {
+                    value.currentPage = index;
+                  });
+                },
+              ),
+            ),
+          ),
+          //-------------------------Text in the screen ----------------------------------------
           Container(
             margin: EdgeInsets.only(top: 520, left: 10),
             child: Text(
@@ -86,12 +121,12 @@ class GetStartedScreen extends StatelessWidget {
                         ),
                       ),
                       onDragEnd: (details) {
-                        value.moveToNextImage(context);
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => DashBoard(),
-                        //     ));
+                        // value.moveToNextImage(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DashBoard(),
+                            ));
                       },
                       onDragCompleted: () {},
                     ),
@@ -117,30 +152,6 @@ class GetStartedScreen extends StatelessWidget {
   }
 
   //The List of Get Started Scrolling Images, when clicked Next Button the image is scroll it to left side
-  Widget listingGetStartedImages(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: Consumer<SplashProvider>(
-        builder: (context, value, child) => PageView.builder(
-          controller: value.pageController,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: value.getStartedImage.length,
-          itemBuilder: (context, index) {
-            return Consumer<SplashProvider>(
-              builder: (context, value, child) => Image(
-                fit: BoxFit.fill,
-                image: AssetImage(
-                  value.getStartedImage[value.currentPage],
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
   Widget showingIndicators() {
     return Consumer<SplashProvider>(
       builder: (context, value, child) => Row(

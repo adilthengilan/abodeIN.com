@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Don't Have An Account?",
-                      textAlign: TextAlign.center, style: smallTextStyle),
+                      textAlign: TextAlign.center, style: smallTextStylewhite),
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
