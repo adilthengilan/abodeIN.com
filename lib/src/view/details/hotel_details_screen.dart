@@ -178,7 +178,7 @@ class HotelDetailePage extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50), color: Colors.black),
             ),
-            childWhenDragging: Container(
+            childWhenDragging:   Container(
               height: 50,
               width: 50,
               color: Colors.transparent,
