@@ -85,12 +85,12 @@ class HotelDetailePage extends StatelessWidget {
                           style: whiteLightTextStyle,
                         ),
                       ),
-                      //================================================== More Details Widget ============================================
+                      // //================================================== More Details Widget ============================================
 
-                      Container(
-                        margin: EdgeInsets.only(left: 180),
-                        child: _moreDetails(height, width),
-                      ),
+                      // Container(
+                      //   margin: EdgeInsets.only(left: 180),
+                      //   child: _moreDetails(height, width),
+                      // ),
 
                       sizedbox(height * 0.03, width),
                       //================================================== Swipeable Button============================================
@@ -178,7 +178,7 @@ class HotelDetailePage extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50), color: Colors.black),
             ),
-            childWhenDragging:   Container(
+            childWhenDragging: Container(
               height: 50,
               width: 50,
               color: Colors.transparent,

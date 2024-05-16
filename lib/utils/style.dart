@@ -88,7 +88,7 @@ final TextStyle BlackLightTextStyle = GoogleFonts.poppins(
 );
 final TextStyle whiteTextStyle = GoogleFonts.robotoMono(
   textStyle: TextStyle(
-    fontSize: 14,
+    fontSize: 15,
     color: Colors.white,
     fontWeight: FontWeight.w400,
   ),
