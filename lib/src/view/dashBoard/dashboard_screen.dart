@@ -7,20 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_location_search/flutter_location_search.dart';
 
-class DashBoard extends StatefulWidget {
+class DashBoard extends StatelessWidget {
   const DashBoard({super.key});
 
-  @override
-  State<DashBoard> createState() => _DashBoardState();
-}
-
-class _DashBoardState extends State<DashBoard> {
-  String locationText = "London";
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final dashboardProvider = Provider.of<DashBoardProvider>(context, listen: false);
+    final dashboardProvider =
+        Provider.of<DashBoardProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: CustomScrollView(
@@ -67,7 +62,7 @@ class _DashBoardState extends State<DashBoard> {
                         PriceAndBookingPersons(
                           bottom: height * 0.015,
                           left: width * 0.04,
-                          right: width * 0.075,
+                          right: width * 0.06,
                           city: "Bankok",
                           location: "Phuket",
                           price: 599,
@@ -87,7 +82,7 @@ class _DashBoardState extends State<DashBoard> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       //======================================================== Top Destination ========================================
-                      Text("Top Destination", style: largeTextStyle),
+                      Text('Top Destination', style: largeTextStyle),
                       InkWell(
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {},
@@ -137,7 +132,8 @@ class _DashBoardState extends State<DashBoard> {
                             child: Image(
                               fit: BoxFit.fill,
                               image: AssetImage(
-                                  "assets/images/popular_hotel_image_3.png"),
+                                "assets/images/popular_hotel_image_3.png",
+                              ),
                             ),
                           ),
                         ),
@@ -195,40 +191,12 @@ class _DashBoardState extends State<DashBoard> {
       floating: true,
       toolbarHeight: height * 0.09,
       title: Text(
-        locationText,
-        // "Discover",
-        style: smallTextStyle,
+        "Discover",
+        style: largeTextStyle,
       ),
       actions: [
         //================================================================= Search Icon ==========================================
-        Consumer<DashBoardProvider>(
-          builder: (context, value, child) => InkWell(
-            borderRadius: BorderRadius.circular(50),
-            onTap: () async {
-              // LocationData? locationData = await LocationSearch.show(
-              //   context: context,
-              //   lightAdress: true,
-              //   mode: Mode.fullscreen,
-              //   language: 'en',
-              //   iconColor: greyShadeMedium,
-              //   historyMaxLength: 10,
-              //   searchBarTextColor: shadeColor,
-              // );
-              // value.setLocationAddress(locationData!.address);
-            },
-            child: CircleAvatar(
-              radius: height * 0.032,
-              backgroundColor: shadeColor,
-              child: Center(
-                child: AppIcon(
-                  iconData: Icons.location_on_outlined,
-                  color: greyShadeDark,
-                  height: height * 0.03,
-                ),
-              ),
-            ),
-          ),
-        ),
+        LocationSearchingButton(height: height, width: width),
         sizedBox(0.0, width * 0.015),
         //================================================================= Search Button ==========================================
         InkWell(
@@ -564,6 +532,49 @@ class MapViewButton extends StatelessWidget {
               sizedBox(0.0, width * 0.0035),
               Text("Map", style: whiteLightTextStyle)
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LocationSearchingButton extends StatelessWidget {
+  final double height;
+  final double width;
+  const LocationSearchingButton({
+    super.key,
+    required this.height,
+    required this.width,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<DashBoardProvider>(
+      builder: (context, value, child) => InkWell(
+        borderRadius: BorderRadius.circular(50),
+        onTap: () async {
+          LocationData? locationData = await LocationSearch.show(
+              context: context,
+              lightAdress: true,
+              mode: Mode.overlay,
+              language: 'en',
+              onError: (e) => print("Location Search Error : $e"),
+              historyMaxLength: 10,
+              searchBarHintColor: greyShadeDark,
+              searchBarBackgroundColor: Colors.white,
+              currentPositionButtonText: "Current Location");
+          value.setLocationAddress(locationData!.address);
+        },
+        child: CircleAvatar(
+          radius: height * 0.032,
+          backgroundColor: shadeColor,
+          child: Center(
+            child: AppIcon(
+              iconData: Icons.location_on_outlined,
+              color: greyShadeDark,
+              height: height * 0.03,
+            ),
           ),
         ),
       ),
