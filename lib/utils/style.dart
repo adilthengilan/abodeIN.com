@@ -47,6 +47,14 @@ final TextStyle mediumTextStyleLight = GoogleFonts.poppins(
   ),
 );
 
+final TextStyle whitelargeTextStyle = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 28,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  ),
+);
+
 final TextStyle whiteMediumTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 20,
@@ -79,6 +87,14 @@ final TextStyle whiteLightTextStyle = GoogleFonts.poppins(
   ),
 );
 
+final TextStyle greyLightTextStyle = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 16,
+    color: Color.fromARGB(255, 213, 213, 213),
+    fontWeight: FontWeight.w400,
+  ),
+);
+
 final TextStyle BlackLightTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 19,
@@ -91,5 +107,19 @@ final TextStyle whiteTextStyle = GoogleFonts.robotoMono(
     fontSize: 15,
     color: Colors.white,
     fontWeight: FontWeight.w400,
+  ),
+);
+final TextStyle blacksmallTextStyle = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
+  ),
+);
+final TextStyle LightgreysmallTextStyle = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: Color.fromARGB(255, 188, 188, 188),
   ),
 );

@@ -5,6 +5,7 @@ import 'package:abodein/src/view_Model/splash_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
 class GetStartedScreen extends StatelessWidget {
   const GetStartedScreen({super.key});
 
