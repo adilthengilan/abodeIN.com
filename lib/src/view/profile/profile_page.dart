@@ -1,5 +1,4 @@
 import 'package:abodein/src/view/common_Widgets/icon.dart';
-import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/profile_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
@@ -16,6 +15,8 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  bool darktheme = false;
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -23,7 +24,7 @@ class _ProfileState extends State<Profile> {
     final profileProvider =
         Provider.of<ProfileProvider>(context, listen: false);
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: darktheme ? Colors.black : Colors.white,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -32,21 +33,29 @@ class _ProfileState extends State<Profile> {
               height: height * 0.27,
               width: width,
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/Profile_Bg_Image.png"),
-                  fit: BoxFit.fill,
-                ),
+                image: darktheme
+                    ? DecorationImage(
+                        image: AssetImage("assets/images/Profile_Bg_Image.png"),
+                        fit: BoxFit.fill,
+                      )
+                    : DecorationImage(
+                        image: AssetImage(
+                            "assets/images/profile_background_lightTheme.png"),
+                        fit: BoxFit.cover,
+                      ),
               ),
               child: Container(
                 height: height * 0.25,
                 width: width,
-                color: Color.fromARGB(71, 0, 0, 0),
+                color: darktheme
+                    ? Color.fromARGB(71, 0, 0, 0)
+                    : Color.fromARGB(0, 0, 0, 0),
                 child: Column(
                   children: [
                     Container(
                       height: height * 0.1,
                       width: width,
-                      color: Color.fromARGB(77, 0, 0, 0),
+                      color: Colors.transparent,
                       child: Padding(
                         padding: EdgeInsets.only(top: height * 0.02, left: 10),
                         child: Row(
@@ -74,13 +83,19 @@ class _ProfileState extends State<Profile> {
                             height: height * 0.11,
                             width: width * 0.22,
                             decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage(
-                                  "assets/images/reviewrs_person_1.png",
-                                ),
-                              ),
+                              color: transparantColor,
                               shape: BoxShape.circle,
+                              image: profileProvider.image != null
+                                  ? DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: FileImage(profileProvider.image!),
+                                    )
+                                  : DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: AssetImage(
+                                        "assets/images/Profile_person_Icon.png",
+                                      ),
+                                    ),
                             ),
                             child: Padding(
                               padding:
@@ -119,45 +134,41 @@ class _ProfileState extends State<Profile> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: width * 0.04),
               child: Container(
-                height: height * 0.31,
+                height: height * 0.28,
                 width: width,
                 decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(-0.3, 1),
+                      blurRadius: 2,
+                      blurStyle: BlurStyle.normal,
+                      spreadRadius: 0,
+                      color: darktheme
+                          ? Color.fromARGB(255, 165, 223, 254)
+                          : Color.fromARGB(255, 248, 248, 248),
+                    ),
+                  ],
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.white, width: 0.2),
                   image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: NetworkImage(
-                        "https://media.istockphoto.com/id/1055033030/photo/black-luxury-fabric-background-with-copy-space.jpg?s=612x612&w=0&k=20&c=GioontsvvqDs78UdDVnWk9O6S0oGCFzEbcddjG84rBs="),
+                    image:
+                        AssetImage("assets/images/Card_Background_image.png"),
                   ),
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: width * 0.06,
-                    vertical: height * 0.02,
+                    vertical: height * 0.025,
                   ),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "DEBIT",
-                                style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                    letterSpacing: 3,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                              Text("PREMIUM", style: whiteMediumTextStyle),
-                            ],
-                          ),
+                          Text("PREMIUM", style: whiteMediumTextStyle),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
@@ -180,7 +191,6 @@ class _ProfileState extends State<Profile> {
                           ),
                         ],
                       ),
-                      sizedBox(height * 0.02, 0.0),
                       Padding(
                         padding: EdgeInsets.only(left: width * 0.01),
                         child: Container(
@@ -192,27 +202,7 @@ class _ProfileState extends State<Profile> {
                           ),
                         ),
                       ),
-                      sizedBox(height * 0.015, 0.0),
-                      Center(
-                        child: Text(
-                          "0352  9875  7654  3214",
-                          style: GoogleFonts.poppins(
-                            textStyle: TextStyle(
-                              fontSize: 23,
-                              color: Colors.white,
-                              letterSpacing: 2.6,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Center(
-                        child: Text(
-                          "05/25",
-                          style: whiteSmallTextStyle,
-                        ),
-                      ),
-                      sizedBox(height * 0.015, 0.0),
+                      sizedBox(height * 0.002, 0.0),
                       Text(
                         "JOHN SMITH",
                         style: GoogleFonts.poppins(
@@ -229,7 +219,6 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
             ),
-            sizedBox(height * 0.03, 0.0),
             //======================================================================== Buttons List ===================================================
             profileButtonsList(height, width),
           ],
@@ -243,12 +232,11 @@ class _ProfileState extends State<Profile> {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.symmetric(horizontal: width * 0.045),
       itemCount: 7,
       itemBuilder: (context, index) {
-        IconData iconData = Icons.abc;
+        IconData iconData = Icons.circle;
         String text = "";
-        Color iconColor = Colors.black;
+        Color iconColor = Colors.transparent;
         VoidCallback onPressed = () {};
         switch (index) {
           case 0:
@@ -256,72 +244,84 @@ class _ProfileState extends State<Profile> {
             text = "Edit Profile";
             iconColor = Colors.yellow;
             onPressed = () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DashBoard(),
-                ),
-              );
+              setState(() {
+                darktheme = !darktheme;
+              });
             };
           case 1:
             iconData = Icons.settings_outlined;
             text = "Account Setting";
             iconColor = Colors.blueAccent;
+            onPressed = () {};
           case 2:
             iconData = Icons.favorite_border_outlined;
             text = "Favorite";
             iconColor = Colors.pinkAccent;
+            onPressed = () {};
           case 3:
             iconData = Icons.history;
             text = "Booking History";
             iconColor = Colors.green;
+            onPressed = () {};
           case 4:
             iconData = Icons.phone_iphone_outlined;
             text = "Smart Cheking";
             iconColor = Colors.purple;
+            onPressed = () {};
           case 5:
             iconData = Icons.wallet_giftcard_outlined;
             text = "Reward";
             iconColor = Colors.blue;
+            onPressed = () {};
+
           case 6:
             iconData = Icons.logout_outlined;
             text = "Logoout";
             iconColor = Colors.red;
+            onPressed = () {};
           default:
         }
-        return Padding(
-          padding: EdgeInsets.only(bottom: height * 0.025),
-          child: InkWell(
-            onTap: onPressed,
-            child: Container(
-              height: height * 0.07,
-              width: width,
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 40, 40, 40),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(left: width * 0.05),
-                child: Row(
-                  children: [
-                    AppIcon(
-                      //============================== Icon Data ==========================
-                      iconData: iconData,
-                      //============================== Icon Color ==========================
-                      color: iconColor,
-                      height: height * 0.03,
-                    ),
-                    sizedBox(0.0, width * 0.05),
-                    Text(
-                      //================================= Text ==============================
-                      text,
-                      style: whiteSmallTextStyle,
-                    ),
-                  ],
+        return Column(
+          children: [
+            Divider(
+              thickness: 0.1,
+              color: darktheme ? Colors.white : Colors.black,
+            ),
+            InkWell(
+              onTap: onPressed,
+              child: SizedBox(
+                height: height * 0.07,
+                width: width,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.06),
+                  child: Row(
+                    children: [
+                      AppIcon(
+                        //============================== Icon Data ==========================
+                        iconData: iconData,
+                        //============================== Icon Color ==========================
+                        color: iconColor,
+                        height: height * 0.03,
+                      ),
+                      sizedBox(0.0, width * 0.08),
+                      Text(
+                        //================================= Text ==============================
+                        text,
+                        style: darktheme ? whiteSmallTextStyle : smallTextStyle,
+                      ),
+                      Spacer(),
+                      // ===================================== Arrow Iocn ==========================
+                      AppIcon(
+                        iconData: Icons.arrow_forward_ios_rounded,
+                        color: darktheme ? Colors.white : greyShadeMedium,
+                        height: height * 0.02,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
+          ],
         );
       },
     );

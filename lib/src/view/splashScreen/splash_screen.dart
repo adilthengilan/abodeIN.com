@@ -1,5 +1,4 @@
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
-import 'package:abodein/src/view/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 
 class Splash_Screen extends StatelessWidget {
@@ -7,6 +6,6 @@ class Splash_Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Profile();
+    return DashBoard();
   }
 }
