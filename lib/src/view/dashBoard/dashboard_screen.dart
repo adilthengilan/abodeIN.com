@@ -14,8 +14,7 @@ class DashBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final dashboardProvider =
-        Provider.of<DashBoardProvider>(context, listen: false);
+    final dashboardProvider = Provider.of<DashBoardProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: CustomScrollView(
