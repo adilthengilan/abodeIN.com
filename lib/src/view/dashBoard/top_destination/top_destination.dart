@@ -34,7 +34,7 @@ class TopDestination extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                sizedBox(height * 0.02, 0.0),
+                sizedBox(height * 0.025, 0.0),
                 HotelBoxList(
                   itemCount: 10,
                   height: height,
@@ -88,7 +88,7 @@ class HotelBoxList extends StatelessWidget {
       itemBuilder: (context, index) => Stack(
         children: [
           Padding(
-            padding: EdgeInsets.only(bottom: height * 0.02),
+            padding: EdgeInsets.only(bottom: height * 0.025),
             child: InkWell(
               borderRadius: BorderRadius.circular(25),
               onTap: () {

@@ -23,8 +23,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final profileProvider =
-        Provider.of<ProfileProvider>(context, listen: false);
+    final profileProvider = Provider.of<ProfileProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: darktheme ? Colors.black : Colors.white,
       body: SingleChildScrollView(
@@ -54,29 +53,7 @@ class _ProfileState extends State<Profile> {
                     : Color.fromARGB(0, 0, 0, 0),
                 child: Column(
                   children: [
-                    Container(
-                      height: height * 0.1,
-                      width: width,
-                      color: Colors.transparent,
-                      child: Padding(
-                        padding: EdgeInsets.only(top: height * 0.02, left: 10),
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: transparantColor,
-                              child: IconButton(
-                                onPressed: () {},
-                                color: Colors.white,
-                                icon: Icon(
-                                  Icons.arrow_back_outlined,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    sizedBox(height * 0.015, 0.0),
+                    sizedBox(height * 0.085, 0.0),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: width * 0.046),
                       child: Row(

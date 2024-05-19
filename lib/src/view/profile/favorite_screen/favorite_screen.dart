@@ -36,7 +36,7 @@ class FavoriteScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                sizedBox(height * 0.02, 0.0),
+                sizedBox(height * 0.025, 0.0),
                 HotelBoxList(
                   itemCount: hotelDetailProvider.favoriteList.length,
                   height: height,

@@ -35,9 +35,9 @@ class BookingHistory extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                sizedBox(height * 0.02, 0.0),
+                sizedBox(height * 0.03, 0.0),
                 HotelBoxList(
-                  itemCount: hotelRoomsProvider.bookingHistory.length,
+                  itemCount: 12,
                   height: height,
                   width: width,
                   name: "Sheraton Grand Hotel",

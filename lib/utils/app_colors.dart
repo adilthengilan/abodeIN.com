@@ -17,3 +17,5 @@ const Color shadeColor = Color.fromARGB(216, 244, 244, 244);
 
 const Color transparantColor = Color.fromARGB(86, 162, 162, 162);
 const Color IcontransparantColor = Color.fromARGB(83, 74, 74, 74);
+
+const Color blackShadeColor = Colors.black;

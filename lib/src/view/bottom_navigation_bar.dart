@@ -1,5 +1,5 @@
-import 'package:abodein/src/view/Favourites/favourites.dart';
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
+import 'package:abodein/src/view/profile/favorite_screen/favorite_screen.dart';
 import 'package:abodein/src/view/profile/profile_screen.dart';
 import 'package:abodein/src/view/reward/reward.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
@@ -64,4 +64,4 @@ class Bottom_Navigation_Bar extends StatelessWidget {
   }
 }
 
-List<Widget> screens = [DashBoard(), Favorites(), Reward(), Profile()];
+List<Widget> screens = [DashBoard(), FavoriteScreen(), Reward(), Profile()];

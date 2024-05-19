@@ -37,25 +37,20 @@ class HotelDetailProvider extends ChangeNotifier {
   }
 
   final WhatWeOffering = [
-    {
-      "IconName": "Parking",
-      "Icon": "assets/images/parking_icon.png",
+    {"IconName": "Parking",
+    "Icon": "assets/images/parking_icon.png",
     },
-    {
-      "IconName": "Wifi",
-      "Icon": "assets/images/Wifi_icon.png",
+    {"IconName": "Wifi",
+    "Icon": "assets/images/Wifi_icon.png",
     },
-    {
-      "IconName": "Laudry",
-      "Icon": "assets/images/laundry_icon.png",
+    {"IconName": "Laudry",
+    "Icon": "assets/images/laundry_icon.png",
     },
-    {
-      "IconName": "Ac",
-      "Icon": "assets/images/ac_icon.png",
+    {"IconName": "Ac",
+    "Icon": "assets/images/ac_icon.png",
     },
-    {
-      "IconName": "Bar",
-      "Icon": "assets/images/bar_icon.png",
+    {"IconName": "Bar",
+    "Icon": "assets/images/bar_icon.png",
     },
   ];
 

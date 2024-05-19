@@ -330,10 +330,6 @@ class _DashBoardState extends State<DashBoard> {
           width: width * 0.58,
           height: height,
           decoration: BoxDecoration(
-            // image: DecorationImage(
-            //   fit: BoxFit.fill,
-            //   image: AssetImage("assets/images/getstart_image.jpg"),
-            // ),
             image: DecorationImage(
               fit: BoxFit.fill,
               image: AssetImage("assets/images/getstart_image.jpg"),
