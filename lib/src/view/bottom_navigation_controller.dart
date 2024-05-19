@@ -64,4 +64,4 @@ class Bottom_Navigation_Bar extends StatelessWidget {
   }
 }
 
-List<Widget> screens = [DashBoard(), Favorites(), Reward(), ProfileScreen()];
+List<Widget> screens = [DashBoard(), Favorites(), Reward(), Profile()];
