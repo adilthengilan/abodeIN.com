@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:abodein/src/view/common_Widgets/icon.dart';
+import 'package:abodein/src/view/details/hotel_details_screen.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
@@ -18,6 +19,17 @@ class RewardScreen extends StatefulWidget {
 }
 
 class _RewardScreenState extends State<RewardScreen> {
+  // final String referralCode = "ABC123";
+
+  // void _shareReferralCode(BuildContext context) {
+  //   final RenderBox box = context.findRenderObject() as RenderBox;
+  //   Share.share(
+  //     "Use my referral code $referralCode to sign up!",
+  //     subject: "Join us and use my referral code!",
+  //     sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -57,9 +69,17 @@ class _RewardScreenState extends State<RewardScreen> {
             ),
 
             //============================= Reward plans ===================================
-
+             
             TicketContainer(
-              onPressed: () {},
+              onPressed: () {
+                
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => HotelDetailePage()));
+                // _shareReferralCode(context);
+                // Text('Share Referral Code');
+              },
               text: "Help us grow to get reward",
               images: "assets/images/refer and earn.jpg",
               title: "Reffer a Friend",
@@ -169,9 +189,17 @@ class _RewardScreenState extends State<RewardScreen> {
                       color: backgroundColor,
                     ),
                     child: Center(
-                      child: Text(
-                        "Claim",
-                        style: blueSmallTextButtons,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HotelDetailePage()));
+                        },
+                        child: Text(
+                          "Claim",
+                          style: blueSmallTextButtons,
+                        ),
                       ),
                     ),
                   )
@@ -185,7 +213,7 @@ class _RewardScreenState extends State<RewardScreen> {
   }
 
   // This is an indicator that displays a list of images with 3 dots.
-  
+
   Widget showingIndicators() {
     return Consumer<SplashProvider>(
       builder: (context, value, child) => Row(
@@ -218,6 +246,10 @@ class _RewardScreenState extends State<RewardScreen> {
 //========================= Ticket Container ===========================
 //======================================================================
 
+
+
+
+
 class TicketContainer extends StatelessWidget {
   final String title;
   final String text;
@@ -237,56 +269,63 @@ class TicketContainer extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Container(
-        height: 130,
-        width: width,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Color.fromARGB(211, 238, 213, 54),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              offset: Offset(3, 3),
-              blurRadius: 12,
-            ),
-          ],
-        ),
-        child: Stack(children: [
-          Row(
-            children: [
-              Container(
-                  margin: EdgeInsets.only(left: 35),
-                  height: 150,
-                  width: 100,
-                  child: Image.asset(images!)),
-              sizedbox(height, width * 0.04),
-              Container(
-                margin: EdgeInsets.only(top: 40),
-                width: 160,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: blacksmallTextStyle,
-                    ),
-                    Text(
-                      text,
-                      style: whiteTextStyle,
-                    )
-                  ],
+      child: InkWell(
+        onTap: onPressed,
+        child: 
+        ClipPath(
+          clipper: DolDurmaClipper(right: 40, holeRadius: 20),
+          child: Container(
+            height: 130,
+            width: width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color.fromARGB(211, 238, 213, 54),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  offset: Offset(3, 3),
+                  blurRadius: 12,
                 ),
-              )
-            ],
-          ),
-          CustomPaint(
-            painter: SideCutsDesign(),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.25,
-              width: double.infinity,
+              ],
             ),
+            child: Stack(children: [
+              Row(
+                children: [
+                  Container(
+                      margin: EdgeInsets.only(left: 35),
+                      height: 150,
+                      width: 100,
+                      child: Image.asset(images!)),
+                  sizedbox(height, width * 0.04),
+                  Container(
+                    margin: EdgeInsets.only(top: 40),
+                    width: 160,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: blacksmallTextStyle,
+                        ),
+                        Text(
+                          text,
+                          style: whiteTextStyle,
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              CustomPaint(
+                painter: SideCutsDesign(),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.25,
+                  width: double.infinity,
+                ),
+              ),
+            ]),
           ),
-        ]),
+        ),
       ),
     );
   }
@@ -297,6 +336,41 @@ class TicketContainer extends StatelessWidget {
     properties.add(DiagnosticsProperty('images', images));
   }
 }
+class DolDurmaClipper extends CustomClipper<Path> {
+  DolDurmaClipper({required this.right, required this.holeRadius});
+
+  final double right;
+  final double holeRadius;
+
+  @override
+  Path getClip(Size size) {
+    final path = Path()
+      ..moveTo(0, 0)
+      ..lineTo(size.width - right - holeRadius, 0.0)
+      ..arcToPoint(
+        Offset(size.width - right, 0),
+        clockwise: false,
+        radius: Radius.circular(1),
+      )
+      ..lineTo(size.width, 0.0)
+      ..lineTo(size.width, size.height)
+      ..lineTo(size.width - right, size.height)
+      ..arcToPoint(
+        Offset(size.width - right - holeRadius, size.height),
+        clockwise: false,
+        radius: Radius.circular(1),
+      );
+
+    path.lineTo(0.0, size.height);
+
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(DolDurmaClipper oldClipper) => true;
+}
+
 
 //====================================================  Ticket Clipper ================================================
 
@@ -308,27 +382,27 @@ class SideCutsDesign extends CustomPainter {
     var shadowRadius = 20.0;
     var arcRadius = 20.0;
 
-    // Paint the left shadow arc
-    canvas.drawArc(
-      Rect.fromCircle(center: Offset(0, h / 2), radius: shadowRadius),
-      0,
-      2 * pi,
-      false,
-      Paint()
-        ..style = PaintingStyle.fill
-        ..color = Colors.black.withOpacity(0.1),
-    );
+    // // Paint the left shadow arc
+    // canvas.drawArc(
+    //   Rect.fromCircle(center: Offset(0, h / 2), radius: shadowRadius),
+    //   0,
+    //   2 * pi,
+    //   false,
+    //   Paint()
+    //     ..style = PaintingStyle.fill
+    //     ..color = Colors.black.withOpacity(0.1),
+    // );
 
-    // Paint the right shadow arc
-    canvas.drawArc(
-      Rect.fromCircle(center: Offset(w, h / 2), radius: shadowRadius),
-      0,
-      2 * pi,
-      false,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..color = Colors.black.withOpacity(0.1),
-    );
+    // // Paint the right shadow arc
+    // canvas.drawArc(
+    //   Rect.fromCircle(center: Offset(w, h / 2), radius: shadowRadius),
+    //   0,
+    //   2 * pi,
+    //   false,
+    //   Paint()
+    //     ..style = PaintingStyle.stroke
+    //     ..color = Colors.black.withOpacity(0.1),
+    // );
 
     // Paint the left arc
     canvas.drawArc(

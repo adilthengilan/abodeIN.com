@@ -90,6 +90,7 @@ class GetStartedScreen extends StatelessWidget {
   }
 
 // This is an indicator that displays a list of images with 3 dots.
+
   Widget showingIndicators() {
     return Consumer<SplashProvider>(
       builder: (context, value, child) => Row(
