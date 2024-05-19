@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 
 class DashBoardProvider extends ChangeNotifier {
   int selectedCategoryIndex = 0;
+  int bottombarindex = 0;
+
+  void setBottomBarindex(index) {
+    bottombarindex = index;
+    notifyListeners();
+  }
 
   void setCategoryButtonColor(index) {
     selectedCategoryIndex = index;
@@ -15,7 +21,7 @@ class DashBoardProvider extends ChangeNotifier {
       "image": "assets/images/hotels_category_image.png",
     },
     {
-      "Name": "Motels",
+      "Name": "Motels", 
       "image": "assets/images/motels_category_image.png",
     },
     {

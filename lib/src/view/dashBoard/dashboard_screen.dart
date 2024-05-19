@@ -30,7 +30,6 @@ class _DashBoardState extends State<DashBoard> {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                sizedBox(height * 0.02, 0.0),
                 //==================================================== The Category Horizontal List With List Generator wrap with Wrap Widget
                 SizedBox(
                     height: height * 0.165,

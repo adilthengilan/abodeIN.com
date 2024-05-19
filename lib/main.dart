@@ -1,3 +1,4 @@
+import 'package:abodein/src/view/bottom_navigation_controller.dart';
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/dashBoard/hotel_details_screen/hotel_details_screen.dart';
 import 'package:abodein/src/view/splashScreen/getstarted_screen.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          home: Splash_Screen()),
+          home: Bottom_Navigation_Bar()),
     );
   }
 }
