@@ -153,7 +153,7 @@ class _ProfileState extends State<Profile> {
                   image: DecorationImage(
                     fit: BoxFit.fill,
                     image:
-                        AssetImage("assets/images/Card_Background_image.png"),
+                        AssetImage("assets/images/Card_Background_Image.jpg"),
                   ),
                 ),
                 child: Padding(
@@ -195,11 +195,13 @@ class _ProfileState extends State<Profile> {
                       Padding(
                         padding: EdgeInsets.only(left: width * 0.01),
                         child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20)),
                           height: height * 0.045,
                           child: Image(
                             fit: BoxFit.cover,
-                            image:
-                                AssetImage("assets/images/Debit_Card_Chip.png"),
+                            image: AssetImage(
+                                "assets/images/Debit_Card_Image.png"),
                           ),
                         ),
                       ),

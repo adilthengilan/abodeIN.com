@@ -22,7 +22,7 @@ class Bottom_Navigation_Bar extends StatelessWidget {
           currentIndex: BottmBarIndex.bottombarindex,
           // indicatorColor: Colors.white,
           unselectedItemColor: Colors.white70,
-          backgroundColor: Color.fromARGB(0, 0, 0, 0),
+          backgroundColor: Color.fromARGB(194, 0, 0, 0),
           // outlineBorderColor: Colors.black.withOpacity(0.1),
           onTap: (index) {
             BottmBarIndex.setBottomBarindex(index);
@@ -31,6 +31,7 @@ class Bottom_Navigation_Bar extends StatelessWidget {
             /// Home
             CrystalNavigationBarItem(
               icon: IconlyBold.home,
+              
               unselectedIcon: IconlyLight.home,
               selectedColor: Colors.white,
             ),
