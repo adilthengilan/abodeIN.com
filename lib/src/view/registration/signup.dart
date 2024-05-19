@@ -1,6 +1,9 @@
+import 'package:abodein/src/view/common_Widgets/text_button.dart';
+import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
+import 'package:abodein/src/view/face_authentication.dart/face_authentication.dart';
+import 'package:abodein/src/view/registration/verification.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
-import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +77,10 @@ class _SignupScreenState extends State<SignupScreen> {
             //------------------------------------ Text Button --------------------------------------------------------------------
             AppTextButton(
               text: "Next",
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => DashBoard()));
+              },
               height: height,
               width: width,
             ),
@@ -82,18 +88,12 @@ class _SignupScreenState extends State<SignupScreen> {
             Row(
               children: [
                 SizedBox(width: width * 0.2),
-                Text('Already have an account?', style: smallTextStyle),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
-                      ),
-                    );
-                  },
-                  child: Text('Login', style: blueSmallTextButtons),
-                ),
+                Text('Already have an account?', style: smallTextStylewhite),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(' Login', style: blueSmallTextButtons))
               ],
             )
           ],

@@ -1,14 +1,18 @@
+import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashProvider extends ChangeNotifier {
   PageController pageController = PageController();
   int currentPage = 0;
+  SplashProvider() {
+    notifyListeners();
+  }
   // get started Screen Images
   final List<String> getStartedImage = [
-    "assets/images/get_started_image_1.png",
-    "assets/images/get_started_image_2.png",
-    "assets/images/get_started_image_3.png",
+    "assets/images/ashim-d-silva-CwJb7ly-iqc-unsplash.jpg",
+    "assets/images/getstart_image.jpg",
+    "assets/images/christian-lambert-vmIWr0NnpCQ-unsplash.jpg",
   ];
 // This function for Moving to Next Image, if
   void moveToNextImage(context) {
@@ -24,11 +28,18 @@ class SplashProvider extends ChangeNotifier {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => LoginScreen(),
+          builder: (context) => DashBoard(),
         ),
         (route) => false,
       );
     }
+
     notifyListeners();
+  }
+
+  @override
+  void notifyListeners() {
+    // TODO: implement notifyListeners
+    super.notifyListeners();
   }
 }

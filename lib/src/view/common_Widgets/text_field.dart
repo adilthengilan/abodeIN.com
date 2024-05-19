@@ -63,30 +63,8 @@ class AppSearchBar extends StatelessWidget {
       width: width * 0.72,
       margin: EdgeInsets.only(left: width * 0.06),
       decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Color.fromARGB(255, 205, 205, 205), // Shadow color
-            spreadRadius: 0.5,
-            blurRadius: 2,
-            offset: Offset(0, 1), // Bottom shadow
-          ),
-          BoxShadow(
-            color: Color.fromARGB(255, 239, 239, 239), // Shadow color
-            offset: Offset(1.5, 0), // Right shadow
-          ),
-          BoxShadow(
-            color: Color.fromARGB(255, 205, 205, 205), // Shadow color
-            spreadRadius: 1,
-            blurRadius: 1,
-            offset: Offset(0, -1), // Top shadow
-          ),
-          BoxShadow(
-            color: Color.fromARGB(255, 239, 239, 239), // Shadow color
-            offset: Offset(-3, 0), // Left shadow
-          ),
-        ],
+        borderRadius: BorderRadius.circular(25),
+        border: Border.all(color: greyShadeLight,),
       ),
       child: TextField(
         controller: controller,
@@ -94,7 +72,11 @@ class AppSearchBar extends StatelessWidget {
           border: InputBorder.none,
           hintText: hintText,
           hintStyle: smallTextStyle,
-          contentPadding: EdgeInsets.only(top: height * 0.013),
+          contentPadding: EdgeInsets.only(top: 15),
+          suffixIcon: Padding(
+            padding: EdgeInsets.only(top: 10,right: 15),
+            child: Image.asset("assets/images/filter_icon.png"),
+          ),
           prefixIcon: Padding(
             padding: EdgeInsets.only(
               top: height * 0.006,
