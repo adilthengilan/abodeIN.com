@@ -1,8 +1,10 @@
 import 'package:abodein/src/view/registration/login_page.dart';
+import 'package:abodein/src/view_model/booking_func.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class HotelDetailePage extends StatelessWidget {
   @override
@@ -255,75 +257,79 @@ class _SlideToUnlockState extends State<SlideToUnlock> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    return GestureDetector(
-      onHorizontalDragUpdate: (DragUpdateDetails details) {
-        setState(() {
-          _position += details.primaryDelta!;
-          if (_position < 0) {
-            _position = 0;
-          } else if (_position > MediaQuery.of(context).size.width - 130) {
-            // Adjust 100 according to the width of your unlock button
-            _position = MediaQuery.of(context).size.width - 130;
+
+    return Consumer<BookingFuncProvider>(
+      builder: (context, value, child) => GestureDetector(
+        onHorizontalDragUpdate: (DragUpdateDetails details) {
+          setState(() {
+            _position += details.primaryDelta!;
+            if (_position < 0) {
+              _position = 0;
+            } else if (_position > MediaQuery.of(context).size.width - 130) {
+              // Adjust 100 according to the width of your unlock button
+              _position = MediaQuery.of(context).size.width - 130;
+            }
+          });
+        },
+        onHorizontalDragEnd: (DragEndDetails details) {
+          if (_position >= MediaQuery.of(context).size.width - 200) {
+            // Unlock logic here, e.g., navigating to a new screen
+            value.confirmBooking();
+            print('Unlocked!');
           }
-        });
-      },
-      onHorizontalDragEnd: (DragEndDetails details) {
-        if (_position >= MediaQuery.of(context).size.width - 200) {
-          // Unlock logic here, e.g., navigating to a new screen
-          print('Unlocked!');
-        }
-        setState(() {
-          _position = 0.0;
-        });
-      },
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.01,
-        height: 100,
-        child: Stack(
-          children: [
-            Row(
-              children: [
-                sizedBox(height, width * 0.25),
-                Text(
-                  "Book Now",
-                  style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500),
-                ),
-                sizedBox(height, width * 0.20),
-                Icon(
-                  Icons.arrow_forward_ios_outlined,
-                  size: 16,
-                  color: greyShadeLight,
-                ),
-                Icon(
-                  Icons.arrow_forward_ios_outlined,
-                  size: 16,
-                  color: greyShadeMedium,
-                ),
-              ],
-            ),
-            Positioned(
-              left: _position,
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: Colors.black),
-                margin: EdgeInsets.only(
-                  top: 5,
-                  left: 5,
-                ),
-                width: 60,
-                height: 60,
-                child: Center(
-                    child: Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.white,
-                )),
+          setState(() {
+            _position = 0.0;
+          });
+        },
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.01,
+          height: 100,
+          child: Stack(
+            children: [
+              Row(
+                children: [
+                  sizedBox(height, width * 0.25),
+                  Text(
+                    "Book Now",
+                    style: GoogleFonts.poppins(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  sizedBox(height, width * 0.20),
+                  Icon(
+                    Icons.arrow_forward_ios_outlined,
+                    size: 16,
+                    color: greyShadeLight,
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios_outlined,
+                    size: 16,
+                    color: greyShadeMedium,
+                  ),
+                ],
               ),
-            ),
-          ],
+              Positioned(
+                left: _position,
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.black),
+                  margin: EdgeInsets.only(
+                    top: 5,
+                    left: 5,
+                  ),
+                  width: 60,
+                  height: 60,
+                  child: Center(
+                      child: Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.white,
+                  )),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

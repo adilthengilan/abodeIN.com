@@ -78,9 +78,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           Consumer<SplashProvider>(
             builder: (context, value, child) {
               return Container(
-                margin: EdgeInsets.fromLTRB(250, 700, 10, 20),
+                margin: EdgeInsets.fromLTRB(height * 0.18, 700, 20, 20),
                 height: 70,
-                width: 120,
+                width: 300,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     color: const Color.fromARGB(255, 214, 212, 212)),

@@ -39,49 +39,47 @@ class _OTPScreenState extends State<OTPScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          sizedBox(height * 0.3, width),
-          Text(
-            'Enter Verification Code',
-            textAlign: TextAlign.center,
-            style: mediumTextStyle,
-          ),
-          SizedBox(height: height * 0.10),
-          //---------------------------------- Here are the Text Field -----------------------------------------
+    return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      // sizedBox(height * 0.3, width),
+      // Text(
+      //   'Enter Verification Code',
+      //   textAlign: TextAlign.center,
+      //   style: mediumTextStyle,
+      // ),
+      // SizedBox(height: height * 0.10),
+      //---------------------------------- Here are the Text Field -----------------------------------------
 
-          // AppTextField(
-          //   controller: email_controller,
-          //   hintText: "E - mail",
-          //   height: height,
-          //   width: width,
-          // ),
-          // Padding(
-          //   padding:
-          //       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 28.0),
-          //   child: Row(
-          //     mainAxisSize: MainAxisSize.max,
-          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //     children: [
-          //       _inputtextbox(context, otp1controller),
-          //       _inputtextbox(context, otp2controller),
-          //       _inputtextbox(context, otp3controller),
-          //       _inputtextbox(context, otp4controller),
-          //     ],
-          //   ),
-          // ),
-          OTPTextField(
-              length: 6,
-              onCompleted: (value) {
-                otpverification(value);
-              }),
-          sizedBox(height * 0.02, width),
-          _extraText(),
-          _buildResendcode(),
-        ]),
-      ),
-    );
+      // AppTextField(
+      //   controller: email_controller,
+      //   hintText: "E - mail",
+      //   height: height,
+      //   width: width,
+      // ),
+      // Padding(
+      //   padding:
+      //       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 28.0),
+      //   child: Row(
+      //     mainAxisSize: MainAxisSize.max,
+      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //     children: [
+      //       _inputtextbox(context, otp1controller),
+      //       _inputtextbox(context, otp2controller),
+      //       _inputtextbox(context, otp3controller),
+      //       _inputtextbox(context, otp4controller),
+      //     ],
+      //   ),
+      // ),
+      OTPTextField(
+          length: 6,
+          onCompleted: (value) {
+            otpverification(value);
+          }),
+      sizedBox(height * 0.02, width),
+      extraText(),
+      sizedBox(height * 0.02, width),
+
+      buildResendcode(),
+    ]);
   }
 
 // --------------------Enter the function here when otp is submitted.-------------------------
@@ -103,7 +101,7 @@ class _OTPScreenState extends State<OTPScreen> {
       height: 60,
       width: 60,
       decoration: BoxDecoration(
-        color: Color.fromARGB(198, 163, 213, 255),
+        color: Color.fromARGB(197, 255, 255, 255),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
           width: 1,
@@ -136,20 +134,20 @@ class _OTPScreenState extends State<OTPScreen> {
     );
   }
 
-  Widget _extraText() {
+  Widget extraText() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           "Didn't Recieve Verification Code ?",
           textAlign: TextAlign.center,
-          style: smallTextStylewhite,
+          style: smallTextStyleblack,
         ),
       ],
     );
   }
 
-  Widget _buildResendcode() {
+  Widget buildResendcode() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

@@ -53,7 +53,7 @@ Future<void> signInWithPhoneAuthCredential(
     BuildContext context, PhoneAuthCredential credential) async {
   try {
     await _auth.signInWithCredential(credential);
-    
+
     // User successfully signed in
     Navigator.pushReplacement(
         context,
@@ -73,4 +73,18 @@ void verifyOTP(BuildContext context, String otp) {
   PhoneAuthCredential credential = PhoneAuthProvider.credential(
       verificationId: verify.verificationId, smsCode: otp);
   signInWithPhoneAuthCredential(context, credential);
+}
+
+class Reg extends ChangeNotifier {
+  bool otpfield = false;
+
+  showotpfield() {
+    otpfield = true;
+    notifyListeners();
+  }
+
+  editotpfield() {
+    otpfield = false;
+    notifyListeners();
+  }
 }

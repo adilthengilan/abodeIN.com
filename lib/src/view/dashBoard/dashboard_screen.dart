@@ -1,5 +1,7 @@
 import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/src/view/dashBoard/hotel_details_screen/hotel_details_screen.dart';
+import 'package:abodein/src/view/dashBoard/search_page/search_page.dart';
+import 'package:abodein/src/view_model/booking_func.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
@@ -31,9 +33,15 @@ class _DashBoardState extends State<DashBoard> {
             delegate: SliverChildListDelegate(
               [
                 //==================================================== The Category Horizontal List With List Generator wrap with Wrap Widget
-                SizedBox(
-                    height: height * 0.165,
-                    child: CategoryLayoutRow(height, width)),
+                Consumer<BookingFuncProvider>(
+                  builder: (context, value, child) => SizedBox(
+                      height: value.bookingconfirm == true
+                          ? height * 0.165
+                          : height * 0.05,
+                      child: value.bookingconfirm == true
+                          ? CategoryLayoutRow(height, width)
+                          : SizedBox()),
+                ),
 
                 SizedBox(
                   height: height * 0.29,
@@ -240,7 +248,13 @@ class _DashBoardState extends State<DashBoard> {
         //================================================================= Search Button ==========================================
         InkWell(
           borderRadius: BorderRadius.circular(50),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SearchPage(),
+                ));
+          },
           child: CircleAvatar(
             radius: height * 0.032,
             backgroundColor: shadeColor,
@@ -346,10 +360,10 @@ class _DashBoardState extends State<DashBoard> {
                 child: Column(
                   children: [
                     sizedBox(height * 0.015, 0.0),
-                    Icon(
-                      Icons.flight,
-                      size: 40,
-                    ),
+                    SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: Image.asset(dash.categories[index]['image'])),
                     sizedBox(height * 0.02, 0.0),
                     Text(
                       dash.categories[index]['Name'],

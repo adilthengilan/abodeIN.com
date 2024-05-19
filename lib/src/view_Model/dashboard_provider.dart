@@ -17,25 +17,21 @@ class DashBoardProvider extends ChangeNotifier {
 
   List<dynamic> categories = [
     {
-      "Name": "Hotels",
-      "image": "assets/images/hotels_category_image.png",
+      "Name": "Restuarant",
+      "image": "assets/images/restuarant Icon.png",
     },
     {
-      "Name": "Motels", 
-      "image": "assets/images/motels_category_image.png",
+      "Name": "Luandry",
+      "image": "assets/images/Luandry.png",
     },
     {
-      "Name": "Resorts",
-      "image": "assets/images/resort_category_image.png",
+      "Name": "Cleaning",
+      "image": "assets/images/Cleaning.png",
     },
     {
-      "Name": "Bed &Breakfast",
-      "image": "assets/images/bed_and_breakfast_category_Image.png",
+      "Name": "Event",
+      "image": "assets/images/Event.png",
     },
-    {
-      "Name": "Hostels",
-      "image": "assets/images/hostels_category_image.png",
-    }
   ];
 
   List<dynamic> SuggestionsHotel = [
