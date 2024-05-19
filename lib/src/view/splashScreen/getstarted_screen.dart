@@ -1,3 +1,4 @@
+import 'package:abodein/src/view/bottom_navigation_controller.dart';
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
@@ -125,7 +126,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DashBoard(),
+                              builder: (context) => Bottom_Navigation_Bar(),
                             ));
                       },
                       onDragCompleted: () {},

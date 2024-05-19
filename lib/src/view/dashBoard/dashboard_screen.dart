@@ -1,4 +1,5 @@
 import 'package:abodein/src/view/common_Widgets/icon.dart';
+import 'package:abodein/src/view/dashBoard/drawer/drawer_screen.dart';
 import 'package:abodein/src/view/dashBoard/hotel_details_screen/hotel_details_screen.dart';
 import 'package:abodein/src/view/dashBoard/search_page/search_page.dart';
 import 'package:abodein/src/view_model/booking_func.dart';
@@ -24,6 +25,7 @@ class _DashBoardState extends State<DashBoard> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      drawer: DrawerScreen(),
       backgroundColor: backgroundColor,
       body: CustomScrollView(
         slivers: <Widget>[
@@ -37,7 +39,7 @@ class _DashBoardState extends State<DashBoard> {
                   builder: (context, value, child) => SizedBox(
                       height: value.bookingconfirm == true
                           ? height * 0.165
-                          : height * 0.05,
+                          : height * 0.04,
                       child: value.bookingconfirm == true
                           ? CategoryLayoutRow(height, width)
                           : SizedBox()),
@@ -203,7 +205,6 @@ class _DashBoardState extends State<DashBoard> {
   // Silver App Bar for Customization, Utilize This Method Floatable AppBar and It Has a Title, Search Icon and Notification Icon
   Widget SilverAppBar(width, height) {
     return SliverAppBar(
-      leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
       //====================================================== Silver App Bar For Customization, I make this AppBar Floatable
       surfaceTintColor: backgroundColor,
       backgroundColor: backgroundColor,

@@ -15,3 +15,4 @@ const Color greyShadeDark = Color.fromARGB(255, 136, 136, 136);
 const Color IcontransparantColor = Color.fromARGB(83, 74, 74, 74);
 const Color shadeColor = Color.fromARGB(216, 244, 244, 244);
 const Color transparantColor = Color.fromARGB(81, 0, 0, 0);
+const Color transparentdrawercolour = Color.fromARGB(27, 0, 0, 0);
