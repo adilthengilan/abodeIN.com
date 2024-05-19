@@ -26,10 +26,13 @@ class HotelDetailePage extends StatelessWidget {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          title: _appBar(context),
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              AppBar(context),
               sizedbox(height * 0.38, width),
               Container(
                 height: 300,
@@ -89,10 +92,10 @@ class HotelDetailePage extends StatelessWidget {
                           style: whiteLightTextStyle,
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [],
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [],
+                      // ),
 
                       // //================================================== More Details Widget ============================================
 
@@ -106,7 +109,7 @@ class HotelDetailePage extends StatelessWidget {
               ),
               sizedBox(height * 0.01, width),
               Container(
-                height: 670,
+                height: 610,
                 width: 370,
                 decoration: BoxDecoration(
                     border: Border.all(color: greyShadeLight),
@@ -153,13 +156,20 @@ class HotelDetailePage extends StatelessWidget {
                       ),
                       reviewsOfUSers(height, detailpageProvider, width),
                       sizedbox(height * 0.01, width),
-                      //================================================== Swipeable Button============================================
-                      SwipeableButton(height, width),
+                      // //================================================== Swipeable Button============================================
+                      // SwipeableButton(height, width),
                     ],
                   ),
                 ),
               ),
             ],
+          ),
+        ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SwipeableButton(
+            height,
+            width,
           ),
         ),
       ),
@@ -168,12 +178,11 @@ class HotelDetailePage extends StatelessWidget {
 
   //*****************************APP BAR*************************************** */
 
-  Widget AppBar(context) {
+  Widget _appBar(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 50, left: 25),
           height: 50,
           width: 55,
           decoration: BoxDecoration(
@@ -190,14 +199,12 @@ class HotelDetailePage extends StatelessWidget {
               )),
         ),
         Container(
-          margin: EdgeInsets.only(top: 45),
           child: Text(
             "Details",
             style: whiteMediumTextStyle,
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 50, right: 25),
           height: 50,
           width: 55,
           decoration: BoxDecoration(
