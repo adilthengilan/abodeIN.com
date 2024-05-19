@@ -103,10 +103,10 @@ class HotelBoxList extends StatelessWidget {
                 height: height * 0.3,
                 width: width,
                 decoration: BoxDecoration(
-                  // image: DecorationImage(
-                  //     fit: BoxFit.fill,
-                  //     image: AssetImage(
-                  //         'assets/images/getstart_image.jpg')),
+                  image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage(
+                          'assets/images/getstart_image.jpg')),
                   color: shadeColor,
                   borderRadius: BorderRadius.circular(25),
                 ),

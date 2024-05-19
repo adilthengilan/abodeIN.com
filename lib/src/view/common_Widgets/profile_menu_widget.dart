@@ -44,7 +44,7 @@ class ProfileMenuWidget extends StatelessWidget {
             sizedBox(height, width * 0.10),
             Text(
               title,
-              style: smallTextStylewhite,
+              style: whiteSmallTextStyle,
             )
           ])),
     );

@@ -1,7 +1,5 @@
-import 'package:abodein/src/view/common_Widgets/text_field.dart';
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
-import 'package:abodein/src/view_model/registration.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
