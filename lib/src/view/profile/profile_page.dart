@@ -1,4 +1,6 @@
 import 'package:abodein/src/view/common_Widgets/icon.dart';
+import 'package:abodein/src/view/profile/booking_history/booking_history.dart';
+import 'package:abodein/src/view/profile/favorite_screen/favorite_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/profile_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
@@ -257,12 +259,12 @@ class _ProfileState extends State<Profile> {
             iconData = Icons.favorite_border_outlined;
             text = "Favorite";
             iconColor = Colors.pinkAccent;
-            onPressed = () {};
+            onPressed = () {Navigator.push(context, MaterialPageRoute(builder: (context) => FavoriteScreen(),));};
           case 3:
             iconData = Icons.history;
             text = "Booking History";
             iconColor = Colors.green;
-            onPressed = () {};
+            onPressed = () {Navigator.push(context, MaterialPageRoute(builder: (context) => BookingHistory()));};
           case 4:
             iconData = Icons.phone_iphone_outlined;
             text = "Smart Cheking";

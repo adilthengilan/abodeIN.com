@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
 
 class HotelRoomsProvider extends ChangeNotifier {
+  List <dynamic> bookingHistory = [];
+
+  void addToBookingHistory(String name, String image, int price, double rating,String description) {
+    final BookedItem = {
+      "name": name,
+      "image": image,
+      "price": price,
+      "rating": rating,
+      "description": description
+    };
+    bookingHistory.add(BookedItem);
+  }
+
   final roomsDetails = [
     {
     "Icon": Icons.location_city_outlined,
