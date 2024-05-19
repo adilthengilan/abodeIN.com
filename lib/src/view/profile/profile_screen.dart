@@ -1,6 +1,7 @@
 import 'package:abodein/src/view/common_Widgets/icon.dart';
 
 import 'package:abodein/src/view/registration/login_page.dart';
+import 'package:abodein/src/view_model/profile_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _ProfileState extends State<Profile> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final profileProvider =
-        Provider.of(context, listen: false);
+        Provider.of<ProfileProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: darktheme ? Colors.black : Colors.white,
       body: SingleChildScrollView(
@@ -307,7 +308,9 @@ class _ProfileState extends State<Profile> {
                       Text(
                         //================================= Text ==============================
                         text,
-                        style: darktheme ? whiteSmallTextStyle : smallTextStyleblack,
+                        style: darktheme
+                            ? whiteSmallTextStyle
+                            : smallTextStyleblack,
                       ),
                       Spacer(),
                       // ===================================== Arrow Iocn ==========================
