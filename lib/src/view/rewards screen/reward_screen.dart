@@ -69,10 +69,9 @@ class _RewardScreenState extends State<RewardScreen> {
             ),
 
             //============================= Reward plans ===================================
-             
+
             TicketContainer(
               onPressed: () {
-                
                 // Navigator.push(
                 //     context,
                 //     MaterialPageRoute(
@@ -246,10 +245,6 @@ class _RewardScreenState extends State<RewardScreen> {
 //========================= Ticket Container ===========================
 //======================================================================
 
-
-
-
-
 class TicketContainer extends StatelessWidget {
   final String title;
   final String text;
@@ -271,22 +266,14 @@ class TicketContainer extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: InkWell(
         onTap: onPressed,
-        child: 
-        ClipPath(
-          clipper: DolDurmaClipper(right: 40, holeRadius: 20),
+        child: ClipPath(
+          clipper: CustomTicketShape(),
           child: Container(
             height: 130,
             width: width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Color.fromARGB(211, 238, 213, 54),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  offset: Offset(3, 3),
-                  blurRadius: 12,
-                ),
-              ],
+              color: Color.fromARGB(255, 220, 204, 55),
             ),
             child: Stack(children: [
               Row(
@@ -316,13 +303,13 @@ class TicketContainer extends StatelessWidget {
                   )
                 ],
               ),
-              CustomPaint(
-                painter: SideCutsDesign(),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.25,
-                  width: double.infinity,
-                ),
-              ),
+              // CustomPaint(
+              //   painter: SideCutsDesign(),
+              //   child: SizedBox(
+              //     height: MediaQuery.of(context).size.height * 0.25,
+              //     width: double.infinity,
+              //   ),
+              // ),
             ]),
           ),
         ),
@@ -336,99 +323,24 @@ class TicketContainer extends StatelessWidget {
     properties.add(DiagnosticsProperty('images', images));
   }
 }
-class DolDurmaClipper extends CustomClipper<Path> {
-  DolDurmaClipper({required this.right, required this.holeRadius});
 
-  final double right;
-  final double holeRadius;
-
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  TICKET SHAPE
+class CustomTicketShape extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    final path = Path()
-      ..moveTo(0, 0)
-      ..lineTo(size.width - right - holeRadius, 0.0)
-      ..arcToPoint(
-        Offset(size.width - right, 0),
-        clockwise: false,
-        radius: Radius.circular(1),
-      )
-      ..lineTo(size.width, 0.0)
-      ..lineTo(size.width, size.height)
-      ..lineTo(size.width - right, size.height)
-      ..arcToPoint(
-        Offset(size.width - right - holeRadius, size.height),
-        clockwise: false,
-        radius: Radius.circular(1),
-      );
-
-    path.lineTo(0.0, size.height);
-
-    path.close();
+    final path = Path();
+    path.addRRect(RRect.fromRectAndRadius(
+        Rect.fromLTWH(0, 0, size.width, size.height), Radius.circular(20)));
+    path.addOval(
+        Rect.fromCircle(center: Offset(0, (size.height / 2)), radius: 15));
+    path.addOval(Rect.fromCircle(
+        center: Offset(size.width, (size.height / 2)), radius: 15));
+    path.fillType = PathFillType.evenOdd;
     return path;
   }
 
   @override
-  bool shouldReclip(DolDurmaClipper oldClipper) => true;
-}
-
-
-//====================================================  Ticket Clipper ================================================
-
-class SideCutsDesign extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    var h = size.height;
-    var w = size.width;
-    var shadowRadius = 20.0;
-    var arcRadius = 20.0;
-
-    // // Paint the left shadow arc
-    // canvas.drawArc(
-    //   Rect.fromCircle(center: Offset(0, h / 2), radius: shadowRadius),
-    //   0,
-    //   2 * pi,
-    //   false,
-    //   Paint()
-    //     ..style = PaintingStyle.fill
-    //     ..color = Colors.black.withOpacity(0.1),
-    // );
-
-    // // Paint the right shadow arc
-    // canvas.drawArc(
-    //   Rect.fromCircle(center: Offset(w, h / 2), radius: shadowRadius),
-    //   0,
-    //   2 * pi,
-    //   false,
-    //   Paint()
-    //     ..style = PaintingStyle.stroke
-    //     ..color = Colors.black.withOpacity(0.1),
-    // );
-
-    // Paint the left arc
-    canvas.drawArc(
-      Rect.fromCircle(center: Offset(0, h / 2), radius: arcRadius),
-      0,
-      2 * pi,
-      false,
-      Paint()
-        ..style = PaintingStyle.fill
-        ..color = backgroundColor, // Replace with your background color
-    );
-
-    // Paint the right arc
-    canvas.drawArc(
-      Rect.fromCircle(center: Offset(w, h / 2), radius: arcRadius),
-      0,
-      2 * pi,
-      false,
-      Paint()
-        ..style = PaintingStyle.fill
-        ..color = backgroundColor, // Replace with your background color
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
+  bool shouldReclip(CustomClipper oldClipper) {
+    return true;
   }
 }

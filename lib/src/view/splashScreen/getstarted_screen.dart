@@ -5,7 +5,6 @@ import 'package:abodein/src/view_Model/splash_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class GetStartedScreen extends StatelessWidget {
   const GetStartedScreen({super.key});
 
@@ -104,11 +103,12 @@ class GetStartedScreen extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
-                BoxShadow(color: Color.fromARGB(255, 188, 188, 188),offset: Offset(0, 4),blurRadius: 4)
+                BoxShadow(
+                    color: Color.fromARGB(255, 188, 188, 188),
+                    offset: Offset(0, 4),
+                    blurRadius: 4)
               ],
-              color: value.currentPage == index
-                  ? orangeColor
-                  : greyShadeLight,
+              color: value.currentPage == index ? orangeColor : greyShadeLight,
             ),
           ),
         ),

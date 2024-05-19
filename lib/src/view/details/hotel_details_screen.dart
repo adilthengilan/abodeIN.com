@@ -454,7 +454,7 @@ class HotelDetailePage extends StatelessWidget {
       ),
     );
   }
-
+// Rating star
   Widget ratingStarIcon(height) {
     return Icon(
       Icons.star,
