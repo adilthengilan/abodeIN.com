@@ -1,5 +1,5 @@
+import 'package:abodein/provider_list.dart';
 import 'package:abodein/src/view/bottom_navigation_bar.dart';
-import 'package:abodein/utils/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';

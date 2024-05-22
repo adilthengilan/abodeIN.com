@@ -1,6 +1,7 @@
 import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/src/view/dashBoard/hotel_details_screen/hotel_details_screen.dart';
 import 'package:abodein/src/view/dashBoard/top_destination/top_destination.dart';
+import 'package:abodein/src/view/search_page.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
@@ -192,7 +193,14 @@ class _DashBoardState extends State<DashBoard> {
         //================================================================= Search Button ==========================================
         InkWell(
           borderRadius: BorderRadius.circular(50),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SearchScreen(),
+              ),
+            );
+          },
           child: CircleAvatar(
             radius: height * 0.032,
             backgroundColor: shadeColor,
