@@ -236,7 +236,7 @@ class HotelDetailePage extends StatelessWidget {
                     detail.isFavorite
                         ? Icons.favorite_outlined
                         : Icons.favorite_border_outlined,
-                    color: detail.isFavorite? Colors.red: blackShadeColor,
+                    color: detail.isFavorite ? Colors.red : blackShadeColor,
                   ),
                 ),
               ),
@@ -340,7 +340,6 @@ class HotelDetailePage extends StatelessWidget {
   //******************************** MORE DETAILS ****************************** */
   Widget _moreDetails(height, width) {
     return Container(
-      height: height * 0.035,
       width: width * 0.30,
       padding: EdgeInsets.only(right: width * 0.02),
       decoration: BoxDecoration(

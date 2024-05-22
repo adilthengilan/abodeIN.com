@@ -33,7 +33,7 @@ class HotelDetailProvider extends ChangeNotifier {
       "description": description
     };
     favoriteList.remove(favoriteItem);
-    print(favoriteList.length);
+    print(favoriteList);
   }
 
   final WhatWeOffering = [
