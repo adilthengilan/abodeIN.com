@@ -1,15 +1,15 @@
+import 'dart:async';
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/src/view/details/hotel_details_screen.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class RewardScreen extends StatefulWidget {
   const RewardScreen({super.key});
@@ -19,16 +19,43 @@ class RewardScreen extends StatefulWidget {
 }
 
 class _RewardScreenState extends State<RewardScreen> {
-  // final String referralCode = "ABC123";
+  Timer? _timer;
+  Duration _remainingTime = Duration(hours: 10, minutes: 45, seconds: 22);
 
-  // void _shareReferralCode(BuildContext context) {
-  //   final RenderBox box = context.findRenderObject() as RenderBox;
-  //   Share.share(
-  //     "Use my referral code $referralCode to sign up!",
-  //     subject: "Join us and use my referral code!",
-  //     sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
-  //   );
-  // }
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  void _startTimer() {
+    const oneSecond = Duration(seconds: 1);
+    _timer = Timer.periodic(oneSecond, (Timer timer) {
+      if (_remainingTime.inSeconds == 0) {
+        setState(() {
+          timer.cancel();
+        });
+      } else {
+        setState(() {
+          _remainingTime = Duration(seconds: _remainingTime.inSeconds - 1);
+        });
+      }
+    });
+  }
+
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    String hours = twoDigits(duration.inHours);
+    String minutes = twoDigits(duration.inMinutes.remainder(60));
+    String seconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$hours:$minutes:$seconds";
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,12 +99,7 @@ class _RewardScreenState extends State<RewardScreen> {
 
             TicketContainer(
               onPressed: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => HotelDetailePage()));
-                // _shareReferralCode(context);
-                // Text('Share Referral Code');
+                Share.share("how are yu");
               },
               text: "Help us grow to get reward",
               images: "assets/images/refer and earn.jpg",
@@ -167,17 +189,9 @@ class _RewardScreenState extends State<RewardScreen> {
                     "Free 50 Points",
                     style: whiteTextStyle,
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        "Time Remaining :",
-                        style: whiteTextStyle,
-                      ),
-                      Text(
-                        "10:45:22",
-                        style: whiteTextStyle,
-                      )
-                    ],
+                  Text(
+                    'Time Remaining : ${_formatDuration(_remainingTime)}',
+                    style: whiteTextStyle,
                   ),
                   sizedbox(height * 0.005, width),
                   Container(

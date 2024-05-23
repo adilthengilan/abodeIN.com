@@ -1,6 +1,4 @@
-import 'package:abodein/src/view/details/hotel_details_screen.dart';
 import 'package:abodein/src/view/rewards%20screen/reward_screen.dart';
-import 'package:abodein/src/view/rewards%20screen/ticketclipper.dart';
 import 'package:abodein/utils/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
