@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/src/view/details/hotel_details_screen.dart';
+import 'package:abodein/src/view_Model/registration.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
@@ -59,6 +60,8 @@ class _RewardScreenState extends State<RewardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final addreward = Provider.of<LoginProvider>(context, listen: false);
+
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -78,7 +81,7 @@ class _RewardScreenState extends State<RewardScreen> {
             ),
             //==================================== Reward points
             sizedbox(height * 0.02, width),
-            _rewardpoint(height, width),
+            _rewardpoint(height, width, addreward),
 
             //==================================== Indicators
 
@@ -99,20 +102,26 @@ class _RewardScreenState extends State<RewardScreen> {
 
             TicketContainer(
               onPressed: () {
-                Share.share("how are yu");
+                addreward.addRewardPoints(10);
+
+                Share.share("how are you");
               },
               text: "Help us grow to get reward",
               images: "assets/images/refer and earn.jpg",
               title: "Reffer a Friend",
             ),
             TicketContainer(
-              onPressed: () {},
+              onPressed: () {
+                addreward.addRewardPoints(10);
+              },
               title: "Book a Hotel",
               text: "Get up 25% off",
               images: "assets/images/Hotel booking.png",
             ),
             TicketContainer(
-              onPressed: () {},
+              onPressed: () {
+                addreward.addRewardPoints(10);
+              },
               title: "Rate your Experience",
               text: "Get up to 15% off",
               images: "assets/images/Rating.png",
@@ -125,7 +134,7 @@ class _RewardScreenState extends State<RewardScreen> {
 
   //======================== Reward Point =================================
 
-  Widget _rewardpoint(height, width) {
+  Widget _rewardpoint(height, width, addreward) {
     return Container(
       margin: EdgeInsets.only(left: 20),
       width: width * 0.88,
@@ -147,7 +156,8 @@ class _RewardScreenState extends State<RewardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("Reward Points", style: whitelargeTextStyle),
-                    Text("850", style: whitelargeTextStyle)
+                    Text("${addreward.rewardPoints}",
+                        style: whitelargeTextStyle)
                   ],
                 ),
               ),
@@ -204,10 +214,7 @@ class _RewardScreenState extends State<RewardScreen> {
                     child: Center(
                       child: TextButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HotelDetailePage()));
+                          addreward.addRewardPoints(50);
                         },
                         child: Text(
                           "Claim",

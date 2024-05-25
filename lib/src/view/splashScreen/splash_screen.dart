@@ -1,8 +1,17 @@
 import 'package:abodein/src/view/splashScreen/getstarted_screen.dart';
 import 'package:flutter/material.dart';
 
-class Splash_Screen extends StatelessWidget {
+class Splash_Screen extends StatefulWidget {
   const Splash_Screen({super.key});
+
+  @override
+  State<Splash_Screen> createState() => _Splash_ScreenState();
+}
+
+class _Splash_ScreenState extends State<Splash_Screen> {
+
+  
+ 
 
   @override
   Widget build(BuildContext context) {

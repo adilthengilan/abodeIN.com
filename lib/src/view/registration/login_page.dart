@@ -1,19 +1,21 @@
+import 'dart:async';
+
+import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
+import 'package:abodein/src/view_Model/registration.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+class LoginScreen extends StatelessWidget {
+  LoginScreen({super.key});
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
   TextEditingController mobilenumbercontrollor = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final loginProvider = Provider.of<LoginProvider>(context);
+
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
@@ -35,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
             sizedBox(height * 0.06, width),
             _inputField("Mobile Number", mobilenumbercontrollor),
             _buildemaillogin(),
-            _loginButton(),
+            _loginButton(loginProvider),
             _extraText(),
           ],
         ),
@@ -81,11 +83,14 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _loginButton() {
+  Widget _loginButton(LoginProvider loginProvider) {
     return Padding(
       padding: const EdgeInsets.all(50),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () async {
+          // Simulate a login process and save the login state
+          await loginProvider.saveLoginState(true);
+        },
         child: const SizedBox(
           width: double.infinity,
           child: Text(

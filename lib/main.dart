@@ -1,12 +1,13 @@
+import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
+import 'package:abodein/src/view/details/hotel_details_screen.dart';
 import 'package:abodein/src/view/rewards%20screen/reward_screen.dart';
+import 'package:abodein/src/view/splashScreen/splash_screen.dart';
 import 'package:abodein/utils/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   runApp(const MyApp());
-  await Firebase.initializeApp();
 }
 
 class MyApp extends StatelessWidget {

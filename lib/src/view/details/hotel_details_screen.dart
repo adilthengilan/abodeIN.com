@@ -8,6 +8,7 @@ import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HotelDetailePage extends StatelessWidget {
   @override
@@ -67,7 +68,22 @@ class HotelDetailePage extends StatelessWidget {
                           ThreeDView(
                             top: height * 0.015,
                             right: width * 0.03,
-                            onTap: () {},
+                            onTap: () async {
+                              // Check login status before booking
+                              bool isLoggedIn = await checkLoginStatus();
+
+                              if (isLoggedIn) {
+                                // Proceed with booking
+                                book(context);
+                              } else {
+                                // Navigate to login screen
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginScreen()),
+                                );
+                              }
+                            },
                             height: height,
                             width: width,
                           ),
@@ -92,11 +108,7 @@ class HotelDetailePage extends StatelessWidget {
                           style: whiteLightTextStyle,
                         ),
                       ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [],
-                      // ),
-
+                     
                       // //================================================== More Details Widget ============================================
 
                       // Container(
@@ -454,12 +466,25 @@ class HotelDetailePage extends StatelessWidget {
       ),
     );
   }
+
 // Rating star
   Widget ratingStarIcon(height) {
     return Icon(
       Icons.star,
       color: orangeColor,
       size: height * 0.02,
+    );
+  }
+
+  Future<bool> checkLoginStatus() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    return sp.getBool('isLogin') ?? false;
+  }
+
+  void book(context) {
+    // Your booking logic here
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Booking successful')),
     );
   }
 }
