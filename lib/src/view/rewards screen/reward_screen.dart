@@ -2,8 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:abodein/src/view/common_Widgets/icon.dart';
-import 'package:abodein/src/view/details/hotel_details_screen.dart';
-import 'package:abodein/src/view_Model/registration.dart';
+import 'package:abodein/src/view_Model/login_provider.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
@@ -83,11 +82,6 @@ class _RewardScreenState extends State<RewardScreen> {
                   size: 30,
                 ),
               ),
-              // child: AppIcon(
-              //   iconData: Icons.arrow_back,
-              //   color: blackShadeColor,
-              //   height: 30,
-              // ),
             ),
             //==================================== Reward points
             sizedbox(height * 0.02, width),

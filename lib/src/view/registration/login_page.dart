@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
-import 'package:abodein/src/view_Model/registration.dart';
+import 'package:abodein/src/view_Model/login_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

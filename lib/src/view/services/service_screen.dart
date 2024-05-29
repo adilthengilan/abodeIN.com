@@ -119,100 +119,64 @@ class ServiceScreen extends StatelessWidget {
         ),
       ),
     );
-  } // This method is to Listing icons and services in the hotel like wifi, Bar, Laundry, Ac, and Parking. and it seen under the "What We Offer"
-
-// its listing with List generator
-  Widget WhatWeOffer() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(
-            5,
-            (index) => Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    width: 200,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(width: .6, color: backgroundColor),
-                      // color: transparantColor,
-                    ),
-                    child: Image(
-                      image: AssetImage('assets/images/laundry_icon.png'),
-                      fit: BoxFit.scaleDown,
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
   }
-  //********************************SWIPEABLE BUTTON***************************** */
+//   //********************************SWIPEABLE BUTTON***************************** */
 
-  Widget SwipeableButton() {
-    return Container(
-      margin: EdgeInsets.only(left: 10),
-      height: 50,
-      width: 180,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50), color: transparantColor),
-      child: Row(
-        children: [
-//       widget to be dragged____________________________________
-          Draggable(
-            axis: Axis.horizontal,
-            feedback: Container(
-              // feedback > the widget that actually gets dragged
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50), color: Colors.black),
-            ),
-            childWhenDragging: Container(
-              height: 50,
-              width: 50,
-              color: Colors.transparent,
-            ),
-            child: Container(
-              margin: EdgeInsets.only(left: 7),
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50), color: Colors.black),
-              child: Center(
-                child: Icon(
-                  Icons.arrow_forward,
-                  color: backgroundColor,
-                ),
-              ),
-            ),
-            onDragEnd: (details) {
-              // value.moveToNextImage(context);
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (context) => DashBoard(),
-              //     ));
-            },
-          ),
+//   Widget SwipeableButton() {
+//     return Container(
+//       margin: EdgeInsets.only(left: 10),
+//       height: 50,
+//       width: 180,
+//       decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(50), color: transparantColor),
+//       child: Row(
+//         children: [
+// //       widget to be dragged____________________________________
+//           Draggable(
+//             axis: Axis.horizontal,
+//             feedback: Container(
+//               // feedback > the widget that actually gets dragged
+//               height: 50,
+//               width: 50,
+//               decoration: BoxDecoration(
+//                   borderRadius: BorderRadius.circular(50), color: Colors.black),
+//             ),
+//             childWhenDragging: Container(
+//               height: 50,
+//               width: 50,
+//               color: Colors.transparent,
+//             ),
+//             child: Container(
+//               margin: EdgeInsets.only(left: 7),
+//               height: 50,
+//               width: 50,
+//               decoration: BoxDecoration(
+//                   borderRadius: BorderRadius.circular(50), color: Colors.black),
+//               child: Center(
+//                 child: Icon(
+//                   Icons.arrow_forward,
+//                   color: backgroundColor,
+//                 ),
+//               ),
+//             ),
+//             onDragEnd: (details) {
+//               // value.moveToNextImage(context);
+//               // Navigator.push(
+//               //     context,
+//               //     MaterialPageRoute(
+//               //       builder: (context) => DashBoard(),
+//               //     ));
+//             },
+//           ),
 
-          Text(
-            " Get Start",
-            style: BlackLightTextStyle,
-          ),
-        ],
-      ),
-    );
-  }
+//           Text(
+//             " Get Start",
+//             style: BlackLightTextStyle,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
 
   // The Profile Buttons Listing in the ListView Builder, it Has 7 buttons, and its Title, Icon, and Icon color it is in a Map List Button Components
   Widget _serviceCard() {
@@ -251,12 +215,13 @@ class ServiceScreen extends StatelessWidget {
                   height: 160,
                   width: 360,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    gradient: RadialGradient(colors: [
-                      primarycolor,
-                      pinkColor,
-                    ]),
-                  ),
+                      borderRadius: BorderRadius.circular(25),
+                      color: transparantColor
+                      // gradient: RadialGradient(colors: [
+                      //   primarycolor,
+                      //   pinkColor,
+                      // ]),
+                      ),
                   child: Column(
                     children: [
                       Row(
