@@ -1,3 +1,5 @@
+import 'package:abodein/src/view/booking/calendar.dart';
+import 'package:abodein/src/view/common_Widgets/show_dialogue.dart';
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/hotel_detail_provider.dart';
@@ -167,10 +169,7 @@ class HotelDetailePage extends StatelessWidget {
         ),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: SwipeableButton(
-            height,
-            width,
-          ),
+          child: SwipeableButton(height, width, context),
         ),
       ),
     );
@@ -268,7 +267,7 @@ class HotelDetailePage extends StatelessWidget {
 
   //********************************SWIPEABLE BUTTON***************************** */
 
-  Widget SwipeableButton(height, width) {
+  Widget SwipeableButton(height, width, BuildContext context) {
     return Container(
       height: 60,
       width: 385,
@@ -305,14 +304,19 @@ class HotelDetailePage extends StatelessWidget {
                 ),
               ),
             ),
-            // onDragEnd: (details) {
-            //   value.moveToNextImage(context);
-            //   // Navigator.push(
-            //   //     context,
-            //   //     MaterialPageRoute(
-            //   //       builder: (context) => DashBoard(),
-            //   //     ));
-            // },
+            onDragEnd: (details) {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => BookingCalendarPage(),));
+              showRoundedDialog(
+                context,
+                width,
+                'Smart Checking',
+                'Verify your identity with SmartCheck using your ID now!',
+                'Cheking',
+                () {
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => SmartCheking(),));
+                },
+              );
+            },
           ),
 
           sizedBox(height, width * 0.07),

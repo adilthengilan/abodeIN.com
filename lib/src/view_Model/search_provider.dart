@@ -6,7 +6,7 @@ class SearchProvider extends ChangeNotifier {
   void runSearching(String enteringKey, hotels) {
     List result = [];
     if (enteringKey.isEmpty) {
-      result = foundHotels;
+      result = result;
     } else {
       result = hotels
           .where((hotel) => hotel

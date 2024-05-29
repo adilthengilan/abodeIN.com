@@ -233,7 +233,7 @@ class BookingScreen extends StatelessWidget {
                       children: [
                         Text(
                           "Total",
-                          style: mediumTextStyleSemiBold,
+                          style: mediumTextStyle,
                         ),
                         sizedBox(0.0, 160.0),
                         Text(
@@ -247,7 +247,6 @@ class BookingScreen extends StatelessWidget {
               ),
             ),
             sizedBox(height * 0.03, width),
-
             AppTextButton(
                 text: "Pay Now", onPressed: () {}, height: height, width: width)
           ],

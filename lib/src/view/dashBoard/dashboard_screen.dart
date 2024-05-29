@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/src/view/dashBoard/hotel_details_screen/hotel_details_screen.dart';
 import 'package:abodein/src/view/dashBoard/top_destination/top_destination.dart';
+import 'package:abodein/src/view/room_controling/room_controller_screen.dart';
 import 'package:abodein/src/view/search_page.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
@@ -8,6 +10,7 @@ import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_location_search/flutter_location_search.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
@@ -17,12 +20,18 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
+  bool isBooked = true;
+  bool isCheking = false;
   String locationText = "London";
+
+  int seconds = 22 * 60 * 60; // 24 hours in seconds
+  Timer? timer;
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-
+    final dbProvider = Provider.of<DashBoardProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: CustomScrollView(
@@ -32,11 +41,75 @@ class _DashBoardState extends State<DashBoard> {
           SliverList(
             delegate: SliverChildListDelegate(
               [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: width * 0.06, vertical: height * 0.02),
+                  child: Consumer<DashBoardProvider>(
+                    builder: (context, dash, child) => InkWell(
+                      onTap: () {
+                        if (isBooked && !isCheking) {
+                          setState(() {
+                            isCheking = !isCheking;
+                          });
+                        } else if (isBooked &&
+                            isCheking &&
+                            !dash.isTimeStarted) {
+                          setState(() {
+                            dash.isTimeStarted = !dash.isTimeStarted;
+                          });
+                        } else if (isBooked &&
+                            isCheking &&
+                            dash.isTimeStarted) {
+                              dash.startTimer();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => RoomController(),
+                            ),
+                          );
+                        }
+                      },
+                      child: Container(
+                        width: width,
+                        height: height * 0.09,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromARGB(255, 202, 202, 202),
+                              blurRadius: 2,
+                              blurStyle: BlurStyle.outer,
+                              spreadRadius: 3,
+                            )
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            isBooked && !isCheking
+                                ? "Smart Cheking"
+                                : isBooked && isCheking && !dash.isTimeStarted
+                                    ? "Time Start At 2:00 Pm"
+                                    : isBooked &&
+                                            isCheking &&
+                                            dash.isTimeStarted
+                                        ? dash.formatTime(dash.seconds)
+                                        : "",
+                            style: mediumTextStyleLight,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                isBooked && isCheking && dbProvider.isTimeStarted
+                    ? SizedBox(
+                        height: height * 0.165,
+                        child: CategoryLayoutRow(height, width),
+                      )
+                    : SizedBox(),
                 //==================================================== The Category Horizontal List With List Generator wrap with Wrap Widget
-                SizedBox(
-                    height: height * 0.165,
-                    child: CategoryLayoutRow(height, width)),
-
+                sizedBox(height * 0.01, 0.0),
                 SizedBox(
                   height: height * 0.29,
                   width: width,
@@ -145,6 +218,12 @@ class _DashBoardState extends State<DashBoard> {
     );
   }
 
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
   // Silver App Bar for Customization, Utilize This Method Floatable AppBar and It Has a Title, Search Icon and Notification Icon
   Widget SilverAppBar(width, height) {
     return SliverAppBar(
@@ -165,16 +244,16 @@ class _DashBoardState extends State<DashBoard> {
           builder: (context, value, child) => InkWell(
             borderRadius: BorderRadius.circular(50),
             onTap: () async {
-              // LocationData? locationData = await LocationSearch.show(
-              //   context: context,
-              //   lightAdress: true,
-              //   mode: Mode.fullscreen,
-              //   language: 'en',
-              //   iconColor: greyShadeMedium,
-              //   historyMaxLength: 10,
-              //   searchBarTextColor: shadeColor,
-              // );
-              // value.setLocationAddress(locationData!.address);
+              LocationData? locationData = await LocationSearch.show(
+                context: context,
+                lightAdress: true,
+                mode: Mode.fullscreen,
+                language: 'en',
+                iconColor: greyShadeMedium,
+                historyMaxLength: 5,
+                searchBarTextColor: shadeColor,
+              );
+              value.setLocationAddress(locationData!.address);
             },
             child: CircleAvatar(
               radius: height * 0.032,
@@ -242,7 +321,7 @@ class _DashBoardState extends State<DashBoard> {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+        padding: EdgeInsets.symmetric(horizontal: width * 0.05),
         child: Wrap(
           spacing: width * 0.06,
           children: List.generate(
@@ -329,10 +408,11 @@ class _DashBoardState extends State<DashBoard> {
       child: GestureDetector(
         onTap: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HotelDetailePage(),
-              ));
+            context,
+            MaterialPageRoute(
+              builder: (context) => HotelDetailePage(),
+            ),
+          );
         },
         child: Container(
           width: width * 0.58,
@@ -569,6 +649,41 @@ class MapViewButton extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class AlertBox extends StatelessWidget {
+  final String titleAlert;
+  final String yourAlert;
+  final String buttontext;
+  final VoidCallback onpressed;
+  const AlertBox({
+    super.key,
+    required this.titleAlert,
+    required this.yourAlert,
+    required this.buttontext,
+    required this.onpressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: Colors.white,
+      title: Text(titleAlert, style: mediumTextStyleLight),
+      content: Text(yourAlert, style: smallTextStyle),
+      actions: <Widget>[
+        TextButton(
+          child: Text("Cancel", style: smallTextStyle),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        TextButton(
+          onPressed: onpressed,
+          child: Text(buttontext, style: smallTextStyle),
+        ),
+      ],
     );
   }
 }

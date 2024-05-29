@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class FavoriteScreen extends StatelessWidget {
-  const FavoriteScreen({super.key});
+  final bool backButton;
+  const FavoriteScreen({super.key, required this.backButton});
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +23,18 @@ class FavoriteScreen extends StatelessWidget {
             floating: true,
             surfaceTintColor: Colors.transparent,
             backgroundColor: Colors.transparent,
-            title: Text("Booking History", style: mediumTextStyle),
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              color: Colors.black,
-              icon: Icon(
-                Icons.arrow_back_outlined,
-              ),
-            ),
+            title: Text("Favorite", style: mediumTextStyle),
+            leading: backButton
+                ? IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    color: Colors.black,
+                    icon: Icon(
+                      Icons.arrow_back_outlined,
+                    ),
+                  )
+                : SizedBox(width: 0),
           ),
           SliverList(
             delegate: SliverChildListDelegate(
