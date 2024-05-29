@@ -102,6 +102,14 @@ final TextStyle BlackLightTextStyle = GoogleFonts.poppins(
     fontWeight: FontWeight.w400,
   ),
 );
+
+final TextStyle blackMediumTextStyle = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 20,
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+  ),
+);
 final TextStyle whiteTextStyle = GoogleFonts.robotoMono(
   textStyle: TextStyle(
     fontSize: 15,

@@ -40,6 +40,7 @@ dependencies:
   camera: ^0.10.5+9
   share_plus: ^7.0.2
   shared_preferences: ^2.2.3
+  image_picker: ^1.0.8
   
 
 

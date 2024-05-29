@@ -3,24 +3,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginProvider extends ChangeNotifier {
   bool _isLoggedIn = false;
-      int _rewardPoints = 0;
-
+  int _rewardPoints = 0;
 
   bool get isLoggedIn => _isLoggedIn;
-int get rewardPoints => _rewardPoints;
+  int get rewardPoints => _rewardPoints;
 
   LoginProvider() {
-    checkLoginStatus();
-    loadRewardPoints();
+    logininitialize();
   }
 
-  Future<void> checkLoginStatus() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  Future<void> logininitialize() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
     _isLoggedIn = sharedPreferences.getBool('isLogin') ?? false;
+    _rewardPoints = sharedPreferences.getInt('rewardPoints') ?? 0;
     notifyListeners();
   }
-
-
 
   Future<void> saveLoginState(bool isLoggedIn) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -28,21 +25,16 @@ int get rewardPoints => _rewardPoints;
     _isLoggedIn = isLoggedIn;
     notifyListeners();
   }
- 
-    Future<void> addRewardPoints(int points) async {
+
+  Future<void> addRewardPoints(int points) async {
     _rewardPoints += points;
     await saveRewardPoints();
     notifyListeners();
   }
- Future<void> saveRewardPoints() async {
+
+  Future<void> saveRewardPoints() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setInt('rewardPoints', _rewardPoints);
-  }
-
-  Future<void> loadRewardPoints() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    _rewardPoints = sharedPreferences.getInt('rewardPoints') ?? 0;
-    notifyListeners();
   }
 
   void logout() async {
@@ -51,5 +43,4 @@ int get rewardPoints => _rewardPoints;
     _isLoggedIn = false;
     notifyListeners();
   }
-
 }

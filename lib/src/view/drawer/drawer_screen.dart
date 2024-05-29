@@ -1,6 +1,7 @@
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/details/hotel_details_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
+import 'package:abodein/src/view/rewards%20screen/reward_screen.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +75,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
           _buildItem(
               icon: Icons.card_giftcard_outlined,
               title: " R E W A R D S",
-              onTap: () {}),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => RewardScreen()));
+              }),
           //=========================Collections ==============================
           _buildItem(
               icon: Icons.favorite_outline,

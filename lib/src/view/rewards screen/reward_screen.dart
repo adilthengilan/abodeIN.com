@@ -73,11 +73,21 @@ class _RewardScreenState extends State<RewardScreen> {
             //============================= Arrow Back
             Padding(
               padding: EdgeInsets.only(top: 40, left: 20),
-              child: AppIcon(
-                iconData: Icons.arrow_back,
-                color: blackShadeColor,
-                height: 30,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: blackShadeColor,
+                  size: 30,
+                ),
               ),
+              // child: AppIcon(
+              //   iconData: Icons.arrow_back,
+              //   color: blackShadeColor,
+              //   height: 30,
+              // ),
             ),
             //==================================== Reward points
             sizedbox(height * 0.02, width),
