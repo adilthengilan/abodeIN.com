@@ -2,12 +2,14 @@ import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/src/view/dashBoard/drawer/drawer_screen.dart';
 import 'package:abodein/src/view/dashBoard/hotel_details_screen/hotel_details_screen.dart';
 import 'package:abodein/src/view/dashBoard/search_page/search_page.dart';
+import 'package:abodein/src/view/searchapi.dart';
 import 'package:abodein/src/view_model/booking_func.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class DashBoard extends StatefulWidget {
@@ -35,16 +37,120 @@ class _DashBoardState extends State<DashBoard> {
             delegate: SliverChildListDelegate(
               [
                 //==================================================== The Category Horizontal List With List Generator wrap with Wrap Widget
-                Consumer<BookingFuncProvider>(
-                  builder: (context, value, child) => SizedBox(
-                      height: value.bookingconfirm == true
-                          ? height * 0.165
-                          : height * 0.04,
-                      child: value.bookingconfirm == true
-                          ? CategoryLayoutRow(height, width)
-                          : SizedBox()),
+                // Consumer<BookingFuncProvider>(
+                //   builder: (context, value, child) => SizedBox(
+                //       height: value.bookingconfirm == true
+                //           ? height * 0.165
+                //           : height * 0.04,
+                //       child: value.bookingconfirm == true
+                //           ? CategoryLayoutRow(height, width)
+                //           : Container()),
+                // ),
+                Row(
+                  children: [
+                    sizedBox(0.0, width * 0.05),
+                    Column(
+                      children: [
+                        Container(
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: width * 0.32,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    'SMART CONTROL',
+                                    style: GoogleFonts.poppins(
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                  height: 50,
+                                  width: 50,
+                                  child: Image.asset(
+                                      'assets/images/smart icon nav.png'))
+                            ],
+                          ),
+                          height: 80,
+                          width: 200,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            gradient: LinearGradient(colors: [
+                              Color.fromARGB(255, 148, 208, 255),
+                              Color.fromARGB(255, 102, 74, 172)
+                            ]),
+                          ),
+                        ),
+                        sizedBox(height * 0.01, 0.0),
+                        Container(
+                          height: 80,
+                          width: 200,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              gradient: LinearGradient(colors: [
+                                Color.fromARGB(193, 120, 24, 204),
+                                Color.fromARGB(73, 138, 104, 205)
+                              ])),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: width * 0.25,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    'TRAVEL REWARD',
+                                    style: GoogleFonts.poppins(
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                  height: 100,
+                                  width: 100,
+                                  child: Image.asset(
+                                      'assets/images/reward icon nav.png'))
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    sizedBox(0.0, width * 0.02),
+                    Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(
+                                'assets/images/Smart check-IN (3).png',
+                              ),
+                              fit: BoxFit.cover),
+                          borderRadius: BorderRadius.circular(20),
+                          gradient: LinearGradient(colors: [
+                            Color.fromARGB(10, 234, 252, 255),
+                            Color.fromARGB(255, 247, 244, 255)
+                          ], begin: Alignment.topCenter)),
+                      height: height * 0.21,
+                      width: width * 0.38,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Text(
+                          //   'SMART ROOM',
+                          //   style: GoogleFonts.poppins(
+                          //       color: Colors.white,
+                          //       fontWeight: FontWeight.w700,
+                          //       fontSize: 25),
+                          // )
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-
                 SizedBox(
                   height: height * 0.29,
                   width: width,
@@ -63,14 +169,20 @@ class _DashBoardState extends State<DashBoard> {
                           height: height,
                           width: width,
                           rating: 4.8,
-                          top: height * 0.015,
-                          left: width * 0.02,
+                          top: height * 0.020,
+                          left: width * 0.020,
                         ),
                         //=========================================================== 3D View TransParant Box =======================================
                         ThreeDView(
-                          top: height * 0.015,
+                          top: height * 0.020,
                           right: width * 0.06,
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SerpApiPage(),
+                                ));
+                          },
                           height: height,
                           width: width,
                         ),
@@ -98,7 +210,9 @@ class _DashBoardState extends State<DashBoard> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       //======================================================== Top Destination ========================================
-                      Text("Top Destination", style: largeTextStyle),
+                      Text("Top Destination",
+                          style: GoogleFonts.poppins(
+                              fontSize: 24, fontWeight: FontWeight.w700)),
                       InkWell(
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {},
@@ -148,6 +262,12 @@ class _DashBoardState extends State<DashBoard> {
                             height: height * 0.3,
                             width: width,
                             decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color.fromARGB(255, 214, 214, 214),
+                                    blurRadius: 5,
+                                    spreadRadius: 1)
+                              ],
                               image: DecorationImage(
                                   fit: BoxFit.fill,
                                   image: AssetImage(
@@ -382,7 +502,8 @@ class _DashBoardState extends State<DashBoard> {
   // This Method Shows A Square Buttons with images, it Listing Hotels
   Widget SquereBoxWithImages(width, height) {
     return Padding(
-      padding: EdgeInsets.only(right: width * 0.04),
+      padding:
+          EdgeInsets.only(right: width * 0.04, top: 10, bottom: 10, left: 5),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -395,12 +516,18 @@ class _DashBoardState extends State<DashBoard> {
           width: width * 0.58,
           height: height,
           decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                  color: Color.fromARGB(255, 214, 214, 214),
+                  blurRadius: 5,
+                  spreadRadius: 1)
+            ],
             image: DecorationImage(
               fit: BoxFit.fill,
               image: AssetImage("assets/images/getstart_image.jpg"),
             ),
             color: shadeColor,
-            borderRadius: BorderRadius.circular(25),
+            borderRadius: BorderRadius.circular(18),
           ),
         ),
       ),
@@ -505,18 +632,21 @@ class PriceAndBookingPersons extends StatelessWidget {
               Text(location, style: whiteMediumTextStyle)
             ],
           ),
-          RichText(
-            text: TextSpan(
-              text: "\$${price}",
-              style: whiteMediumTextStyle,
-              children: [
-                TextSpan(
-                  text: "/${personCount}Persons",
-                  style: whiteLightTextStyle,
-                ),
-              ],
+          SizedBox(
+            width: 60,
+            child: RichText(
+              text: TextSpan(
+                text: "\$${price}",
+                style: whiteMediumTextStyle,
+                children: [
+                  TextSpan(
+                    text: "/${personCount}Persons",
+                    style: whiteLightTextStyle,
+                  ),
+                ],
+              ),
             ),
-          ),
+          )
         ],
       ),
     );

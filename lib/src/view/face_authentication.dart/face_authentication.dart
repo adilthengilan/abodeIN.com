@@ -18,6 +18,10 @@ class _FaceAuthenticationState extends State<FaceAuthentication> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         child: Column(

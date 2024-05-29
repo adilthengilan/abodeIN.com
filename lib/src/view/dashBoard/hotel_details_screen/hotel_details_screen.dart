@@ -246,6 +246,7 @@ class HotelDetailePage extends StatelessWidget {
 
 //-----------------Slide to book button with its functions and logic here.-----------------
 class SlideToUnlock extends StatefulWidget {
+  
   @override
   _SlideToUnlockState createState() => _SlideToUnlockState();
 }

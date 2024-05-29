@@ -1,4 +1,5 @@
 import 'package:abodein/src/view/common_Widgets/icon.dart';
+import 'package:abodein/src/view/face_authentication.dart/face_authentication.dart';
 
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_model/profile_provider.dart';
@@ -141,12 +142,12 @@ class _ProfileState extends State<Profile> {
                   boxShadow: [
                     BoxShadow(
                       offset: Offset(-0.3, 1),
-                      blurRadius: 2,
+                      blurRadius: 10,
                       blurStyle: BlurStyle.normal,
-                      spreadRadius: 0,
+                      spreadRadius: 5,
                       color: darktheme
-                          ? Color.fromARGB(255, 165, 223, 254)
-                          : Color.fromARGB(255, 248, 248, 248),
+                          ? Color.fromARGB(255, 44, 44, 44)
+                          : Color.fromARGB(255, 191, 191, 191),
                     ),
                   ],
                   borderRadius: BorderRadius.circular(12),
@@ -192,20 +193,17 @@ class _ProfileState extends State<Profile> {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(left: width * 0.01),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20)),
-                          height: height * 0.045,
-                          child: Image(
-                            fit: BoxFit.cover,
-                            image: AssetImage(
-                                "assets/images/Debit_Card_Image.png"),
-                          ),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20)),
+                        height: height * 0.15,
+                        child: Image(
+                          fit: BoxFit.cover,
+                          image:
+                              AssetImage("assets/images/Debit_Card_Image.png"),
                         ),
                       ),
-                      sizedBox(height * 0.002, 0.0),
+                      // sizedBox(height * 0.002, 0.0),
                       Text(
                         "JOHN SMITH",
                         style: GoogleFonts.poppins(
@@ -270,7 +268,13 @@ class _ProfileState extends State<Profile> {
             iconData = Icons.phone_iphone_outlined;
             text = "Smart Cheking";
             iconColor = Colors.purple;
-            onPressed = () {};
+            onPressed = () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FaceAuthentication(),
+                  ));
+            };
           case 5:
             iconData = Icons.wallet_giftcard_outlined;
             text = "Reward";
@@ -279,9 +283,15 @@ class _ProfileState extends State<Profile> {
 
           case 6:
             iconData = Icons.logout_outlined;
-            text = "Logoout";
+            text = "Login";
             iconColor = Colors.red;
-            onPressed = () {};
+            onPressed = () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginScreen(),
+                  ));
+            };
           default:
         }
         return Column(

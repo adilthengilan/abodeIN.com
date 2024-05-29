@@ -1,3 +1,4 @@
+import 'package:abodein/src/view/bottom_navigation_controller.dart';
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
@@ -90,7 +91,7 @@ class _OTPScreenState extends State<OTPScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => DashBoard(),
+          builder: (context) => Bottom_Navigation_Bar(),
         ));
     // Perform OTP verification here
     print('Entered OTP:============================ $otp');
@@ -228,3 +229,5 @@ class _OTPTextFieldState extends State<OTPTextField> {
     );
   }
 }
+
+
