@@ -31,7 +31,6 @@ class Bottom_Navigation_Bar extends StatelessWidget {
             /// Home
             CrystalNavigationBarItem(
               icon: IconlyBold.home,
-              
               unselectedIcon: IconlyLight.home,
               selectedColor: Colors.white,
             ),
@@ -55,7 +54,7 @@ class Bottom_Navigation_Bar extends StatelessWidget {
             CrystalNavigationBarItem(
               icon: IconlyBold.user_2,
               unselectedIcon: IconlyLight.user,
-              selectedColor: const Color.fromARGB(255, 0, 47, 2),
+              selectedColor: Colors.white,
             ),
           ],
         ),

@@ -64,15 +64,15 @@ class _DashBoardState extends State<DashBoard> {
                                         color:
                                             Color.fromARGB(255, 255, 255, 255),
                                         fontWeight: FontWeight.w600,
-                                        fontSize: 20),
+                                        fontSize: 19),
                                   ),
                                 ),
                               ),
                               SizedBox(
                                   height: 50,
                                   width: 50,
-                                  child: Image.asset(
-                                      'assets/images/smart icon nav.png'))
+                                  child: Image.network(
+                                      'https://drive.google.com/file/d/1dyDV379FfzgWi6_EECD4u3UtHdfKGtSN/view?usp=sharing'))
                             ],
                           ),
                           height: 80,
@@ -98,7 +98,7 @@ class _DashBoardState extends State<DashBoard> {
                           child: Row(
                             children: [
                               SizedBox(
-                                width: width * 0.25,
+                                width: width * 0.254,
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 10),
                                   child: Text(
@@ -107,7 +107,7 @@ class _DashBoardState extends State<DashBoard> {
                                         color:
                                             Color.fromARGB(255, 255, 255, 255),
                                         fontWeight: FontWeight.w600,
-                                        fontSize: 20),
+                                        fontSize: 19),
                                   ),
                                 ),
                               ),
@@ -139,12 +139,13 @@ class _DashBoardState extends State<DashBoard> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          sizedBox(height * 0.17, 0.0),
                           // Text(
-                          //   'SMART ROOM',
+                          //   ' TRAVEL COIN',
                           //   style: GoogleFonts.poppins(
-                          //       color: Colors.white,
+                          //       color: Color.fromARGB(102, 0, 0, 0),
                           //       fontWeight: FontWeight.w700,
-                          //       fontSize: 25),
+                          //       fontSize: 20),
                           // )
                         ],
                       ),
@@ -158,12 +159,12 @@ class _DashBoardState extends State<DashBoard> {
                   child: ListView.builder(
                     padding: EdgeInsets.symmetric(horizontal: width * 0.04),
                     scrollDirection: Axis.horizontal,
-                    itemCount: 3,
+                    itemCount: Images.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) => Stack(
                       children: [
                         // Square Box Under The Categories List with Hotel Image And it Details
-                        SquereBoxWithImages(width, height),
+                        SquereBoxWithImages(width, height, index),
                         //=========================================================== Rating Icon & Text ===========================================
                         RatingBoxTransparant(
                           height: height,
@@ -241,7 +242,7 @@ class _DashBoardState extends State<DashBoard> {
                 sizedBox(height * 0.015, 0.0),
                 //==================================================== ListView Builder ========= Top Destination ==============================================
                 ListView.builder(
-                  itemCount: 5,
+                  itemCount: Images.length,
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   padding: EdgeInsets.symmetric(horizontal: width * 0.04),
@@ -270,8 +271,7 @@ class _DashBoardState extends State<DashBoard> {
                               ],
                               image: DecorationImage(
                                   fit: BoxFit.fill,
-                                  image: AssetImage(
-                                      'assets/images/getstart_image.jpg')),
+                                  image: AssetImage(Images[index])),
                               color: shadeColor,
                               borderRadius: BorderRadius.circular(25),
                             ),
@@ -500,7 +500,7 @@ class _DashBoardState extends State<DashBoard> {
   }
 
   // This Method Shows A Square Buttons with images, it Listing Hotels
-  Widget SquereBoxWithImages(width, height) {
+  Widget SquereBoxWithImages(width, height, index) {
     return Padding(
       padding:
           EdgeInsets.only(right: width * 0.04, top: 10, bottom: 10, left: 5),
@@ -524,7 +524,7 @@ class _DashBoardState extends State<DashBoard> {
             ],
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage("assets/images/getstart_image.jpg"),
+              image: AssetImage(Images[index]),
             ),
             color: shadeColor,
             borderRadius: BorderRadius.circular(18),
@@ -759,3 +759,12 @@ class MapViewButton extends StatelessWidget {
     );
   }
 }
+
+List<String> Images = [
+  'assets/images/download (24).jpeg',
+  'assets/images/download (25).jpeg',
+  'assets/images/download (26).jpeg',
+  'assets/images/download (27).jpeg',
+  'assets/images/images (44).jpeg',
+  'assets/images/images (45).jpeg'
+];
