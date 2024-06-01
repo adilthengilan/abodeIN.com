@@ -21,6 +21,7 @@ class Booking extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            //================================ ROOM IMAGES AND DETAILS =========================================
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20, top: 17),
               child: Row(
@@ -84,6 +85,7 @@ class Booking extends StatelessWidget {
                 ],
               ),
             ),
+            //==================================================CHECKIN CHECKOUT
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -99,6 +101,7 @@ class Booking extends StatelessWidget {
                 )
               ],
             ),
+            //==================================================== GUESTS AND ROOMS
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -115,6 +118,7 @@ class Booking extends StatelessWidget {
           ],
         ),
       ),
+      //=====================================================  PAYMENT BUTTON
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
         child: AppTextButton(
