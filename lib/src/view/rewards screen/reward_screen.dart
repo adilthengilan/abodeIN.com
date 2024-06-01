@@ -48,6 +48,7 @@ class _RewardScreenState extends State<RewardScreen> {
     String hours = twoDigits(duration.inHours);
     String minutes = twoDigits(duration.inMinutes.remainder(60));
     String seconds = twoDigits(duration.inSeconds.remainder(60));
+
     return "$hours:$minutes:$seconds";
   }
 
@@ -108,7 +109,7 @@ class _RewardScreenState extends State<RewardScreen> {
               onPressed: () {
                 addreward.addRewardPoints(10);
 
-                Share.share("how are you");
+                Share.share("com.example.abodein");
               },
               text: "Help us grow to get reward",
               images: "assets/images/refer and earn.jpg",
@@ -185,17 +186,17 @@ class _RewardScreenState extends State<RewardScreen> {
           //========================== claim free points
           Container(
             margin: EdgeInsets.only(
-              top: 10,
+              top: 20,
               right: 10,
             ),
-            height: 100,
+            height: 120,
             width: 300,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: transparantLightColor,
             ),
             child: Padding(
-              padding: const EdgeInsets.only(left: 10, top: 8),
+              padding: const EdgeInsets.only(left: 10, top: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -207,7 +208,7 @@ class _RewardScreenState extends State<RewardScreen> {
                     'Time Remaining : ${_formatDuration(_remainingTime)}',
                     style: whiteTextStyle,
                   ),
-                  sizedbox(height * 0.005, width),
+                  sizedbox(height * 0.020, width),
                   Container(
                     height: 35,
                     width: 90,
@@ -300,42 +301,33 @@ class TicketContainer extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               color: Color.fromARGB(255, 220, 204, 55),
             ),
-            child: Stack(children: [
-              Row(
-                children: [
-                  Container(
-                      margin: EdgeInsets.only(left: 35),
-                      height: 150,
-                      width: 100,
-                      child: Image.asset(images!)),
-                  sizedbox(height, width * 0.04),
-                  Container(
-                    margin: EdgeInsets.only(top: 40),
-                    width: 160,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          title,
-                          style: blacksmallTextStyle,
-                        ),
-                        Text(
-                          text,
-                          style: whiteTextStyle,
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              // CustomPaint(
-              //   painter: SideCutsDesign(),
-              //   child: SizedBox(
-              //     height: MediaQuery.of(context).size.height * 0.25,
-              //     width: double.infinity,
-              //   ),
-              // ),
-            ]),
+            child: Row(
+              children: [
+                Container(
+                    margin: EdgeInsets.only(left: 35),
+                    height: 150,
+                    width: 100,
+                    child: Image.asset(images!)),
+                sizedbox(height, width * 0.04),
+                Container(
+                  margin: EdgeInsets.only(top: 40),
+                  width: 160,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: smallTextStyle,
+                      ),
+                      Text(
+                        text,
+                        style: whiteTextStyle,
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

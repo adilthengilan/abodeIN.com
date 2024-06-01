@@ -190,9 +190,9 @@ class DashBoard extends StatelessWidget {
       title: Text("Discover", style: largeTextStyle),
       actions: [
         //========================================================================= Search Icon
-        CircleAvatar(
-          radius: height * 0.032,
-          backgroundColor: shadeColor,
+        Container(
+          height: height * 0.032,
+          color: shadeColor,
           child: Center(
             child: AppIcon(
               iconData: Icons.search_outlined,
@@ -203,9 +203,9 @@ class DashBoard extends StatelessWidget {
         ),
         sizedbox(0.0, width * 0.015),
         //================================================================ Notification Icon
-        CircleAvatar(
-          radius: height * 0.032,
-          backgroundColor: shadeColor,
+        Container(
+          height: height * 0.032,
+          color: shadeColor,
           child: Center(
             child: AppIcon(
               iconData: Icons.notifications_outlined,
@@ -331,9 +331,9 @@ class RatingBoxTransparant extends StatelessWidget {
           padding: EdgeInsets.all(height * 0.006),
           child: Row(
             children: [
-              CircleAvatar(
-                radius: height * 0.022,
-                backgroundColor: transparantColor,
+              Container(
+                height: height * 0.022,
+                color: transparantColor,
                 child: Center(
                   child: AppIcon(
                     iconData: Icons.star_border_outlined,
@@ -408,6 +408,7 @@ class PriceAndBookingPersons extends StatelessWidget {
   }
 }
 
+
 // it shows A Transparant Box Of 3d View, It Has Rating Icon and a Rating Text, And The Icon show on the circle Avatar
 class ThreeDView extends StatelessWidget {
   final double top;
@@ -442,9 +443,9 @@ class ThreeDView extends StatelessWidget {
             padding: EdgeInsets.all(height * 0.006),
             child: Row(
               children: [
-                CircleAvatar(
-                  radius: height * 0.022,
-                  backgroundColor: transparantColor,
+                Container(
+                  height: height * 0.022,
+                  color: transparantColor,
                   child: Center(
                     child: AppIcon(
                       iconData: Icons.share_outlined,
@@ -494,9 +495,9 @@ class MapViewButton extends StatelessWidget {
           padding: EdgeInsets.all(height * 0.0055),
           child: Row(
             children: [
-              CircleAvatar(
-                radius: height * 0.022,
-                backgroundColor: transparantColor,
+              Container(
+                height: height * 0.022,
+                color: transparantColor,
                 child: Center(
                   child: AppIcon(
                     iconData: Icons.map_outlined,

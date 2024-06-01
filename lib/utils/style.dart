@@ -1,3 +1,4 @@
+import 'package:abodein/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import "package:google_fonts/google_fonts.dart";
 
@@ -5,7 +6,7 @@ final TextStyle largeTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 31,
     fontWeight: FontWeight.bold,
-    color: Color.fromARGB(255, 75, 75, 75),
+    color: Colors.black,
   ),
 );
 
@@ -13,7 +14,14 @@ final TextStyle mediumTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 25,
     fontWeight: FontWeight.bold,
-    color: Color.fromARGB(255, 75, 75, 75),
+    color: Colors.black,
+  ),
+);
+final TextStyle mediumLightTextStyle = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.w400,
+    color: Colors.black,
   ),
 );
 
@@ -21,7 +29,7 @@ final TextStyle smallTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
-    color: Color.fromARGB(255, 75, 75, 75),
+    color: Colors.black,
   ),
 );
 
@@ -90,7 +98,7 @@ final TextStyle whiteLightTextStyle = GoogleFonts.poppins(
 final TextStyle greyLightTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 16,
-    color: Color.fromARGB(255, 213, 213, 213),
+    color: greyShadeDark,
     fontWeight: FontWeight.w400,
   ),
 );
@@ -117,11 +125,11 @@ final TextStyle whiteTextStyle = GoogleFonts.robotoMono(
     fontWeight: FontWeight.w400,
   ),
 );
-final TextStyle blacksmallTextStyle = GoogleFonts.poppins(
+final TextStyle greysmallTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
-    color: Colors.black,
+    color: Colors.grey,
   ),
 );
 final TextStyle LightgreysmallTextStyle = GoogleFonts.poppins(

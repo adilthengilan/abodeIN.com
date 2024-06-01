@@ -1,5 +1,3 @@
-import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
-import 'package:abodein/src/view/details/hotel_details_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view/rewards%20screen/reward_screen.dart';
 import 'package:abodein/utils/app_colors.dart';
@@ -132,9 +130,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        CircleAvatar(
-          backgroundImage: AssetImage("assets/images/profile picture.jpg"),
-          radius: 50,
+        Container(
+          child: Image.asset("assets/images/profile picture.jpg"),
+          height: 50,
         ),
         sizedBox(height * 0.02, width),
         Text(

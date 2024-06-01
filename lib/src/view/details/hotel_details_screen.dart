@@ -1,6 +1,6 @@
-import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
+import 'package:abodein/src/view_Model/bookingfun_provider.dart';
 import 'package:abodein/src/view_Model/hotel_detail_provider.dart';
 
 import 'package:abodein/utils/app_colors.dart';
@@ -18,172 +18,165 @@ class HotelDetailePage extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context).size;
     final width = mediaQuery.width;
     final height = mediaQuery.height;
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/getstartedbackgroundimage.jpg"),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Scaffold(
+    return Scaffold(
+      extendBody: true,
+      backgroundColor: backgroundColor,
+      appBar: AppBar(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: _appBar(context),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              sizedbox(height * 0.38, width),
-              Container(
+        title: _appBar(context),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
                 height: 300,
-                width: 370,
+                width: 400,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: transparantColor),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 17, right: 17),
-                  child: Column(
+                    borderRadius: BorderRadius.circular(25),
+                    image: DecorationImage(
+                        image: AssetImage(
+                          'assets/images/Screenshot 2024-05-31 145706.png',
+                        ),
+                        fit: BoxFit.fill)),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          //======================================================= Map & Map View ===========================================
-                          MapViewButton(
-                            height: height,
-                            width: width,
-                            top: height * 0.015,
-                            left: width * 0.03,
-                          ),
-                          Spacer(),
-                          //======================================================= Rating Icon & Text ===========================================
-                          RatingBoxTransparant(
-                            top: height * 0.10,
-                            left: width * 0.10,
-                            height: height,
-                            width: width,
-                            rating: 4.8,
-                          ),
-                          //================================================== 3D View Transparant Box ============================================
-                          ThreeDView(
-                            top: height * 0.015,
-                            right: width * 0.03,
-                            onTap: () async {
-                              // Check login status before booking
-                              bool isLoggedIn = await checkLoginStatus();
-
-                              if (isLoggedIn) {
-                                // Proceed with booking
-                                book(context);
-                              } else {
-                                // Navigate to login screen
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginScreen()),
-                                );
-                              }
-                            },
-                            height: height,
-                            width: width,
-                          ),
-                        ],
-                      ),
-                      sizedbox(height * 0.04, width),
-                      //================================================== Price and travellers ============================================
-                      PriceAndBookingPersons(
-                        bottom: height * 0.038,
-                        left: width * 0.500,
-                        right: width * 0.04,
-                        city: "Bankok",
-                        location: "phuket",
-                        price: 589,
-                        personCount: 4,
-                      ),
-                      sizedbox(height * 0.03, width),
-                      //================================================== Short Details about hotel============================================
                       Container(
-                        child: Text(
-                          "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis partu",
-                          style: whiteLightTextStyle,
+                        margin: EdgeInsets.all(20),
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: backgroundColor,
+                          boxShadow: [
+                            BoxShadow(
+                                offset: Offset(-0.3, 1),
+                                blurRadius: 2,
+                                blurStyle: BlurStyle.normal,
+                                spreadRadius: 0,
+                                color: greyShadeDark
+                                // color: darktheme
+                                //     ? Color.fromARGB(255, 165, 223, 254)
+                                //     : Color.fromARGB(255, 248, 248, 248),
+                                ),
+                          ],
+                        ),
+                        child: Icon(
+                          Icons.favorite_sharp,
+                          color: Colors.red,
                         ),
                       ),
-                     
-                      // //================================================== More Details Widget ============================================
-
-                      // Container(
-                      //   margin: EdgeInsets.only(left: 200),
-                      //   child: _moreDetails(height, width),
-                      // ),
-                    ],
-                  ),
-                ),
+                    ]),
               ),
-              sizedBox(height * 0.01, width),
-              Container(
-                height: 610,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: SizedBox(
+                  width: width,
+                  height: 90,
+                  child: _amenitiesList(height, width)),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: Container(
                 width: 370,
-                decoration: BoxDecoration(
-                    border: Border.all(color: greyShadeLight),
-                    borderRadius: BorderRadius.circular(15),
-                    color: transparantColor),
-                child: Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Amenities",
-                        style: whiteMediumTextStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                      WhatWeOffer(width, height, detailpageProvider),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Location", style: whiteMediumTextStyle),
-                          InkWell(
-                            onTap: () {},
-                            child: Text(
-                              "See map",
-                              style: whiteTextStyle,
-                            ),
-                          )
-                        ],
-                      ),
-                      LocationOfTheHotel(width),
-                      sizedBox(height * 0.045, 0.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Reviews", style: whiteMediumTextStyle),
-                          InkWell(
-                            onTap: () {},
-                            child: Text(
-                              "See all reviews",
-                              style: whiteTextStyle,
-                            ),
-                          )
-                        ],
-                      ),
-                      reviewsOfUSers(height, detailpageProvider, width),
-                      sizedbox(height * 0.01, width),
-                      // //================================================== Swipeable Button============================================
-                      // SwipeableButton(height, width),
-                    ],
-                  ),
+                child: Column(
+                  children: [
+                    //================================================== Price and travellers ============================================
+                    PriceAndBooking(
+                      city: "Bankok",
+                      location: "phuket",
+                      price: 589,
+                      personCount: 4,
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                height: height,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Location", style: blackMediumTextStyle),
+                        InkWell(
+                          onTap: () {},
+                          child: Text(
+                            "See map",
+                            style: smallTextStyle,
+                          ),
+                        )
+                      ],
+                    ),
+                    LocationOfTheHotel(width),
+                    sizedBox(height * 0.045, 0.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Reviews", style: blackMediumTextStyle),
+                        InkWell(
+                          onTap: () {},
+                          child: Text(
+                            "See all reviews",
+                            style: smallTextStyle,
+                          ),
+                        )
+                      ],
+                    ),
+                    reviewsOfUSers(height, detailpageProvider, width),
+                    sizedbox(height * 0.01, width),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: SwipeableButton(
-            height,
-            width,
-          ),
-        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Container(
+            height: 70,
+            child: SlideToUnlock(),
+            decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      offset: Offset(-0.3, 1),
+                      blurRadius: 2,
+                      blurStyle: BlurStyle.normal,
+                      spreadRadius: 0,
+                      color: greyShadeDark
+                      // color: darktheme
+                      //     ? Color.fromARGB(255, 165, 223, 254)
+                      //     : Color.fromARGB(255, 248, 248, 248),
+                      ),
+                ],
+                // boxShadow: [
+                //   BoxShadow(
+                //       color: Color.fromARGB(255, 209, 209, 209),
+                //       blurRadius: 10,
+                //       spreadRadius: 10)
+                // ],
+                borderRadius: BorderRadius.circular(30),
+                color: backgroundColor
+                // gradient: LinearGradient(
+                //   begin: Alignment.topLeft,
+                //   end: Alignment.bottomRight,
+                //   colors: [
+                //     Color.fromARGB(255, 252, 255, 252),
+                //     Color.fromARGB(255, 230, 255, 212)
+                //   ],
+                // ),
+                )),
       ),
     );
   }
@@ -195,11 +188,23 @@ class HotelDetailePage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          height: 50,
+          height: 40,
           width: 55,
           decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                    offset: Offset(-0.3, 1),
+                    blurRadius: 2,
+                    blurStyle: BlurStyle.normal,
+                    spreadRadius: 0,
+                    color: greyShadeDark
+                    // color: darktheme
+                    //     ? Color.fromARGB(255, 165, 223, 254)
+                    //     : Color.fromARGB(255, 248, 248, 248),
+                    ),
+              ],
               color: backgroundColor),
           child: GestureDetector(
               onTap: () {
@@ -213,15 +218,27 @@ class HotelDetailePage extends StatelessWidget {
         Container(
           child: Text(
             "Details",
-            style: whiteMediumTextStyle,
+            style: BlackLightTextStyle,
           ),
         ),
         Container(
-          height: 50,
+          height: 40,
           width: 55,
           decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                    offset: Offset(-0.3, 1),
+                    blurRadius: 2,
+                    blurStyle: BlurStyle.normal,
+                    spreadRadius: 0,
+                    color: greyShadeDark
+                    // color: darktheme
+                    //     ? Color.fromARGB(255, 165, 223, 254)
+                    //     : Color.fromARGB(255, 248, 248, 248),
+                    ),
+              ],
               color: backgroundColor),
           child: GestureDetector(
               onTap: () {
@@ -236,146 +253,110 @@ class HotelDetailePage extends StatelessWidget {
     );
   }
 
-  //********************************SWIPEABLE BUTTON***************************** */
+  // //******************************** MORE DETAILS ****************************** */
+  // Widget _moreDetails(height, width) {
+  //   return Container(
+  //     height: height * 0.035,
+  //     width: width * 0.30,
+  //     padding: EdgeInsets.only(right: width * 0.02),
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(25),
+  //       color: transparantColor,
+  //     ),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       children: [
+  //         Text(
+  //           "More Details",
+  //           style: whiteSmallTextStyle,
+  //           textAlign: TextAlign.center,
+  //         ),
+  //         Icon(
+  //           Icons.arrow_drop_down,
+  //           color: backgroundColor,
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Widget SwipeableButton(height, width) {
-    return Container(
-      height: 60,
-      width: 385,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: const Color.fromARGB(255, 214, 212, 212)),
-      child: Row(
-        children: [
-//       widget to be dragged____________________________________
-          Draggable(
-            axis: Axis.horizontal,
-            feedback: Container(
-              // feedback > the widget that actually gets dragged
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50), color: Colors.black),
-            ),
-            childWhenDragging: Container(
-              height: 50,
-              width: 50,
-              color: Colors.transparent,
-            ),
-            child: Container(
-              margin: EdgeInsets.only(left: 7),
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50), color: Colors.black),
-              child: Center(
-                child: Icon(
-                  Icons.arrow_forward,
-                  color: backgroundColor,
-                ),
-              ),
-            ),
-            // onDragEnd: (details) {
-            //   value.moveToNextImage(context);
-            //   // Navigator.push(
-            //   //     context,
-            //   //     MaterialPageRoute(
-            //   //       builder: (context) => DashBoard(),
-            //   //     ));
-            // },
-          ),
+  Widget _amenitiesList(height, width) {
+    return ListView.builder(
+        scrollDirection: Axis.horizontal,
+        // physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: 4,
+        itemBuilder: (context, index) {
+          IconData icon = Icons.abc;
+          String text = '';
+          Color color = Colors.transparent;
+          VoidCallback onPressed = () {};
+          switch (index) {
+            case 0:
+              icon = Icons.wifi;
+              text = 'Free Wifi';
+              color = Color.fromARGB(198, 232, 75, 64);
 
-          sizedbox(height, width * 0.07),
-          Text(
-            "Book Now",
-            style: BlackLightTextStyle,
-          ),
-          sizedbox(height, width * 0.20),
+            case 1:
+              icon = Icons.directions_car_sharp;
+              text = 'Parking';
+              color = orangeColor;
 
-          Icon(
-            Icons.arrow_forward_ios_outlined,
-            size: 16,
-            color: greyShadeLight,
-          ),
-          Icon(
-            Icons.arrow_forward_ios_outlined,
-            size: 16,
-            color: greyShadeMedium,
-          ),
-        ],
-      ),
-    );
-  }
+            case 2:
+              icon = Icons.free_breakfast_outlined;
 
-  //******************************** MORE DETAILS ****************************** */
-  Widget _moreDetails(height, width) {
-    return Container(
-      height: height * 0.035,
-      width: width * 0.30,
-      padding: EdgeInsets.only(right: width * 0.02),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-        color: transparantColor,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "More Details",
-            style: whiteSmallTextStyle,
-            textAlign: TextAlign.center,
-          ),
-          Icon(
-            Icons.arrow_drop_down,
-            color: backgroundColor,
-          ),
-        ],
-      ),
-    );
-  }
+              text = 'Luandry ';
+              color = Color.fromARGB(217, 223, 86, 132);
+            case 3:
+              icon = Icons.local_laundry_service_outlined;
+              color = Color.fromARGB(199, 103, 81, 227);
 
-  // This method is to Listing icons and services in the hotel like wifi, Bar, Laundry, Ac, and Parking. and it seen under the "What We Offer"
-// its listing with List generator
-  Widget WhatWeOffer(width, height, detailpageProvider) {
-    return Padding(
-      padding: const EdgeInsets.all(17.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: List.generate(
-          5,
-          (index) => Column(
+              text = 'Room ';
+
+            default:
+          }
+          return Column(
             children: [
-              Container(
-                width: width * 0.12,
-                height: height * 0.07,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(width: .6, color: transparantColor),
-                  color: blackShadeColor,
-                ),
-                child: Image(
-                  image: AssetImage(
-                      detailpageProvider.WhatWeOffering[index]["Icon"]!),
-                  fit: BoxFit.scaleDown,
-                ),
-              ),
-              sizedBox(4.0, 0.0),
-              Center(
-                child: Text(
-                  "${detailpageProvider.WhatWeOffering[index]["IconName"]}",
-                  style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                      fontSize: width * 0.03,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 50,
+                  width: 70,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    color: color,
+                    boxShadow: [
+                      BoxShadow(
+                          offset: Offset(-0.3, 1),
+                          blurRadius: 2,
+                          blurStyle: BlurStyle.normal,
+                          spreadRadius: 0,
+                          color: greyShadeDark
+                          // color: darktheme
+                          //     ? Color.fromARGB(255, 165, 223, 254)
+                          //     : Color.fromARGB(255, 248, 248, 248),
+                          ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Icon(
+                      icon,
                       color: backgroundColor,
+                      size: 30,
                     ),
                   ),
                 ),
               ),
+              Container(
+                width: 90,
+                child: Text(
+                  text,
+                  textAlign: TextAlign.center,
+                ),
+              )
             ],
-          ),
-        ),
-      ),
-    );
+          );
+        });
   }
 
   // this method is Displaying Location of the hotel by connecting with google map
@@ -388,6 +369,18 @@ class HotelDetailePage extends StatelessWidget {
           width: 100,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                  offset: Offset(-0.3, 1),
+                  blurRadius: 2,
+                  blurStyle: BlurStyle.normal,
+                  spreadRadius: 0,
+                  color: greyShadeDark
+                  // color: darktheme
+                  //     ? Color.fromARGB(255, 165, 223, 254)
+                  //     : Color.fromARGB(255, 248, 248, 248),
+                  ),
+            ],
           ),
           child: Image(
             image: AssetImage("assets/images/locationMapimage.png"),
@@ -401,7 +394,7 @@ class HotelDetailePage extends StatelessWidget {
           child: Center(
             child: Text(
               "Maradu, Cochin, Ernakulam, Kochi, India 682304",
-              style: whiteLightTextStyle,
+              style: smallTextStyle,
             ),
           ),
         ),
@@ -422,16 +415,27 @@ class HotelDetailePage extends StatelessWidget {
         padding: EdgeInsets.all(height * 0.01),
         margin: EdgeInsets.only(bottom: height * 0.02),
         decoration: BoxDecoration(
-            color: transparantColor,
-            border: Border.all(width: .8, color: blackShadeColor),
+            color: backgroundColor,
+            boxShadow: [
+              BoxShadow(
+                  offset: Offset(-0.3, 1),
+                  blurRadius: 2,
+                  blurStyle: BlurStyle.normal,
+                  spreadRadius: 0,
+                  color: greyShadeDark
+                  // color: darktheme
+                  //     ? Color.fromARGB(255, 165, 223, 254)
+                  //     : Color.fromARGB(255, 248, 248, 248),
+                  ),
+            ],
             borderRadius: BorderRadius.circular(15)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CircleAvatar(
-              radius: width * 0.07,
-              backgroundImage: AssetImage(
+            Container(
+              height: width * 0.07,
+              child: Image.asset(
                 detailpageProvider.reviewrsPersonsImage[index],
               ),
             ),
@@ -441,7 +445,7 @@ class HotelDetailePage extends StatelessWidget {
               children: [
                 Text(
                   "Henry, Arthur",
-                  style: whiteTextStyle,
+                  style: smallTextStyle,
                 ),
                 Row(
                   children: List.generate(
@@ -455,7 +459,7 @@ class HotelDetailePage extends StatelessWidget {
                     text: TextSpan(
                       text:
                           "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-                      style: whiteSmallTextStyle,
+                      style: smallTextStyle,
                     ),
                   ),
                 ),
@@ -485,6 +489,216 @@ class HotelDetailePage extends StatelessWidget {
     // Your booking logic here
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Booking successful')),
+    );
+  }
+}
+
+// it shows A Transparant Box Of Rating, It Has Rating Icon and a Rating Text, And The Icon show on the circle Avatar
+class Rating extends StatelessWidget {
+  final double height;
+  final double width;
+  final double rating;
+  final double? top;
+  final double? left;
+  final double? right;
+  final double? bottom;
+  const Rating({
+    super.key,
+    required this.height,
+    required this.width,
+    required this.rating,
+    this.top,
+    this.left,
+    this.right,
+    this.bottom,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Center(
+          child: AppIcon(
+            iconData: Icons.star,
+            color: Color.fromARGB(255, 255, 247, 4),
+            height: height * 0.030,
+          ),
+        ),
+        sizedbox(0.0, width * 0.0035),
+        Text("${rating}", style: BlackLightTextStyle),
+      ],
+    );
+  }
+}
+
+//This Class show Hotel price, Location and Booking for how many Persons
+class PriceAndBooking extends StatelessWidget {
+  final String city;
+  final String location;
+  final int price;
+  final int personCount;
+  const PriceAndBooking({
+    super.key,
+    required this.city,
+    required this.location,
+    required this.price,
+    required this.personCount,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context).size;
+    final width = mediaQuery.width;
+    final height = mediaQuery.height;
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(city, style: mediumTextStyle),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.location_on,
+                      color: blackShadeColor,
+                    ),
+                    Text(location, style: greysmallTextStyle)
+                  ],
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  "\$${price}",
+                  style: blackMediumTextStyle,
+                ),
+                Text(
+                  "/${personCount}Persons",
+                )
+              ],
+            )
+          ],
+        ),
+        sizedBox(height * 0.02, width),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              child: Text(
+                'Description',
+                style: blackMediumTextStyle,
+              ),
+            ),
+            Row(
+              children: [
+                Container(
+                  width: 330,
+                  child: Text(
+                    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis partu",
+                    style: greysmallTextStyle,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        )
+      ],
+    );
+  }
+}
+
+//-----------------Slide to book button with its functions and logic here.-----------------
+class SlideToUnlock extends StatefulWidget {
+  @override
+  _SlideToUnlockState createState() => _SlideToUnlockState();
+}
+
+class _SlideToUnlockState extends State<SlideToUnlock> {
+  double _position = 0.0;
+
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+
+    return Consumer<BookingFuncProvider>(
+      builder: (context, value, child) => GestureDetector(
+        onHorizontalDragUpdate: (DragUpdateDetails details) {
+          setState(() {
+            _position += details.primaryDelta!;
+            if (_position < 0) {
+              _position = 0;
+            } else if (_position > MediaQuery.of(context).size.width - 130) {
+              // Adjust 100 according to the width of your unlock button
+              _position = MediaQuery.of(context).size.width - 130;
+            }
+          });
+        },
+        onHorizontalDragEnd: (DragEndDetails details) {
+          if (_position >= MediaQuery.of(context).size.width - 200) {
+            // Unlock logic here, e.g., navigating to a new screen
+            value.confirmBooking();
+            print('Unlocked!');
+          }
+          setState(() {
+            _position = 0.0;
+          });
+        },
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.01,
+          height: 100,
+          child: Stack(
+            children: [
+              Row(
+                children: [
+                  sizedBox(height, width * 0.25),
+                  Text(
+                    "Book Now",
+                    style: GoogleFonts.poppins(
+                        color: blackShadeColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  sizedBox(height, width * 0.20),
+                  Icon(
+                    Icons.arrow_forward_ios_outlined,
+                    size: 16,
+                    color: greyShadeLight,
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios_outlined,
+                    size: 16,
+                    color: greyShadeMedium,
+                  ),
+                ],
+              ),
+              Positioned(
+                left: _position,
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Color.fromARGB(255, 169, 22, 108)),
+                  margin: EdgeInsets.only(
+                    top: 5,
+                    left: 5,
+                  ),
+                  width: 60,
+                  height: 60,
+                  child: Center(
+                      child: Icon(
+                    Icons.arrow_forward_ios,
+                    color: blackShadeColor,
+                  )),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

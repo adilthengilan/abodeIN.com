@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:abodein/src/view_Model/Timer_provider.dart';
+import 'package:abodein/src/view_Model/bookingfun_provider.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:abodein/src/view_Model/hotel_detail_provider.dart';
 import 'package:abodein/src/view_Model/hotel_rooms_provider.dart';
 import 'package:abodein/src/view_Model/profile_provider.dart';
 import 'package:abodein/src/view_Model/login_provider.dart';
+import 'package:abodein/src/view_Model/services_category.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,11 +21,17 @@ List<ChangeNotifierProvider<ChangeNotifier>> providers = [
   ChangeNotifierProvider<HotelRoomsProvider>(
     create: (context) => HotelRoomsProvider(),
   ),
-    ChangeNotifierProvider<LoginProvider>(
+  ChangeNotifierProvider<LoginProvider>(
     create: (context) => LoginProvider(),
   ),
-    ChangeNotifierProvider<ProfileProvider>(
+  ChangeNotifierProvider<ProfileProvider>(
     create: (context) => ProfileProvider(),
+  ),
+  ChangeNotifierProvider<ServiceProvider>(
+    create: (context) => ServiceProvider(),
+  ),
+  ChangeNotifierProvider<BookingFuncProvider>(
+    create: (context) => BookingFuncProvider(),
   ),
 
   // ChangeNotifierProvider<TimerProvider>(create: (context) => TimerProvider()),
