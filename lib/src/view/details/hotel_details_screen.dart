@@ -28,6 +28,8 @@ class HotelDetailePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            //=======================  hotel image=======================================
+            //============================================================================
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -71,6 +73,7 @@ class HotelDetailePage extends StatelessWidget {
                     ]),
               ),
             ),
+            //==================================================  Amenities
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: SizedBox(
@@ -79,7 +82,7 @@ class HotelDetailePage extends StatelessWidget {
                   child: _amenitiesList(height, width)),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+              padding: const EdgeInsets.fromLTRB(15, 10, 20, 0),
               child: Container(
                 width: 370,
                 child: Column(
@@ -99,9 +102,6 @@ class HotelDetailePage extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: Container(
                 height: height,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -118,6 +118,7 @@ class HotelDetailePage extends StatelessWidget {
                         )
                       ],
                     ),
+                    sizedBox(height * 0.01, width),
                     LocationOfTheHotel(width),
                     sizedBox(height * 0.045, 0.0),
                     Row(
@@ -168,7 +169,7 @@ class HotelDetailePage extends StatelessWidget {
                 // ],
                 borderRadius: BorderRadius.circular(30),
                 border: Border.all(
-                    color: Color.fromARGB(255, 18, 101, 150), width: 2),
+                    color: Color.fromARGB(255, 69, 44, 106), width: 2),
                 color: Color.fromARGB(255, 255, 255, 255)
                 // gradient: LinearGradient(
                 //   begin: Alignment.topLeft,
@@ -560,9 +561,10 @@ class PriceAndBooking extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                //------------------------------------------------- city and location ---------------------------------------
                 Container(
                     margin: EdgeInsets.only(left: 5, top: 10),
-                    child: Text(city, style: smallboldTextStyle)),
+                    child: Text(city, style: blackMediumTextStyle)),
                 Row(
                   children: [
                     Icon(
@@ -570,11 +572,12 @@ class PriceAndBooking extends StatelessWidget {
                       color: Color.fromARGB(255, 24, 74, 105),
                       size: 20,
                     ),
-                    Text(location, style: greysmallTextStyle)
+                    Text(location, style: smallTextStyle)
                   ],
                 ),
               ],
             ),
+            //=========================== price and persons==============================
             Row(
               children: [
                 Text(
@@ -593,20 +596,20 @@ class PriceAndBooking extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.only(left: 5),
+              margin: EdgeInsets.only(left: 5, top: 10),
               child: Text(
                 'Description',
-                style: smallboldTextStyle,
+                style: blackMediumTextStyle,
               ),
             ),
             Row(
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 10),
-                  width: 330,
+                  margin: EdgeInsets.only(left: 10, top: 5),
+                  width: 340,
                   child: Text(
                     "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis partu",
-                    style: greysmallTextStyle,
+                    style: smallTextStyle,
                   ),
                 ),
               ],
