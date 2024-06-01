@@ -53,7 +53,7 @@ class GetStartedScreen extends StatelessWidget {
                 width: width,
                 onPressed: () {
                   value.moveToNextImage(context);
-                },
+                }, color: primarycolor,
               );
             },
           ),

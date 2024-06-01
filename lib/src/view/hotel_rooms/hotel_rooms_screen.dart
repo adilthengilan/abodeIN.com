@@ -130,7 +130,7 @@ class HotelRoomsScreen extends StatelessWidget {
 
 //-Here Listing The Room Type With ListView Builder
 //-Displaying Images of The Room, Listing Available in the like Wifi, etc...
-//-This Box Contains Images of The Room, And in-room Facilities like wifi and Its Price and Book Now Button 
+//-This Box Contains Images of The Room, And in-room Facilities like wifi and Its Price and Book Now Button
   Widget theRoomDetailes(hotelRoomProvider) {
     return ListView.builder(
       //----------------------------------------------------------Listview Builder ----------------------------------------
@@ -180,7 +180,7 @@ class HotelRoomsScreen extends StatelessWidget {
                       children: [
                         Icon(
                           hotelRoomProvider.roomsDetails[index]
-                                  ["Icon"]       // -Room facilities Icons
+                                  ["Icon"] // -Room facilities Icons
                               as IconData?,
                           color: greyShadeDark,
                           size: height * 0.025,
@@ -218,7 +218,7 @@ class HotelRoomsScreen extends StatelessWidget {
                 text: "Book Now",
                 onPressed: () {},
                 height: height,
-                width: width,
+                width: width, color: primarycolor,
               ),
             ),
           ],

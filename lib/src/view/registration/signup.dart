@@ -77,7 +77,7 @@ class _SignupScreenState extends State<SignupScreen> {
               text: "Next",
               onPressed: () {},
               height: height,
-              width: width,
+              width: width, color: primarycolor,
             ),
             SizedBox(height: height * 0.034),
             Row(
