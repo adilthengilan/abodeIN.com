@@ -12,7 +12,6 @@ class ServiceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController textEditingController = TextEditingController();
     final mediaQuery = MediaQuery.of(context).size;
     final width = mediaQuery.width;
     final height = mediaQuery.height;

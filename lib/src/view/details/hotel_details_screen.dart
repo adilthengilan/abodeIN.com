@@ -31,7 +31,7 @@ class HotelDetailePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                height: 300,
+                height: 270,
                 width: 400,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
@@ -72,14 +72,14 @@ class HotelDetailePage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20),
+              padding: const EdgeInsets.only(left: 10),
               child: SizedBox(
                   width: width,
                   height: 90,
                   child: _amenitiesList(height, width)),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: Container(
                 width: 370,
                 child: Column(
@@ -167,13 +167,15 @@ class HotelDetailePage extends StatelessWidget {
                 //       spreadRadius: 10)
                 // ],
                 borderRadius: BorderRadius.circular(30),
-                color: backgroundColor
+                border: Border.all(
+                    color: Color.fromARGB(255, 18, 101, 150), width: 2),
+                color: Color.fromARGB(255, 255, 255, 255)
                 // gradient: LinearGradient(
                 //   begin: Alignment.topLeft,
                 //   end: Alignment.bottomRight,
                 //   colors: [
-                //     Color.fromARGB(255, 252, 255, 252),
-                //     Color.fromARGB(255, 230, 255, 212)
+                //     Color.fromARGB(255, 255, 243, 132),
+                //     Color.fromARGB(240, 240, 236, 154)
                 //   ],
                 // ),
                 )),
@@ -558,12 +560,15 @@ class PriceAndBooking extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(city, style: mediumTextStyle),
+                Container(
+                    margin: EdgeInsets.only(left: 5, top: 10),
+                    child: Text(city, style: smallboldTextStyle)),
                 Row(
                   children: [
                     Icon(
                       Icons.location_on,
-                      color: blackShadeColor,
+                      color: Color.fromARGB(255, 24, 74, 105),
+                      size: 20,
                     ),
                     Text(location, style: greysmallTextStyle)
                   ],
@@ -574,7 +579,7 @@ class PriceAndBooking extends StatelessWidget {
               children: [
                 Text(
                   "\$${price}",
-                  style: blackMediumTextStyle,
+                  style: smallboldTextStyle,
                 ),
                 Text(
                   "/${personCount}Persons",
@@ -588,14 +593,16 @@ class PriceAndBooking extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              margin: EdgeInsets.only(left: 5),
               child: Text(
                 'Description',
-                style: blackMediumTextStyle,
+                style: smallboldTextStyle,
               ),
             ),
             Row(
               children: [
                 Container(
+                  margin: EdgeInsets.only(left: 10),
                   width: 330,
                   child: Text(
                     "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis partu",
@@ -680,18 +687,20 @@ class _SlideToUnlockState extends State<SlideToUnlock> {
                 left: _position,
                 child: Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Color.fromARGB(255, 169, 22, 108)),
+                    borderRadius: BorderRadius.circular(30),
+                    color: Color.fromARGB(255, 13, 97, 140),
+                  ),
                   margin: EdgeInsets.only(
-                    top: 5,
+                    top: 3,
                     left: 5,
+                    bottom: 9,
                   ),
                   width: 60,
                   height: 60,
                   child: Center(
                       child: Icon(
                     Icons.arrow_forward_ios,
-                    color: blackShadeColor,
+                    color: backgroundColor,
                   )),
                 ),
               ),

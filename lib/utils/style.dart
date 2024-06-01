@@ -33,6 +33,14 @@ final TextStyle smallTextStyle = GoogleFonts.poppins(
   ),
 );
 
+final TextStyle smallboldTextStyle = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
+  ),
+);
+
 final TextStyle buttonTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
       fontSize: 16,
@@ -127,8 +135,8 @@ final TextStyle whiteTextStyle = GoogleFonts.robotoMono(
 );
 final TextStyle greysmallTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w500,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
     color: Colors.grey,
   ),
 );
