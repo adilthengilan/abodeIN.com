@@ -44,9 +44,10 @@ dependencies:
   crystal_navigation_bar: ^1.0.0
   iconly: ^1.0.1
   image_picker: ^1.1.1
-  lottie: ^3.1.2
+  lottie: ^3.0.0
   video_player: ^2.8.6
-  chewie: ^1.8.1
+  flutter_location_search: ^1.1.4
+  cloud_firestore: ^4.17.5
 
 
 

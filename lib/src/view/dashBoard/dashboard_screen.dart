@@ -1,9 +1,6 @@
+import 'dart:async';
 import 'package:abodein/src/view/common_Widgets/icon.dart';
-import 'package:abodein/src/view/dashBoard/drawer/drawer_screen.dart';
-import 'package:abodein/src/view/dashBoard/hotel_details_screen/hotel_details_screen.dart';
-import 'package:abodein/src/view/dashBoard/search_page/search_page.dart';
-import 'package:abodein/src/view/searchapi.dart';
-import 'package:abodein/src/view_model/booking_func.dart';
+import 'package:abodein/src/view/dashBoard/top_destination.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
@@ -11,6 +8,7 @@ import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+// import 'package:flutter_location_search/flutter_location_search.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
@@ -20,311 +18,204 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
+  bool isBooked = true;
+  bool isCheking = false;
   String locationText = "London";
+
+  int seconds = 22 * 60 * 60; // 24 hours in seconds
+  Timer? timer;
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-
-    return Scaffold(
-      drawer: DrawerScreen(),
-      backgroundColor: backgroundColor,
-      body: CustomScrollView(
-        slivers: <Widget>[
-          // Silver App Bar For custumization, utilize un Floatable App Bar
-          SilverAppBar(width, height),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                //==================================================== The Category Horizontal List With List Generator wrap with Wrap Widget
-                // Consumer<BookingFuncProvider>(
-                //   builder: (context, value, child) => SizedBox(
-                //       height: value.bookingconfirm == true
-                //           ? height * 0.165
-                //           : height * 0.04,
-                //       child: value.bookingconfirm == true
-                //           ? CategoryLayoutRow(height, width)
-                //           : Container()),
-                // ),
-                Row(
-                  children: [
-                    sizedBox(0.0, width * 0.05),
-                    Column(
+    final dbProvider = Provider.of<DashBoardProvider>(context, listen: false);
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+        Color.fromARGB(255, 196, 165, 255),
+        Color.fromARGB(255, 255, 255, 255)
+      ], begin: Alignment.bottomCenter, end: Alignment.topCenter)),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: CustomScrollView(
+          slivers: <Widget>[
+            // Silver App Bar For custumization, utilize un Floatable App Bar
+            SilverAppBar(width, height),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  // ============================================================= Samrt Cheking Button and Timer with functionality ====================================
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(
+                  //       horizontal: width * 0.06, vertical: height * 0.02),
+                  //   child: Consumer<DashBoardProvider>(
+                  //     builder: (context, dash, child) {
+                  //       isBooked ? dash.startTimer(19, 29) : () {};
+                  //       return InkWell(
+                  //         onTap: () {
+                  //           if (isBooked && !isCheking) {
+                  //             setState(() {
+                  //               isCheking = !isCheking;
+                  //             });
+                  //           } else if (isBooked &&
+                  //               isCheking &&
+                  //               !dash.isTimeStarted) {
+                  //             setState(() {
+                  //               dash.isTimeStarted = !dash.isTimeStarted;
+                  //             });
+                  //           } else if (isBooked &&
+                  //               isCheking &&
+                  //               dash.isTimeStarted) {
+                  //             Navigator.push(
+                  //               context,
+                  //               MaterialPageRoute(
+                  //                 builder: (context) => RoomController(),
+                  //               ),
+                  //             );
+                  //           }
+                  //         },
+                  //         child: Container(
+                  //           width: width,
+                  //           height: height * 0.09,
+                  //           decoration: BoxDecoration(
+                  //             color: Colors.white,
+                  //             borderRadius: BorderRadius.circular(10),
+                  //             boxShadow: [
+                  //               BoxShadow(
+                  //                 color: Color.fromARGB(255, 202, 202, 202),
+                  //                 blurRadius: 2,
+                  //                 blurStyle: BlurStyle.outer,
+                  //                 spreadRadius: 3,
+                  //               )
+                  //             ],
+                  //           ),
+                  //           child: Center(
+                  //             child: Text(
+                  //               isBooked && !isCheking
+                  //                   ? "Smart Cheking"
+                  //                   : isBooked && isCheking && !dash.isTimeStarted
+                  //                       ? "Time Start At 2:00 Pm"
+                  //                       : isBooked &&
+                  //                               isCheking &&
+                  //                               dash.isTimeStarted
+                  //                           ? dash.formatTime(dash.seconds)
+                  //                           : "",
+                  //               style: mediumTextStyleLight,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       );
+                  //     },
+                  //   ),
+                  // ),
+                  // isBooked && isCheking && dbProvider.isTimeStarted
+                  //     ? SizedBox(
+                  //         height: height * 0.165,
+                  //         child: CategoryLayoutRow(height, width),
+                  //       )
+                  //     : SizedBox(),
+                  //==================================================== The Category Horizontal List With List Generator wrap with Wrap Widget
+                  sizedBox(height * 0.01, 0.0),
+                  //========================================================== Hotel small Square Boxes ========================================
+                  SquereBoxWithImages(width, height),
+                  sizedBox(height * 0.01, 0.0),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: width * 0.04,
+                      right: width * 0.05,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: width * 0.32,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    'SMART CONTROL',
-                                    style: GoogleFonts.poppins(
-                                        color:
-                                            Color.fromARGB(255, 255, 255, 255),
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 19),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                  height: 50,
-                                  width: 50,
-                                  child: Image.network(
-                                      'https://drive.google.com/file/d/1dyDV379FfzgWi6_EECD4u3UtHdfKGtSN/view?usp=sharing'))
-                            ],
-                          ),
-                          height: 80,
-                          width: 200,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            gradient: LinearGradient(colors: [
-                              Color.fromARGB(255, 148, 208, 255),
-                              Color.fromARGB(255, 102, 74, 172)
-                            ]),
-                          ),
-                        ),
-                        sizedBox(height * 0.01, 0.0),
-                        Container(
-                          height: 80,
-                          width: 200,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              gradient: LinearGradient(colors: [
-                                Color.fromARGB(193, 120, 24, 204),
-                                Color.fromARGB(73, 138, 104, 205)
-                              ])),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: width * 0.254,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    'TRAVEL REWARD',
-                                    style: GoogleFonts.poppins(
-                                        color:
-                                            Color.fromARGB(255, 255, 255, 255),
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 19),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                  height: 100,
-                                  width: 100,
-                                  child: Image.asset(
-                                      'assets/images/reward icon nav.png'))
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    sizedBox(0.0, width * 0.02),
-                    Container(
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(
-                                'assets/images/Smart check-IN (3).png',
-                              ),
-                              fit: BoxFit.cover),
-                          borderRadius: BorderRadius.circular(20),
-                          gradient: LinearGradient(colors: [
-                            Color.fromARGB(10, 234, 252, 255),
-                            Color.fromARGB(255, 247, 244, 255)
-                          ], begin: Alignment.topCenter)),
-                      height: height * 0.21,
-                      width: width * 0.38,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          sizedBox(height * 0.17, 0.0),
-                          // Text(
-                          //   ' TRAVEL COIN',
-                          //   style: GoogleFonts.poppins(
-                          //       color: Color.fromARGB(102, 0, 0, 0),
-                          //       fontWeight: FontWeight.w700,
-                          //       fontSize: 20),
-                          // )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: height * 0.29,
-                  width: width,
-                  //================================================================= ListView Builder ============================================
-                  child: ListView.builder(
-                    padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: Images.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => Stack(
-                      children: [
-                        // Square Box Under The Categories List with Hotel Image And it Details
-                        SquereBoxWithImages(width, height, index),
-                        //=========================================================== Rating Icon & Text ===========================================
-                        RatingBoxTransparant(
-                          height: height,
-                          width: width,
-                          rating: 4.8,
-                          top: height * 0.020,
-                          left: width * 0.020,
-                        ),
-                        //=========================================================== 3D View TransParant Box =======================================
-                        ThreeDView(
-                          top: height * 0.020,
-                          right: width * 0.06,
+                        //======================================================== Top Destination ========================================
+                        Text("Top Destination", style: largeTextStyle),
+                        InkWell(
+                          borderRadius: BorderRadius.circular(50),
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SerpApiPage(),
-                                ));
-                          },
-                          height: height,
-                          width: width,
-                        ),
-                        // This Class Price $ Booking Person Count, and it passing Bottom positioned,left Positione,Right Positioned, City Name, Location Of Hotel, Price of Hotel and person count
-                        PriceAndBookingPersons(
-                          bottom: height * 0.015,
-                          left: width * 0.04,
-                          right: width * 0.075,
-                          city: "Bankok",
-                          location: "Phuket",
-                          price: 599,
-                          personCount: 2,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                sizedBox(height * 0.03, 0.0),
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: width * 0.04,
-                    right: width * 0.05,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      //======================================================== Top Destination ========================================
-                      Text("Top Destination",
-                          style: GoogleFonts.poppins(
-                              fontSize: 24, fontWeight: FontWeight.w700)),
-                      InkWell(
-                        borderRadius: BorderRadius.circular(50),
-                        onTap: () {},
-                        child: Container(
-                          height: height * 0.05,
-                          width: width * 0.095,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: backgroundColor,
-                            border:
-                                Border.all(color: greyShadeLight, width: 0.5),
-                          ),
-                          // =========================================================== View all Button ====================================
-                          child: Center(
-                            child: AppIcon(
-                              iconData: Icons.arrow_forward,
-                              color: greyShadeDark,
-                              height: height * 0.028,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                sizedBox(height * 0.015, 0.0),
-                //==================================================== ListView Builder ========= Top Destination ==============================================
-                ListView.builder(
-                  itemCount: Images.length,
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-                  itemBuilder: (context, index) => Stack(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(bottom: height * 0.02),
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(25),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => HotelDetailePage(),
-                                ));
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => TopDestination(),
+                            //   ),
+                            // );
                           },
                           child: Container(
-                            height: height * 0.3,
-                            width: width,
+                            height: height * 0.05,
+                            width: width * 0.095,
                             decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Color.fromARGB(255, 214, 214, 214),
-                                    blurRadius: 5,
-                                    spreadRadius: 1)
-                              ],
-                              image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: AssetImage(Images[index])),
-                              color: shadeColor,
                               borderRadius: BorderRadius.circular(25),
+                              color: backgroundColor,
+                              border:
+                                  Border.all(color: greyShadeLight, width: 0.5),
+                            ),
+                            // =========================================================== View all Button ====================================
+                            child: Center(
+                              child: AppIcon(
+                                iconData: Icons.arrow_forward,
+                                color: greyShadeDark,
+                                height: height * 0.028,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      //======================================================= Map View Button ===========================================
-                      MapViewButton(
-                        height: height,
-                        width: width,
-                        top: height * 0.015,
-                        left: width * 0.03,
-                      ),
-                      //======================================================= Rating Icon & Text ===========================================
-                      RatingBoxTransparant(
-                        top: height * 0.015,
-                        right: width * 0.31,
-                        height: height,
-                        width: width,
-                        rating: 4.8,
-                      ),
-                      //================================================== 3D View Transparant Box ============================================
-                      ThreeDView(
-                        top: height * 0.015,
-                        right: width * 0.03,
-                        onTap: () {},
-                        height: height,
-                        width: width,
-                      ),
-                      //================================================== Price $ Booking Person Count ===================================
-                      PriceAndBookingPersons(
-                        bottom: height * 0.038,
-                        left: width * 0.04,
-                        right: width * 0.04,
-                        city: "Bankok",
-                        location: "phuket",
-                        price: 589,
-                        personCount: 4,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  sizedBox(height * 0.01, 0.0),
+                  //==================================================== ListView Builder ========= Top Destination ==============================================
+                  HotelBoxList(
+                    itemCount: Imagess.length,
+                    height: height,
+                    width: width,
+                    name: "Sheraton Grand Hotel",
+                    price: 599,
+                    image: Imagess,
+                    rating: 4.8,
+                    city: 'Palace',
+                    description:
+                        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis partu",
+                    location: "Dubai",
+                  ),
+                  sizedBox(height * 0.02, width),
+                  Padding(
+                    padding: EdgeInsets.only(left: width * 0.04),
+                    child: Text(
+                      'Reviews',
+                      style: mediumTextStyle,
+                    ),
+                  ),
+                  // ============================================================= Reviews Horizontal List =====================================================================
+                  ReviewsBox(width, height),
+                  sizedBox(height * 0.4, 0.0),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   // Silver App Bar for Customization, Utilize This Method Floatable AppBar and It Has a Title, Search Icon and Notification Icon
   Widget SilverAppBar(width, height) {
     return SliverAppBar(
+      leading: IconButton(
+          onPressed: () {
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => BookingCalendarPage(),
+            //   ),
+            // );
+          },
+          icon: Icon(Icons.menu)),
       //====================================================== Silver App Bar For Customization, I make this AppBar Floatable
       surfaceTintColor: backgroundColor,
       backgroundColor: backgroundColor,
@@ -333,7 +224,7 @@ class _DashBoardState extends State<DashBoard> {
       title: Text(
         locationText,
         // "Discover",
-        style: smallTextStylewhite,
+        style: whiteMediumTextStyle,
       ),
       actions: [
         //================================================================= Search Icon ==========================================
@@ -347,7 +238,7 @@ class _DashBoardState extends State<DashBoard> {
               //   mode: Mode.fullscreen,
               //   language: 'en',
               //   iconColor: greyShadeMedium,
-              //   historyMaxLength: 10,
+              //   historyMaxLength: 5,
               //   searchBarTextColor: shadeColor,
               // );
               // value.setLocationAddress(locationData!.address);
@@ -370,11 +261,12 @@ class _DashBoardState extends State<DashBoard> {
         InkWell(
           borderRadius: BorderRadius.circular(50),
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SearchPage(),
-                ));
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => SearchScreen(),
+            //   ),
+            // );
           },
           child: CircleAvatar(
             radius: height * 0.032,
@@ -411,16 +303,13 @@ class _DashBoardState extends State<DashBoard> {
   }
 
   //This Method shows category Layout Button, it Implement with wrap Widget
-  Widget CategoryLayoutRow(
-    height,
-    width,
-  ) {
+  Widget CategoryLayoutRow(height, width) {
     final dashboardProvider =
         Provider.of<DashBoardProvider>(context, listen: false);
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+        padding: EdgeInsets.symmetric(horizontal: width * 0.05),
         child: Wrap(
           spacing: width * 0.06,
           children: List.generate(
@@ -455,44 +344,45 @@ class _DashBoardState extends State<DashBoard> {
           children: [
             sizedBox(height * 0.01, 0.0),
             Container(
-                height: height * 0.13,
-                padding: EdgeInsets.symmetric(
-                  horizontal: width * 0.05,
-                ),
-                decoration: BoxDecoration(
-                  boxShadow: dash.selectedCategoryIndex == index
-                      ? [
-                          BoxShadow(
-                              color: Color.fromARGB(255, 202, 202, 202),
-                              blurRadius: 5,
-                              blurStyle: BlurStyle.outer,
-                              spreadRadius: 5)
-                        ]
-                      : [
-                          BoxShadow(
-                              color: Color.fromARGB(255, 246, 246, 246),
-                              blurRadius: 5,
-                              blurStyle: BlurStyle.outer,
-                              spreadRadius: 5)
-                        ],
-                  // white shade color
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Column(
-                  children: [
-                    sizedBox(height * 0.015, 0.0),
-                    SizedBox(
-                        height: 50,
-                        width: 50,
-                        child: Image.asset(dash.categories[index]['image'])),
-                    sizedBox(height * 0.02, 0.0),
-                    Text(
-                      dash.categories[index]['Name'],
-                      style: smallTextStyleblack,
-                      // Black text Style
-                    ),
-                  ],
-                )),
+              height: height * 0.13,
+              padding: EdgeInsets.symmetric(
+                horizontal: width * 0.05,
+              ),
+              decoration: BoxDecoration(
+                boxShadow: dash.selectedCategoryIndex == index
+                    ? [
+                        BoxShadow(
+                            color: Color.fromARGB(255, 202, 202, 202),
+                            blurRadius: 5,
+                            blurStyle: BlurStyle.outer,
+                            spreadRadius: 5)
+                      ]
+                    : [
+                        BoxShadow(
+                            color: Color.fromARGB(255, 246, 246, 246),
+                            blurRadius: 5,
+                            blurStyle: BlurStyle.outer,
+                            spreadRadius: 5)
+                      ],
+                // white shade color
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Column(
+                children: [
+                  sizedBox(height * 0.015, 0.0),
+                  Icon(
+                    Icons.flight,
+                    size: 40,
+                  ),
+                  sizedBox(height * 0.02, 0.0),
+                  Text(
+                    dash.categories[index],
+                    style: smallTextStyleSemiBold,
+                    // Black text Style
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -500,34 +390,199 @@ class _DashBoardState extends State<DashBoard> {
   }
 
   // This Method Shows A Square Buttons with images, it Listing Hotels
-  Widget SquereBoxWithImages(width, height, index) {
-    return Padding(
-      padding:
-          EdgeInsets.only(right: width * 0.04, top: 10, bottom: 10, left: 5),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HotelDetailePage(),
-              ));
-        },
-        child: Container(
-          width: width * 0.58,
-          height: height,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                  color: Color.fromARGB(255, 214, 214, 214),
-                  blurRadius: 5,
-                  spreadRadius: 1)
-            ],
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage(Images[index]),
+  Widget SquereBoxWithImages(width, height) {
+    return SizedBox(
+      height: height * 0.46,
+      width: width,
+      //================================================================= ListView Builder ============================================
+      child: ListView.builder(
+        itemCount: Imagess.length,
+        scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.symmetric(
+          horizontal: width * 0.04,
+          vertical: height * 0.025,
+        ),
+        itemBuilder: (context, index) => Padding(
+          padding: EdgeInsets.only(
+            right: width * 0.05,
+          ),
+          child: Container(
+            width: width * 0.69,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(4, 10),
+                  blurRadius: 8,
+                  color: Color.fromARGB(47, 80, 79, 79),
+                ),
+                BoxShadow(
+                  offset: Offset(-4, -1),
+                  blurRadius: 8,
+                  color: Color.fromARGB(255, 216, 216, 216),
+                ),
+              ],
+              borderRadius: BorderRadius.circular(15),
             ),
-            color: shadeColor,
-            borderRadius: BorderRadius.circular(18),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  height: height * 0.22,
+                  width: width,
+                  margin: EdgeInsets.all(height * 0.018),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 227, 227, 227),
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage(Imagess[index]),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: width,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: width * 0.03,
+                  ),
+                  decoration: BoxDecoration(color: Colors.white),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            // width: width * 0.55,
+                            child: Text(
+                              "Hotel Niagara Popo",
+                              style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                                  fontSize: width * 0.042,
+                                  fontWeight: FontWeight.w700,
+                                  letterSpacing: -0.3,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                          sizedBox(height * 0.007, 0.0),
+                          Text(
+                            'New York, USA',
+                            style: smallTextStyleSemiBold,
+                          ),
+                          sizedBox(height * 0.015, 0.0),
+                          Row(
+                            children: [
+                              Text(
+                                '\$1,599',
+                                style: GoogleFonts.poppins(
+                                  textStyle: TextStyle(
+                                    fontSize: width * 0.046,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                              Text("/night"),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Column(
+                              children: [
+                                sizedBox(height * 0.076, 0.0),
+                                RatingBoxTransparant(
+                                    height: height, width: width, rating: 4.8),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget ReviewsBox(double width, double height) {
+    return SizedBox(
+      height: height * 0.2,
+      width: width,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 10,
+        padding: EdgeInsets.symmetric(
+          horizontal: width * 0.03,
+          vertical: height * 0.018,
+        ),
+        itemBuilder: (context, index) => Padding(
+          padding: EdgeInsets.only(right: width * 0.04),
+          child: Container(
+            width: width * 0.93,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(4, 10),
+                  blurRadius: 8,
+                  color: Color.fromARGB(47, 80, 79, 79),
+                ),
+                BoxShadow(
+                  offset: Offset(-4, -1),
+                  blurRadius: 8,
+                  color: Color.fromARGB(255, 216, 216, 216),
+                ),
+              ],
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(height * 0.02),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundImage:
+                        AssetImage('assets/images/reviewers_person_2.png'),
+                  ),
+                  sizedBox(0.0, width * 0.04),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'John Smith',
+                        style: smallTextStyleSemiBold,
+                      ),
+                      StarRating(
+                        rating: 4.5,
+                        height: height * 0.024,
+                      ),
+                      sizedBox(height * 0.005, 0.0),
+                      SizedBox(
+                        width: width * 0.6,
+                        child: Text(
+                          'The hotel booking app offers a seamless, modern user experience,.',
+                          style: smallTextStyleSemiBold,
+                          maxLines: 2,
+                          overflow: TextOverflow.clip,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -540,54 +595,40 @@ class RatingBoxTransparant extends StatelessWidget {
   final double height;
   final double width;
   final double rating;
-  final double? top;
-  final double? left;
-  final double? right;
-  final double? bottom;
   const RatingBoxTransparant({
     super.key,
     required this.height,
     required this.width,
     required this.rating,
-    this.top,
-    this.left,
-    this.right,
-    this.bottom,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: top,
-      left: left,
-      right: right,
-      bottom: bottom,
-      child: Container(
-        height: height * 0.053,
-        padding: EdgeInsets.only(right: width * 0.025),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          color: IcontransparantColor,
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(height * 0.006),
-          child: Row(
-            children: [
-              CircleAvatar(
-                radius: height * 0.022,
-                backgroundColor: IcontransparantColor,
-                child: Center(
-                  child: AppIcon(
-                    iconData: Icons.star_border_outlined,
-                    color: backgroundColor,
-                    height: height * 0.022,
-                  ),
+    return Container(
+      height: height * 0.053,
+      padding: EdgeInsets.only(right: width * 0.025),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        color: transparantColor,
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(height * 0.006),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: height * 0.022,
+              backgroundColor: transparantColor,
+              child: Center(
+                child: AppIcon(
+                  iconData: Icons.star_border_outlined,
+                  color: backgroundColor,
+                  height: height * 0.022,
                 ),
               ),
-              sizedBox(0.0, width * 0.0035),
-              Text("${rating}", style: whiteLightTextStyle),
-            ],
-          ),
+            ),
+            sizedBox(0.0, width * 0.0035),
+            Text("${rating}", style: whiteLightTextStyle),
+          ],
         ),
       ),
     );
@@ -618,52 +659,36 @@ class PriceAndBookingPersons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: bottom,
-      left: left,
-      right: right,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(city, style: smallTextStyleSemiBold),
+            Text(location, style: mediumTextStyle)
+          ],
+        ),
+        SizedBox(
+          child: Column(
             children: [
-              Text(city, style: whiteSmallTextStyle),
-              Text(location, style: whiteMediumTextStyle)
+              Text("\$${price}", style: mediumTextStyleLight),
+              Text("/${personCount}Persons"),
             ],
           ),
-          SizedBox(
-            width: 60,
-            child: RichText(
-              text: TextSpan(
-                text: "\$${price}",
-                style: whiteMediumTextStyle,
-                children: [
-                  TextSpan(
-                    text: "/${personCount}Persons",
-                    style: whiteLightTextStyle,
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
 
 // it shows A Transparant Box Of 3d View, It Has Rating Icon and a Rating Text, And The Icon show on the circle Avatar
 class ThreeDView extends StatelessWidget {
-  final double top;
-  final double right;
   final VoidCallback onTap;
   final double height;
   final double width;
   const ThreeDView({
     super.key,
-    required this.top,
-    required this.right,
     required this.onTap,
     required this.height,
     required this.width,
@@ -671,37 +696,33 @@ class ThreeDView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: top,
-      right: right,
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          height: height * 0.053,
-          padding: EdgeInsets.only(right: width * 0.02),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-            color: IcontransparantColor,
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(height * 0.006),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  radius: height * 0.022,
-                  backgroundColor: IcontransparantColor,
-                  child: Center(
-                    child: AppIcon(
-                      iconData: Icons.share_outlined,
-                      color: backgroundColor,
-                      height: height * 0.022,
-                    ),
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: height * 0.053,
+        padding: EdgeInsets.only(right: width * 0.02),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: transparantColor,
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(height * 0.006),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: height * 0.022,
+                backgroundColor: transparantColor,
+                child: Center(
+                  child: AppIcon(
+                    iconData: Icons.share_outlined,
+                    color: backgroundColor,
+                    height: height * 0.022,
                   ),
                 ),
-                sizedBox(0.0, width * 0.0035),
-                Text("3D View", style: whiteLightTextStyle)
-              ],
-            ),
+              ),
+              sizedBox(0.0, width * 0.0035),
+              Text("3D View", style: whiteLightTextStyle)
+            ],
           ),
         ),
       ),
@@ -713,56 +734,95 @@ class ThreeDView extends StatelessWidget {
 class MapViewButton extends StatelessWidget {
   final double height;
   final double width;
-  final double top;
-  final double left;
   const MapViewButton({
     super.key,
     required this.height,
     required this.width,
-    required this.top,
-    required this.left,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: top,
-      left: left,
-      child: Container(
-        height: height * 0.0505,
-        padding: EdgeInsets.only(right: width * 0.02),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          color: IcontransparantColor,
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(height * 0.0055),
-          child: Row(
-            children: [
-              CircleAvatar(
-                radius: height * 0.022,
-                backgroundColor: IcontransparantColor,
-                child: Center(
-                  child: AppIcon(
-                    iconData: Icons.map_outlined,
-                    color: backgroundColor,
-                    height: height * 0.022,
-                  ),
+    return Container(
+      height: height * 0.0505,
+      padding: EdgeInsets.only(right: width * 0.02),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        color: transparantColor,
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(height * 0.0055),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: height * 0.022,
+              backgroundColor: transparantColor,
+              child: Center(
+                child: AppIcon(
+                  iconData: Icons.map_outlined,
+                  color: backgroundColor,
+                  height: height * 0.022,
                 ),
               ),
-              sizedBox(0.0, width * 0.0035),
-              Text("Map", style: whiteLightTextStyle)
-            ],
-          ),
+            ),
+            sizedBox(0.0, width * 0.0035),
+            Text("Map", style: whiteLightTextStyle)
+          ],
         ),
       ),
     );
   }
 }
 
-List<String> Images = [
-  'assets/images/download (24).jpeg',
+//==================================================== Rating start =========================================================
+class StarRating extends StatelessWidget {
+  final double rating;
+  final int starCount;
+  final double height;
+
+  StarRating({
+    this.rating = 0.0,
+    this.starCount = 5,
+    required this.height,
+  });
+
+  Widget buildStar(BuildContext context, int index) {
+    Widget icon;
+    if (index >= rating) {
+      icon = AppIcon(
+          iconData: Icons.star_border, color: Colors.orange, height: height);
+    } else if (index > rating - 1 && index < rating) {
+      icon = AppIcon(
+        iconData: Icons.star_half,
+        color: Colors.orange,
+        height: height,
+      );
+    } else {
+      icon = AppIcon(
+        iconData: Icons.star,
+        color: Colors.orange,
+        height: height,
+      );
+    }
+    return InkResponse(
+      child: icon,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(
+        starCount,
+        (index) => buildStar(context, index),
+      ),
+    );
+  }
+}
+
+List<String> Imagess = [
   'assets/images/download (25).jpeg',
+  'assets/images/download (24).jpeg',
   'assets/images/download (26).jpeg',
   'assets/images/download (27).jpeg',
   'assets/images/images (44).jpeg',

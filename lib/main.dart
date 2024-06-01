@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          home: Splash_Screen()),
+          home: Bottom_Navigation_Bar()),
     );
   }
 }
