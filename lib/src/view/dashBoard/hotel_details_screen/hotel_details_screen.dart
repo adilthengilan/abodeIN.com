@@ -41,7 +41,7 @@ class HotelDetailePage extends StatelessWidget {
                 width: 370,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: transparantColor),
+                    color: lighTraansparantColor),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 20, left: 17, right: 17),
                   child: Column(
@@ -53,22 +53,16 @@ class HotelDetailePage extends StatelessWidget {
                           MapViewButton(
                             height: height,
                             width: width,
-                            top: height * 0.015,
-                            left: width * 0.03,
                           ),
                           Spacer(),
                           //======================================================= Rating Icon & Text ===========================================
                           RatingBoxTransparant(
-                            top: height * 0.10,
-                            left: width * 0.10,
                             height: height,
                             width: width,
                             rating: 4.8,
                           ),
                           //================================================== 3D View Transparant Box ============================================
                           ThreeDView(
-                            top: height * 0.015,
-                            right: width * 0.03,
                             onTap: () {},
                             height: height,
                             width: width,
@@ -116,7 +110,7 @@ class HotelDetailePage extends StatelessWidget {
                 decoration: BoxDecoration(
                     border: Border.all(color: greyShadeLight),
                     borderRadius: BorderRadius.circular(15),
-                    color: transparantColor),
+                    color: lighTraansparantColor),
                 child: Padding(
                   padding: const EdgeInsets.all(18.0),
                   child: Column(
@@ -305,7 +299,6 @@ class HotelDetailePage extends StatelessWidget {
               ),
             ),
             onDragEnd: (details) {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => BookingCalendarPage(),));
               showRoundedDialog(
                 context,
                 width,
@@ -325,7 +318,6 @@ class HotelDetailePage extends StatelessWidget {
             style: smallTextStyle,
           ),
           sizedBox(height, width * 0.20),
-
           Icon(
             Icons.arrow_forward_ios_outlined,
             size: 16,

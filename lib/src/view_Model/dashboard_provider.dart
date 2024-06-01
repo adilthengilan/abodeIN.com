@@ -5,11 +5,7 @@ class DashBoardProvider extends ChangeNotifier {
   int selectedCategoryIndex = 0;
   String locationText = '';
   int bottombarindex = 0;
-    bool isTimeStarted = false;
-
-
-  int seconds = 22 * 60 * 60; // 22 hours in seconds
-  Timer? timer;
+  bool isTimeStarted = false;
 
   void setBottomBarindex(index) {
     bottombarindex = index;
@@ -35,10 +31,12 @@ class DashBoardProvider extends ChangeNotifier {
     "Hostels",
   ];
 
+  int seconds = 22 * 60 * 60; // 22 hours in seconds
+  Timer? timer;
 // Booking CountDown Timer
-  void startTimer() {
+  void startTimer(int Hour, int minute) {
     DateTime now = DateTime.now();
-    if (now.hour == 16 && now.minute == 35) {
+    if (now.hour == Hour && now.minute == minute) {
       if (timer != null) {
         timer!.cancel();
         isTimeStarted = true;
@@ -51,7 +49,6 @@ class DashBoardProvider extends ChangeNotifier {
       timer = Timer.periodic(Duration(seconds: 1), (timer) {
         if (seconds > 0) {
           seconds--;
-          notifyListeners();
         } else {
           timer.cancel();
           isTimeStarted = false;

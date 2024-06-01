@@ -1,7 +1,6 @@
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/favorite_screen/favorite_screen.dart';
 import 'package:abodein/src/view/profile/profile_screen.dart';
-import 'package:abodein/src/view/reward/reward.dart';
 import 'package:abodein/src/view/search_page.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,7 @@ class Bottom_Navigation_Bar extends StatelessWidget {
           currentIndex: BottmBarIndex.bottombarindex,
           // indicatorColor: Colors.white,
           unselectedItemColor: Colors.white70,
-          backgroundColor: Color.fromARGB(0, 0, 0, 0),
+          backgroundColor: Colors.black45,
           // outlineBorderColor: Colors.black.withOpacity(0.1),
           onTap: (index) {
             BottmBarIndex.setBottomBarindex(index);

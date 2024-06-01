@@ -15,7 +15,7 @@ const Color greyShadeDark = Color.fromARGB(255, 136, 136, 136);
 
 const Color shadeColor = Color.fromARGB(216, 244, 244, 244);
 
-const Color transparantColor = Color.fromARGB(86, 162, 162, 162);
-const Color IcontransparantColor = Color.fromARGB(83, 74, 74, 74);
+const Color transparantColor = Color.fromARGB(84, 40, 40, 40);
+const Color lighTraansparantColor = Color.fromARGB(82, 161, 161, 161);
 
 const Color blackShadeColor = Colors.black;

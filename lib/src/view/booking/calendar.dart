@@ -1,9 +1,11 @@
-import 'package:abodein/src/view/common_Widgets/toast_messege.dart';
+import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view/room_controling/room_controller_screen.dart';
+import 'package:abodein/src/view_Model/calendar_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 
@@ -13,8 +15,7 @@ class BookingCalendarPage extends StatefulWidget {
 }
 
 class _BookingCalendarPageState extends State<BookingCalendarPage> {
-  DateTime todayDate = DateTime.now();
-  List<DateTime> _selectedDays = [];
+  
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +28,14 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
         surfaceTintColor: Colors.transparent,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.arrow_back_outlined),
+          icon: AppIcon(
+            iconData: Icons.arrow_back_rounded,
+            color: isDarkMode ? Colors.white : Colors.black,
+            height: height * 0.03,
+          ),
         ),
-        title: Text('Dates'),
+        title: Text('Dates',
+            style: isDarkMode ? whiteMediumTextStyle : mediumTextStyleLight),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -42,11 +48,11 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
                 boxShadow: [
                   BoxShadow(
                     offset: Offset(0, 2),
-                    color: Color.fromARGB(255, 240, 240, 240),
+                    color: isDarkMode? Color.fromARGB(255, 24, 24, 24) : Color.fromARGB(255, 240, 240, 240),
                     blurRadius: 3,
                   ),
                 ],
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: isDarkMode?  Color.fromARGB(255, 3, 3, 3) : backgroundColor
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,7 +70,7 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
                     ];
                     return Text(
                       Days[index],
-                      style: TextStyle(fontSize: 16, color: Colors.black45),
+                      style: isDarkMode? whiteSmallTextStyle : smallTextStyle
                     );
                   },
                 ),
@@ -86,54 +92,51 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
                       padding: EdgeInsets.only(left: width * 0.02),
                       child: Text(
                         DateFormat('MMMM y').format(focusedDay),
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: isDarkMode ? whiteMediumTextStyle : mediumTextStyleLight
                       ),
                     ),
                     sizedBox(height * 0.02, 0.0),
-                    TableCalendar(
-                      rowHeight: height * 0.07,
-                      headerVisible: false,
-                      daysOfWeekVisible: false,
-                      firstDay: todayDate,
-                      lastDay: DateTime.utc(2030, 12, 31),
-                      focusedDay: focusedDay,
-                      calendarFormat: CalendarFormat.month,
-                      availableCalendarFormats: const {
-                        CalendarFormat.month: 'Month',
-                      },
-                      selectedDayPredicate: (day) {
-                        return _selectedDays.contains(day);
-                      },
-                      onDaySelected: (selectedDay, focusedDay) {
-                        if (selectedDay.isBefore(todayDate)) return;
-                        setState(() {
-                          if (_selectedDays.contains(selectedDay)) {
-                            _selectedDays.remove(selectedDay);
-                          } else if(_selectedDays.length < 28){
-                            _selectedDays.add(selectedDay);
-                          } else{
-                            toastmessege('Hotel reservations are limited to a maximum duration of 28 days');
-                          }
-                        });
-                      },
-                      onPageChanged: (focusedDay) {
-                        // Nothing to do here
-                      },
-                      calendarStyle: CalendarStyle(
-                        todayTextStyle: TextStyle(color: Colors.black),
-                        todayDecoration:
-                            BoxDecoration(color: Colors.transparent),
-                        disabledTextStyle: TextStyle(color: Colors.black),
-                        selectedDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Color.fromARGB(255, 41, 41, 41),
+                    Consumer<CalendarProvider>(
+                      builder: (context, calendar, child) => 
+                      TableCalendar(
+                        rowHeight: height * 0.07,
+                        headerVisible: false,
+                        daysOfWeekVisible: false,
+                        firstDay:calendar.toDayDate,
+                        lastDay: DateTime.utc(2030, 12, 31),
+                        focusedDay: focusedDay,
+                        calendarFormat: CalendarFormat.month,
+                        availableCalendarFormats: const {
+                          CalendarFormat.month: 'Month',
+                        },
+                        selectedDayPredicate: (day) {
+                          return calendar.selectedDates.contains(day);
+                        },
+                        onDaySelected: (selectedDay, focusedDay) {
+                         
+                        },
+                        calendarStyle: CalendarStyle(
+                          todayTextStyle: isDarkMode? whiteSmallTextStyle : smallTextStyle,
+                          todayDecoration: BoxDecoration(color: Colors.transparent),
+                          rangeEndTextStyle: whiteLargeTextStyle,
+                          disabledTextStyle: TextStyle(color: Colors.grey),
+                          defaultTextStyle: isDarkMode? whiteSmallTextStyle : smallTextStyle,
+                          weekendTextStyle: isDarkMode? whiteSmallTextStyle : smallTextStyle,
+                          selectedDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Color.fromARGB(255, 78, 246, 162),
+                                Color.fromARGB(255, 73, 204, 211),
+                              ],
+                            ),
+                          ),
+                          outsideDaysVisible: false,
                         ),
-                        outsideDaysVisible: false,
+                        availableGestures: AvailableGestures.all,
                       ),
-                      availableGestures: AvailableGestures.all,
                     ),
                     sizedBox(height * 0.03, 0.0),
                   ],
@@ -144,13 +147,20 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        height: height * 0.095,
+        height: height * 0.11,
         color: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: primarycolor,
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color.fromARGB(255, 66, 230, 148),
+                Color.fromARGB(255, 59, 178, 184),
+              ],
+            ),
             borderRadius: BorderRadius.circular(15),
           ),
           child: Center(
@@ -161,14 +171,37 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
                   'Select',
                   style: whiteSmallTextStyle,
                 ),
-                sizedBox(0.0, width * 0.02),
-                _selectedDays.length > 1?
-                Text(
-                  DateFormat.MMM().format(_selectedDays[0]) == DateFormat.MMM().format(_selectedDays[0])?
-                  '${DateFormat.d().format(_selectedDays[0])} - ${DateFormat.MMMd().format(_selectedDays.last)}':
-                  '${DateFormat.MMMd().format(_selectedDays[0])} - ${DateFormat.MMMd().format(_selectedDays.last)}',
-                  style: whiteSmallTextStyle,
-                ): SizedBox(),
+                sizedBox(0.0, width * 0.03),
+                Provider.of<CalendarProvider>(context,listen: false).selectedDates.length > 1
+                    ? Row(
+                        children: [
+                          Consumer<CalendarProvider>(
+                            builder: (context, calendar, child) => 
+                             Text(
+                              DateFormat.MMM().format(calendar.selectedDates[0]) ==
+                                      DateFormat.MMM().format(calendar.selectedDates.last)
+                                  ? '${DateFormat.d().format(calendar.selectedDates[0])} - ${DateFormat.d().format(calendar.selectedDates.last)}  ${DateFormat.MMM().format(calendar.selectedDates.last)} ,'
+                                  : '${DateFormat.d().format(calendar.selectedDates[0])} ${DateFormat.MMM().format(calendar.selectedDates[0])}  - ${DateFormat.d().format(calendar.selectedDates.last)} ${DateFormat.MMM().format(calendar.selectedDates.last)} ,',
+                              style: whiteSmallTextStyle,
+                            ),
+                          ),
+                          sizedBox(0.0, width * 0.02),
+                          Consumer<CalendarProvider>(
+                            builder: (context, calendar, child) => 
+                             Text(
+                              "${calendar.selectedDates.length - 1}",
+                              style: whiteSmallTextStyle,
+                            ),
+                          ),
+                          sizedBox(0.0, width * 0.02),
+                          AppIcon(
+                            iconData: Icons.nights_stay,
+                            color: Colors.white,
+                            height: height * 0.025,
+                          ),
+                        ],
+                      )
+                    : SizedBox(),
               ],
             ),
           ),

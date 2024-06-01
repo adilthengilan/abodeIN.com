@@ -5,7 +5,7 @@ final TextStyle largeTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 30,
     fontWeight: FontWeight.w600,
-    color: Color.fromARGB(255, 75, 75, 75),
+    color: Colors.black,
   ),
 );
 
@@ -13,14 +13,14 @@ final TextStyle mediumTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 25,
     fontWeight: FontWeight.bold,
-    color: Color.fromARGB(255, 75, 75, 75),
+    color: Colors.black,
   ),
 );
 
 final TextStyle mediumTextStyleLight = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 20,
-    color: Color.fromARGB(255, 75, 75, 75),
+    color: Colors.black,
     fontWeight: FontWeight.w600,
   ),
 );
@@ -48,7 +48,7 @@ final TextStyle smallTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
-    color: Color.fromARGB(255, 0, 0, 0),
+    color: Colors.black,
   ),
 );
 
@@ -56,7 +56,7 @@ final TextStyle smallTextStyleSemiBold = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
-    color: Color.fromARGB(255, 75, 75, 75),
+    color: Colors.black,
   ),
 );
 
