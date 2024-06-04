@@ -14,7 +14,7 @@ class HotelRoomsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      final mediaQuery = MediaQuery.of(context).size;
+    final mediaQuery = MediaQuery.of(context).size;
     final width = mediaQuery.width;
     final height = mediaQuery.height;
     final hotelRoomProvider =
@@ -42,7 +42,8 @@ class HotelRoomsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               sizedBox(height * 0.03, 0.0),
-              roomBookingDetailes(height,width), //It Shows How many Rooms are available and its Rooms Category, and The Date of Booking Date
+              roomBookingDetailes(height,
+                  width), //It Shows How many Rooms are available and its Rooms Category, and The Date of Booking Date
               sizedBox(height * 0.04, 0.0),
               // ---------------------------------------------------------- CHOOSE YOUR ROOM---------------------------
               Text("Choose Your Room", style: mediumTextStyle),
@@ -52,7 +53,7 @@ class HotelRoomsScreen extends StatelessWidget {
               //------------------------------------------------------------Here Listing The Room Type With ListView Builder------------
               //------------------------------------------------------------Showing Images of The Room, Listing Room Facilities----------
               //------------------------------------------------------------This Box Contains "Images" of The Room, And in "room Facilities" like wifi, Price" and "Book Now Button"
-              theRoomDetailes(hotelRoomProvider,height,width),
+              theRoomDetailes(hotelRoomProvider, height, width),
             ],
           ),
         ),
@@ -63,7 +64,7 @@ class HotelRoomsScreen extends StatelessWidget {
   // It Shows How many Rooms are available, and The Date of Booking Date
   // The first Box Of The Rooms Screen To Show Booking Date And Vacating Date, And How many people are User booking for?,
   // And Room Count, The Category Of Poaples Adult or Childrens,
-  Widget roomBookingDetailes(height,width) {
+  Widget roomBookingDetailes(height, width) {
     return Container(
       height: height * 0.145,
       width: width,
@@ -73,7 +74,8 @@ class HotelRoomsScreen extends StatelessWidget {
       ),
       child: Column(
         children: [
-          bookingDateAndVacatingDate(height,width), // The Date of Boking and Vacating, This shows on The first Row of Container on the Screen, and it shows calender icon and Dates
+          bookingDateAndVacatingDate(height,
+              width), // The Date of Boking and Vacating, This shows on The first Row of Container on the Screen, and it shows calender icon and Dates
           sizedBox(height * 0.015, 0.0),
           Divider(),
           Padding(
@@ -106,7 +108,7 @@ class HotelRoomsScreen extends StatelessWidget {
   }
 
 // The Date of Boking and Vacating, This shows on The first Row of Container on the Screen, and it shows calender icon and Dates
-  Widget bookingDateAndVacatingDate(height,width) {
+  Widget bookingDateAndVacatingDate(height, width) {
     return Padding(
       padding: EdgeInsets.only(
         left: width * 0.06,
@@ -141,7 +143,7 @@ class HotelRoomsScreen extends StatelessWidget {
 //-Here Listing The Room Type With ListView Builder
 //-Displaying Images of The Room, Listing Available in the like Wifi, etc...
 //-This Box Contains Images of The Room, And in-room Facilities like wifi and Its Price and Book Now Button
-  Widget theRoomDetailes(hotelRoomProvider,height,width) {
+  Widget theRoomDetailes(hotelRoomProvider, height, width) {
     return ListView.builder(
       //----------------------------------------------------------Listview Builder ----------------------------------------
       shrinkWrap: true,
@@ -244,7 +246,7 @@ class HotelRoomsScreen extends StatelessWidget {
                 ],
               ),
             ),
-ExpansionPanelList(),
+            ExpansionPanelList(),
             ExpansionTile(
               title: Text('Room Details'),
               controlAffinity: ListTileControlAffinity.leading,
@@ -283,7 +285,7 @@ ExpansionPanelList(),
               ],
             ),
             Padding(
-              padding: EdgeInsets.all(height * 0.0),
+              padding: EdgeInsets.all(height * 0.02),
               child: AppTextButton(
                 //---Book Now Buttoon in the Box-----------------------------
                 text: "Book Now",
