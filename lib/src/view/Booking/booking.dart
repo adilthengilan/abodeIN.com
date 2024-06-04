@@ -1,4 +1,6 @@
+import 'package:abodein/src/view/Booking/calender.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
+import 'package:abodein/src/view/profile/favorite_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
@@ -92,7 +94,19 @@ class Booking extends StatelessWidget {
                 ConfirmBox(
                   text: 'Checkin',
                   title: '17 June 2024',
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BookingCalendarPage()));
+                    // showDialog(
+                    //     context: context,
+                    //     builder: (context) {
+                    //       return AlertDialog(
+                    //         content: BookingCalendarPage(),
+                    //       );
+                    //     });
+                  },
                 ),
                 ConfirmBox(
                   text: 'Checkout',
@@ -111,7 +125,7 @@ class Booking extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-              child: contactDetails(height, width),
+              child: contactDetails(height, width, context),
             ),
             Divider(),
             priceDetails(),
@@ -122,11 +136,16 @@ class Booking extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
         child: AppTextButton(
-            text: "Pay Now",
-            onPressed: () {},
-            height: height,
-            width: width,
-            color: Color.fromARGB(229, 13, 170, 198)),
+          text: "Pay Now",
+          onPressed: () {},
+          height: height,
+          width: width,
+          color: [
+            Color(0xff16d9e3), // Converted from #16d9e3 (starting color)
+            Color(0xff30c7ec), // Converted from #30c7ec (middle color)
+            Color(0xff46aef7),
+          ],
+        ),
       ),
     );
   }
@@ -185,7 +204,8 @@ class Booking extends StatelessWidget {
               color: backgroundColor),
           child: GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FavoriteScreen()));
               },
               child: Icon(
                 Icons.favorite,
@@ -197,7 +217,11 @@ class Booking extends StatelessWidget {
   }
 
   // ===================================== CONTACT DETAILS ==================================================
-  Widget contactDetails(height, width) {
+  Widget contactDetails(height, width, context) {
+    TextEditingController namecontroller = TextEditingController();
+    TextEditingController emailcontroller = TextEditingController();
+    TextEditingController mobilenumbercontrollor = TextEditingController();
+
     return Container(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -210,7 +234,82 @@ class Booking extends StatelessWidget {
               style: greysmallTextStyle,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        backgroundColor: backgroundColor,
+                        title: const Text('Contact Details'),
+                        content: SizedBox(
+                          width: width,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              TextFormField(
+                                controller: namecontroller,
+                                textAlignVertical: TextAlignVertical.center,
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: transparantColor,
+                                  hintText: 'Name',
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide.none),
+                                ),
+                              ),
+                              sizedBox(height * 0.02, width),
+                              TextFormField(
+                                controller: emailcontroller,
+                                textAlignVertical: TextAlignVertical.center,
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: transparantColor,
+                                  hintText: 'E mail',
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide.none),
+                                ),
+                              ),
+                              sizedBox(height * 0.02, width),
+                              TextFormField(
+                                controller: mobilenumbercontrollor,
+                                textAlignVertical: TextAlignVertical.center,
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: transparantColor,
+                                  hintText: 'Phone number',
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide.none),
+                                ),
+                              ),
+                              sizedBox(height * 0.02, width),
+                              SizedBox(
+                                width: width,
+                                height: kToolbarHeight,
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  style: TextButton.styleFrom(
+                                      backgroundColor:
+                                          Color.fromARGB(255, 11, 92, 146),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12))),
+                                  child: Text(
+                                    "Save",
+                                    style: whitelightTextStyle,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    });
+              },
               child: Icon(
                 Icons.edit,
                 color: blackShadeColor,

@@ -1,3 +1,4 @@
+import 'package:abodein/src/view/Booking/booking.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/hotel_rooms_provider.dart';
@@ -23,6 +24,16 @@ class HotelRoomsScreen extends StatelessWidget {
       appBar: AppBar(
         surfaceTintColor: backgroundColor,
         backgroundColor: backgroundColor,
+        title: Text(
+          'Grand Royal Hotel',
+          style: mediumTextStyle,
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Icon(Icons.favorite_border_sharp),
+          )
+        ],
       ),
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
@@ -142,20 +153,37 @@ class HotelRoomsScreen extends StatelessWidget {
         width: width,
         margin: EdgeInsets.only(bottom: height * 0.03),
         decoration: BoxDecoration(
-          color: blueColorShadeLight,
+          color: backgroundColor,
+          boxShadow: [
+            BoxShadow(
+                offset: Offset(-0.3, 1),
+                blurRadius: 2,
+                blurStyle: BlurStyle.normal,
+                spreadRadius: 1,
+                color: greyShadeLight
+                // color: darktheme
+                //     ? Color.fromARGB(255, 165, 223, 254)
+                //     : Color.fromARGB(255, 248, 248, 248),
+                ),
+          ],
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: height * 0.3,
-              width: double.infinity,
-              child: Image(
-                  image: AssetImage(
-                      "assets/images/The Image of Choose Your Room.png"), //-------------------- Room Images
-                  fit: BoxFit.cover),
-            ),
+            Container(
+                height: height * 0.3,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(
+                            "assets/images/The Image of Choose Your Room.png"), //-------------------- Room Images
+                        fit: BoxFit.cover),
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(
+                          20,
+                        ),
+                        topLeft: Radius.circular(20)))),
             Padding(
               padding: EdgeInsets.only(
                 top: height * 0.02,
@@ -165,65 +193,134 @@ class HotelRoomsScreen extends StatelessWidget {
                   "${hotelRoomProvider.RoomType[index]}", //--------------------- The Type Of Room like PREMIUM, STANDARD etc...
                   style: mediumTextStyle),
             ),
+            // Padding(
+            //   padding: EdgeInsets.only(
+            //     left: width * 0.06,
+            //     top: height * 0.01,
+            //   ),
+            //   child: Column(
+            //     //------------------------------------- Listing Room Facilities with List Generator its legth is List Room Details -----------------------
+            //     children: List.generate(
+            //       hotelRoomProvider.roomsDetails.length,
+            //       (index) => Padding(
+            //         padding: EdgeInsets.only(bottom: height * 0.0095),
+            //         child: Row(
+            //           children: [
+            //             Icon(
+            //               hotelRoomProvider.roomsDetails[index]
+            //                       ["Icon"] // -Room facilities Icons
+            //                   as IconData?,
+            //               color: greyShadeDark,
+            //               size: height * 0.025,
+            //             ),
+            //             sizedBox(0.0, width * 0.025),
+            //             Text(
+            //               '${hotelRoomProvider.roomsDetails[index]["Service"]}', // Room facilities
+            //               style: smallTextStyle,
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Padding(
               padding: EdgeInsets.only(
                 left: width * 0.06,
-                top: height * 0.01,
               ),
-              child: Column(
-                //------------------------------------- Listing Room Facilities with List Generator its legth is List Room Details -----------------------
-                children: List.generate(
-                  hotelRoomProvider.roomsDetails.length,
-                  (index) => Padding(
-                    padding: EdgeInsets.only(bottom: height * 0.0095),
-                    child: Row(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      text: "\$598", //The Price of the Rooms-------------------
+                      style: mediumTextStyleLight,
                       children: [
-                        Icon(
-                          hotelRoomProvider.roomsDetails[index]
-                                  ["Icon"] // -Room facilities Icons
-                              as IconData?,
-                          color: greyShadeDark,
-                          size: height * 0.025,
-                        ),
-                        sizedBox(0.0, width * 0.025),
-                        Text(
-                          '${hotelRoomProvider.roomsDetails[index]["Service"]}', // Room facilities
-                          style: smallTextStyle,
-                        ),
+                        TextSpan(
+                            text: "/Night", style: smallTextStyle), // per Night
                       ],
                     ),
                   ),
-                ),
+                  // _moreDetails(height, width)
+                ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: width * 0.06,
-              ),
-              child: RichText(
-                text: TextSpan(
-                  text: "\$598", //The Price of the Rooms-------------------
-                  style: mediumTextStyleLight,
-                  children: [
-                    TextSpan(
-                        text: "/Night", style: smallTextStyle), // per Night
-                  ],
+ExpansionPanelList(),
+            ExpansionTile(
+              title: Text('Room Details'),
+              controlAffinity: ListTileControlAffinity.leading,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: width * 0.06,
+                    top: height * 0.01,
+                  ),
+                  child: Column(
+                    //------------------------------------- Listing Room Facilities with List Generator its legth is List Room Details -----------------------
+                    children: List.generate(
+                      hotelRoomProvider.roomsDetails.length,
+                      (index) => Padding(
+                        padding: EdgeInsets.only(bottom: height * 0.0095),
+                        child: Row(
+                          children: [
+                            Icon(
+                              hotelRoomProvider.roomsDetails[index]
+                                      ["Icon"] // -Room facilities Icons
+                                  as IconData?,
+                              color: greyShadeDark,
+                              size: height * 0.025,
+                            ),
+                            sizedBox(0.0, width * 0.025),
+                            Text(
+                              '${hotelRoomProvider.roomsDetails[index]["Service"]}', // Room facilities
+                              style: smallTextStyle,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
             Padding(
-              padding: EdgeInsets.all(height * 0.02),
+              padding: EdgeInsets.all(height * 0.0),
               child: AppTextButton(
                 //---Book Now Buttoon in the Box-----------------------------
                 text: "Book Now",
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Booking()));
+                },
                 height: height,
-                width: width, color: primarycolor,
+                width: width,
+                color: [
+                  Color(0xfff6d365), // Converted from #f6d365 (starting color)
+                  Color(0xfffda085),
+                ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  //******************************** MORE DETAILS ****************************** */
+  Widget _moreDetails(height, width) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          "More Details",
+          style: smallTextStyle,
+          textAlign: TextAlign.center,
+        ),
+        Icon(
+          Icons.arrow_drop_down,
+          color: greyShadeLight,
+        ),
+      ],
     );
   }
 }

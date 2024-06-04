@@ -142,7 +142,7 @@ class ServiceScreen extends StatelessWidget {
               color = orangeColor;
             case 4:
               image = 'assets/images/images__1_-removebg-preview.png';
-              text = 'Other Amenities';
+              text = 'Bell boys';
               color = Color.fromARGB(238, 149, 23, 14);
             case 5:
               image = 'assets/images/spa-towel-6895931-5655950.webp';

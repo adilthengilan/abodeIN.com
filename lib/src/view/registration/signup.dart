@@ -5,7 +5,6 @@ import 'package:abodein/src/view/common_Widgets/text_field.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:flutter/material.dart';
 
-
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
@@ -77,7 +76,8 @@ class _SignupScreenState extends State<SignupScreen> {
               text: "Next",
               onPressed: () {},
               height: height,
-              width: width, color: primarycolor,
+              width: width,
+              color: [primarycolor],
             ),
             SizedBox(height: height * 0.034),
             Row(

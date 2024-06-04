@@ -147,3 +147,9 @@ final TextStyle LightgreysmallTextStyle = GoogleFonts.poppins(
     color: Color.fromARGB(255, 188, 188, 188),
   ),
 );
+final TextStyle whitelightTextStyle = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 22,
+    color: backgroundColor,
+  ),
+);

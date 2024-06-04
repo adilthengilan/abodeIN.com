@@ -1,4 +1,7 @@
+import 'package:abodein/src/view/Booking/booking.dart';
 import 'package:abodein/src/view/common_Widgets/icon.dart';
+import 'package:abodein/src/view/hotel_rooms/hotel_rooms_screen.dart';
+import 'package:abodein/src/view/profile/booking_history.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/bookingfun_provider.dart';
 import 'package:abodein/src/view_Model/hotel_detail_provider.dart';
@@ -143,6 +146,10 @@ class HotelDetailePage extends StatelessWidget {
           ],
         ),
       ),
+      //===========================================================================================================================================
+      //                                                 swipe for booking
+      //===========================================================================================================================================
+
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Container(
@@ -169,7 +176,9 @@ class HotelDetailePage extends StatelessWidget {
                 // ],
                 borderRadius: BorderRadius.circular(30),
                 border: Border.all(
-                    color: Color.fromARGB(255, 69, 44, 106), width: 2),
+                    color: Color.fromARGB(255, 14, 107,
+                        174), // Converted from #48c6ef (starting color)
+                    width: 2),
                 color: Color.fromARGB(255, 255, 255, 255)
                 // gradient: LinearGradient(
                 //   begin: Alignment.topLeft,
@@ -245,7 +254,8 @@ class HotelDetailePage extends StatelessWidget {
               color: backgroundColor),
           child: GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => BookingHistory()));
               },
               child: Icon(
                 Icons.notifications_none_outlined,
@@ -653,6 +663,11 @@ class _SlideToUnlockState extends State<SlideToUnlock> {
             // Unlock logic here, e.g., navigating to a new screen
             value.confirmBooking();
             print('Unlocked!');
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        HotelRoomsScreen(height: height, width: width)));
           }
           setState(() {
             _position = 0.0;
@@ -691,7 +706,19 @@ class _SlideToUnlockState extends State<SlideToUnlock> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: Color.fromARGB(255, 13, 97, 140),
+                    gradient: LinearGradient(
+                      begin: Alignment.centerLeft, // Starting point (left side)
+                      end: Alignment.centerRight, // Ending point (right side)
+                      colors: [
+                        Color.fromARGB(255, 28, 153,
+                            215), // Converted from #48c6ef (starting color)
+                        Color.fromARGB(255, 26, 135, 186),
+                        // Color(
+                        //     0xff96deda), // Converted from #96deda (starting color)
+                        // Color(
+                        //     0xff50c9c3), // Converted from #50c9c3 (ending color)
+                      ],
+                    ), // color: Color.fromARGB(255, 13, 97, 140),
                   ),
                   margin: EdgeInsets.only(
                     top: 3,
