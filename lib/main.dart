@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          home: HotelRoomsScreen(height: , width: width)),
+          home: HotelRoomsScreen()),
     );
   }
 }
