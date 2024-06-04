@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+  final ValueChanged? onchanged;
   final double width;
   final double height;
   const AppTextField({
@@ -14,6 +15,7 @@ class AppTextField extends StatelessWidget {
     required this.hintText,
     required this.width,
     required this.height,
+    this.onchanged,
   });
 
   @override
@@ -24,11 +26,12 @@ class AppTextField extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: const Color.fromARGB(255, 206, 206, 206),
+          color: Color.fromARGB(255, 206, 206, 206),
         ),
       ),
       child: TextField(
         controller: controller,
+        onChanged: onchanged,
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: hintText,
@@ -64,7 +67,9 @@ class AppSearchBar extends StatelessWidget {
       margin: EdgeInsets.only(left: width * 0.06),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
-        border: Border.all(color: greyShadeLight,),
+        border: Border.all(
+          color: greyShadeLight,
+        ),
       ),
       child: TextField(
         controller: controller,
@@ -74,7 +79,7 @@ class AppSearchBar extends StatelessWidget {
           hintStyle: smallTextStyle,
           contentPadding: EdgeInsets.only(top: 15),
           suffixIcon: Padding(
-            padding: EdgeInsets.only(top: 10,right: 15),
+            padding: EdgeInsets.only(top: 10, right: 15),
             child: Image.asset("assets/images/filter_icon.png"),
           ),
           prefixIcon: Padding(

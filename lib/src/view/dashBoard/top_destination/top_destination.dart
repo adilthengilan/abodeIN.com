@@ -1,8 +1,8 @@
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
+import 'package:abodein/src/view/dashBoard/hotel_details_screen/hotel_details_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TopDestination extends StatelessWidget {
@@ -97,117 +97,126 @@ class HotelBoxList extends StatelessWidget {
           padding: EdgeInsets.only(
             right: width * 0.04,
           ),
-          child: Container(
-            width: width * 0.878,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(4, 10),
-                  blurRadius: 8,
-                  color: Color.fromARGB(47, 80, 79, 79),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HotelDetailePage(),
                 ),
-                BoxShadow(
-                  offset: Offset(-4, -1),
-                  blurRadius: 8,
-                  color: Color.fromARGB(255, 216, 216, 216),
-                ),
-              ],
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  height: height * 0.25,
-                  width: width,
-                  // margin: EdgeInsets.all(height * 0.018),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 227, 227, 227),
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('assets/images/zfri2szh.png')),
+              );
+            },
+            child: Container(
+              width: width * 0.878,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(4, 10),
+                    blurRadius: 8,
+                    color: Color.fromARGB(47, 80, 79, 79),
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.all(height * 0.02),
+                  BoxShadow(
+                    offset: Offset(-4, -1),
+                    blurRadius: 8,
+                    color: Color.fromARGB(255, 216, 216, 216),
+                  ),
+                ],
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    height: height * 0.25,
+                    width: width,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 227, 227, 227),
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage('assets/images/zfri2szh.png')),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(height * 0.02),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          MapViewButton(height: height, width: width),
+                          sizedBox(0.0, width * 0.025),
+                          RatingBoxTransparant(
+                            height: height,
+                            width: width,
+                            rating: rating,
+                          ),
+                          ThreeDView(
+                            onTap: () {},
+                            height: height,
+                            width: width,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  sizedBox(height * 0.025, 0.0),
+                  Container(
+                    width: width,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: width * 0.04,
+                    ),
+                    decoration: BoxDecoration(color: Colors.white),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        MapViewButton(height: height, width: width),
-                        sizedBox(0.0, width * 0.025),
-                        RatingBoxTransparant(
-                          height: height,
-                          width: width,
-                          rating: rating,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: width * 0.61,
+                              child: Text(
+                                "Hotel Niagara Popo",
+                                style: GoogleFonts.poppins(
+                                  textStyle: TextStyle(
+                                    fontSize: width * 0.05,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: -0.3,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            sizedBox(height * 0.007, 0.0),
+                            Text(
+                              'New York, USA',
+                              style: smallTextStyle,
+                            ),
+                            sizedBox(height * 0.015, 0.0),
+                          ],
                         ),
-                        ThreeDView(
-                          onTap: () {},
-                          height: height,
-                          width: width,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            sizedBox(height * 0.01, 0.0),
+                            Text(
+                              '\$1,599',
+                              style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                                  fontSize: width * 0.046,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                            Text("1 night"),
+                          ],
                         ),
                       ],
                     ),
                   ),
-                ),
-                sizedBox(height * 0.025, 0.0),
-                Container(
-                  width: width,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: width * 0.04,
-                  ),
-                  decoration: BoxDecoration(color: Colors.white),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: width * 0.61,
-                            child: Text(
-                              "Hotel Niagara Popo",
-                              style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
-                                  fontSize: width * 0.05,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: -0.3,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                          sizedBox(height * 0.007, 0.0),
-                          Text(
-                            'New York, USA',
-                            style: smallTextStyle,
-                          ),
-                          sizedBox(height * 0.015, 0.0),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          sizedBox(height * 0.01, 0.0),
-                          Text(
-                            '\$1,599',
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                fontSize: width * 0.046,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
-                          Text("1 night"),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

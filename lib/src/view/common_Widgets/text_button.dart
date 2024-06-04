@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class AppTextButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  final Gradient? gradient;
   final double height;
   final double width;
   const AppTextButton({
@@ -14,6 +15,7 @@ class AppTextButton extends StatelessWidget {
     required this.onPressed,
     required this.height,
     required this.width,
+    this.gradient,
   });
 
   @override
@@ -25,6 +27,7 @@ class AppTextButton extends StatelessWidget {
         width: width * 0.87,
         decoration: BoxDecoration(
           color: primarycolor,
+          gradient: gradient,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Center(

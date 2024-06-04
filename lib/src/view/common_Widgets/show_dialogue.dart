@@ -8,50 +8,58 @@ void showRoundedDialog(BuildContext context, width, String title,
     context: context,
     builder: (BuildContext context) {
       return Dialog(
-        backgroundColor: backgroundColor,
-        surfaceTintColor: backgroundColor,
+        backgroundColor: Color.fromARGB(105, 103, 103, 103),
+        surfaceTintColor: lighTraansparantColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: EdgeInsets.only(top: 10, right: 10, left: 10, bottom: 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(
-                title,
-                style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  sizedBox(0.0, width * 0.08),
+                  Text(
+                    title,
+                    style: TextStyle(
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.close_rounded,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: width * 0.04),
                 child: Text(
                   messege,
+                  style: TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
               ),
               SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: backgroundColor,
-                        surfaceTintColor: backgroundColor),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('Close'),
-                  ),
-                  sizedBox(0.0, 10.0),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: backgroundColor,
-                        surfaceTintColor: backgroundColor),
-                    onPressed: buttonAction,
-                    child: Text(actionButttonText),
-                  ),
-                ],
+              sizedBox(0.0, 10.0),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: backgroundColor,
+                    surfaceTintColor: backgroundColor),
+                onPressed: buttonAction,
+                child: Text(
+                  actionButttonText,
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
             ],
           ),

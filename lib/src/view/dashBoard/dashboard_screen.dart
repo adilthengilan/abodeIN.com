@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:abodein/src/view/booking/calendar.dart';
 import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/src/view/dashBoard/top_destination/top_destination.dart';
 import 'package:abodein/src/view/search_page.dart';
+import 'package:abodein/src/view/smart%20checking/smart_checking.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
@@ -31,7 +31,6 @@ class _DashBoardState extends State<DashBoard> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final dbProvider = Provider.of<DashBoardProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: CustomScrollView(
@@ -105,12 +104,12 @@ class _DashBoardState extends State<DashBoard> {
                 //     },
                 //   ),
                 // ),
-                isBooked && isCheking && dbProvider.isTimeStarted
-                    ? SizedBox(
-                        height: height * 0.165,
-                        child: CategoryLayoutRow(height, width),
-                      )
-                    : SizedBox(),
+                // isBooked && isCheking && dbProvider.isTimeStarted
+                //     ? SizedBox(
+                //         height: height * 0.165,
+                //         child: CategoryLayoutRow(height, width),
+                //       )
+                //     : SizedBox(),
                 //==================================================== The Category Horizontal List With List Generator wrap with Wrap Widget
                 sizedBox(height * 0.01, 0.0),
                 //========================================================== Hotel small Square Boxes ========================================
@@ -202,15 +201,16 @@ class _DashBoardState extends State<DashBoard> {
   Widget SilverAppBar(width, height) {
     return SliverAppBar(
       leading: IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => BookingCalendarPage(),
-              ),
-            );
-          },
-          icon: Icon(Icons.menu)),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SmartChecking(),
+            ),
+          );
+        },
+        icon: Icon(Icons.menu),
+      ),
       //====================================================== Silver App Bar For Customization, I make this AppBar Floatable
       surfaceTintColor: backgroundColor,
       backgroundColor: backgroundColor,

@@ -1,11 +1,13 @@
+import 'package:abodein/src/view/common_Widgets/toast_messege.dart';
 import 'package:flutter/material.dart';
 
 class CalendarProvider extends ChangeNotifier {
-  DateTime toDayDate = DateTime.now();
+  final toDayDate = DateTime.now();
   List<DateTime> selectedDates = [];
 
 
   void onSelected(selectedDay, context) {
+    print('${toDayDate},       ${DateTime.now()}');
     if (selectedDay.isBefore(toDayDate)) return;
 
     // when two selected they want select another one
@@ -22,12 +24,7 @@ class CalendarProvider extends ChangeNotifier {
             selectedDates.last.difference(selectedDates[0]).inDays;
         if (difference > 27) {
           selectedDates.clear();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("Hotels can't be Booked for a maximum of 28 Days."),
-              duration: Duration(seconds: 2),
-            ),
-          );
+            toastmessege("Hotels can't be Booked for a maximum of 28 Days.");
         } else {
           // Add dates between the two selected dates to the list
           List<DateTime> betweenDates = [];
@@ -45,5 +42,6 @@ class CalendarProvider extends ChangeNotifier {
         }
       }
     }
+    notifyListeners();
   }
 }

@@ -15,8 +15,6 @@ class BookingCalendarPage extends StatefulWidget {
 }
 
 class _BookingCalendarPageState extends State<BookingCalendarPage> {
-  
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -26,12 +24,31 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: AppIcon(
-            iconData: Icons.arrow_back_rounded,
-            color: isDarkMode ? Colors.white : Colors.black,
-            height: height * 0.03,
+        leadingWidth: width * 0.18,
+        leading: Container(
+          height: height * 0.053,
+          width: width * 0.13,
+          margin: EdgeInsets.only(left: width* 0.04,top: height * 0.01,bottom: height * 0.01,),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(30),
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(2, 3),
+                color: Color.fromARGB(47, 80, 79, 79),
+              ),
+              BoxShadow(
+                offset: Offset(-2, -1),
+                color: Color.fromARGB(255, 216, 216, 216),
+              ),
+            ],
+          ),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(20),
+            onTap: () => Navigator.pop(context),
+            child: Center(
+              child: Icon(Icons.arrow_back),
+            ),
           ),
         ),
         title: Text('Dates',
@@ -45,15 +62,18 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
               padding: EdgeInsets.symmetric(horizontal: 25),
               width: double.infinity,
               decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(0, 2),
-                    color: isDarkMode? Color.fromARGB(255, 24, 24, 24) : Color.fromARGB(255, 240, 240, 240),
-                    blurRadius: 3,
-                  ),
-                ],
-                color: isDarkMode?  Color.fromARGB(255, 3, 3, 3) : backgroundColor
-              ),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 2),
+                      color: isDarkMode
+                          ? Color.fromARGB(255, 24, 24, 24)
+                          : Color.fromARGB(255, 240, 240, 240),
+                      blurRadius: 3,
+                    ),
+                  ],
+                  color: isDarkMode
+                      ? Color.fromARGB(255, 3, 3, 3)
+                      : backgroundColor),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List.generate(
@@ -68,10 +88,9 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
                       'Fri',
                       'Sun',
                     ];
-                    return Text(
-                      Days[index],
-                      style: isDarkMode? whiteSmallTextStyle : smallTextStyle
-                    );
+                    return Text(Days[index],
+                        style:
+                            isDarkMode ? whiteSmallTextStyle : smallTextStyle);
                   },
                 ),
               ),
@@ -90,19 +109,18 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(left: width * 0.02),
-                      child: Text(
-                        DateFormat('MMMM y').format(focusedDay),
-                        style: isDarkMode ? whiteMediumTextStyle : mediumTextStyleLight
-                      ),
+                      child: Text(DateFormat('MMMM y').format(focusedDay),
+                          style: isDarkMode
+                              ? whiteMediumTextStyle
+                              : mediumTextStyleLight),
                     ),
                     sizedBox(height * 0.02, 0.0),
                     Consumer<CalendarProvider>(
-                      builder: (context, calendar, child) => 
-                      TableCalendar(
+                      builder: (context, calendar, child) => TableCalendar(
                         rowHeight: height * 0.07,
                         headerVisible: false,
                         daysOfWeekVisible: false,
-                        firstDay:calendar.toDayDate,
+                        firstDay: calendar.toDayDate,
                         lastDay: DateTime.utc(2030, 12, 31),
                         focusedDay: focusedDay,
                         calendarFormat: CalendarFormat.month,
@@ -113,15 +131,19 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
                           return calendar.selectedDates.contains(day);
                         },
                         onDaySelected: (selectedDay, focusedDay) {
-                         
+                          calendar.onSelected(selectedDay, context);
                         },
                         calendarStyle: CalendarStyle(
-                          todayTextStyle: isDarkMode? whiteSmallTextStyle : smallTextStyle,
-                          todayDecoration: BoxDecoration(color: Colors.transparent),
+                          todayTextStyle:
+                              isDarkMode ? whiteSmallTextStyle : smallTextStyle,
+                          todayDecoration:
+                              BoxDecoration(color: Colors.transparent),
                           rangeEndTextStyle: whiteLargeTextStyle,
                           disabledTextStyle: TextStyle(color: Colors.grey),
-                          defaultTextStyle: isDarkMode? whiteSmallTextStyle : smallTextStyle,
-                          weekendTextStyle: isDarkMode? whiteSmallTextStyle : smallTextStyle,
+                          defaultTextStyle:
+                              isDarkMode ? whiteSmallTextStyle : smallTextStyle,
+                          weekendTextStyle:
+                              isDarkMode ? whiteSmallTextStyle : smallTextStyle,
                           selectedDecoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             gradient: LinearGradient(
@@ -172,14 +194,18 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
                   style: whiteSmallTextStyle,
                 ),
                 sizedBox(0.0, width * 0.03),
-                Provider.of<CalendarProvider>(context,listen: false).selectedDates.length > 1
+                Provider.of<CalendarProvider>(context, listen: false)
+                            .selectedDates
+                            .length >
+                        1
                     ? Row(
                         children: [
                           Consumer<CalendarProvider>(
-                            builder: (context, calendar, child) => 
-                             Text(
-                              DateFormat.MMM().format(calendar.selectedDates[0]) ==
-                                      DateFormat.MMM().format(calendar.selectedDates.last)
+                            builder: (context, calendar, child) => Text(
+                              DateFormat.MMM()
+                                          .format(calendar.selectedDates[0]) ==
+                                      DateFormat.MMM()
+                                          .format(calendar.selectedDates.last)
                                   ? '${DateFormat.d().format(calendar.selectedDates[0])} - ${DateFormat.d().format(calendar.selectedDates.last)}  ${DateFormat.MMM().format(calendar.selectedDates.last)} ,'
                                   : '${DateFormat.d().format(calendar.selectedDates[0])} ${DateFormat.MMM().format(calendar.selectedDates[0])}  - ${DateFormat.d().format(calendar.selectedDates.last)} ${DateFormat.MMM().format(calendar.selectedDates.last)} ,',
                               style: whiteSmallTextStyle,
@@ -187,8 +213,7 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
                           ),
                           sizedBox(0.0, width * 0.02),
                           Consumer<CalendarProvider>(
-                            builder: (context, calendar, child) => 
-                             Text(
+                            builder: (context, calendar, child) => Text(
                               "${calendar.selectedDates.length - 1}",
                               style: whiteSmallTextStyle,
                             ),

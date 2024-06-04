@@ -306,7 +306,12 @@ class HotelDetailePage extends StatelessWidget {
                 'Verify your identity with SmartCheck using your ID now!',
                 'Cheking',
                 () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => SmartCheking(),));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BookingCalendarPage(),
+                    ),
+                  );
                 },
               );
             },
