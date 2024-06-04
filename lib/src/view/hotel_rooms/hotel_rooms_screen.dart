@@ -8,16 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HotelRoomsScreen extends StatelessWidget {
-  final double height;
-  final double width;
   const HotelRoomsScreen({
     super.key,
-    required this.height,
-    required this.width,
   });
 
   @override
   Widget build(BuildContext context) {
+      final mediaQuery = MediaQuery.of(context).size;
+    final width = mediaQuery.width;
+    final height = mediaQuery.height;
     final hotelRoomProvider =
         Provider.of<HotelRoomsProvider>(context, listen: false);
     return Scaffold(
@@ -43,7 +42,7 @@ class HotelRoomsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               sizedBox(height * 0.03, 0.0),
-              roomBookingDetailes(), //It Shows How many Rooms are available and its Rooms Category, and The Date of Booking Date
+              roomBookingDetailes(height,width), //It Shows How many Rooms are available and its Rooms Category, and The Date of Booking Date
               sizedBox(height * 0.04, 0.0),
               // ---------------------------------------------------------- CHOOSE YOUR ROOM---------------------------
               Text("Choose Your Room", style: mediumTextStyle),
@@ -53,7 +52,7 @@ class HotelRoomsScreen extends StatelessWidget {
               //------------------------------------------------------------Here Listing The Room Type With ListView Builder------------
               //------------------------------------------------------------Showing Images of The Room, Listing Room Facilities----------
               //------------------------------------------------------------This Box Contains "Images" of The Room, And in "room Facilities" like wifi, Price" and "Book Now Button"
-              theRoomDetailes(hotelRoomProvider),
+              theRoomDetailes(hotelRoomProvider,height,width),
             ],
           ),
         ),
@@ -64,7 +63,7 @@ class HotelRoomsScreen extends StatelessWidget {
   // It Shows How many Rooms are available, and The Date of Booking Date
   // The first Box Of The Rooms Screen To Show Booking Date And Vacating Date, And How many people are User booking for?,
   // And Room Count, The Category Of Poaples Adult or Childrens,
-  Widget roomBookingDetailes() {
+  Widget roomBookingDetailes(height,width) {
     return Container(
       height: height * 0.145,
       width: width,
@@ -74,7 +73,7 @@ class HotelRoomsScreen extends StatelessWidget {
       ),
       child: Column(
         children: [
-          bookingDateAndVacatingDate(), // The Date of Boking and Vacating, This shows on The first Row of Container on the Screen, and it shows calender icon and Dates
+          bookingDateAndVacatingDate(height,width), // The Date of Boking and Vacating, This shows on The first Row of Container on the Screen, and it shows calender icon and Dates
           sizedBox(height * 0.015, 0.0),
           Divider(),
           Padding(
@@ -107,7 +106,7 @@ class HotelRoomsScreen extends StatelessWidget {
   }
 
 // The Date of Boking and Vacating, This shows on The first Row of Container on the Screen, and it shows calender icon and Dates
-  Widget bookingDateAndVacatingDate() {
+  Widget bookingDateAndVacatingDate(height,width) {
     return Padding(
       padding: EdgeInsets.only(
         left: width * 0.06,
@@ -142,7 +141,7 @@ class HotelRoomsScreen extends StatelessWidget {
 //-Here Listing The Room Type With ListView Builder
 //-Displaying Images of The Room, Listing Available in the like Wifi, etc...
 //-This Box Contains Images of The Room, And in-room Facilities like wifi and Its Price and Book Now Button
-  Widget theRoomDetailes(hotelRoomProvider) {
+  Widget theRoomDetailes(hotelRoomProvider,height,width) {
     return ListView.builder(
       //----------------------------------------------------------Listview Builder ----------------------------------------
       shrinkWrap: true,

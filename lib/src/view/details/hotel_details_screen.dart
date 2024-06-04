@@ -663,11 +663,8 @@ class _SlideToUnlockState extends State<SlideToUnlock> {
             // Unlock logic here, e.g., navigating to a new screen
             value.confirmBooking();
             print('Unlocked!');
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        HotelRoomsScreen(height: height, width: width)));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => HotelRoomsScreen()));
           }
           setState(() {
             _position = 0.0;
