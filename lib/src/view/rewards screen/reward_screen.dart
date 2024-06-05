@@ -69,7 +69,44 @@ class _RewardScreenState extends State<RewardScreen> {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: _appBar(context),
+        leading: Icon(Icons.arrow_back),
+        title: Text(
+          'Rewards',
+          style: mediumTextStyle,
+        ),
+        // actions: [
+        //   Container(
+        //     height: 40,
+        //     width: 55,
+        //     decoration: BoxDecoration(
+        //         shape: BoxShape.rectangle,
+        //         borderRadius: BorderRadius.circular(30),
+        //         boxShadow: [
+        //           BoxShadow(
+        //               offset: Offset(-0.3, 1),
+        //               blurRadius: 2,
+        //               blurStyle: BlurStyle.normal,
+        //               spreadRadius: 0,
+        //               color: greyShadeDark
+        //               // color: darktheme
+        //               //     ? Color.fromARGB(255, 165, 223, 254)
+        //               //     : Color.fromARGB(255, 248, 248, 248),
+        //               ),
+        //         ],
+        //         color: backgroundColor),
+        //     child: GestureDetector(
+        //         onTap: () {
+        //           Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                   builder: (context) => FavoriteScreen()));
+        //         },
+        //         child: Icon(
+        //           Icons.notifications_none_outlined,
+        //           color: Colors.black,
+        //         )),
+        //   ),
+        // ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -242,79 +279,6 @@ class _RewardScreenState extends State<RewardScreen> {
           ),
         ],
       ),
-    );
-  }
-
-  //*****************************APP BAR*************************************** */
-
-  Widget _appBar(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          height: 40,
-          width: 55,
-          decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset(-0.3, 1),
-                    blurRadius: 2,
-                    blurStyle: BlurStyle.normal,
-                    spreadRadius: 0,
-                    color: greyShadeDark
-                    // color: darktheme
-                    //     ? Color.fromARGB(255, 165, 223, 254)
-                    //     : Color.fromARGB(255, 248, 248, 248),
-                    ),
-              ],
-              color: backgroundColor),
-          child: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Icon(
-                Icons.arrow_back,
-                color: blackShadeColor,
-              )),
-        ),
-        Container(
-          child: Text(
-            "Rewards",
-            style: BlackLightTextStyle,
-          ),
-        ),
-        Container(
-          height: 40,
-          width: 55,
-          decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset(-0.3, 1),
-                    blurRadius: 2,
-                    blurStyle: BlurStyle.normal,
-                    spreadRadius: 0,
-                    color: greyShadeDark
-                    // color: darktheme
-                    //     ? Color.fromARGB(255, 165, 223, 254)
-                    //     : Color.fromARGB(255, 248, 248, 248),
-                    ),
-              ],
-              color: backgroundColor),
-          child: GestureDetector(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FavoriteScreen()));
-              },
-              child: Icon(
-                Icons.notifications_none_outlined,
-                color: Colors.black,
-              )),
-        ),
-      ],
     );
   }
 

@@ -26,6 +26,34 @@ class HotelDetailePage extends StatelessWidget {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        leading: Container(
+          height: 40,
+          width: 55,
+          decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                    offset: Offset(-0.3, 1),
+                    blurRadius: 2,
+                    blurStyle: BlurStyle.normal,
+                    spreadRadius: 0,
+                    color: greyShadeDark
+                    // color: darktheme
+                    //     ? Color.fromARGB(255, 165, 223, 254)
+                    //     : Color.fromARGB(255, 248, 248, 248),
+                    ),
+              ],
+              color: backgroundColor),
+          child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.arrow_back,
+                color: blackShadeColor,
+              )),
+        ),
         title: _appBar(context),
       ),
       body: SingleChildScrollView(
@@ -199,34 +227,6 @@ class HotelDetailePage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-          height: 40,
-          width: 55,
-          decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset(-0.3, 1),
-                    blurRadius: 2,
-                    blurStyle: BlurStyle.normal,
-                    spreadRadius: 0,
-                    color: greyShadeDark
-                    // color: darktheme
-                    //     ? Color.fromARGB(255, 165, 223, 254)
-                    //     : Color.fromARGB(255, 248, 248, 248),
-                    ),
-              ],
-              color: backgroundColor),
-          child: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Icon(
-                Icons.arrow_back,
-                color: blackShadeColor,
-              )),
-        ),
         Container(
           child: Text(
             "Details",

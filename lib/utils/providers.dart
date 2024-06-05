@@ -4,6 +4,7 @@ import 'package:abodein/src/view_Model/Timer_provider.dart';
 import 'package:abodein/src/view_Model/bookingfun_provider.dart';
 import 'package:abodein/src/view_Model/calender_provider.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
+import 'package:abodein/src/view_Model/drawer_provider.dart';
 import 'package:abodein/src/view_Model/hotel_detail_provider.dart';
 import 'package:abodein/src/view_Model/hotel_rooms_provider.dart';
 import 'package:abodein/src/view_Model/profile_provider.dart';
@@ -36,6 +37,9 @@ List<ChangeNotifierProvider<ChangeNotifier>> providers = [
   ),
   ChangeNotifierProvider<CalendarProvider>(
     create: (context) => CalendarProvider(),
+  ),
+  ChangeNotifierProvider<DrawerIndexProvider>(
+    create: (context) => DrawerIndexProvider(),
   ),
 
   // ChangeNotifierProvider<TimerProvider>(create: (context) => TimerProvider()),

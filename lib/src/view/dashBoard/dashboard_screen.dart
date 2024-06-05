@@ -1,4 +1,5 @@
 import 'package:abodein/src/view/common_Widgets/icon.dart';
+import 'package:abodein/src/view/details/hotel_details_screen.dart';
 import 'package:abodein/src/view/drawer/drawer_screen.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
@@ -92,7 +93,12 @@ class DashBoard extends StatelessWidget {
                       //======================================================== Top Destination ========================================
                       Text("Top Destination", style: largeTextStyle),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HotelDetailePage()));
+                        },
                         child: Container(
                           height: height * 0.05,
                           width: width * 0.095,
@@ -407,7 +413,6 @@ class PriceAndBookingPersons extends StatelessWidget {
     );
   }
 }
-
 
 // it shows A Transparant Box Of 3d View, It Has Rating Icon and a Rating Text, And The Icon show on the circle Avatar
 class ThreeDView extends StatelessWidget {

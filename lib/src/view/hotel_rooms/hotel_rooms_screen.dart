@@ -23,6 +23,7 @@ class HotelRoomsScreen extends StatelessWidget {
       appBar: AppBar(
         surfaceTintColor: backgroundColor,
         backgroundColor: backgroundColor,
+        leading: Icon(Icons.arrow_back),
         title: Text(
           'Grand Royal Hotel',
           style: mediumTextStyle,

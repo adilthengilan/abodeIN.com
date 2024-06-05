@@ -1,10 +1,4 @@
-import 'package:abodein/src/view/Booking/booking.dart';
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
-import 'package:abodein/src/view/details/hotel_details_screen.dart';
-import 'package:abodein/src/view/hotel_rooms/hotel_rooms_screen.dart';
-import 'package:abodein/src/view/registration/login_page.dart';
-import 'package:abodein/src/view/rewards%20screen/reward_screen.dart';
-import 'package:abodein/src/view/services/service_screen.dart';
 import 'package:abodein/utils/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +21,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          home: ServiceScreen()),
+          home: DashBoard()),
     );
   }
 }
