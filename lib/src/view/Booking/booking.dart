@@ -1,15 +1,20 @@
 import 'package:abodein/src/view/Booking/calender.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
+import 'package:abodein/src/view/hotel_rooms/hotel_rooms_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
+import 'package:abodein/src/view_Model/calender_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Booking extends StatelessWidget {
   const Booking({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final calenderProvider =
+        Provider.of<CalendarProvider>(context, listen: false);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -112,7 +117,7 @@ class Booking extends StatelessWidget {
               children: [
                 ConfirmBox(
                   text: 'Checkin',
-                  title: '17 June 2024',
+                  title: calenderProvider.checkingDate,
                   onTap: () {
                     Navigator.push(
                         context,
@@ -129,8 +134,13 @@ class Booking extends StatelessWidget {
                 ),
                 ConfirmBox(
                   text: 'Checkout',
-                  title: '20 June 2024',
-                  onTap: () {},
+                  title: calenderProvider.checkoutDate,
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BookingCalendarPage()));
+                  },
                 )
               ],
             ),
@@ -140,7 +150,15 @@ class Booking extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ConfirmBox(text: 'Guest', title: '2 Guests', onTap: () {}),
-                ConfirmBox(text: 'Rooms', title: '1 Room', onTap: () {})
+                ConfirmBox(
+                    text: 'Rooms',
+                    title: '1 Room',
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HotelRoomsScreen()));
+                    })
               ],
             ),
             //-------------------------------------------------------------------------------------------------------------------------------------------------------------
