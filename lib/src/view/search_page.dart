@@ -1,4 +1,6 @@
+import 'package:abodein/src/view/common_Widgets/text_field.dart';
 import 'package:abodein/src/view_Model/search_provider.dart';
+import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,7 +9,9 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List hotelList = [
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final List hotelList = [
       {
         "id": 1,
         "title": "RR International",
@@ -28,56 +32,52 @@ class SearchScreen extends StatelessWidget {
       },
     ];
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            floating: true,
-            backgroundColor: Colors.transparent,
-            surfaceTintColor: Colors.transparent,
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(Icons.arrow_back),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        toolbarHeight: height * 0.1,
+        leadingWidth: width,
+        leading: Container(
+          height: height * 0.1, // Adjust height as needed
+          padding: EdgeInsets.only(top: height * 0.02, bottom: height * 0.005),
+          child: Consumer<SearchProvider>(
+            builder: (context, search, child) => AppSearchBar(
+              onChange: (enteringKey) => search.runSearching(enteringKey,
+                  hotelList), // Uncomment and implement search logic
+              prefixIcon: InkWell(
+                onTap: () => Navigator.pop(context),
+                child: Icon(Icons.arrow_back_rounded),
+              ),
+              hintText: "Enter Destination", width: width, height: height,
             ),
-            actions: [
-              Container(
-                decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 224, 224, 224),
-                    borderRadius: BorderRadius.circular(30)),
-                height: 50,
-                width: 320,
-                margin: EdgeInsets.only(right: 20),
-                child: Consumer<SearchProvider>(
-                  builder: (context, search, child) => TextField(
-                    onChanged: (enteringKey) =>
-                        search.runSearching(enteringKey, hotelList),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Search here',
-                      contentPadding: EdgeInsets.only(left: 20, top: 5),
-                    ),
-                  ),
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Consumer<SearchProvider>(
+              builder: (context, search, child) => SizedBox(
+                height: height,
+                width: width,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.03),
+                  itemCount: search.foundHotels.isEmpty? 1: search.foundHotels.length,
+                  itemBuilder: (context, index) {
+                    print(search.foundHotels);
+                    return search.foundHotels.isEmpty
+                        ? InkWell(onTap: (){
+                          search.getCurrentPosition(context);
+                        },
+                        child: ListTile(leading: Icon(Icons.my_location_outlined,color: Colors.black,),title: Text('Arround You',style: smallTextStyleSemiBold)))
+                        : ListTile(leading: Icon(Icons.location_on_outlined),title: Text("${search.foundHotels[index]["title"]}"),
+                          );
+                  },
                 ),
               ),
-            ],
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                Consumer<SearchProvider>(
-                  builder: (context, search, child) => ListView.builder(
-                    itemCount: search.foundHotels.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => ListTile(
-                      title: Text("${search.foundHotels[index]["title"]}"),
-                    ),
-                  ),
-                ),
-              ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

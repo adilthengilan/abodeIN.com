@@ -51,6 +51,8 @@
     <key>NSLocationAlwaysUsageDescription</key>
     <string>This app needs access to location when in the background.</string>
 
+	void getLocation() async { Position position = await Geolocator .getCurrentPosition(desiredAccuracy: LocationAccuracy.high); print(position); }
+
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow this app to access your photos</string>
 </dict>

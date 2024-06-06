@@ -37,6 +37,7 @@ class TopDestination extends StatelessWidget {
                 sizedBox(height * 0.025, 0.0),
                 HotelBoxList(
                   itemCount: 10,
+                  scrollDirectionVertical: true,
                   height: height,
                   width: width,
                   name: "Sheraton Grand Hotel",
@@ -67,6 +68,7 @@ class HotelBoxList extends StatelessWidget {
   final String city;
   final String description;
   final int itemCount;
+  final bool scrollDirectionVertical;
   const HotelBoxList({
     super.key,
     required this.height,
@@ -79,23 +81,26 @@ class HotelBoxList extends StatelessWidget {
     required this.location,
     required this.itemCount,
     required this.city,
+    required this.scrollDirectionVertical,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height * 0.42,
+      height: scrollDirectionVertical ? height : height * 0.42,
       width: width,
       child: ListView.builder(
         itemCount: itemCount,
-        scrollDirection: Axis.horizontal,
+        scrollDirection:
+            scrollDirectionVertical ? Axis.vertical : Axis.horizontal,
         padding: EdgeInsets.symmetric(
           horizontal: width * 0.04,
           vertical: height * 0.02,
         ),
         itemBuilder: (context, index) => Padding(
           padding: EdgeInsets.only(
-            right: width * 0.04,
+            bottom: scrollDirectionVertical ? width * 0.04 : 0,
+            right: scrollDirectionVertical ? 0 : width * 0.04,
           ),
           child: GestureDetector(
             onTap: () {
@@ -165,7 +170,12 @@ class HotelBoxList extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                       horizontal: width * 0.04,
                     ),
-                    decoration: BoxDecoration(color: Colors.white),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.vertical(
+                        bottom: Radius.circular(15),
+                      ),
+                    ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

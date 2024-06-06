@@ -1,9 +1,7 @@
 import 'package:abodein/src/view/dashBoard/top_destination/top_destination.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
-import 'package:abodein/src/view_Model/hotel_rooms_provider.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class BookingHistory extends StatelessWidget {
   const BookingHistory({super.key});
@@ -12,8 +10,6 @@ class BookingHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final hotelRoomsProvider =
-        Provider.of<HotelRoomsProvider>(context, listen: false);
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -38,6 +34,7 @@ class BookingHistory extends StatelessWidget {
                 sizedBox(height * 0.03, 0.0),
                 HotelBoxList(
                   itemCount: 12,
+                  scrollDirectionVertical: true,
                   height: height,
                   width: width,
                   name: "Sheraton Grand Hotel",

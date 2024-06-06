@@ -42,6 +42,7 @@ class FavoriteScreen extends StatelessWidget {
                 sizedBox(height * 0.025, 0.0),
                 HotelBoxList(
                   itemCount: hotelDetailProvider.favoriteList.length,
+                  scrollDirectionVertical: true,
                   height: height,
                   width: width,
                   name: "Sheraton Grand Hotel",
