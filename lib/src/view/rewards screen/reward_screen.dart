@@ -79,7 +79,6 @@ class _RewardScreenState extends State<RewardScreen> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //==================================== Reward points
             sizedbox(height * 0.02, width),
@@ -150,9 +149,8 @@ class _RewardScreenState extends State<RewardScreen> {
 
   Widget _rewardpoint(height, width, addreward) {
     return Container(
-      margin: EdgeInsets.only(left: 20),
       width: width * 0.88,
-      height: height * 0.42,
+      height: height * 0.40,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           // Rotate the gradient by -225 degrees
@@ -170,7 +168,8 @@ class _RewardScreenState extends State<RewardScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 30, left: 20),
+                padding:
+                    EdgeInsets.only(top: height * 0.03, left: width * 0.05),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -180,18 +179,15 @@ class _RewardScreenState extends State<RewardScreen> {
                   ],
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                child: Image(
-                  image: AssetImage("assets/images/reward.png"),
-                  height: 90,
-                  width: 90,
-                ),
+              Image(
+                image: AssetImage("assets/images/reward.png"),
+                height: 90,
+                width: 90,
               )
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10, left: 20),
+            padding: EdgeInsets.only(top: height * 0.01, left: width * 0.05),
             child: Text(
               "Earn more points and Enjoy exclusive benefits",
               style: whiteLightTextStyle,
@@ -200,17 +196,17 @@ class _RewardScreenState extends State<RewardScreen> {
           //========================== claim free points
           Container(
             margin: EdgeInsets.only(
-              top: height * 0.01,
+              top: height * 0.02,
               right: width * 0.01,
             ),
-            height: 120,
-            width: 300,
+            height: height * 0.150,
+            width: width * 0.800,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: transparantLightColor,
             ),
             child: Padding(
-              padding: const EdgeInsets.only(left: 10, top: 10),
+              padding: EdgeInsets.only(left: width * 0.03, top: height * 0.01),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -224,8 +220,8 @@ class _RewardScreenState extends State<RewardScreen> {
                   ),
                   sizedbox(height * 0.020, width),
                   Container(
-                    height: 35,
-                    width: 90,
+                    height: height * 0.05,
+                    width: width * 0.20,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(09),
                       color: backgroundColor,
