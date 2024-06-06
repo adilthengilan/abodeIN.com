@@ -74,7 +74,7 @@ class HotelRoomsScreen extends StatelessWidget {
   // And Room Count, The Category Of Poaples Adult or Childrens,
   Widget roomBookingDetailes(height, width) {
     return Container(
-      height: height * 0.145,
+      height: height * 0.150,
       width: width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -155,7 +155,7 @@ class HotelRoomsScreen extends StatelessWidget {
     return ListView.builder(
       //----------------------------------------------------------Listview Builder ----------------------------------------
       shrinkWrap: true,
-      itemCount: 2,
+      itemCount: hotelRoomProvider.roomType.length,
       scrollDirection: Axis.vertical,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) => Container(
@@ -199,7 +199,7 @@ class HotelRoomsScreen extends StatelessWidget {
                 left: width * 0.06,
               ),
               child: Text(
-                  "${hotelRoomProvider.RoomType[index]}", //--------------------- The Type Of Room like PREMIUM, STANDARD etc...
+                  "${hotelRoomProvider.roomType[index]}", //--------------------- The Type Of Room like PREMIUM, STANDARD etc...
                   style: mediumTextStyle),
             ),
             // Padding(

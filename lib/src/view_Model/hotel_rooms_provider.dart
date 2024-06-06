@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HotelRoomsProvider extends ChangeNotifier {
+
   final roomsDetails = [
     {
       "Icon": Icons.location_city_outlined,
@@ -23,7 +24,7 @@ class HotelRoomsProvider extends ChangeNotifier {
       "Service": "Sleeps 3",
     },
   ];
-  List<String> RoomType = [
+  List<String> roomType = [
     "Deluxe Rooms",
     "Premium Rooms",
     "Standard Rooms",
