@@ -45,7 +45,7 @@ class BookingHistory extends StatelessWidget {
                   image: "assets/images/getstart_image.jpg",
                   rating: 4.8,
                   description: "",
-                  location: "Dubai",
+                  location: "Dubai", city: 'Sharjah',
                 ),
               ],
             ),

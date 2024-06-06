@@ -22,7 +22,7 @@ class FavoriteScreen extends StatelessWidget {
             floating: true,
             surfaceTintColor: Colors.transparent,
             backgroundColor: Colors.transparent,
-            title: Text("Booking History", style: mediumTextStyle),
+            title: Text("Favourite", style: mediumTextStyle),
             leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -47,6 +47,7 @@ class FavoriteScreen extends StatelessWidget {
                   rating: 4.8,
                   description: "",
                   location: "Dubai",
+                  city: 'Sharjah',
                 ),
               ],
             ),

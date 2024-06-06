@@ -1,9 +1,9 @@
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/details/hotel_details_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
-import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TopDestination extends StatelessWidget {
   const TopDestination({super.key});
@@ -45,6 +45,7 @@ class TopDestination extends StatelessWidget {
                   rating: 4.8,
                   description: "",
                   location: "Dubai",
+                  city: 'Ajman',
                 ),
               ],
             ),
@@ -63,6 +64,7 @@ class HotelBoxList extends StatelessWidget {
   final String image;
   final double rating;
   final String location;
+  final String city;
   final String description;
   final int itemCount;
   const HotelBoxList({
@@ -76,77 +78,148 @@ class HotelBoxList extends StatelessWidget {
     required this.description,
     required this.location,
     required this.itemCount,
+    required this.city,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: itemCount,
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-      itemBuilder: (context, index) => Stack(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: height * 0.025),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(25),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HotelDetailePage(),
-                  ),
-                );
-              },
-              child: Container(
-                height: height * 0.3,
-                width: width,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage(
-                          'assets/images/getstart_image.jpg')),
-                  color: shadeColor,
-                  borderRadius: BorderRadius.circular(25),
+    return SizedBox(
+      height: height * 0.42,
+      width: width,
+      child: ListView.builder(
+        itemCount: itemCount,
+        scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.symmetric(
+          horizontal: width * 0.04,
+          vertical: height * 0.02,
+        ),
+        itemBuilder: (context, index) => Padding(
+          padding: EdgeInsets.only(
+            right: width * 0.04,
+          ),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HotelDetailePage(),
                 ),
+              );
+            },
+            child: Container(
+              width: width * 0.878,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(4, 10),
+                    blurRadius: 8,
+                    color: Color.fromARGB(47, 80, 79, 79),
+                  ),
+                  BoxShadow(
+                    offset: Offset(-4, -1),
+                    blurRadius: 8,
+                    color: Color.fromARGB(255, 216, 216, 216),
+                  ),
+                ],
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    height: height * 0.25,
+                    width: width,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 227, 227, 227),
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage('assets/images/zfri2szh.png')),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(height * 0.02),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          MapViewButton(height: height, width: width),
+                          sizedBox(0.0, width * 0.025),
+                          RatingBoxTransparant(
+                            height: height,
+                            width: width,
+                            rating: rating,
+                          ),
+                          ThreeDView(
+                            onTap: () {},
+                            height: height,
+                            width: width,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  sizedBox(height * 0.025, 0.0),
+                  Container(
+                    width: width,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: width * 0.04,
+                    ),
+                    decoration: BoxDecoration(color: Colors.white),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: width * 0.61,
+                              child: Text(
+                                "Hotel Niagara Popo",
+                                style: GoogleFonts.poppins(
+                                  textStyle: TextStyle(
+                                    fontSize: width * 0.05,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: -0.3,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            sizedBox(height * 0.007, 0.0),
+                            Text(
+                              'New York, USA',
+                              style: smallTextStyle,
+                            ),
+                            sizedBox(height * 0.015, 0.0),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            sizedBox(height * 0.01, 0.0),
+                            Text(
+                              '\$1,599',
+                              style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                                  fontSize: width * 0.046,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                            Text("1 night"),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-          //======================================================= Map View Button ===========================================
-          MapViewButton(
-            height: height,
-            width: width,
-            top: height * 0.015,
-            left: width * 0.03,
-          ),
-          //======================================================= Rating Icon & Text ===========================================
-          RatingBoxTransparant(
-            top: height * 0.015,
-            right: width * 0.31,
-            height: height,
-            width: width,
-            rating: 4.8,
-          ),
-          //================================================== 3D View Transparant Box ============================================
-          ThreeDView(
-            top: height * 0.015,
-            right: width * 0.03,
-            onTap: () {},
-            height: height,
-            width: width,
-          ),
-          //================================================== Price $ Booking Person Count ===================================
-          PriceAndBookingPersons(
-            bottom: height * 0.038,
-            left: width * 0.04,
-            right: width * 0.04,
-            city: "Bankok",
-            location: "phuket",
-            price: 589,
-            personCount: 4,
-          ),
-        ],
+        ),
       ),
     );
   }

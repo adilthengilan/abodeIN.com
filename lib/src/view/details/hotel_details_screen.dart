@@ -76,6 +76,9 @@ class HotelDetailePage extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
+                      //===================================================== favourite button =========================================
+                      //                       here marking a hotel as favorite or removing from favorites
+                      //================================================================================================================
                       Container(
                         margin: EdgeInsets.all(20),
                         height: height * 0.04,
@@ -96,14 +99,21 @@ class HotelDetailePage extends StatelessWidget {
                                 ),
                           ],
                         ),
-                        child: Icon(
-                          Icons.favorite_sharp,
-                          color: Colors.red,
-                        ),
+                        child: GestureDetector(
+                            onTap: () {
+                              detailpageProvider.setfavoriteButton();
+                            },
+                            child: Icon(
+                              detailpageProvider.isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: Colors.red,
+                            )),
                       ),
                     ]),
               ),
             ),
+            //=====================================================================================================================================
             sizedBox(height * 0.01, width),
             //----------------------------------------------------------------------------------------------------------------------------------
             //==================================================  Amenities
@@ -119,6 +129,8 @@ class HotelDetailePage extends StatelessWidget {
                 location: "phuket",
                 price: 589,
                 personCount: 4,
+                description:
+                    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis partu",
               ),
             ),
             //-------------------------------------------------- LOCATION AND SEE MAP WIDELY---------------------------------------------------
@@ -502,12 +514,14 @@ class PriceAndBooking extends StatelessWidget {
   final String location;
   final int price;
   final int personCount;
+  final String description;
   const PriceAndBooking({
     super.key,
     required this.city,
     required this.location,
     required this.price,
     required this.personCount,
+    required this.description,
   });
 
   @override
@@ -567,7 +581,7 @@ class PriceAndBooking extends StatelessWidget {
                 Container(
                   width: width * 0.865,
                   child: Text(
-                    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis partu",
+                    description,
                     style: smallTextStyle,
                   ),
                 ),
