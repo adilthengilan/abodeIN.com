@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:abodein/src/view/common_Widgets/icon.dart';
-import 'package:abodein/src/view/profile/favorite_screen.dart';
 import 'package:abodein/src/view_Model/login_provider.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
@@ -69,44 +67,15 @@ class _RewardScreenState extends State<RewardScreen> {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        leading: Icon(Icons.arrow_back),
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back)),
         title: Text(
           'Rewards',
           style: mediumTextStyle,
         ),
-        // actions: [
-        //   Container(
-        //     height: 40,
-        //     width: 55,
-        //     decoration: BoxDecoration(
-        //         shape: BoxShape.rectangle,
-        //         borderRadius: BorderRadius.circular(30),
-        //         boxShadow: [
-        //           BoxShadow(
-        //               offset: Offset(-0.3, 1),
-        //               blurRadius: 2,
-        //               blurStyle: BlurStyle.normal,
-        //               spreadRadius: 0,
-        //               color: greyShadeDark
-        //               // color: darktheme
-        //               //     ? Color.fromARGB(255, 165, 223, 254)
-        //               //     : Color.fromARGB(255, 248, 248, 248),
-        //               ),
-        //         ],
-        //         color: backgroundColor),
-        //     child: GestureDetector(
-        //         onTap: () {
-        //           Navigator.push(
-        //               context,
-        //               MaterialPageRoute(
-        //                   builder: (context) => FavoriteScreen()));
-        //         },
-        //         child: Icon(
-        //           Icons.notifications_none_outlined,
-        //           color: Colors.black,
-        //         )),
-        //   ),
-        // ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -119,7 +88,7 @@ class _RewardScreenState extends State<RewardScreen> {
             //==================================== Indicators
 
             sizedbox(height * 0.02, width),
-            showingIndicators(),
+            showingIndicators(height),
             sizedbox(height * 0.03, width),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -231,8 +200,8 @@ class _RewardScreenState extends State<RewardScreen> {
           //========================== claim free points
           Container(
             margin: EdgeInsets.only(
-              top: 20,
-              right: 10,
+              top: height * 0.01,
+              right: width * 0.01,
             ),
             height: 120,
             width: 300,
@@ -284,7 +253,7 @@ class _RewardScreenState extends State<RewardScreen> {
 
   // This is an indicator that displays a list of images with 3 dots.
 
-  Widget showingIndicators() {
+  Widget showingIndicators(height) {
     return Consumer<SplashProvider>(
       builder: (context, value, child) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -293,7 +262,7 @@ class _RewardScreenState extends State<RewardScreen> {
           (index) => Container(
             margin: const EdgeInsets.symmetric(horizontal: 10),
             width: value.currentPage == index ? 10 : 10,
-            height: 10,
+            height: height * 0.01,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               boxShadow: [
@@ -342,7 +311,7 @@ class TicketContainer extends StatelessWidget {
         child: ClipPath(
           clipper: CustomTicketShape(),
           child: Container(
-            height: 130,
+            height: height * 0.170,
             width: width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
@@ -355,14 +324,14 @@ class TicketContainer extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                    margin: EdgeInsets.only(left: 35),
-                    height: 150,
-                    width: 100,
+                    margin: EdgeInsets.only(left: width * 0.05),
+                    height: height * 0.10,
+                    width: width * 0.30,
                     child: Image.asset(images!)),
                 sizedbox(height, width * 0.04),
                 Container(
-                  margin: EdgeInsets.only(top: 40),
-                  width: 160,
+                  margin: EdgeInsets.only(top: height * 0.04),
+                  width: width * 0.450,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

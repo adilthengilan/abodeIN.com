@@ -140,7 +140,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
   // }
 
   // ===================================== Header (Profile pic and name)==========================================
-  Widget _buildHeader(double height, double width) {
+  Widget _buildHeader(height, width) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -150,10 +150,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
               backgroundImage: AssetImage('assets/images/person_dp.png'),
               radius: 50,
             ),
-            SizedBox(
-              height: height * 0.02,
-              width: width * 0.02,
-            ),
+            sizedBox(height * 0.02, width * 0.02),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

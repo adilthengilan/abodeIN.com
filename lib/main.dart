@@ -1,4 +1,6 @@
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
+import 'package:abodein/src/view/rewards%20screen/reward_screen.dart';
+import 'package:abodein/src/view/services/service_screen.dart';
 import 'package:abodein/utils/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          home: DashBoard()),
+          home: RewardScreen()),
     );
   }
 }

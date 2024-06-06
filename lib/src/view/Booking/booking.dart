@@ -1,6 +1,5 @@
 import 'package:abodein/src/view/Booking/calender.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
-import 'package:abodein/src/view/profile/favorite_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
@@ -15,22 +14,41 @@ class Booking extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: backgroundColor,
+      //----------------------------------------------------- app bar ------------------------------------------------------------------------
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: _appBar(context),
+        backgroundColor: backgroundColor,
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back)),
+        title: Center(
+          child: Text(
+            'Booking',
+            style: mediumTextStyle,
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Icon(Icons.favorite_border_sharp),
+          )
+        ],
       ),
+      //-------------------------------------------------------------------------------------------------------------------------------------------
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //================================ ROOM IMAGES AND DETAILS =========================================
+            //================================ ROOM type AND DETAILS ==============================================================================
             Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 17),
+              padding: EdgeInsets.only(
+                  left: width * 0.02, right: width * 0.02, top: height * 0.03),
               child: Row(
                 children: [
                   Container(
-                    height: 160,
-                    width: 160,
+                    height: height * 0.20,
+                    width: width * 0.40,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
                         image: DecorationImage(
@@ -39,21 +57,21 @@ class Booking extends StatelessWidget {
                             fit: BoxFit.fill)),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                      left: 30,
+                    padding: EdgeInsets.only(
+                      left: width * 0.03,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: EdgeInsets.only(left: 10),
+                          margin: EdgeInsets.only(left: width * 0.01),
                           child: Text(
                             'Lux Hotel',
                             style: smallTextStyle,
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 10),
+                          margin: EdgeInsets.only(left: width * 0.01),
                           child: Text(
                             'Premium Room',
                             style: smallboldTextStyle,
@@ -75,7 +93,7 @@ class Booking extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 8),
+                          margin: EdgeInsets.only(left: width * 0.04),
                           child: Text(
                             '2 Nights',
                             style: greysmallTextStyle,
@@ -87,7 +105,8 @@ class Booking extends StatelessWidget {
                 ],
               ),
             ),
-            //==================================================CHECKIN CHECKOUT
+            //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //==================================================CHECKIN CHECKOUT==========================================================================================
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -115,7 +134,8 @@ class Booking extends StatelessWidget {
                 )
               ],
             ),
-            //==================================================== GUESTS AND ROOMS
+            //-------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //==================================================== GUESTS AND ROOMS =========================================================================================
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -123,16 +143,25 @@ class Booking extends StatelessWidget {
                 ConfirmBox(text: 'Rooms', title: '1 Room', onTap: () {})
               ],
             ),
+            //-------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //====================================================== CONTACT DETAILS =======================================================================================
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+              padding: EdgeInsets.only(
+                left: width * 0.05,
+                top: height * 0.03,
+                right: width * 0.06,
+              ),
               child: contactDetails(height, width, context),
             ),
+            //----------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //================================================ PRICE DETAILS ==============================================================================================
             Divider(),
-            priceDetails(),
+            priceDetails(height, width),
           ],
         ),
       ),
-      //=====================================================  PAYMENT BUTTON
+      //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      //=====================================================  PAYMENT BUTTON ============================================================================================================
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
         child: AppTextButton(
@@ -147,72 +176,7 @@ class Booking extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-  //*****************************APP BAR*************************************** */
-
-  Widget _appBar(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          height: 40,
-          width: 55,
-          decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset(-0.3, 1),
-                    blurRadius: 2,
-                    blurStyle: BlurStyle.normal,
-                    spreadRadius: 0,
-                    color: greyShadeDark
-                    // color: darktheme
-                    //     ? Color.fromARGB(255, 165, 223, 254)
-                    //     : Color.fromARGB(255, 248, 248, 248),
-                    ),
-              ],
-              color: backgroundColor),
-          child: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Icon(
-                Icons.arrow_back,
-                color: blackShadeColor,
-              )),
-        ),
-        Container(
-          height: 40,
-          width: 55,
-          decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset(-0.3, 1),
-                    blurRadius: 2,
-                    blurStyle: BlurStyle.normal,
-                    spreadRadius: 0,
-                    color: greyShadeDark
-                    // color: darktheme
-                    //     ? Color.fromARGB(255, 165, 223, 254)
-                    //     : Color.fromARGB(255, 248, 248, 248),
-                    ),
-              ],
-              color: backgroundColor),
-          child: GestureDetector(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FavoriteScreen()));
-              },
-              child: Icon(
-                Icons.favorite,
-                color: Colors.red,
-              )),
-        ),
-      ],
+      //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     );
   }
 
@@ -336,21 +300,30 @@ class Booking extends StatelessWidget {
     ));
   }
 
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
   //================================ PRICE DETAILS =======================================
-  Widget priceDetails() {
+  Widget priceDetails(height, width) {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            padding: EdgeInsets.only(
+              left: width * 0.05,
+              top: height * 0.01,
+              right: width * 0.06,
+            ),
             child: Text(
               'Price Details',
               style: greysmallTextStyle,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+            padding: EdgeInsets.only(
+              left: width * 0.05,
+              top: height * 0.01,
+              right: width * 0.06,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -370,6 +343,7 @@ class Booking extends StatelessWidget {
     );
   }
 }
+//------------------------------------------------------------------------------------------------------------------------
 //============================ Check in Check out Box ================================
 
 class ConfirmBox extends StatelessWidget {
@@ -387,12 +361,17 @@ class ConfirmBox extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 20, 10, 02),
+      padding: EdgeInsets.only(
+        left: width * 0.03,
+        top: height * 0.03,
+        right: width * 0.03,
+      ),
       child: Row(children: [
         Container(
-          height: 60,
-          width: 170,
+          height: height * 0.08,
+          width: width * 0.40,
           decoration: BoxDecoration(boxShadow: [
             BoxShadow(
                 offset: Offset(-0.3, 1),
@@ -406,7 +385,11 @@ class ConfirmBox extends StatelessWidget {
                 ),
           ], color: backgroundColor, borderRadius: BorderRadius.circular(20)),
           child: Padding(
-            padding: const EdgeInsets.only(top: 8, left: 14, right: 10),
+            padding: EdgeInsets.only(
+              left: width * 0.02,
+              top: height * 0.01,
+              right: width * 0.02,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -426,8 +409,8 @@ class ConfirmBox extends StatelessWidget {
                 Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(
-                        top: 10,
+                      padding: EdgeInsets.only(
+                        top: height * 0.01,
                       ),
                       child: InkWell(
                         onTap: onTap,
@@ -444,6 +427,7 @@ class ConfirmBox extends StatelessWidget {
           ),
         )
       ]),
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
     );
   }
 }

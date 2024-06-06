@@ -1,11 +1,7 @@
-import 'package:abodein/src/view/common_Widgets/text_field.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
-import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class ServiceScreen extends StatelessWidget {
   const ServiceScreen({super.key});
@@ -15,14 +11,41 @@ class ServiceScreen extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context).size;
     final width = mediaQuery.width;
     final height = mediaQuery.height;
-    final dashboardProvider =
-        Provider.of<DashBoardProvider>(context, listen: false);
 
     return Scaffold(
       backgroundColor: backgroundColor,
+      //----------------------------------------------------------------------------- APPBAR
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: _customAppBar(context),
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(
+              Icons.arrow_back,
+              color: blackShadeColor,
+              size: 30,
+            )),
+        title: Center(
+          child: Text(
+            'Details',
+            style: mediumTextStyle,
+          ),
+        ),
+        actions: [
+          Container(
+            margin: EdgeInsets.only(right: width * 0.02),
+            child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.notifications_none_outlined,
+                  size: 30,
+                  color: blackShadeColor,
+                )),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -36,74 +59,11 @@ class ServiceScreen extends StatelessWidget {
                 style: largeTextStyle,
               ),
             ),
+            //================================================== HEAR LIST OF SERVICES=================================================
             serviceList(height, width)
           ],
         ),
       ),
-    );
-  }
-
-  Widget _customAppBar(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          height: 50,
-          width: 55,
-          decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset(-0.3, 1),
-                    blurRadius: 2,
-                    blurStyle: BlurStyle.normal,
-                    spreadRadius: 0,
-                    color: greyShadeDark
-                    // color: darktheme
-                    //     ? Color.fromARGB(255, 165, 223, 254)
-                    //     : Color.fromARGB(255, 248, 248, 248),
-                    ),
-              ],
-              color: backgroundColor),
-          child: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Icon(
-                Icons.arrow_back,
-                color: blackShadeColor,
-              )),
-        ),
-        Container(
-          height: 50,
-          width: 55,
-          decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset(-0.3, 1),
-                    blurRadius: 2,
-                    blurStyle: BlurStyle.normal,
-                    spreadRadius: 0,
-                    color: greyShadeDark
-                    // color: darktheme
-                    //     ? Color.fromARGB(255, 165, 223, 254)
-                    //     : Color.fromARGB(255, 248, 248, 248),
-                    ),
-              ],
-              color: backgroundColor),
-          child: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Icon(
-                Icons.notifications_none_outlined,
-                color: blackShadeColor,
-              )),
-        ),
-      ],
     );
   }
 
@@ -185,13 +145,13 @@ class ServiceScreen extends StatelessWidget {
                   Container(
                     child: Image(
                       image: AssetImage(image),
-                      height: 100,
-                      width: 100,
+                      height: height * 0.10,
+                      width: width * 0.20,
                     ),
                   ),
                   sizedBox(height * 0.02, width),
                   Container(
-                      width: 200,
+                      width: width * 0.30,
                       child: Text(
                         text,
                         style: whiteLightTextStyle,

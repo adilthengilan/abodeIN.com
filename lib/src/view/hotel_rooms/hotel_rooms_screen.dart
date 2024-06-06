@@ -20,10 +20,15 @@ class HotelRoomsScreen extends StatelessWidget {
     final hotelRoomProvider =
         Provider.of<HotelRoomsProvider>(context, listen: false);
     return Scaffold(
+      //----------------------------------------------- APP BAR --------------------------------------------------------
       appBar: AppBar(
         surfaceTintColor: backgroundColor,
         backgroundColor: backgroundColor,
-        leading: Icon(Icons.arrow_back),
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back)),
         title: Text(
           'Grand Royal Hotel',
           style: mediumTextStyle,
@@ -35,6 +40,7 @@ class HotelRoomsScreen extends StatelessWidget {
           )
         ],
       ),
+      //---------------------------------------------------------------------------------------------------------------
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         child: Padding(
@@ -62,6 +68,7 @@ class HotelRoomsScreen extends StatelessWidget {
     );
   }
 
+//---------------------------------------------------------------------------------------------------------------------------------
   // It Shows How many Rooms are available, and The Date of Booking Date
   // The first Box Of The Rooms Screen To Show Booking Date And Vacating Date, And How many people are User booking for?,
   // And Room Count, The Category Of Poaples Adult or Childrens,
@@ -231,23 +238,18 @@ class HotelRoomsScreen extends StatelessWidget {
                 left: width * 0.06,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  RichText(
-                    text: TextSpan(
-                      text: "\$598", //The Price of the Rooms-------------------
-                      style: mediumTextStyleLight,
-                      children: [
-                        TextSpan(
-                            text: "/Night", style: smallTextStyle), // per Night
-                      ],
-                    ),
+                  Text(
+                    "\$598", //The Price of the Rooms-------------------
+                    style: mediumTextStyleLight,
                   ),
+                  Text("/Night", style: smallTextStyle), // per Night
+
                   // _moreDetails(height, width)
                 ],
               ),
             ),
-            ExpansionPanelList(),
+            // ExpansionPanelList(),
             ExpansionTile(
               title: Text('Room Details'),
               controlAffinity: ListTileControlAffinity.leading,
@@ -285,6 +287,7 @@ class HotelRoomsScreen extends StatelessWidget {
                 ),
               ],
             ),
+
             Padding(
               padding: EdgeInsets.all(height * 0.02),
               child: AppTextButton(
