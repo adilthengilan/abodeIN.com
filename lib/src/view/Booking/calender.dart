@@ -9,12 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 
-class BookingCalendarPage extends StatefulWidget {
-  @override
-  _BookingCalendarPageState createState() => _BookingCalendarPageState();
-}
-
-class _BookingCalendarPageState extends State<BookingCalendarPage> {
+class BookingCalendarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -25,33 +20,11 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         leadingWidth: width * 0.18,
-        leading: Container(
-          height: height * 0.053,
-          width: width * 0.13,
-          margin: EdgeInsets.only(left: width* 0.04,top: height * 0.01,bottom: height * 0.01,),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(30),
-            boxShadow: [
-              BoxShadow(
-                offset: Offset(2, 3),
-                color: Color.fromARGB(47, 80, 79, 79),
-              ),
-              BoxShadow(
-                offset: Offset(-2, -1),
-                color: Color.fromARGB(255, 216, 216, 216),
-              ),
-            ],
-          ),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(20),
-            onTap: () => Navigator.pop(context),
-            child: Center(
-              child: Icon(Icons.arrow_back),
-            ),
-          ),
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(Icons.arrow_back),
         ),
-        title: Text('Dates',
+        title: Text('Select Dates',
             style: isDarkMode ? whiteMediumTextStyle : mediumTextStyleLight),
       ),
       body: SingleChildScrollView(
@@ -109,10 +82,12 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(left: width * 0.02),
-                      child: Text(DateFormat('MMMM y').format(focusedDay),
-                          style: isDarkMode
-                              ? whiteMediumTextStyle
-                              : mediumTextStyleLight),
+                      child: Text(
+                        DateFormat('MMMM y').format(focusedDay),
+                        style: isDarkMode
+                            ? whiteMediumTextStyle
+                            : mediumTextStyleLight,
+                      ),
                     ),
                     sizedBox(height * 0.02, 0.0),
                     Consumer<CalendarProvider>(
@@ -172,62 +147,55 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
         height: height * 0.11,
         color: Colors.transparent,
         surfaceTintColor: Colors.transparent,
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color.fromARGB(255, 66, 230, 148),
-                Color.fromARGB(255, 59, 178, 184),
-              ],
-            ),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Select',
-                  style: whiteSmallTextStyle,
+        child: Consumer<CalendarProvider>(
+          builder: (context, calendar, child) => InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color.fromARGB(255, 66, 230, 148),
+                    Color.fromARGB(255, 59, 178, 184),
+                  ],
                 ),
-                sizedBox(0.0, width * 0.03),
-                Provider.of<CalendarProvider>(context, listen: false)
-                            .selectedDates
-                            .length >
-                        1
-                    ? Row(
-                        children: [
-                          Consumer<CalendarProvider>(
-                            builder: (context, calendar, child) => Text(
-                              DateFormat.MMM()
-                                          .format(calendar.selectedDates[0]) ==
-                                      DateFormat.MMM()
-                                          .format(calendar.selectedDates.last)
-                                  ? '${DateFormat.d().format(calendar.selectedDates[0])} - ${DateFormat.d().format(calendar.selectedDates.last)}  ${DateFormat.MMM().format(calendar.selectedDates.last)} ,'
-                                  : '${DateFormat.d().format(calendar.selectedDates[0])} ${DateFormat.MMM().format(calendar.selectedDates[0])}  - ${DateFormat.d().format(calendar.selectedDates.last)} ${DateFormat.MMM().format(calendar.selectedDates.last)} ,',
-                              style: whiteSmallTextStyle,
-                            ),
-                          ),
-                          sizedBox(0.0, width * 0.02),
-                          Consumer<CalendarProvider>(
-                            builder: (context, calendar, child) => Text(
-                              "${calendar.selectedDates.length - 1}",
-                              style: whiteSmallTextStyle,
-                            ),
-                          ),
-                          sizedBox(0.0, width * 0.02),
-                          AppIcon(
-                            iconData: Icons.nights_stay,
-                            color: Colors.white,
-                            height: height * 0.025,
-                          ),
-                        ],
-                      )
-                    : SizedBox(),
-              ],
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Provider.of<CalendarProvider>(context, listen: false)
+                                .selectedDates
+                                .length >
+                            1
+                        ? Row(
+                            children: [
+                              Text(
+                                '${calendar.checkingDate} - ${calendar.checkoutDate}',
+                                style: whiteSmallTextStyle,
+                              ),
+                              sizedBox(0.0, width * 0.02),
+                              Text(
+                                "${calendar.selectedDates.length - 1}",
+                                style: whiteSmallTextStyle,
+                              ),
+                              sizedBox(0.0, width * 0.02),
+                              AppIcon(
+                                iconData: Icons.nights_stay,
+                                color: Colors.white,
+                                height: height * 0.025,
+                              ),
+                            ],
+                          )
+                        : Text('Select', style: whiteSmallTextStyle),
+                  ],
+                ),
+              ),
             ),
           ),
         ),
