@@ -1,9 +1,10 @@
 import 'dart:async';
+import 'package:abodein/src/view/common_Widgets/toast_messege.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashBoardProvider extends ChangeNotifier {
   int selectedCategoryIndex = 0;
-  String locationText = '';
   int bottombarindex = 0;
   bool isTimeStarted = false;
 
@@ -64,13 +65,23 @@ class DashBoardProvider extends ChangeNotifier {
     super.dispose();
   }
 
+//Location searching
+  String locationText = "";
 
+  void setlocation(locationAddress) async {
+    locationText = locationAddress;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('locationText', locationText);
+    notifyListeners();
+  }
 
+  void loadlocationText() async {
+    final prefs = await SharedPreferences.getInstance();
+    locationText = prefs.getString('locationText') ?? '';
+    notifyListeners();
+  }
 
-
-
-
-
+  //Room Guest Select Count
   int rooms = 1;
   int adults = 1;
   int children = 0;
@@ -85,15 +96,40 @@ class DashBoardProvider extends ChangeNotifier {
     adults = value;
     notifyListeners();
   }
-
+  
   void setChildrenCount(value) {
     children = value;
     childrenAges = List.filled(value, 0);
     notifyListeners();
   }
-
-  void setChildrenAges(newvalue, i) {
-    childrenAges[i] = newvalue ?? 0;
+  //aading The childrens age to list by value 
+  void setChildrenAges(newvalue, index) {
+    childrenAges[index] = newvalue ?? 0;
     notifyListeners();
+  }
+
+// when the user submit the data of Rooms, Adults, Children, Children Ages
+  void submitingRoomsGuestCount(context) async {
+    if (rooms >= 1 && adults >= 1 && childrenAges.length == children) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setInt('rooms', rooms);
+      await prefs.setInt('adults', adults);
+      await prefs.setInt('children', children);
+      await prefs.setStringList('childrenAges', childrenAges.map((age) => age.toString()).toList());
+      Navigator.pop(context);
+    } else {
+      toastmessege('Please select the ages of the children!.');
+    }
+  }
+
+  Future<void> loadRoomsAndGuestCount() async {
+    if (rooms >= 1 && adults >= 1 && childrenAges.length == children) {
+      final prefs = await SharedPreferences.getInstance();
+      rooms = prefs.getInt('rooms') ?? 1;
+      adults = prefs.getInt('adults') ?? 1;
+      children = prefs.getInt('children') ?? 0;
+      childrenAges = prefs.getStringList('childrenAges')?.map((age) => int.parse(age)).toList() ??[0];
+      notifyListeners();
+    }
   }
 }

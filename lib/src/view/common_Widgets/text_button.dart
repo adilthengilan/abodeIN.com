@@ -26,7 +26,7 @@ class AppTextButton extends StatelessWidget {
         height: 60,
         width: width * 0.87,
         decoration: BoxDecoration(
-          color: primarycolor,
+          color:  primarycolor,
           gradient: gradient,
           borderRadius: BorderRadius.circular(20),
         ),

@@ -3,7 +3,6 @@ import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class BookingScreen extends StatelessWidget {
   // final int price;
@@ -248,7 +247,11 @@ class BookingScreen extends StatelessWidget {
             ),
             sizedBox(height * 0.03, width),
             AppTextButton(
-                text: "Pay Now", onPressed: () {}, height: height, width: width)
+              text: "Pay Now",
+              onPressed: () {},
+              height: height,
+              width: width,
+            )
           ],
         ),
       ),

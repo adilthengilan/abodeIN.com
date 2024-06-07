@@ -53,7 +53,6 @@ class CalendarProvider extends ChangeNotifier {
           final lastDayName = DateFormat.E().format(selectedDates.last);
           checkingDate = '$firstDayName $firstDay $firstmonth';
           checkoutDate = '$lastDayName $lastDay  $lastMonth';
-
         }
       }
     }

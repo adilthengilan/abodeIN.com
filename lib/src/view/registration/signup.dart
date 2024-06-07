@@ -90,10 +90,11 @@ class _SignupScreenState extends State<SignupScreen> {
                 SizedBox(width: width * 0.2),
                 Text('Already have an account?', style: smallTextStylewhite),
                 GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(' Login', style: blueSmallTextButtons))
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(' Login', style: blueSmallTextButtons),
+                )
               ],
             )
           ],
