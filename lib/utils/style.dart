@@ -33,6 +33,14 @@ final TextStyle smallTextStyle = GoogleFonts.poppins(
   ),
 );
 
+final TextStyle smallTextStylecourmarat= GoogleFonts.courierPrime(
+  textStyle: TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: blackShadeColor,
+  ),
+);
+
 final TextStyle smallboldTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 16,
@@ -56,6 +64,13 @@ final TextStyle blueSmallTextButtons = GoogleFonts.poppins(
 );
 
 final TextStyle mediumTextStyleLight = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 20,
+    color: Color.fromARGB(255, 75, 75, 75),
+    fontWeight: FontWeight.w500,
+  ),
+);
+final TextStyle mediumTextStyleroboto = GoogleFonts.roboto(
   textStyle: TextStyle(
     fontSize: 20,
     color: Color.fromARGB(255, 75, 75, 75),

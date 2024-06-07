@@ -1,8 +1,10 @@
 import 'package:abodein/src/view/Booking/calender.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
+import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/hotel_rooms/hotel_rooms_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/calender_provider.dart';
+import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,9 @@ class Booking extends StatelessWidget {
   Widget build(BuildContext context) {
     final calenderProvider =
         Provider.of<CalendarProvider>(context, listen: false);
+
+    final bottomSheet = Provider.of<DashBoardProvider>(context, listen: false);
+
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -149,15 +154,17 @@ class Booking extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ConfirmBox(text: 'Guest', title: '2 Guests', onTap: () {}),
+                ConfirmBox(
+                    text: 'Guest',
+                    title: ' ${bottomSheet.adults} Adults',
+                    onTap: () {
+                      showBottomSheet(context);
+                    }),
                 ConfirmBox(
                     text: 'Rooms',
-                    title: '1 Room',
+                    title: '${bottomSheet.rooms} Rooms',
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HotelRoomsScreen()));
+                      showBottomSheet(context);
                     })
               ],
             ),
@@ -183,18 +190,31 @@ class Booking extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
         child: AppTextButton(
-          text: "Pay Now",
-          onPressed: () {},
-          height: height,
-          width: width,
-          color: [
-            Color(0xff16d9e3), // Converted from #16d9e3 (starting color)
-            Color(0xff30c7ec), // Converted from #30c7ec (middle color)
-            Color(0xff46aef7),
-          ],
-        ),
+            text: "Pay Now",
+            onPressed: () {},
+            height: height,
+            width: width,
+            gradient: LinearGradient(colors: [
+              Color(0xff16d9e3), // Converted from #16d9e3 (starting color)
+              Color(0xff30c7ec), // Converted from #30c7ec (middle color)
+              Color(0xff46aef7),
+            ])),
       ),
       //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    );
+  }
+
+  //========================================================================================================
+//================================ This Bottom Sheet func for Pick persons Count ==========================
+//=========================================================================================================
+  void showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      backgroundColor: backgroundColor,
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return BottomSheetContent();
+      },
     );
   }
 
@@ -449,3 +469,115 @@ class ConfirmBox extends StatelessWidget {
     );
   }
 }
+// class ContactDetails extends StatelessWidget {
+//   const ContactDetails({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: EdgeInsets.only(
+//         bottom: MediaQuery.of(context).viewInsets.bottom,
+//       ),
+//       child: Padding(
+//         padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.start,
+//               children: [
+//                 IconButton(
+//                   icon: Icon(Icons.close),
+//                   onPressed: () {
+//                     Navigator.pop(context);
+//                   },
+//                 ),
+//                 Text(
+//                   'Edit Contact details',
+//                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 8.0),
+//             Consumer<DashBoardProvider>(
+//               builder: (context, bottomsheet, child) =>
+//                   buildDropdown('Rooms', bottomsheet.rooms, (value) {
+//                 bottomsheet.setRoomCount(value);
+//               }),
+//             ),
+//             Consumer<DashBoardProvider>(
+//               builder: (context, bottomSheet, child) =>
+//                   buildDropdown('Adults', bottomSheet.adults, (value) {
+//                 bottomSheet.setAdultsCount(value);
+//               }),
+//             ),
+//             Consumer<DashBoardProvider>(
+//               builder: (context, bottomSheet, child) =>
+//                   buildDropdown('Children', bottomSheet.children, (value) {
+//                 bottomSheet.setChildrenCount(value);
+//               }),
+//             ),
+//             sizedBox(10.0, 0.0),
+//             if (bottomSheet.children > 0) ..._buildChildrenAges(context),
+//             SizedBox(height: 16.0),
+//             Text(
+//               'To get the best prices and options, please tell us how many children you have and how old they are.',
+//               style: TextStyle(fontSize: 14.0, color: Colors.grey),
+//             ),
+//             SizedBox(height: 16.0),
+//             AppTextButton(
+//               text: 'Submit',
+//               gradient: LinearGradient(
+//                 colors: [
+//                   Color.fromARGB(255, 51, 192, 252),
+//                   Color.fromARGB(255, 22, 228, 251)
+//                 ],
+//               ),
+//               onPressed: () {
+//                 Navigator.pop(context);
+//               },
+//               height: 50,
+//               width: double.infinity,
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+
+//   Widget buildDropdown(String label, int value, ValueChanged onChanged) {
+//     return Padding(
+//       padding: EdgeInsets.symmetric(vertical: 8.0),
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         children: [
+//           Text(
+//             label,
+//             style: TextStyle(fontSize: 18.0),
+//           ),
+//           Container(
+//             padding: EdgeInsets.symmetric(horizontal: 15),
+//             decoration: BoxDecoration(
+//               color: Colors.white54,
+//               borderRadius: BorderRadius.circular(10),
+//               border: Border.all(color: Colors.grey),
+//             ),
+//             child: Center(
+//               child: DropdownButton<int>(
+//                 value: value,
+//                 onChanged: onChanged,
+//                 items: List.generate(60, (index) => index)
+//                     .map<DropdownMenuItem<int>>((int value) {
+//                   return DropdownMenuItem<int>(
+//                     value: value,
+//                     child: Text(value.toString().padLeft(2, '0')),
+//                   );
+//                 }).toList(),
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

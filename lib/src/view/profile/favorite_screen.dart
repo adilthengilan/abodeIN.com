@@ -26,6 +26,7 @@ class FavoriteScreen extends StatelessWidget {
             leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
+                
               },
               color: Colors.black,
               icon: Icon(
@@ -48,6 +49,7 @@ class FavoriteScreen extends StatelessWidget {
                   description: "",
                   location: "Dubai",
                   city: 'Sharjah',
+                  scrollDirectionVertical: true,
                 ),
               ],
             ),

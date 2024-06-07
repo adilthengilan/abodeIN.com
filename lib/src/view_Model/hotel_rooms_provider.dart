@@ -29,4 +29,32 @@ class HotelRoomsProvider extends ChangeNotifier {
     "Premium Rooms",
     "Standard Rooms",
   ];
+
+
+  
+  int rooms = 1;
+  int adults = 1;
+  int children = 0;
+  List<int> childrenAges = [];
+
+  void setRoomCount(value) {
+    rooms = value;
+    notifyListeners();
+  }
+
+  void setAdultsCount(value) {
+    adults = value;
+    notifyListeners();
+  }
+
+  void setChildrenCount(value) {
+    children = value;
+    childrenAges = List.filled(value, 0);
+    notifyListeners();
+  }
+
+  void setChildrenAges(newvalue, i) {
+    childrenAges[i] = newvalue ?? 0;
+    notifyListeners();
+  }
 }

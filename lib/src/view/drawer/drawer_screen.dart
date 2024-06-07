@@ -1,3 +1,4 @@
+import 'package:abodein/src/view/About%20us/privacy_policy.dart';
 import 'package:abodein/src/view/profile/booking_history.dart';
 import 'package:abodein/src/view/profile/favorite_screen.dart';
 import 'package:abodein/src/view/profile/profile_screen.dart';
@@ -100,7 +101,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 title: " About",
                 index: 4,
                 onTap: () {
-                  // _navigateToScreen(context, 4);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => PrivacyPolicy()));
                 }),
 
             sizedBox(height * 0.03, width),

@@ -23,14 +23,6 @@ class DashBoardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<dynamic> categories = [
-    "Mountain",
-    "Beach",
-    "Resorts",
-    "Bed & Breakfast",
-    "Hostels",
-  ];
-
   int seconds = 22 * 60 * 60; // 22 hours in seconds
   Timer? timer;
 // Booking CountDown Timer
@@ -64,5 +56,44 @@ class DashBoardProvider extends ChangeNotifier {
     int minutes = (seconds % 3600) ~/ 60;
     int secs = seconds % 60;
     return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${secs.toString().padLeft(2, '0')}";
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+
+
+
+
+
+
+
+  int rooms = 1;
+  int adults = 1;
+  int children = 0;
+  List<int> childrenAges = [];
+
+  void setRoomCount(value) {
+    rooms = value;
+    notifyListeners();
+  }
+
+  void setAdultsCount(value) {
+    adults = value;
+    notifyListeners();
+  }
+
+  void setChildrenCount(value) {
+    children = value;
+    childrenAges = List.filled(value, 0);
+    notifyListeners();
+  }
+
+  void setChildrenAges(newvalue, i) {
+    childrenAges[i] = newvalue ?? 0;
+    notifyListeners();
   }
 }

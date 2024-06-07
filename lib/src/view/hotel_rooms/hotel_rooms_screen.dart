@@ -1,6 +1,10 @@
 import 'package:abodein/src/view/Booking/booking.dart';
+import 'package:abodein/src/view/Booking/calender.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
+import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
+import 'package:abodein/src/view_Model/calender_provider.dart';
+import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:abodein/src/view_Model/hotel_rooms_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
@@ -17,8 +21,7 @@ class HotelRoomsScreen extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context).size;
     final width = mediaQuery.width;
     final height = mediaQuery.height;
-    final hotelRoomProvider =
-        Provider.of<HotelRoomsProvider>(context, listen: false);
+
     return Scaffold(
       //----------------------------------------------- APP BAR --------------------------------------------------------
       appBar: AppBar(
@@ -48,9 +51,10 @@ class HotelRoomsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              //----------------------- Here is we can change the selected date ,rooms,and guests .--------------------------------------------------------------
               sizedBox(height * 0.03, 0.0),
-              roomBookingDetailes(height,
-                  width), //It Shows How many Rooms are available and its Rooms Category, and The Date of Booking Date
+              roomBookingDetailes(height, width,
+                  context), //It Shows How many Rooms are available and its Rooms Category, and The Date of Booking Date
               sizedBox(height * 0.04, 0.0),
               // ---------------------------------------------------------- CHOOSE YOUR ROOM---------------------------
               Text("Choose Your Room", style: mediumTextStyle),
@@ -60,7 +64,7 @@ class HotelRoomsScreen extends StatelessWidget {
               //------------------------------------------------------------Here Listing The Room Type With ListView Builder------------
               //------------------------------------------------------------Showing Images of The Room, Listing Room Facilities----------
               //------------------------------------------------------------This Box Contains "Images" of The Room, And in "room Facilities" like wifi, Price" and "Book Now Button"
-              theRoomDetailes(hotelRoomProvider, height, width),
+              theRoomDetailes(height, width, context),
             ],
           ),
         ),
@@ -72,7 +76,12 @@ class HotelRoomsScreen extends StatelessWidget {
   // It Shows How many Rooms are available, and The Date of Booking Date
   // The first Box Of The Rooms Screen To Show Booking Date And Vacating Date, And How many people are User booking for?,
   // And Room Count, The Category Of Poaples Adult or Childrens,
-  Widget roomBookingDetailes(height, width) {
+  Widget roomBookingDetailes(
+    height,
+    width,
+    context,
+  ) {
+    final bottomSheet = Provider.of<DashBoardProvider>(context, listen: false);
     return Container(
       height: height * 0.150,
       width: width,
@@ -82,8 +91,8 @@ class HotelRoomsScreen extends StatelessWidget {
       ),
       child: Column(
         children: [
-          bookingDateAndVacatingDate(height,
-              width), // The Date of Boking and Vacating, This shows on The first Row of Container on the Screen, and it shows calender icon and Dates
+          bookingDateAndVacatingDate(height, width,
+              context), // The Date of Boking and Vacating, This shows on The first Row of Container on the Screen, and it shows calender icon and Dates
           sizedBox(height * 0.015, 0.0),
           Divider(),
           Padding(
@@ -95,16 +104,25 @@ class HotelRoomsScreen extends StatelessWidget {
             child: Row(
               children: [
                 //---------------------------------------------------- How many rooms are Booking -------------------------------------
-                Icon(Icons.people_alt_outlined, color: greyShadeDark),
+                GestureDetector(
+                    onTap: () {
+                      showBottomSheet(context);
+
+                      // showBottomSheet(
+                      //     context: context,
+                      //     builder: (BuildContext context) {
+                      //       return BottomSheetContent();
+                      //     });
+                    },
+                    child:
+                        Icon(Icons.people_alt_outlined, color: greyShadeDark)),
                 sizedBox(0.0, width * 0.02),
-                Text(
-                    "1 Room ", // ------------------------------------Room Count
-                    style: smallTextStyle),
+                Text('${bottomSheet.rooms} Rooms', style: smallTextStyle),
                 sizedBox(0.0, width * 0.02),
                 Icon(Icons.circle, size: 6, color: greyShadeDark),
                 sizedBox(0.0, width * 0.02),
                 Text(
-                  "2 Adults", // ------------------------ Adult or Children
+                  ' ${bottomSheet.adults} Adults, ${bottomSheet.children} children',
                   style: smallTextStyle,
                 ),
               ],
@@ -115,34 +133,49 @@ class HotelRoomsScreen extends StatelessWidget {
     );
   }
 
+//========================================================================================================
+//================================ This Bottom Sheet func for Pick persons Count ==========================
+//=========================================================================================================
+  void showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      backgroundColor: backgroundColor,
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return BottomSheetContent();
+      },
+    );
+  }
+
 // The Date of Boking and Vacating, This shows on The first Row of Container on the Screen, and it shows calender icon and Dates
-  Widget bookingDateAndVacatingDate(height, width) {
+  Widget bookingDateAndVacatingDate(height, width, context) {
+    final calendarProvider = Provider.of<CalendarProvider>(context);
+
     return Padding(
       padding: EdgeInsets.only(
         left: width * 0.06,
         top: height * 0.02,
-        right: width * 0.06,
       ),
       child: Row(
         children: [
-          Icon(
-            Icons.calendar_today_outlined, // -------------- Calender Icon
-            color: greyShadeDark,
-          ),
-          sizedBox(0.0, width * 0.02),
-          Text("Tue, 07 May ", //-------------------------- The Date of Booking
-              style: smallTextStyle),
-          Text("-", style: smallTextStyle),
-          sizedBox(0.0, width * 0.02),
-          Icon(
-            Icons.calendar_today_outlined,
-            color: greyShadeDark,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BookingCalendarPage()));
+            },
+            child: Icon(
+              Icons.calendar_today_outlined, // -------------- Calender Icon
+              color: greyShadeDark,
+            ),
           ),
           sizedBox(0.0, width * 0.02),
           Text(
-            "Wed, 08 May", //-------------------- The Date of Vacate
-            style: smallTextStyle,
-          ),
+              calendarProvider.selectedDates.isEmpty
+                  ? 'Choose Your Dates'
+                  : '${calendarProvider.checkingDate} - ${calendarProvider.checkoutDate}  ${calendarProvider.selectedDates.length - 1} Night',
+              style: smallTextStyle),
         ],
       ),
     );
@@ -151,11 +184,15 @@ class HotelRoomsScreen extends StatelessWidget {
 //-Here Listing The Room Type With ListView Builder
 //-Displaying Images of The Room, Listing Available in the like Wifi, etc...
 //-This Box Contains Images of The Room, And in-room Facilities like wifi and Its Price and Book Now Button
-  Widget theRoomDetailes(hotelRoomProvider, height, width) {
+  Widget theRoomDetailes(height, width, context) {
+    final roomsprovider =
+        Provider.of<HotelRoomsProvider>(context, listen: false);
+    // final bottomSheet =
+    //             Provider.of<DashBoardProvider>(context, listen: false);
     return ListView.builder(
       //----------------------------------------------------------Listview Builder ----------------------------------------
       shrinkWrap: true,
-      itemCount: hotelRoomProvider.roomType.length,
+      itemCount: roomsprovider.roomType.length,
       scrollDirection: Axis.vertical,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) => Container(
@@ -199,7 +236,7 @@ class HotelRoomsScreen extends StatelessWidget {
                 left: width * 0.06,
               ),
               child: Text(
-                  "${hotelRoomProvider.roomType[index]}", //--------------------- The Type Of Room like PREMIUM, STANDARD etc...
+                  "${roomsprovider.roomType[index]}", //--------------------- The Type Of Room like PREMIUM, STANDARD etc...
                   style: mediumTextStyle),
             ),
             // Padding(
@@ -262,13 +299,13 @@ class HotelRoomsScreen extends StatelessWidget {
                   child: Column(
                     //------------------------------------- Listing Room Facilities with List Generator its legth is List Room Details -----------------------
                     children: List.generate(
-                      hotelRoomProvider.roomsDetails.length,
+                      roomsprovider.roomsDetails.length,
                       (index) => Padding(
                         padding: EdgeInsets.only(bottom: height * 0.0095),
                         child: Row(
                           children: [
                             Icon(
-                              hotelRoomProvider.roomsDetails[index]
+                              roomsprovider.roomsDetails[index]
                                       ["Icon"] // -Room facilities Icons
                                   as IconData?,
                               color: greyShadeDark,
@@ -276,7 +313,7 @@ class HotelRoomsScreen extends StatelessWidget {
                             ),
                             sizedBox(0.0, width * 0.025),
                             Text(
-                              '${hotelRoomProvider.roomsDetails[index]["Service"]}', // Room facilities
+                              '${roomsprovider.roomsDetails[index]["Service"]}', // Room facilities
                               style: smallTextStyle,
                             ),
                           ],
@@ -291,19 +328,18 @@ class HotelRoomsScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(height * 0.02),
               child: AppTextButton(
-                //---Book Now Buttoon in the Box-----------------------------
-                text: "Book Now",
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Booking()));
-                },
-                height: height,
-                width: width,
-                color: [
-                  Color(0xfff6d365), // Converted from #f6d365 (starting color)
-                  Color(0xfffda085),
-                ],
-              ),
+                  //---Book Now Buttoon in the Box-----------------------------
+                  text: "Book Now",
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Booking()));
+                  },
+                  height: height,
+                  width: width,
+                  gradient: LinearGradient(colors: [
+                    Color(0xfff6d365),
+                    Color(0xfffda085),
+                  ])),
             ),
           ],
         ),

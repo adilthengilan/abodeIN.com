@@ -45,7 +45,7 @@ class TopDestination extends StatelessWidget {
                   rating: 4.8,
                   description: "",
                   location: "Dubai",
-                  city: 'Ajman',
+                  city: 'Ajman', scrollDirectionVertical: true,
                 ),
               ],
             ),
@@ -78,7 +78,7 @@ class HotelBoxList extends StatelessWidget {
     required this.description,
     required this.location,
     required this.itemCount,
-    required this.city,
+    required this.city, required bool scrollDirectionVertical,
   });
 
   @override

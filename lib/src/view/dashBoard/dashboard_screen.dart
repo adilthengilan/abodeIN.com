@@ -1,12 +1,15 @@
-import 'dart:async';
+import 'package:abodein/src/view/Booking/calender.dart';
 import 'package:abodein/src/view/common_Widgets/icon.dart';
+import 'package:abodein/src/view/common_Widgets/text_button.dart';
+import 'package:abodein/src/view/dashBoard/events%20page/events_page.dart';
 import 'package:abodein/src/view/dashBoard/top%20Destination/top_destination.dart';
+import 'package:abodein/src/view/drawer/drawer_screen.dart';
 import 'package:abodein/src/view/search/saerch_screen.dart';
-import 'package:abodein/src/view/smart%20checkin/smart_checking.dart';
+import 'package:abodein/src/view_Model/calender_provider.dart';
+import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
-import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -23,143 +26,72 @@ class _DashBoardState extends State<DashBoard> {
   bool isCheking = false;
   String locationText = "London";
 
-  int seconds = 22 * 60 * 60; // 24 hours in seconds
-  Timer? timer;
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar: AppBar(
+        surfaceTintColor: backgroundColor,
+        backgroundColor: backgroundColor,
+        // floating: true,
+        toolbarHeight: height * 0.09,
+        title: Text(
+          locationText,
+          style: whiteMediumTextStyle,
+        ),
+        actions: [
+          InkWell(
+            borderRadius: BorderRadius.circular(50),
+            onTap: () {},
+            child: CircleAvatar(
+              radius: height * 0.032,
+              backgroundColor: shadeColor,
+              child: Center(
+                child: AppIcon(
+                  iconData: Icons.notifications_outlined,
+                  color: greyShadeDark,
+                  height: height * 0.03,
+                ),
+              ),
+            ),
+          ),
+          sizedBox(0.0, width * 0.04),
+        ],
+      ),
       backgroundColor: backgroundColor,
+      drawer: DrawerScreen(),
       body: CustomScrollView(
         slivers: <Widget>[
           // Silver App Bar For custumization, utilize un Floatable App Bar
-          SilverAppBar(width, height),
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                // ============================================================= Samrt Cheking Button and Timer with functionality ====================================
-                // Padding(
-                //   padding: EdgeInsets.symmetric(
-                //       horizontal: width * 0.06, vertical: height * 0.02),
-                //   child: Consumer<DashBoardProvider>(
-                //     builder: (context, dash, child) {
-                //       isBooked ? dash.startTimer(19, 29) : () {};
-                //       return InkWell(
-                //         onTap: () {
-                //           if (isBooked && !isCheking) {
-                //             setState(() {
-                //               isCheking = !isCheking;
-                //             });
-                //           } else if (isBooked &&
-                //               isCheking &&
-                //               !dash.isTimeStarted) {
-                //             setState(() {
-                //               dash.isTimeStarted = !dash.isTimeStarted;
-                //             });
-                //           } else if (isBooked &&
-                //               isCheking &&
-                //               dash.isTimeStarted) {
-                //             Navigator.push(
-                //               context,
-                //               MaterialPageRoute(
-                //                 builder: (context) => RoomController(),
-                //               ),
-                //             );
-                //           }
-                //         },
-                //         child: Container(
-                //           width: width,
-                //           height: height * 0.09,
-                //           decoration: BoxDecoration(
-                //             color: Colors.white,
-                //             borderRadius: BorderRadius.circular(10),
-                //             boxShadow: [
-                //               BoxShadow(
-                //                 color: Color.fromARGB(255, 202, 202, 202),
-                //                 blurRadius: 2,
-                //                 blurStyle: BlurStyle.outer,
-                //                 spreadRadius: 3,
-                //               )
-                //             ],
-                //           ),
-                //           child: Center(
-                //             child: Text(
-                //               isBooked && !isCheking
-                //                   ? "Smart Cheking"
-                //                   : isBooked && isCheking && !dash.isTimeStarted
-                //                       ? "Time Start At 2:00 Pm"
-                //                       : isBooked &&
-                //                               isCheking &&
-                //                               dash.isTimeStarted
-                //                           ? dash.formatTime(dash.seconds)
-                //                           : "",
-                //               style: mediumTextStyleLight,
-                //             ),
-                //           ),
-                //         ),
-                //       );
-                //     },
-                //   ),
-                // ),
-                // isBooked && isCheking && dbProvider.isTimeStarted
-                //     ? SizedBox(
-                //         height: height * 0.165,
-                //         child: CategoryLayoutRow(height, width),
-                //       )
-                //     : SizedBox(),
-                //==================================================== The Category Horizontal List With List Generator wrap with Wrap Widget
                 sizedBox(height * 0.01, 0.0),
                 //========================================================== Hotel small Square Boxes ========================================
-                SquereBoxWithImages(width, height),
-                sizedBox(height * 0.01, 0.0),
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: width * 0.04,
-                    right: width * 0.05,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      //======================================================== Top Destination ========================================
-                      Text("Top Destination", style: largeTextStyle),
-                      InkWell(
-                        borderRadius: BorderRadius.circular(50),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TopDestination(),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          height: height * 0.05,
-                          width: width * 0.095,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: backgroundColor,
-                            border:
-                                Border.all(color: greyShadeLight, width: 0.5),
-                          ),
-                          // =========================================================== View all Button ====================================
-                          child: Center(
-                            child: AppIcon(
-                              iconData: Icons.arrow_forward,
-                              color: greyShadeDark,
-                              height: height * 0.028,
-                            ),
-                          ),
-                        ),
+                LocationDatePersonCountBox(height, width),
+                sizedBox(height * 0.04, 0.0),
+                //=============================================== Top Destination Heading And See More Button ==============================================
+                headingAndSeeMoreButton(
+                  'Top Destination',
+                  largeTextStyle,
+                  width,
+                  height,
+                  () {
+                    //============================================ Navigatig to Top Destination Page =============================================
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TopDestination(),
                       ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
-                sizedBox(height * 0.01, 0.0),
-                //==================================================== ListView Builder ========= Top Destination ==============================================
+                sizedBox(height * 0.006, 0.0),
+                //================================================= Top Destination Hotesls List Horizontally ==============================================
                 HotelBoxList(
                   itemCount: 6,
+                  scrollDirectionVertical: false,
                   height: height,
                   width: width,
                   name: "Sheraton Grand Hotel",
@@ -171,17 +103,52 @@ class _DashBoardState extends State<DashBoard> {
                       "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis partu",
                   location: "Dubai",
                 ),
-                sizedBox(height * 0.02, width),
+                sizedBox(height * 0.03, 0.0),
+                //================================================= Events Heading and See more Button =================================
+                headingAndSeeMoreButton(
+                  'Events',
+                  mediumTextStyle,
+                  width,
+                  height,
+                  () {
+                    //============================================= implement Navigation ========================================================
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EventsPage(
+                          height: height,
+                          width: width,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                sizedBox(height * 0.01, 0.0),
+                //=================================================== Listing Events Horizontally ==============================================
+                eventsList(width, height),
+                sizedBox(height * 0.02, 0.0),
                 Padding(
                   padding: EdgeInsets.only(left: width * 0.04),
-                  child: Text(
-                    'Reviews',
-                    style: mediumTextStyle,
-                  ),
+                  child: Text('Explore', style: mediumTextStyle),
+                ),
+                sizedBox(height * 0.01, 0.0),
+
+                //==================================================== Listing Hotels Ads =======================================================
+                adsBoxRow(height, width),
+                sizedBox(height * 0.03, 0.0),
+                //==================================================== Reviews Heading And See More Button ==============================================
+                headingAndSeeMoreButton(
+                  'Reviews',
+                  mediumTextStyle,
+                  width,
+                  height,
+                  () {
+                    //============================================= implement Navigation ========================================================
+                  },
                 ),
                 // ============================================================= Reviews Horizontal List =====================================================================
                 ReviewsBox(width, height),
-                sizedBox(height * 0.4, 0.0),
+                sizedBox(height * 0.2, 0.0),
               ],
             ),
           ),
@@ -190,192 +157,223 @@ class _DashBoardState extends State<DashBoard> {
     );
   }
 
-  @override
-  void dispose() {
-    timer?.cancel();
-    super.dispose();
-  }
-
-  // Silver App Bar for Customization, Utilize This Method Floatable AppBar and It Has a Title, Search Icon and Notification Icon
-  Widget SilverAppBar(width, height) {
-    return SliverAppBar(
-      leading: IconButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SmartChecking(),
-            ),
-          );
-        },
-        icon: Icon(Icons.menu),
+//This has Location searcher, Choose Your Dates, How many persons booking
+//Its in a Container with BoxShadow the provided a column
+//In the Column Has 3 Containers and a AppTextButton
+//The Three container are indicates, Location searcher, Choosing Dates, Room Count and Persons Count
+  Widget LocationDatePersonCountBox(height, width) {
+    return Container(
+      width: width,
+      margin: EdgeInsets.symmetric(horizontal: width * 0.04),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        gradient: LinearGradient(
+          colors: [
+            Color.fromARGB(255, 163, 238, 255),
+            Color.fromARGB(255, 252, 215, 249),
+          ],
+        ),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(3, 2),
+            blurRadius: 4,
+            color: Color.fromARGB(47, 80, 79, 79),
+          ),
+          BoxShadow(
+            offset: Offset(-2, -0),
+            blurRadius: 4,
+            color: Color.fromARGB(255, 216, 216, 216),
+          ),
+        ],
       ),
-      //====================================================== Silver App Bar For Customization, I make this AppBar Floatable
-      surfaceTintColor: backgroundColor,
-      backgroundColor: backgroundColor,
-      floating: true,
-      toolbarHeight: height * 0.09,
-      title: Text(
-        locationText,
-        // "Discover",
-        style: whiteMediumTextStyle,
-      ),
-      actions: [
-        //================================================================= Search Icon ==========================================
-        Consumer<DashBoardProvider>(
-          builder: (context, value, child) => InkWell(
-            borderRadius: BorderRadius.circular(50),
-            onTap: () async {
-              // LocationData? locationData = await LocationSearch.show(
-              //   context: context,
-              //   lightAdress: true,
-              //   mode: Mode.fullscreen,
-              //   language: 'en',
-              //   iconColor: greyShadeMedium,
-              //   historyMaxLength: 5,
-              //   searchBarTextColor: shadeColor,
-              // );
-              // value.setLocationAddress(locationData!.address);
-            },
-            child: CircleAvatar(
-              radius: height * 0.032,
-              backgroundColor: shadeColor,
-              child: Center(
-                child: AppIcon(
-                  iconData: Icons.location_on_outlined,
-                  color: greyShadeDark,
-                  height: height * 0.03,
-                ),
-              ),
-            ),
-          ),
-        ),
-        sizedBox(0.0, width * 0.015),
-        //================================================================= Search Button ==========================================
-        InkWell(
-          borderRadius: BorderRadius.circular(50),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SearchScreen(),
-              ),
-            );
-          },
-          child: CircleAvatar(
-            radius: height * 0.032,
-            backgroundColor: shadeColor,
-            child: Center(
-              child: AppIcon(
-                iconData: Icons.search_rounded,
-                color: greyShadeDark,
-                height: height * 0.03,
-              ),
-            ),
-          ),
-        ),
-        sizedBox(0.0, width * 0.015),
-        //================================================================ Notification Icon =========================================
-        InkWell(
-          borderRadius: BorderRadius.circular(50),
-          onTap: () {},
-          child: CircleAvatar(
-            radius: height * 0.032,
-            backgroundColor: shadeColor,
-            child: Center(
-              child: AppIcon(
-                iconData: Icons.notifications_outlined,
-                color: greyShadeDark,
-                height: height * 0.03,
-              ),
-            ),
-          ),
-        ),
-        sizedBox(0.0, width * 0.04),
-      ],
-    );
-  }
-
-  //This Method shows category Layout Button, it Implement with wrap Widget
-  Widget CategoryLayoutRow(height, width) {
-    final dashboardProvider =
-        Provider.of<DashBoardProvider>(context, listen: false);
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: width * 0.05),
-        child: Wrap(
-          spacing: width * 0.06,
-          children: List.generate(
-            dashboardProvider.categories.length,
-            (index) => SizedBox(
-              child: CategoryTextButtons(
-                height,
-                width,
-                index,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  // This an category Box with container and it looks like button, when clicked the Button change the color of the button to Black
-  Widget CategoryTextButtons(
-    height,
-    width,
-    index,
-  ) {
-    return Consumer<DashBoardProvider>(
-      builder: (context, dash, child) => InkWell(
-        borderRadius: BorderRadius.circular(30),
-        onTap: () {
-          dash.setCategoryButtonColor(index);
-          //This Method is changing Button Color with Index
-        },
-        child: Column(
-          children: [
-            sizedBox(height * 0.01, 0.0),
-            Container(
-              height: height * 0.13,
-              padding: EdgeInsets.symmetric(
-                horizontal: width * 0.05,
-              ),
-              decoration: BoxDecoration(
-                boxShadow: dash.selectedCategoryIndex == index
-                    ? [
-                        BoxShadow(
-                            color: Color.fromARGB(255, 202, 202, 202),
-                            blurRadius: 5,
-                            blurStyle: BlurStyle.outer,
-                            spreadRadius: 5)
-                      ]
-                    : [
-                        BoxShadow(
-                            color: Color.fromARGB(255, 246, 246, 246),
-                            blurRadius: 5,
-                            blurStyle: BlurStyle.outer,
-                            spreadRadius: 5)
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            children: List.generate(
+              3,
+              (index) {
+                final calendarProvider = Provider.of<CalendarProvider>(context);
+                final bottomSheet =
+                    Provider.of<DashBoardProvider>(context, listen: false);
+                IconData icon = Icons.circle;
+                String text = "";
+                Color iconColor = Colors.black;
+                VoidCallback onpressed = () {};
+                switch (index) {
+                  case 0:
+                    icon = Icons.search;
+                    text = 'Where would you like to go?';
+                    iconColor = Colors.blueAccent;
+                    onpressed = () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SearchScreen(),
+                        ),
+                      );
+                    };
+                  case 1:
+                    icon = Icons.calendar_today_outlined;
+                    text = calendarProvider.selectedDates.isEmpty
+                        ? 'Choose Your Dates'
+                        : '${calendarProvider.checkingDate} - ${calendarProvider.checkoutDate}  ${calendarProvider.selectedDates.length - 1} Night';
+                    iconColor = Colors.pinkAccent;
+                    onpressed = () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BookingCalendarPage(),
+                        ),
+                      );
+                    };
+                  case 2:
+                    icon = Icons.person_outline_outlined;
+                    text =
+                        '${bottomSheet.rooms} Rooms, ${bottomSheet.adults} Adults, ${bottomSheet.children} children';
+                    iconColor = Colors.black54;
+                    onpressed = () {
+                      showBottomSheet(context);
+                    };
+                    break;
+                  default:
+                }
+                return InkWell(
+                  onTap: onpressed,
+                  child: Container(
+                    height: height * 0.083,
+                    width: width,
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(10),
+                      ),
+                      border: Border(bottom: BorderSide(color: Colors.grey)),
+                      color: Colors.transparent,
+                    ),
+                    child: Row(
+                      children: [
+                        AppIcon(
+                          iconData: icon,
+                          color: iconColor,
+                          height: height * 0.04,
+                        ),
+                        sizedBox(0.0, width * 0.04),
+                        Text(text, style: smallTextStyle),
                       ],
-                // white shade color
-                borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(height * 0.02),
+            child: Consumer<DashBoardProvider>(
+              builder: (context, value, child) => AppTextButton(
+                text: "Search",
+                onPressed: () async {},
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromARGB(255, 51, 192, 252),
+                    Color.fromARGB(255, 22, 228, 251)
+                  ],
+                ),
+                height: height,
+                width: width,
               ),
-              child: Column(
-                children: [
-                  sizedBox(height * 0.015, 0.0),
-                  Icon(
-                    Icons.flight,
-                    size: 40,
-                  ),
-                  sizedBox(height * 0.02, 0.0),
-                  Text(
-                    dash.categories[index],
-                    style: smallTextStyle,
-                    // Black text Style
-                  ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+//========================================================================================================
+//================================ This Bottom Sheet func for Pick persons Count ==========================
+//=========================================================================================================
+void showBottomSheet(BuildContext context) {
+  showModalBottomSheet(
+    backgroundColor: backgroundColor,
+    context: context,
+    isScrollControlled: true,
+    builder: (BuildContext context) {
+      return BottomSheetContent();
+    },
+  );
+}
+
+class BottomSheetContent extends StatelessWidget {
+  const BottomSheetContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final bottomSheet = Provider.of<DashBoardProvider>(context, listen: false);
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                Text(
+                  'Select Rooms and Guests',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            SizedBox(height: 8.0),
+            Consumer<DashBoardProvider>(
+              builder: (context, bottomsheet, child) =>
+                  buildDropdown('Rooms', bottomsheet.rooms, (value) {
+                bottomsheet.setRoomCount(value);
+              }),
+            ),
+            Consumer<DashBoardProvider>(
+              builder: (context, bottomSheet, child) =>
+                  buildDropdown('Adults', bottomSheet.adults, (value) {
+                bottomSheet.setAdultsCount(value);
+              }),
+            ),
+            Consumer<DashBoardProvider>(
+              builder: (context, bottomSheet, child) =>
+                  buildDropdown('Children', bottomSheet.children, (value) {
+                bottomSheet.setChildrenCount(value);
+              }),
+            ),
+            sizedBox(10.0, 0.0),
+            if (bottomSheet.children > 0) ..._buildChildrenAges(context),
+            SizedBox(height: 16.0),
+            Text(
+              'To get the best prices and options, please tell us how many children you have and how old they are.',
+              style: TextStyle(fontSize: 14.0, color: Colors.grey),
+            ),
+            SizedBox(height: 16.0),
+            AppTextButton(
+              text: 'Submit',
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromARGB(255, 51, 192, 252),
+                  Color.fromARGB(255, 22, 228, 251)
                 ],
               ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              height: 50,
+              width: double.infinity,
             ),
           ],
         ),
@@ -383,205 +381,332 @@ class _DashBoardState extends State<DashBoard> {
     );
   }
 
-  // This Method Shows A Square Buttons with images, it Listing Hotels
-  Widget SquereBoxWithImages(width, height) {
-    return SizedBox(
-      height: height * 0.46,
-      width: width,
-      //================================================================= ListView Builder ============================================
-      child: ListView.builder(
-        itemCount: 4,
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(
-          horizontal: width * 0.04,
-          vertical: height * 0.025,
-        ),
-        itemBuilder: (context, index) => Padding(
-          padding: EdgeInsets.only(
-            right: width * 0.05,
+  Widget buildDropdown(String label, int value, ValueChanged onChanged) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: TextStyle(fontSize: 18.0),
           ),
-          child: Container(
-            width: width * 0.69,
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 15),
             decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(4, 10),
-                  blurRadius: 8,
-                  color: Color.fromARGB(47, 80, 79, 79),
-                ),
-                BoxShadow(
-                  offset: Offset(-4, -1),
-                  blurRadius: 8,
-                  color: Color.fromARGB(255, 216, 216, 216),
-                ),
-              ],
-              borderRadius: BorderRadius.circular(15),
+              color: Colors.white54,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  height: height * 0.22,
-                  width: width,
-                  margin: EdgeInsets.all(height * 0.018),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 227, 227, 227),
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                      fit: BoxFit.fitWidth,
-                      image: AssetImage('assets/images/cdt4nlrq.png'),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: width,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: width * 0.03,
-                  ),
-                  decoration: BoxDecoration(color: Colors.white),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            // width: width * 0.55,
-                            child: Text(
-                              "Hotel Niagara Popo",
-                              style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
-                                  fontSize: width * 0.042,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: -0.3,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                          sizedBox(height * 0.007, 0.0),
-                          Text(
-                            'New York, USA',
-                            style: smallTextStyle,
-                          ),
-                          sizedBox(height * 0.015, 0.0),
-                          Row(
-                            children: [
-                              Text(
-                                '\$1,599',
-                                style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                    fontSize: width * 0.046,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ),
-                              Text("/night"),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          SizedBox(
-                            child: Column(
-                              children: [
-                                sizedBox(height * 0.076, 0.0),
-                                RatingBoxTransparant(
-                                    height: height, width: width, rating: 4.8),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            child: Center(
+              child: DropdownButton<int>(
+                value: value,
+                onChanged: onChanged,
+                items: List.generate(60, (index) => index)
+                    .map<DropdownMenuItem<int>>((int value) {
+                  return DropdownMenuItem<int>(
+                    value: value,
+                    child: Text(value.toString().padLeft(2, '0')),
+                  );
+                }).toList(),
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
 
-  Widget ReviewsBox(double width, double height) {
-    return SizedBox(
-      height: height * 0.2,
-      width: width,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 10,
-        padding: EdgeInsets.symmetric(
-          horizontal: width * 0.03,
-          vertical: height * 0.018,
+  List<Widget> _buildChildrenAges(context) {
+    final bottomSheet = Provider.of<DashBoardProvider>(context, listen: false);
+    List<Widget> childrenAgesWidgets = [];
+    for (int i = 0; i < bottomSheet.children; i++) {
+      childrenAgesWidgets.add(
+        Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(10)),
+          margin: EdgeInsets.symmetric(vertical: 8.0),
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Child ${i + 1} Age',
+                style: TextStyle(fontSize: 18.0),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Consumer<DashBoardProvider>(
+                  builder: (context, bottomSheet, child) => DropdownButton<int>(
+                    value: bottomSheet.childrenAges[i],
+                    onChanged: (int? newValue) {
+                      bottomSheet.setChildrenAges(newValue, i);
+                    },
+                    items: List.generate(18, (index) => index)
+                        .map<DropdownMenuItem<int>>((int value) {
+                      return DropdownMenuItem<int>(
+                        value: value,
+                        child: Text(value.toString().padLeft(2, '0')),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-        itemBuilder: (context, index) => Padding(
-          padding: EdgeInsets.only(right: width * 0.04),
+      );
+    }
+    return childrenAgesWidgets;
+  }
+}
+
+//================================================================================================================
+//=================================== Heading And see More button ================================================
+////==============================================================================================================
+Widget headingAndSeeMoreButton(String heading, TextStyle textStyle, width,
+    height, VoidCallback onpressed) {
+  return Padding(
+    padding: EdgeInsets.only(
+      left: width * 0.04,
+      right: width * 0.05,
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        //======================================================== Heading ========================================
+        Text(heading, style: textStyle),
+        InkWell(
+          borderRadius: BorderRadius.circular(50),
+          onTap: onpressed,
           child: Container(
-            width: width * 0.93,
+            height: height * 0.05,
+            width: width * 0.11,
             decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(4, 10),
-                  blurRadius: 8,
-                  color: Color.fromARGB(47, 80, 79, 79),
-                ),
-                BoxShadow(
-                  offset: Offset(-4, -1),
-                  blurRadius: 8,
-                  color: Color.fromARGB(255, 216, 216, 216),
-                ),
-              ],
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(25),
+              color: backgroundColor,
+              border: Border.all(color: greyShadeLight, width: 0.5),
             ),
-            child: Padding(
-              padding: EdgeInsets.all(height * 0.02),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundImage:
-                        AssetImage('assets/images/reviewers_person_2.png'),
-                  ),
-                  sizedBox(0.0, width * 0.04),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'John Smith',
-                        style: smallboldTextStyle,
-                      ),
-                      StarRating(
-                        rating: 4.5,
-                        height: height * 0.024,
-                      ),
-                      sizedBox(height * 0.005, 0.0),
-                      SizedBox(
-                        width: width * 0.6,
-                        child: Text(
-                          'The hotel booking app offers a seamless, modern user experience,.',
-                          style: smallTextStyle,
-                          maxLines: 2,
-                          overflow: TextOverflow.clip,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+            // =========================================================== View all Button ====================================
+            child: Center(
+              child: AppIcon(
+                iconData: Icons.arrow_forward,
+                color: greyShadeDark,
+                height: height * 0.028,
               ),
             ),
           ),
         ),
+      ],
+    ),
+  );
+}
+
+// This Method Shows A Square Buttons with images, it Listing Hotels
+Widget eventsList(width, height) {
+  List images = [
+    'assets/images/Events_4.png',
+    'assets/images/Events_3.png',
+    'assets/images/Events_!.png',
+    'assets/images/Events_2.png',
+  ];
+  return SizedBox(
+    height: height * 0.28,
+    width: width,
+    //================================================================= ListView Builder ============================================
+    child: ListView.builder(
+      itemCount: 4,
+      scrollDirection: Axis.horizontal,
+      padding: EdgeInsets.only(
+        right: width * 0.04,
+        left: width * 0.04,
+        top: height * 0.01,
+        bottom: height * 0.025,
       ),
-    );
-  }
+      itemBuilder: (context, index) => Padding(
+        padding: EdgeInsets.only(
+          right: width * 0.05,
+        ),
+        child: Container(
+          width: width * 0.8,
+          padding: EdgeInsets.only(left: width * 0.02, bottom: height * 0.01),
+          decoration: BoxDecoration(
+            color: Color.fromARGB(255, 227, 227, 227),
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(4, 10),
+                blurRadius: 8,
+                color: Color.fromARGB(47, 80, 79, 79),
+              ),
+              BoxShadow(
+                offset: Offset(-4, -1),
+                blurRadius: 8,
+                color: Color.fromARGB(255, 216, 216, 216),
+              ),
+            ],
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage(images[index]),
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Shangri-La-Istanbul',
+                style: GoogleFonts.poppins(
+                  color: Colors.white,
+                  fontSize: height * 0.025,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              Text(
+                'Ticket Price \$${199}',
+                style: GoogleFonts.poppins(
+                  color: Colors.white,
+                  fontSize: height * 0.02,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget adsBoxRow(height, width) {
+  return SizedBox(
+    height: height * 0.335,
+    width: width,
+    child: SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: width * 0.04, vertical: 10),
+        child: Row(
+          children: List.generate(
+            4,
+            (index) {
+              List images = [
+                'assets/images/ads_4.png',
+                'assets/images/ads_3.png',
+                'assets/images/ads_!.png',
+                'assets/images/ads_2.png',
+              ];
+              return Padding(
+                padding: EdgeInsets.only(right: width * 0.04),
+                child: Container(
+                  width: width * 0.44,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(0, 5),
+                        blurRadius: 8,
+                        color: Color.fromARGB(44, 136, 135, 135),
+                      ),
+                      BoxShadow(
+                        offset: Offset(-2, -1),
+                        blurRadius: 4,
+                        color: Color.fromARGB(255, 216, 216, 216),
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(15),
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage(images[index]),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget ReviewsBox(double width, double height) {
+  return SizedBox(
+    height: height * 0.2,
+    width: width,
+    child: ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: 10,
+      padding: EdgeInsets.symmetric(
+        horizontal: width * 0.04,
+        vertical: height * 0.018,
+      ),
+      itemBuilder: (context, index) => Padding(
+        padding: EdgeInsets.only(right: width * 0.04),
+        child: Container(
+          width: width * 0.93,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(4, 10),
+                blurRadius: 8,
+                color: Color.fromARGB(47, 80, 79, 79),
+              ),
+              BoxShadow(
+                offset: Offset(-4, -1),
+                blurRadius: 8,
+                color: Color.fromARGB(255, 216, 216, 216),
+              ),
+            ],
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(height * 0.02),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundImage:
+                      AssetImage('assets/images/reviewers_person_2.png'),
+                ),
+                sizedBox(0.0, width * 0.04),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'John Smith',
+                      style: smallboldTextStyle,
+                    ),
+                    StarRating(
+                      rating: 4.5,
+                      height: height * 0.024,
+                    ),
+                    sizedBox(height * 0.005, 0.0),
+                    SizedBox(
+                      width: width * 0.6,
+                      child: Text(
+                        'The hotel booking app offers a seamless, modern user experience,.',
+                        style: smallTextStyle,
+                        maxLines: 2,
+                        overflow: TextOverflow.clip,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
 }
 
 // it shows A Transparant Box Of Rating, It Has Rating Icon and a Rating Text, And The Icon show on the circle Avatar

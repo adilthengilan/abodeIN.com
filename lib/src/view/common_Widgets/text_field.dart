@@ -1,3 +1,4 @@
+import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class AppSearchBar extends StatelessWidget {
     required this.controller,
     required this.hintText,
     required this.width,
-    required this.height,
+    required this.height, required AppIcon prefixIcon,
   });
 
   @override

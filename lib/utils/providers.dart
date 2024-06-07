@@ -6,6 +6,7 @@ import 'package:abodein/src/view_Model/calender_provider.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:abodein/src/view_Model/hotel_detail_provider.dart';
 import 'package:abodein/src/view_Model/hotel_rooms_provider.dart';
+import 'package:abodein/src/view_Model/privacyPolicyprovider.dart';
 import 'package:abodein/src/view_Model/profile_provider.dart';
 import 'package:abodein/src/view_Model/login_provider.dart';
 import 'package:abodein/src/view_Model/search_provider.dart';
@@ -42,8 +43,11 @@ List<ChangeNotifierProvider<ChangeNotifier>> providers = [
   ChangeNotifierProvider<SmartChekingProvider>(
     create: (context) => SmartChekingProvider(),
   ),
-   ChangeNotifierProvider<SearchProvider>(
+  ChangeNotifierProvider<SearchProvider>(
     create: (context) => SearchProvider(),
+  ),
+  ChangeNotifierProvider<ExpansionState>(
+    create: (context) => ExpansionState(),
   ),
 
   // ChangeNotifierProvider<TimerProvider>(create: (context) => TimerProvider()),
