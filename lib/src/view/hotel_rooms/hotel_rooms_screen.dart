@@ -239,37 +239,7 @@ class HotelRoomsScreen extends StatelessWidget {
                   "${roomsprovider.roomType[index]}", //--------------------- The Type Of Room like PREMIUM, STANDARD etc...
                   style: mediumTextStyle),
             ),
-            // Padding(
-            //   padding: EdgeInsets.only(
-            //     left: width * 0.06,
-            //     top: height * 0.01,
-            //   ),
-            //   child: Column(
-            //     //------------------------------------- Listing Room Facilities with List Generator its legth is List Room Details -----------------------
-            //     children: List.generate(
-            //       hotelRoomProvider.roomsDetails.length,
-            //       (index) => Padding(
-            //         padding: EdgeInsets.only(bottom: height * 0.0095),
-            //         child: Row(
-            //           children: [
-            //             Icon(
-            //               hotelRoomProvider.roomsDetails[index]
-            //                       ["Icon"] // -Room facilities Icons
-            //                   as IconData?,
-            //               color: greyShadeDark,
-            //               size: height * 0.025,
-            //             ),
-            //             sizedBox(0.0, width * 0.025),
-            //             Text(
-            //               '${hotelRoomProvider.roomsDetails[index]["Service"]}', // Room facilities
-            //               style: smallTextStyle,
-            //             ),
-            //           ],
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
+
             Padding(
               padding: EdgeInsets.only(
                 left: width * 0.06,
@@ -287,42 +257,46 @@ class HotelRoomsScreen extends StatelessWidget {
               ),
             ),
             // ExpansionPanelList(),
-            ExpansionTile(
-              title: Text('Room Details'),
-              controlAffinity: ListTileControlAffinity.leading,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: width * 0.06,
-                    top: height * 0.01,
-                  ),
-                  child: Column(
-                    //------------------------------------- Listing Room Facilities with List Generator its legth is List Room Details -----------------------
-                    children: List.generate(
-                      roomsprovider.roomsDetails.length,
-                      (index) => Padding(
-                        padding: EdgeInsets.only(bottom: height * 0.0095),
-                        child: Row(
-                          children: [
-                            Icon(
-                              roomsprovider.roomsDetails[index]
-                                      ["Icon"] // -Room facilities Icons
-                                  as IconData?,
-                              color: greyShadeDark,
-                              size: height * 0.025,
-                            ),
-                            sizedBox(0.0, width * 0.025),
-                            Text(
-                              '${roomsprovider.roomsDetails[index]["Service"]}', // Room facilities
-                              style: smallTextStyle,
-                            ),
-                          ],
+            Theme(
+              data: Theme.of(context).copyWith(
+                dividerColor: backgroundColor,
+              ),
+              child: ExpansionTile(
+                title: Text('Room Details'),
+                controlAffinity: ListTileControlAffinity.leading,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: width * 0.06,
+                    ),
+                    child: Column(
+                      //------------------------------------- Listing Room Facilities with List Generator its legth is List Room Details -----------------------
+                      children: List.generate(
+                        roomsprovider.roomsDetails.length,
+                        (index) => Padding(
+                          padding: EdgeInsets.only(bottom: height * 0.0095),
+                          child: Row(
+                            children: [
+                              Icon(
+                                roomsprovider.roomsDetails[index]
+                                        ["Icon"] // -Room facilities Icons
+                                    as IconData?,
+                                color: greyShadeDark,
+                                size: height * 0.025,
+                              ),
+                              sizedBox(0.0, width * 0.025),
+                              Text(
+                                '${roomsprovider.roomsDetails[index]["Service"]}', // Room facilities
+                                style: smallTextStyle,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
 
             Padding(

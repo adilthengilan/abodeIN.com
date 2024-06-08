@@ -133,7 +133,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                             blurRadius: 2,
                             blurStyle: BlurStyle.normal,
                             spreadRadius: 0,
-                            color: greyShadeDark
+                            color: Colors.deepPurpleAccent
                             // color: darktheme
                             //     ? Color.fromARGB(255, 165, 223, 254)
                             //     : Color.fromARGB(255, 248, 248, 248),
@@ -152,7 +152,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                               children: [
                                 Text(
                                   title,
-                                  style: mediumTextStyleroboto,
+                                  style: mediumTextStyleblue,
                                   textAlign: TextAlign.start,
                                 ),
                               ],

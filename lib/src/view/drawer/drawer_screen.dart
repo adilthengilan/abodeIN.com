@@ -1,3 +1,4 @@
+import 'package:abodein/src/view/About%20us/help_support.dart';
 import 'package:abodein/src/view/About%20us/privacy_policy.dart';
 import 'package:abodein/src/view/profile/booking_history.dart';
 import 'package:abodein/src/view/profile/favorite_screen.dart';
@@ -94,6 +95,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 index: 4,
                 onTap: () {
                   // _navigateToScreen(context, 4);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HelpAndSupportScreen()));
                 }),
             //========================== About ==============================
             _buildItem(

@@ -51,7 +51,7 @@ final TextStyle smallboldTextStyleroboto = GoogleFonts.quicksand(
 final TextStyle buttonTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
       fontSize: 16,
-      fontWeight: FontWeight.w100,
+      fontWeight: FontWeight.w400,
       color: Color.fromARGB(255, 255, 255, 255)),
 );
 final TextStyle blueSmallTextButtons = GoogleFonts.poppins(
@@ -74,6 +74,14 @@ final TextStyle mediumTextStyleroboto = GoogleFonts.poppins(
     fontSize: 20,
     color: Color.fromARGB(255, 2, 2, 2),
     fontWeight: FontWeight.w500,
+  ),
+);
+
+final TextStyle mediumTextStyleblue = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 20,
+    color: Color.fromARGB(255, 45, 67, 181),
+    fontWeight: FontWeight.bold,
   ),
 );
 
