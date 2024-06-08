@@ -1,7 +1,40 @@
 import 'package:flutter/material.dart';
 
-class HotelDetails_Provider extends ChangeNotifier {
+class HotelDetailProvider extends ChangeNotifier {
   List<String> icons = [];
+  List<dynamic> favoriteList = [];
+  bool isFavorite = false;
+
+  void setfavoriteButton() {
+    isFavorite = !isFavorite;
+    notifyListeners();
+  }
+
+  void addToFavorite(
+      String name, String image, int price, double rating, String description) {
+    final favoriteItem = {
+      "name": name,
+      "image": image,
+      "price": price,
+      "rating": rating,
+      "description": description
+    };
+    favoriteList.add(favoriteItem);
+    print(favoriteList.length);
+  }
+
+  void removeFromFavorite(
+      String name, String image, int price, double rating, String description) {
+    final favoriteItem = {
+      "name": name,
+      "image": image,
+      "price": price,
+      "rating": rating,
+      "description": description
+    };
+    favoriteList.remove(favoriteItem);
+    print(favoriteList);
+  }
 
   final WhatWeOffering = [
     {
@@ -28,6 +61,6 @@ class HotelDetails_Provider extends ChangeNotifier {
 
   List<String> reviewrsPersonsImage = [
     "assets/images/reviewrs_person_1.png",
-    "assets/images/reviewers_person_2.png"
+    "assets/images/person_dp.png"
   ];
 }

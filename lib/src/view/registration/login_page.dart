@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -19,8 +20,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController mobilenumbercontrollor = TextEditingController();
+  TextEditingController _mobilenumbercontrollor = TextEditingController();
   String verificationId = '';
+  String? _countryCode;
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -50,14 +53,33 @@ class _LoginScreenState extends State<LoginScreen> {
             sizedBox(height * 0.03, width),
 
             reg.otpfield == false
-                ? AppTextField(
-                    controller: mobilenumbercontrollor,
-                    hintText: "Mobile Number",
-                    height: height,
-                    width: width,
+                ? Container(
+                    height: 60,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: Colors.black)),
+                    margin: EdgeInsets.only(left: 20, right: 20),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: height * 0.025,
+                          left: width * 0.03,
+                          right: 10,
+                          bottom: 5),
+                      child: IntlPhoneField(
+                        controller: _mobilenumbercontrollor,
+                        decoration: InputDecoration(border: InputBorder.none),
+                        initialCountryCode:
+                            'United Arab Emirates', // Default country code
+                        onChanged: (phone) {
+                          setState(() {
+                            _countryCode = phone.countryCode;
+                          });
+                        },
+                      ),
+                    ),
                   )
                 : OTPScreen(
-                    MobileNumber: mobilenumbercontrollor.text,
+                    MobileNumber: _mobilenumbercontrollor.text,
                     veirificatioId: verificationId),
             sizedBox(height * 0.001, 0.0),
             Padding(
@@ -77,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
             sizedBox(height * 0.02,
                 width), //------------------------------------ Text Button --------------------------------------------------------------------
             AppTextButton(
+              color: [Colors.black, Colors.black],
               text: reg.otpfield == true ? 'Edit Number' : 'Send Otp',
               onPressed: () async {
                 // String phonenumberwithcode =
@@ -90,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ? [
                         reg.showotpfield(),
                         FirebaseAuth.instance.verifyPhoneNumber(
-                          phoneNumber: mobilenumbercontrollor.text,
+                          phoneNumber: _mobilenumbercontrollor.text,
                           verificationCompleted: (phoneAuthCredential) {},
                           verificationFailed: (error) {
                             print(
@@ -134,6 +157,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text('Signup', style: blueSmallTextButtons),
                   )
                 ],
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                signInWithGoogle(context);
+
+                //////////////////////////////////////////////////
+                ///________THIS FUNCTION IS USED FOR SIGNOUT FROM THE APP.AND NAVIGATE
+                ///TO THE LOGIN PAGE./////////////////////////////////
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.grey,
+                backgroundImage: AssetImage('assets/images/google.png'),
               ),
             )
           ],

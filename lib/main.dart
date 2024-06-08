@@ -1,9 +1,4 @@
 import 'package:abodein/src/view/bottom_navigation_controller.dart';
-import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
-import 'package:abodein/src/view/dashBoard/hotel_details_screen/hotel_details_screen.dart';
-import 'package:abodein/src/view/registration/login_page.dart';
-import 'package:abodein/src/view/splashScreen/getstarted_screen.dart';
-import 'package:abodein/src/view/splashScreen/splash_screen.dart';
 import 'package:abodein/utils/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

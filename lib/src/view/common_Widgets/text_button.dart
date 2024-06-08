@@ -8,12 +8,14 @@ class AppTextButton extends StatelessWidget {
   final VoidCallback onPressed;
   final double height;
   final double width;
+  final List<Color> color;
   const AppTextButton({
     super.key,
     required this.text,
     required this.onPressed,
     required this.height,
     required this.width,
+    required this.color,
   });
 
   @override
@@ -22,11 +24,31 @@ class AppTextButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         height: 60,
-        width: width,
-        margin: EdgeInsets.symmetric(horizontal: width * 0.06),
+        width: width * 0.87,
         decoration: BoxDecoration(
-          color: primarycolor,
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: color,
+          ),
+          // colors: [
+          // Replace these with your desired gradient colors (use Color objects)
+          // const Color(0xfff78ca0), // #f78ca0 (example)
+          // const Color(0xfff9748f), // #f9748f (example)
+          // ],),
           borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+                offset: Offset(-0.3, 1),
+                blurRadius: 2,
+                blurStyle: BlurStyle.normal,
+                spreadRadius: 0,
+                color: greyShadeDark
+                // color: darktheme
+                //     ? Color.fromARGB(255, 165, 223, 254)
+                //     : Color.fromARGB(255, 248, 248, 248),
+                ),
+          ],
         ),
         child: Center(
           child: Text(text, style: buttonTextStyle),

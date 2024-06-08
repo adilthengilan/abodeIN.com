@@ -1,7 +1,9 @@
-import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
+import 'package:abodein/src/view/profile/profile_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
+import 'package:abodein/src/view/reward/reward_screen.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DrawerScreen extends StatefulWidget {
@@ -12,157 +14,208 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
-//   //============================== Items
-//   List<String> items = [
-//     " H O M E",
-//     " P R O F I L E",
-//     " H I S T O R Y",
-//     " R E W A R D S",
-//     " F A V O U R I T E S",
-//     " S E T T I N G S",
-//     " L O G O U T",
-//   ];
-// //============================ Icons
-//   List<IconData> icones = [
-//     Icons.home_outlined,
-//     Icons.person_2_outlined,
-//     Icons.history,
-//     Icons.card_giftcard_outlined,
-//     Icons.favorite_outline,
-//     Icons.settings_outlined,
-//     Icons.logout_outlined,
-//   ];
-//   //========================= Routes
-//   List<Widget> route = [
-//     DashBoard(),
-//     HotelDetailePage(),
-//     HotelDetailePage(),
-//     HotelDetailePage(),
-//     HotelDetailePage(),
-//     HotelDetailePage(),
-//     HotelDetailePage(),
-//   ];
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Drawer(
-      backgroundColor: transparentdrawercolour,
+      backgroundColor: Color.fromARGB(187, 0, 0, 0),
       width: width * 0.84,
-      child: ListView(
-        children: [
-          //=============== Profile =======================
-          sizedBox(height * 0.050, width),
-          _buildheader(height, width),
-          //================= Home =================
-          sizedBox(height * 0.050, width),
+      child: Padding(
+        padding: EdgeInsets.only(left: 10),
+        child: ListView(
+          children: [
+            //=============== Profile =======================
+            SizedBox(height: height * 0.050),
+            _buildHeader(height, width),
+            //================= Home =================
+            SizedBox(height: height * 0.060),
 
-          _buildItem(
-              icon: Icons.home_outlined, title: " H O M E", onTap: () {}),
+            _buildItem(
+                icon: CupertinoIcons.house_alt,
+                title: " Home",
+                index: 0,
+                onTap: () {
+                  Navigator.pop(context);
+                  // _navigateToScreen(context, 0);
+                }),
 
-          //====================== Profile ===========================
-          _buildItem(
-              icon: Icons.person_2_outlined,
-              title: " P R O F I L E",
-              onTap: () {}),
-          //==================Notification ===================
-          _buildItem(
-              icon: Icons.history, title: " H I S T O R Y", onTap: () {}),
-          //=============================== Discover ==========================
-          _buildItem(
-              icon: Icons.card_giftcard_outlined,
-              title: " R E W A R D S",
-              onTap: () {}),
-          //=========================Collections ==============================
-          _buildItem(
-              icon: Icons.favorite_outline,
-              title: " F A V O U R I T E S",
-              onTap: () {}),
-          //=============================Settings=============================
-          _buildItem(
-              icon: Icons.settings_outlined,
-              title: " S E T T I N G S",
-              onTap: () {}),
+            //====================== Profile ===========================
+            _buildItem(
+                icon: CupertinoIcons.person_fill,
+                title: " Profile",
+                index: 1,
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Profile()));
+                  // _navigateToScreen(context, 1);
+                }),
+            //==================Notification ===================
+            _buildItem(
+                icon: CupertinoIcons.collections,
+                title: " History",
+                index: 2,
+                onTap: () {
+                  // _navigateToScreen(context, 2);
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => BookingHistory()));
+                }),
+            //=============================== Discover ==========================
+            _buildItem(
+                icon: CupertinoIcons.gift_alt,
+                title: " Rewards",
+                index: 3,
+                onTap: () {
+                  // _navigateToScreen(context, 3);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RewardScreen()));
+                }),
+            //=========================Collections ==============================
+            _buildItem(
+                icon: Icons.favorite_outline,
+                title: " Favourites",
+                index: 4,
+                onTap: () {
+                  // _navigateToScreen(context, 4);
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => FavoriteScreen()));
+                }),
+            //=============================== Share =============================
+            _buildItem(
+                icon: Icons.share,
+                title: " Share",
+                index: 4,
+                onTap: () {
+                  // _navigateToScreen(context, 4);
+                }),
+            //========================== About ==============================
+            _buildItem(
+                icon: CupertinoIcons.exclamationmark_circle,
+                title: " About",
+                index: 4,
+                onTap: () {
+                  // _navigateToScreen(context, 4);
+                }),
 
-          //======================== Logout =============================
-          _buildItem(
-              icon: Icons.logout_outlined, title: " L O G O U T", onTap: () {})
-        ],
+            sizedBox(height * 0.03, width),
+            // Divider(),
+            // sizedBox(height * 0.08, width),
+            accounts(),
+            // Row(
+            //   children: [
+            //     //=============================Settings=============================
+            //     _buildItem(
+            //         icon: CupertinoIcons.settings,
+            //         title: " Settings",
+            //         index: 5,
+            //         onTap: () {
+            //           _navigateToScreen(context, 5);
+            //         }),
+            //     //======================== Logout =============================
+            //     _buildItem(
+            //         icon: Icons.logout_sharp,
+            //         title: " Logout",
+            //         index: 6,
+            //         onTap: () {
+            //           _navigateToScreen(context, 6);
+            //         }),
+            //   ],
+            // )
+
+            // sizedBox(height * 0.09, width),
+          ],
+        ),
       ),
-
-      // child: Column(children: [
-      //   //=========================== Profile Section =====================================
-      //   sizedBox(height * 0.10, width),
-      //   _buildheader(height, width),
-      //   //================================ Build Items ===================================
-      //   Expanded(
-      //     child: ListView.builder(
-      //       itemCount: items.length,
-      //       itemBuilder: (context, i) {
-      //         return ListTile(
-      //             title: Text(
-      //               items[i],
-      //               style: whiteTextStyle,
-      //             ),
-      //             leading: Icon(
-      //               icones[i],
-      //               color: backgroundColor,
-      //             ),
-      //             trailing: Icon(
-      //               Icons.chevron_right,
-      //               color: backgroundColor,
-      //             ),
-      //             onTap: () => Navigator.push(context,
-      //                 MaterialPageRoute(builder: (context) => route[i])));
-      //       },
-      //     ),
-      //   ),
-      // ]),
     );
   }
 
-// ===================================== Header (Profile pic and name)==========================================
-  _buildheader(height, width) {
+  // void _navigateToScreen(BuildContext context, int index) {
+  //   context.read<DrawerIndexProvider>().updateIndex(index);
+  // }
+
+  // ===================================== Header (Profile pic and name)==========================================
+  Widget _buildHeader(double height, double width) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        CircleAvatar(
-          backgroundImage: AssetImage("assets/images/profile picture.jpg"),
-          radius: 50,
+        Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: AssetImage('assets/images/person_dp.png'),
+              radius: 50,
+            ),
+            SizedBox(
+              height: height * 0.02,
+              width: width * 0.02,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(" Robert Browney", style: whiteSmallTextStyle),
+                Text(" roberty@gmail.com", style: whiteSmallTextStyle),
+              ],
+            ),
+          ],
         ),
-        sizedBox(height * 0.02, width),
-        Text(
-          " Robert Browney",
-          style: whiteMediumTextStyle,
-        )
       ],
     );
   }
 
-//=================================== Build Items ===================================
-  _buildItem({
+  //=================================== Build Items ===================================
+  Widget _buildItem({
     required IconData icon,
     required String title,
+    required int index,
     required GestureTapCallback onTap,
   }) {
+    // final selectedDrawerIndex =
+    //     context.watch<DrawerIndexProvider>().selectedIndex;
+
     return ListTile(
-      leading: Icon(
-        icon,
-        color: backgroundColor,
-      ),
+      leading: Icon(icon, color: Colors.white),
+      // color: selectedDrawerIndex == index
+      //     ? Color.fromARGB(255, 161, 135, 255)
+      //     : Colors.white),
       title: Text(
-        title,
-        style: whiteMediumTextStyle,
+        title, style: whiteLightTextStyle,
+        // style: TextStyle(
+        //     color:
+        //      selectedDrawerIndex == index
+        //         ? Color.fromARGB(255, 161, 135, 255)
+        //         : Colors.white
+
+        //         ),
       ),
-      trailing: InkWell(
-        onTap: onTap,
-        child: Icon(
-          Icons.arrow_forward_ios,
-          color: backgroundColor,
-        ),
-      ),
+      onTap: onTap,
       minLeadingWidth: 5,
+    );
+  }
+
+  Widget accounts() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+            height: 50,
+            width: 50,
+            child: Image(
+                image:
+                    AssetImage('assets/images/facebk-removebg-preview.png'))),
+        Container(
+            height: 50,
+            width: 50,
+            child: Image(
+                image: AssetImage('assets/images/xtw-removebg-preview.png'))),
+        Container(
+            height: 42,
+            width: 42,
+            child: Image(
+                image: AssetImage('assets/images/insta-removebg-preview.png'))),
+      ],
     );
   }
 }

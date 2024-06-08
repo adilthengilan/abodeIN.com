@@ -2,6 +2,7 @@ import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 void phoneNumberVerification(phoneNumber) async {
   final _auth = FirebaseAuth.instance;
@@ -77,6 +78,11 @@ void verifyOTP(BuildContext context, String otp) {
 
 class Reg extends ChangeNotifier {
   bool otpfield = false;
+  bool emailandnumberfield = false;
+  changefield() {
+    emailandnumberfield = !emailandnumberfield;
+    notifyListeners();
+  }
 
   showotpfield() {
     otpfield = true;
@@ -88,3 +94,61 @@ class Reg extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+final GoogleSignIn googleSignIn = GoogleSignIn();
+final FirebaseAuth auth = FirebaseAuth.instance;
+
+User? _user;
+
+User? get user => _user;
+
+Future<void> signInWithGoogle(BuildContext context) async {
+  try {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null) {
+      throw Exception("Google Sign-In was canceled.");
+    }
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    final UserCredential authResult =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    _user = authResult.user;
+
+    // Navigate to the home page after successful sign-in
+
+    Navigator.pop(context);
+  } catch (error) {
+    print("Google Sign-In Error: $error");
+  }
+  // notifyListeners();
+}
+
+void signOutUser(BuildContext context) async {
+  FirebaseAuth auth = FirebaseAuth.instance;
+  try {
+    await auth.signOut();
+    await googleSignIn.signOut();
+    // Navigator.pushAndRemoveUntil(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (context) => LoginPage(),
+    //     ),
+    //     (route) => false);
+    print('User signed out successfully');
+  } catch (e) {
+    print('Error signing out: $e');
+  }
+}
+  // Future<void> signOut() async {
+  //   try {
+  //     FirebaseAuth.instance.signOut();
+  //     googleSignIn.signOut();
+  //   } catch (e) {
+  //     print("Error signing out: $e");
+  //   }
+  //   notifyListeners();
+  // }

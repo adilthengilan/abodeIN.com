@@ -1,6 +1,5 @@
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
-import 'package:abodein/src/view/face_authentication.dart/face_authentication.dart';
 import 'package:abodein/src/view/registration/verification.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
@@ -70,6 +69,7 @@ class SignupScreen extends StatelessWidget {
             sizedBox(height * 0.039, 0.0),
             //------------------------------------ Text Button --------------------------------------------------------------------
             AppTextButton(
+              color: [],
               text: "Next",
               onPressed: () {
                 Navigator.push(context,

@@ -1,5 +1,5 @@
 import 'package:abodein/src/view/common_Widgets/icon.dart';
-import 'package:abodein/src/view/face_authentication.dart/face_authentication.dart';
+import 'package:abodein/src/view/face_authentication.dart/register_face/Smart_Checkin_Face_Auth.dart';
 
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_model/profile_provider.dart';
@@ -196,7 +196,7 @@ class _ProfileState extends State<Profile> {
                       Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20)),
-                        height: height * 0.15,
+                        height: height * 0.14,
                         child: Image(
                           fit: BoxFit.cover,
                           image:
@@ -272,7 +272,7 @@ class _ProfileState extends State<Profile> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => FaceAuthentication(),
+                    builder: (context) => Smart_CheckIN_Face_Auth(),
                   ));
             };
           case 5:

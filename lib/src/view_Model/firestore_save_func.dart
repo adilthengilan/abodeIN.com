@@ -24,7 +24,8 @@ Future<void> createFieldinFirebase() async {
         'User_Details': [],
         'Bug_Report': [],
         'Hotel_Name_Fav': [], 'Hotel_Name_Rec': [],
-        'Booking_Details': []
+        'Booking_Details': [],
+        'Check-IN_Details': [],
 
         // Add more fields as needed
       });

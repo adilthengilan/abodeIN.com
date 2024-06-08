@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:abodein/src/view/common_Widgets/icon.dart';
+import 'package:abodein/src/view/dashBoard/drawer/drawer_screen.dart';
+import 'package:abodein/src/view/dashBoard/hotel_details_screen/hotel_details_screen.dart';
 import 'package:abodein/src/view/dashBoard/top_destination.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
@@ -37,6 +39,9 @@ class _DashBoardState extends State<DashBoard> {
         Color.fromARGB(255, 255, 255, 255)
       ], begin: Alignment.bottomCenter, end: Alignment.topCenter)),
       child: Scaffold(
+        drawer: Theme(
+            data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
+            child: DrawerScreen()),
         backgroundColor: Colors.transparent,
         body: CustomScrollView(
           slivers: <Widget>[
@@ -45,7 +50,7 @@ class _DashBoardState extends State<DashBoard> {
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  // ============================================================= Samrt Cheking Button and Timer with functionality ====================================
+                  // ============================================================= Smart Cheking Button and Timer with functionality ====================================
                   // Padding(
                   //   padding: EdgeInsets.symmetric(
                   //       horizontal: width * 0.06, vertical: height * 0.02),
@@ -206,16 +211,11 @@ class _DashBoardState extends State<DashBoard> {
   // Silver App Bar for Customization, Utilize This Method Floatable AppBar and It Has a Title, Search Icon and Notification Icon
   Widget SilverAppBar(width, height) {
     return SliverAppBar(
-      leading: IconButton(
-          onPressed: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => BookingCalendarPage(),
-            //   ),
-            // );
-          },
-          icon: Icon(Icons.menu)),
+      // leading: IconButton(
+      //     onPressed: () {
+      //       DrawerScreen();
+      //     },
+      //     icon: Icon(Icons.menu)),
       //====================================================== Silver App Bar For Customization, I make this AppBar Floatable
       surfaceTintColor: backgroundColor,
       backgroundColor: backgroundColor,
@@ -395,119 +395,130 @@ class _DashBoardState extends State<DashBoard> {
       height: height * 0.46,
       width: width,
       //================================================================= ListView Builder ============================================
-      child: ListView.builder(
-        itemCount: Imagess.length,
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(
-          horizontal: width * 0.04,
-          vertical: height * 0.025,
-        ),
-        itemBuilder: (context, index) => Padding(
-          padding: EdgeInsets.only(
-            right: width * 0.05,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HotelDetailePage(),
+              ));
+        },
+        child: ListView.builder(
+          itemCount: Imagess.length,
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.symmetric(
+            horizontal: width * 0.04,
+            vertical: height * 0.025,
           ),
-          child: Container(
-            width: width * 0.69,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(4, 10),
-                  blurRadius: 8,
-                  color: Color.fromARGB(47, 80, 79, 79),
-                ),
-                BoxShadow(
-                  offset: Offset(-4, -1),
-                  blurRadius: 8,
-                  color: Color.fromARGB(255, 216, 216, 216),
-                ),
-              ],
-              borderRadius: BorderRadius.circular(15),
+          itemBuilder: (context, index) => Padding(
+            padding: EdgeInsets.only(
+              right: width * 0.05,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  height: height * 0.22,
-                  width: width,
-                  margin: EdgeInsets.all(height * 0.018),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 227, 227, 227),
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage(Imagess[index]),
+            child: Container(
+              width: width * 0.69,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(4, 10),
+                    blurRadius: 8,
+                    color: Color.fromARGB(47, 80, 79, 79),
+                  ),
+                  BoxShadow(
+                    offset: Offset(-4, -1),
+                    blurRadius: 8,
+                    color: Color.fromARGB(255, 216, 216, 216),
+                  ),
+                ],
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    height: height * 0.22,
+                    width: width,
+                    margin: EdgeInsets.all(height * 0.018),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 227, 227, 227),
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage(Imagess[index]),
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  width: width,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: width * 0.03,
-                  ),
-                  decoration: BoxDecoration(color: Colors.white),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            // width: width * 0.55,
-                            child: Text(
-                              "Hotel Niagara Popo",
-                              style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
-                                  fontSize: width * 0.042,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: -0.3,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                          sizedBox(height * 0.007, 0.0),
-                          Text(
-                            'New York, USA',
-                            style: smallTextStyleSemiBold,
-                          ),
-                          sizedBox(height * 0.015, 0.0),
-                          Row(
-                            children: [
-                              Text(
-                                '\$1,599',
+                  Container(
+                    width: width,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: width * 0.03,
+                    ),
+                    decoration: BoxDecoration(color: Colors.white),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              // width: width * 0.55,
+                              child: Text(
+                                "Hotel Niagara Popo",
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    fontSize: width * 0.046,
-                                    color: Colors.black,
+                                    fontSize: width * 0.042,
                                     fontWeight: FontWeight.w700,
+                                    letterSpacing: -0.3,
+                                    color: Colors.black,
                                   ),
                                 ),
                               ),
-                              Text("/night"),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          SizedBox(
-                            child: Column(
+                            ),
+                            sizedBox(height * 0.007, 0.0),
+                            Text(
+                              'New York, USA',
+                              style: smallTextStyleSemiBold,
+                            ),
+                            sizedBox(height * 0.015, 0.0),
+                            Row(
                               children: [
-                                sizedBox(height * 0.076, 0.0),
-                                RatingBoxTransparant(
-                                    height: height, width: width, rating: 4.8),
+                                Text(
+                                  '\$1,599',
+                                  style: GoogleFonts.poppins(
+                                    textStyle: TextStyle(
+                                      fontSize: width * 0.046,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                                Text("/night"),
                               ],
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              child: Column(
+                                children: [
+                                  sizedBox(height * 0.076, 0.0),
+                                  RatingBoxTransparant(
+                                      height: height,
+                                      width: width,
+                                      rating: 4.8),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
