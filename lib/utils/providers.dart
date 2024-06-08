@@ -14,6 +14,7 @@ import 'package:abodein/src/view_Model/search_provider.dart';
 import 'package:abodein/src/view_Model/services_category.dart';
 import 'package:abodein/src/view_Model/smart_checking_provider.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
+import 'package:abodein/src/view_Model/themeprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -52,6 +53,9 @@ List<ChangeNotifierProvider<ChangeNotifier>> providers = [
   ),
 ChangeNotifierProvider<ContactDetailsProvider>(
     create: (context) => ContactDetailsProvider(),
+  ),
+  ChangeNotifierProvider<ThemeProvider>(
+    create: (context) => ThemeProvider(),
   ),
   // ChangeNotifierProvider<TimerProvider>(create: (context) => TimerProvider()),
 ];
