@@ -27,6 +27,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
           child: Icon(Icons.arrow_back),
         ),
         backgroundColor: backgroundColor,
+        surfaceTintColor: backgroundColor,
       ),
       //-------------------------------------------------------------------------------------------------------------
       body: SingleChildScrollView(
@@ -39,20 +40,20 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
               margin: EdgeInsets.only(
                 left: width * 0.10,
               ),
-              height: height * 0.40,
+              height: height * 0.36,
               width: width * 0.80,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/images/about.jpg'),
                 ),
               ),
-              child: Padding(
-                padding: EdgeInsets.only(top: height * 0.35),
-                child: Text(
-                  'Privacy Policy',
-                  style: mediumTextStyle,
-                  textAlign: TextAlign.center,
-                ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: width * 0.26),
+              child: Text(
+                'Privacy Policy',
+                style: mediumTextStyle,
+                textAlign: TextAlign.center,
               ),
             ),
             //------------------------------------------------------------------------------------------------------------------
@@ -71,14 +72,24 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
               text:
                   'This Privacy Policy covers the information we collect about you when you use our products or services, or otherwise interact with us (for example, by attending our premises or events or by communicating with us), unless a different policy is displayed. For information about how we process applicant and former employee data, please see the Atlassian Careers Privacy Notice or the Former Workplace Privacy Notice. For information about how we process information submitted in a voluntary demographic survey during the application process, see our Demographic Survey Privacy Notice. Atlassian, we and us refers to Atlassian Pty Ltd, Atlassian US, Inc. and any of our corporate affiliates. We offer a wide range of products, including our cloud, server and data center products.  We refer to all of these products, together with our other services and websitesasServices in this policy',
             ),
-            // aboutpolicy(height, width),
+            AboutPolicy(
+              title: 'Questions or complaints',
+              text:
+                  'If you have questions or concerns about our processing of your personal data you are welcome to contact us via our data protection officer via dataprotectionoffice@booking.com. If you want to exercise any of the rights you have under this Privacy Statement, please contact our data protection officer via dataprotectionoffice@abodien.com.  All questions and complaints reported to Booking.com will be investigated. Booking.com will attempt to resolve complaints and questions in line with internal policies. You may also contact your local data protection authority with questions and complaints.',
+            ),
+            AboutPolicy(
+              title: 'Changes to the privacy System',
+              text:
+                  'This Privacy Statement may change from time to time. If you want to see changes made to this Privacy Statement from time to time, we invite you to access this Privacy Statement to see the changes. If we make material changes or changes that will have an impact on you (e.g. when we start processing your personal data for other purposes than set out above), we will contact you prior to commencing that processing.',
+            ),
           ],
         ),
       ),
     );
   }
+
 //===========================HERE SHORT MESSAGES FOR USERS ==================
-//USING LISTVIEWBUILDER 
+//USING LISTVIEWBUILDER
   Widget policyList(height, width) {
     return ListView.builder(
         physics: NeverScrollableScrollPhysics(),
@@ -112,7 +123,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  height: height * 0.180,
+                  height: height * 0.200,
                   width: width * 0.900,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -131,17 +142,20 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                       color: backgroundColor),
                   child: Row(
                     children: [
-                     
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
                             padding: EdgeInsets.only(
-                                top: height * 0.01, left: width * 0.05),
-                            child: Text(
-                              title,
-                              style: mediumTextStyleroboto,
-                              textAlign: TextAlign.start,
+                                top: height * 0.02, left: width * 0.05),
+                            child: Row(
+                              children: [
+                                Text(
+                                  title,
+                                  style: mediumTextStyleroboto,
+                                  textAlign: TextAlign.start,
+                                ),
+                              ],
                             ),
                           ),
                           Container(
@@ -149,7 +163,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                               width: width * 0.750,
                               child: Text(
                                 text,
-                                style: smallTextStylecourmarat,
+                                style: smallboldTextStyleroboto,
                               ))
                         ],
                       )
@@ -162,6 +176,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
         });
   }
 }
+
 // HERE PRIVACY POLICY ,LEGAL SIDE ,SECURITY OF USERS ETC.. HERE HAVE A HEADER AND WHEN IT TAPS EXPAND THE CONCEPT IN THAT CONTAINER
 class AboutPolicy extends StatelessWidget {
   final String title;
@@ -200,12 +215,12 @@ class AboutPolicy extends StatelessWidget {
             childrenPadding: EdgeInsets.all(10),
             title: Text(
               title,
-              style: smallboldTextStyle,
+              style: mediumTextStyleroboto,
             ),
             children: [
               Text(
                 text,
-                style: smallTextStylecourmarat,
+                style: smallboldTextStyleroboto,
               ),
             ],
           ),

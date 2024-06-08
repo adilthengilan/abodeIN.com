@@ -1,3 +1,4 @@
+import 'package:abodein/src/view/About%20us/help_support.dart';
 import 'package:abodein/src/view/About%20us/privacy_policy.dart';
 import 'package:abodein/src/view/Booking/booking.dart';
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          home: PrivacyPolicy()),
+          home: DashBoard()),
     );
   }
 }
