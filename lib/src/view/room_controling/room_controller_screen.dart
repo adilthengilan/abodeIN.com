@@ -27,8 +27,7 @@ class RoomController extends StatefulWidget {
 class _RoomControllerState extends State<RoomController> {
   @override
   Widget build(BuildContext context) {
-    final deviceController =
-        Provider.of<RoomControllerProvider>(context, listen: false);
+    final deviceController = Provider.of<RoomControllerProvider>(context, listen: false);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(

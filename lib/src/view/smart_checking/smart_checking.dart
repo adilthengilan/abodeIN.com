@@ -69,14 +69,22 @@ class ManualVerification extends StatelessWidget {
               'Click',
               style: smallTextStyle,
             )),
-            Container(
-              height: height * 0.35,
-              width: width,
-              margin: EdgeInsets.symmetric(horizontal: width * 0.06),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage('assets/images/Verification Icon.jpg'),
+            Consumer<SmartChekingProvider>(
+              builder: (context, smartCheking, child) => 
+              GestureDetector(
+                onTap: (){
+                  smartCheking.openCamera();
+                },
+                child: Container(
+                  height: height * 0.35,
+                  width: width,
+                  margin: EdgeInsets.symmetric(horizontal: width * 0.06),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage('assets/images/Verification Icon.jpg'),
+                    ),
+                  ),
                 ),
               ),
             ),

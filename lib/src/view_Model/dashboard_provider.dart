@@ -110,15 +110,16 @@ class DashBoardProvider extends ChangeNotifier {
 
 // when the user submit the data of Rooms, Adults, Children, Children Ages
   void submitingRoomsGuestCount(context) async {
-    if (rooms >= 1 && adults >= 1 && childrenAges.length == children) {
+    if (rooms >= 1 && adults >= 1 && children >= 0) {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setInt('rooms', rooms);
       await prefs.setInt('adults', adults);
       await prefs.setInt('children', children);
       await prefs.setStringList('childrenAges', childrenAges.map((age) => age.toString()).toList());
+      print(childrenAges);
       Navigator.pop(context);
     } else {
-      toastmessege('Please select the ages of the children!.');
+      toastmessege('Please select the How of the children!.');
     }
   }
 

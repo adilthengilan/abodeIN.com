@@ -5,7 +5,7 @@ import 'package:abodein/src/view/dashBoard/events/events_page.dart';
 import 'package:abodein/src/view/dashBoard/top_destination/top_destination.dart';
 import 'package:abodein/src/view_Model/calendar_provider.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
-import 'package:abodein/src/view/smart%20checking/smart_checking.dart';
+import 'package:abodein/src/view/smart_checking/smart_checking.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
@@ -308,9 +308,9 @@ class _DashBoardState extends State<DashBoard> {
 }
 
 //========================================================================================================
-  //================================ This Bottom Sheet func for Pick persons Count ==========================
-  //=========================================================================================================
- void showBottomSheet(BuildContext context, height, width) {
+//================================ This Bottom Sheet func for Pick persons Count ==========================
+//=========================================================================================================
+void showBottomSheet(BuildContext context, height, width) {
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
@@ -322,6 +322,7 @@ class _DashBoardState extends State<DashBoard> {
       },
     );
   }
+ 
 
 class BottomSheetContent extends StatelessWidget {
   final double height;
@@ -411,9 +412,7 @@ class BottomSheetContent extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget buildDropdown(String label, int value, ValueChanged onChanged) {
+  Widget buildDropdown(String label, int value, ValueChanged onChanged) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 8.0),
     child: Row(
@@ -495,6 +494,9 @@ List<Widget> _buildChildrenAges(context) {
   }
   return childrenAgesWidgets;
 }
+}
+
+
 
 //================================================================================================================
 //=================================== Heading And see More button ================================================
