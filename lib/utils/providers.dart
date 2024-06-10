@@ -7,13 +7,13 @@ import 'package:abodein/src/view_Model/contact_provider.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:abodein/src/view_Model/hotel_detail_provider.dart';
 import 'package:abodein/src/view_Model/hotel_rooms_provider.dart';
-import 'package:abodein/src/view_Model/privacyPolicyprovider.dart';
 import 'package:abodein/src/view_Model/profile_provider.dart';
 import 'package:abodein/src/view_Model/login_provider.dart';
 import 'package:abodein/src/view_Model/search_provider.dart';
 import 'package:abodein/src/view_Model/services_category.dart';
 import 'package:abodein/src/view_Model/smart_checking_provider.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
+import 'package:abodein/src/view_Model/tab_provider.dart';
 import 'package:abodein/src/view_Model/themeprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,14 +48,12 @@ List<ChangeNotifierProvider<ChangeNotifier>> providers = [
   ChangeNotifierProvider<SearchProvider>(
     create: (context) => SearchProvider(),
   ),
-  ChangeNotifierProvider<ExpansionState>(
-    create: (context) => ExpansionState(),
-  ),
-ChangeNotifierProvider<ContactDetailsProvider>(
+  ChangeNotifierProvider<ContactDetailsProvider>(
     create: (context) => ContactDetailsProvider(),
   ),
-  ChangeNotifierProvider<ThemeProvider>(
-    create: (context) => ThemeProvider(),
+
+  ChangeNotifierProvider<TabProvider>(
+    create: (context) => TabProvider(),
   ),
   // ChangeNotifierProvider<TimerProvider>(create: (context) => TimerProvider()),
 ];

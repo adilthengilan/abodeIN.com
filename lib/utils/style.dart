@@ -24,7 +24,6 @@ final TextStyle mediumLightTextStyle = GoogleFonts.poppins(
     color: Colors.black,
   ),
 );
-
 final TextStyle smallTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 16,
@@ -173,5 +172,19 @@ final TextStyle whitelightTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 22,
     color: backgroundColor,
+  ),
+);
+final TextStyle subtitlestyle =
+    GoogleFonts.poppins(fontSize: 12, color: greyShadeDark);
+final TextStyle title = GoogleFonts.poppins(
+  color: Colors.grey,
+  fontSize: 16,
+  fontWeight: FontWeight.bold,
+);
+final TextStyle smallTextStyleSemiBold = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: Colors.black,
   ),
 );
