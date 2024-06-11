@@ -24,7 +24,7 @@ class AboutScreen extends StatelessWidget {
         backgroundColor: backgroundColor,
         surfaceTintColor: backgroundColor,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () {
             Navigator.pop(context);
           },

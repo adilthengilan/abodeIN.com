@@ -1,4 +1,5 @@
 import 'package:abodein/src/view/common_Widgets/icon.dart';
+import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:abodein/src/view/hotel_rooms/hotel_rooms_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/bookingfun_provider.dart';
@@ -187,44 +188,23 @@ class HotelDetailePage extends StatelessWidget {
       //===========================================================================================================================================
 
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Container(
-            height: 70,
-            child: SlideToUnlock(),
-            decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(-0.3, 1),
-                    blurRadius: 2,
-                    blurStyle: BlurStyle.normal,
-                    spreadRadius: 0,
-                    color: Color.fromARGB(255, 14, 107, 174),
-                    // color: darktheme
-                    //     ? Color.fromARGB(255, 165, 223, 254)
-                    //     : Color.fromARGB(255, 248, 248, 248),
-                  ),
-                ],
-                // boxShadow: [
-                //   BoxShadow(
-                //       color: Color.fromARGB(255, 209, 209, 209),
-                //       blurRadius: 10,
-                //       spreadRadius: 10)
-                // ],
-                borderRadius: BorderRadius.circular(30),
-                // border: Border.all(
-                //     color: Color.fromARGB(255, 14, 107,
-                //         174), // Converted from #48c6ef (starting color)
-                //     width: 2),
-                color: Color.fromARGB(255, 255, 255, 255)
-                // gradient: LinearGradient(
-                //   begin: Alignment.topLeft,
-                //   end: Alignment.bottomRight,
-                //   colors: [
-                //     Color.fromARGB(255, 255, 243, 132),
-                //     Color.fromARGB(240, 240, 236, 154)
-                //   ],
-                // ),
-                )),
+        padding: EdgeInsets.only(
+          left: width * 0.03,
+          right: width * 0.03,
+          bottom: height * 0.02,
+        ),
+        child: AppTextButton(
+            gradient: LinearGradient(colors: [
+              Color.fromARGB(255, 126, 231, 255),
+              Color.fromARGB(255, 25, 158, 202),
+            ]),
+            text: 'Book Now',
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HotelRoomsScreen()));
+            },
+            height: height,
+            width: width),
       ),
     );
   }

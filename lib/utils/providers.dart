@@ -1,4 +1,4 @@
-
+import 'package:abodein/src/view/hotel_rooms/rooms_details_screen.dart';
 import 'package:abodein/src/view_Model/bookingfun_provider.dart';
 import 'package:abodein/src/view_Model/calender_provider.dart';
 import 'package:abodein/src/view_Model/contact_provider.dart';
@@ -52,5 +52,9 @@ List<ChangeNotifierProvider<ChangeNotifier>> providers = [
   ChangeNotifierProvider<MyBookingsProvider>(
     create: (context) => MyBookingsProvider(),
   ),
+  ChangeNotifierProvider<RoomProvider>(
+    create: (context) => RoomProvider(),
+  ),
+
   // ChangeNotifierProvider<TimerProvider>(create: (context) => TimerProvider()),
 ];

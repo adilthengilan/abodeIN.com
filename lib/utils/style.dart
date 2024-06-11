@@ -195,3 +195,7 @@ final TextStyle smallTextStyleSemiBold = GoogleFonts.poppins(
     color: Colors.black,
   ),
 );
+final TextStyle greyTextstyle = TextStyle(
+  fontSize: 18.0,
+  color: Colors.grey[600],
+);
