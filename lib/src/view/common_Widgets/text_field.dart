@@ -49,6 +49,7 @@ class AppSearchBar extends StatelessWidget {
   final TextEditingController? controller;
   final ValueChanged? onChange;
   final Widget? prefixIcon;
+  final Widget? suffixIcon;
   final String hintText;
   final double width;
   final double height;
@@ -59,14 +60,14 @@ class AppSearchBar extends StatelessWidget {
     required this.width,
     required this.height,
     this.onChange,
-    this.prefixIcon,
+    this.prefixIcon, this.suffixIcon,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height * 0.055,
-      width: width * 0.72,
+      height: height * 0.075,
+      width: width ,
       margin: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -92,6 +93,7 @@ class AppSearchBar extends StatelessWidget {
           hintText: hintText,
           hintStyle: smallTextStyle,
           contentPadding: EdgeInsets.all(height * 0.02),
+          suffixIcon: suffixIcon,
           prefixIcon: Padding(
             padding: EdgeInsets.only(
               top: height * 0.006,

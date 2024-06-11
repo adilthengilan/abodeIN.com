@@ -19,7 +19,7 @@ final TextStyle mediumTextStyle = GoogleFonts.poppins(
 
 final TextStyle mediumTextStyleLight = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 20,
+    fontSize: 18,
     color: Colors.black,
     fontWeight: FontWeight.w600,
   ),
@@ -46,7 +46,7 @@ Widget smallTextStylewhitefun(Text, size) {
 
 final TextStyle smallTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.w400,
     color: Colors.black,
   ),
@@ -54,7 +54,7 @@ final TextStyle smallTextStyle = GoogleFonts.poppins(
 
 final TextStyle smallTextStyleSemiBold = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.w600,
     color: Colors.black,
   ),

@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 
 class ProfileProvider extends ChangeNotifier {
+  bool blueTickVerification = false;
   File? image;
   // This is the image picker
   final _picker = ImagePicker();

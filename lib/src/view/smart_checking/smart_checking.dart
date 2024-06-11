@@ -99,7 +99,7 @@ class ManualVerification extends StatelessWidget {
             Consumer<SmartChekingProvider>(
               builder: (context, person, child) => Textformfield(
                 width,
-                person.emailController
+                person.fistNameController
               ),
             ),
             sizedBox(height * 0.03, 0.0),
@@ -149,17 +149,23 @@ class ManualVerification extends StatelessWidget {
             ),
             sizedBox(height * 0.04, 0.0),
             Center(
-              child: AppTextButton(
-                text: 'Proceed',
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromARGB(255, 141, 45, 226),
-                    Color.fromARGB(255, 75, 0, 224)
-                  ],
+              child: Consumer<SmartChekingProvider>(
+                builder: (context, smartCheking, child) => 
+                AppTextButton(
+                  text: 'Proceed',
+                  gradient: LinearGradient(
+                    colors: [
+                      Color.fromARGB(255, 141, 45, 226),
+                      Color.fromARGB(255, 75, 0, 224)
+                    ],
+                  ),
+                  onPressed: () {
+                    smartCheking.addingtoListDetails();
+                    Navigator.pop(context);           
+                     },
+                  height: height,
+                  width: width,
                 ),
-                onPressed: () {},
-                height: height,
-                width: width,
               ),
             ),
             sizedBox(height * 0.03, 0.0),

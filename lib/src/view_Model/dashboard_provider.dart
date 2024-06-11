@@ -8,6 +8,12 @@ class DashBoardProvider extends ChangeNotifier {
   int bottombarindex = 0;
   bool isTimeStarted = false;
 
+  //Room Guest Select Count
+  int rooms = 1;
+  int adults = 1;
+  int children = 0;
+
+
   void setBottomBarindex(index) {
     bottombarindex = index;
     notifyListeners();
@@ -16,11 +22,6 @@ class DashBoardProvider extends ChangeNotifier {
 // assigning category selected button index to selectecategorindex variable
   void setCategoryButtonColor(index) {
     selectedCategoryIndex = index;
-    notifyListeners();
-  }
-
-  void setLocationAddress(LocationDataAddress) {
-    locationText = LocationDataAddress;
     notifyListeners();
   }
 
@@ -65,26 +66,7 @@ class DashBoardProvider extends ChangeNotifier {
     super.dispose();
   }
 
-//Location searching
-  String locationText = "";
-
-  void setlocation(locationAddress) async {
-    locationText = locationAddress;
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('locationText', locationText);
-    notifyListeners();
-  }
-
-  void loadlocationText() async {
-    final prefs = await SharedPreferences.getInstance();
-    locationText = prefs.getString('locationText') ?? '';
-    notifyListeners();
-  }
-
-  //Room Guest Select Count
-  int rooms = 1;
-  int adults = 1;
-  int children = 0;
+  
   List<int> childrenAges = [];
 
   void setRoomCount(value) {
@@ -116,7 +98,6 @@ class DashBoardProvider extends ChangeNotifier {
       await prefs.setInt('adults', adults);
       await prefs.setInt('children', children);
       await prefs.setStringList('childrenAges', childrenAges.map((age) => age.toString()).toList());
-      print(childrenAges);
       Navigator.pop(context);
     } else {
       toastmessege('Please select the How of the children!.');

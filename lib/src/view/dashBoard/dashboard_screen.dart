@@ -1,17 +1,19 @@
 import 'package:abodein/src/view/booking/calendar.dart';
+import 'package:abodein/src/view/chats/chats_screen.dart';
 import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:abodein/src/view/dashBoard/events/events_page.dart';
+import 'package:abodein/src/view/dashBoard/location_searcher.dart/location_searcher.dart';
 import 'package:abodein/src/view/dashBoard/top_destination/top_destination.dart';
-import 'package:abodein/src/view_Model/calendar_provider.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:abodein/src/view/smart_checking/smart_checking.dart';
+import 'package:abodein/src/view_Model/features_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_location_search/flutter_location_search.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 
 class DashBoard extends StatefulWidget {
@@ -146,6 +148,17 @@ class _DashBoardState extends State<DashBoard> {
       floating: true,
       toolbarHeight: height * 0.09,
       actions: [
+        IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChatsScreen(height: height,width: width),
+              ),
+            );
+          },
+          icon: Icon(IconlyLight.chat),
+        ),
         InkWell(
           borderRadius: BorderRadius.circular(50),
           onTap: () {},
@@ -171,9 +184,8 @@ class _DashBoardState extends State<DashBoard> {
 //In the Column Has 3 Containers and a AppTextButton
 //The Three container are indicates, Location searcher, Choosing Dates, Room Count and Persons Count
   Widget LocationDatePersonCountBox(height, width) {
-    final bottomProvider = Provider.of<DashBoardProvider>(context,listen: false);
+    final bottomProvider = Provider.of<DashBoardProvider>(context, listen: false);
     bottomProvider.loadRoomsAndGuestCount();
-    bottomProvider.loadlocationText();
     return Container(
       width: width,
       margin: EdgeInsets.symmetric(horizontal: width * 0.04),
@@ -201,8 +213,8 @@ class _DashBoardState extends State<DashBoard> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Consumer2<DashBoardProvider, CalendarProvider>(
-            builder: (context, dashBoardProvider, calendarProvider, child) {
+          Consumer2<DashBoardProvider, FeaturesProvider>(
+            builder: (context, dashBoardProvider, featuresProvider, child) {
               return Column(
                 children: List.generate(
                   3,
@@ -214,23 +226,23 @@ class _DashBoardState extends State<DashBoard> {
                     switch (index) {
                       case 0:
                         icon = Icons.search;
-                        text = dashBoardProvider.locationText == '' ? 'Where would you like to go?' : dashBoardProvider.locationText;
+                        text = featuresProvider.locationText == ''
+                            ? 'Where would you like to go?'
+                            : featuresProvider.locationText;
                         iconColor = Colors.blueAccent;
                         onpressed = () async {
-                          LocationData? locationData = await LocationSearch.show(
-                            context: context,
-                            lightAdress: true,
-                            searchBarBackgroundColor: backgroundColor,
-                            historyMaxLength: 15,
-                            mode: Mode.fullscreen,
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LocationSearchScreen(),
+                            ),
                           );
-                          dashBoardProvider.setlocation(locationData!.address);
                         };
                       case 1:
                         icon = Icons.calendar_today_outlined;
-                        text = calendarProvider.selectedDates.isEmpty
+                        text = featuresProvider.selectedDates.isEmpty
                             ? 'Choose Your Dates'
-                            : '${calendarProvider.checkingDate} - ${calendarProvider.checkoutDate}  ${calendarProvider.selectedDates.length - 1} Night';
+                            : '${featuresProvider.checkingDate} - ${featuresProvider.checkoutDate}  ${featuresProvider.selectedDates.length - 1} Night';
                         iconColor = Colors.pinkAccent;
                         onpressed = () {
                           Navigator.push(
@@ -242,7 +254,8 @@ class _DashBoardState extends State<DashBoard> {
                         };
                       case 2:
                         icon = Icons.person_outline_outlined;
-                        text = '${dashBoardProvider.rooms} Rooms, ${dashBoardProvider.adults} Adults, ${dashBoardProvider.children} children';
+                        text =
+                            '${dashBoardProvider.rooms} Rooms, ${dashBoardProvider.adults} Adults, ${dashBoardProvider.children} children';
                         iconColor = Colors.black54;
                         onpressed = () {
                           showBottomSheet(context, height, width);
@@ -274,7 +287,9 @@ class _DashBoardState extends State<DashBoard> {
                             sizedBox(0.0, width * 0.04),
                             SizedBox(
                               width: width * 0.7,
-                              child: Text(text, style: smallTextStyle,maxLines: 1)),
+                              child: Text(text,
+                                  style: smallTextStyle, maxLines: 1),
+                            ),
                           ],
                         ),
                       ),
@@ -311,18 +326,17 @@ class _DashBoardState extends State<DashBoard> {
 //================================ This Bottom Sheet func for Pick persons Count ==========================
 //=========================================================================================================
 void showBottomSheet(BuildContext context, height, width) {
-    showModalBottomSheet(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
-      backgroundColor: backgroundColor,
-      context: context,
-      isScrollControlled: true,
-      builder: (BuildContext context) {
-        return BottomSheetContent(height: height, width: width);
-      },
-    );
-  }
- 
+  showModalBottomSheet(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
+    backgroundColor: backgroundColor,
+    context: context,
+    isScrollControlled: true,
+    builder: (BuildContext context) {
+      return BottomSheetContent(height: height, width: width);
+    },
+  );
+}
 
 class BottomSheetContent extends StatelessWidget {
   final double height;
@@ -412,91 +426,90 @@ class BottomSheetContent extends StatelessWidget {
       ),
     );
   }
-  Widget buildDropdown(String label, int value, ValueChanged onChanged) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 8.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          label,
-          style: TextStyle(fontSize: 18.0),
-        ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          decoration: BoxDecoration(
-            color: Colors.white54,
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.grey),
-          ),
-          child: Center(
-            child: DropdownButton<int>(
-              value: value,
-              onChanged: onChanged,
-              items: List.generate(60, (index) => index)
-                  .map<DropdownMenuItem<int>>((int value) {
-                return DropdownMenuItem<int>(
-                  value: value,
-                  child: Text(value.toString().padLeft(2, '0')),
-                );
-              }).toList(),
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
 
-List<Widget> _buildChildrenAges(context) {
-  final bottomSheet = Provider.of<DashBoardProvider>(context);
-  List<Widget> childrenAgesWidgets = [];
-  for (int i = 0; i < bottomSheet.children; i++) {
-    childrenAgesWidgets.add(
-      Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(10)),
-        margin: EdgeInsets.symmetric(vertical: 8.0),
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Child ${i + 1} Age',
-              style: TextStyle(fontSize: 18.0),
+  Widget buildDropdown(String label, int value, ValueChanged onChanged) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: TextStyle(fontSize: 18.0),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            decoration: BoxDecoration(
+              color: Colors.white54,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Consumer<DashBoardProvider>(
-                builder: (context, guest, child) => DropdownButton<int>(
-                  value: guest.childrenAges[i],
-                  onChanged: (int? newValue) {
-                    guest.setChildrenAges(newValue, i);
-                  },
-                  items: List.generate(18, (index) => index).map<DropdownMenuItem<int>>((int value) {
-                    return DropdownMenuItem<int>(
-                      value: value,
-                      child: Text(value.toString().padLeft(2, '0')),
-                    );
-                  }).toList()
-                ),
+            child: Center(
+              child: DropdownButton<int>(
+                value: value,
+                onChanged: onChanged,
+                items: List.generate(60, (index) => index)
+                    .map<DropdownMenuItem<int>>((int value) {
+                  return DropdownMenuItem<int>(
+                    value: value,
+                    child: Text(value.toString().padLeft(2, '0')),
+                  );
+                }).toList(),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
-  return childrenAgesWidgets;
-}
-}
 
-
+  List<Widget> _buildChildrenAges(context) {
+    final bottomSheet = Provider.of<DashBoardProvider>(context);
+    List<Widget> childrenAgesWidgets = [];
+    for (int i = 0; i < bottomSheet.children; i++) {
+      childrenAgesWidgets.add(
+        Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(10)),
+          margin: EdgeInsets.symmetric(vertical: 8.0),
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Child ${i + 1} Age',
+                style: TextStyle(fontSize: 18.0),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Consumer<DashBoardProvider>(
+                  builder: (context, guest, child) => DropdownButton<int>(
+                      value: guest.childrenAges[i],
+                      onChanged: (int? newValue) {
+                        guest.setChildrenAges(newValue, i);
+                      },
+                      items: List.generate(18, (index) => index)
+                          .map<DropdownMenuItem<int>>((int value) {
+                        return DropdownMenuItem<int>(
+                          value: value,
+                          child: Text(value.toString().padLeft(2, '0')),
+                        );
+                      }).toList()),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    return childrenAgesWidgets;
+  }
+}
 
 //================================================================================================================
 //=================================== Heading And see More button ================================================

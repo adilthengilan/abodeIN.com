@@ -1,4 +1,4 @@
-import 'package:abodein/src/view_Model/calendar_provider.dart';
+import 'package:abodein/src/view_Model/features_provider.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:abodein/src/view_Model/profile_provider.dart';
 import 'package:abodein/src/view_Model/hotel_detail_provider.dart';
@@ -19,6 +19,6 @@ List<ChangeNotifierProvider<ChangeNotifier>> providers = [
   ChangeNotifierProvider<ProfileProvider>(create: (context) => ProfileProvider()),
   ChangeNotifierProvider<SearchProvider>(create: (context) => SearchProvider()),
   ChangeNotifierProvider<RoomControllerProvider>(create: (context) => RoomControllerProvider()),
-  ChangeNotifierProvider<CalendarProvider>(create: (context) => CalendarProvider()),
+  ChangeNotifierProvider<FeaturesProvider>(create: (context) => FeaturesProvider()),
   ChangeNotifierProvider<SmartChekingProvider>(create: (context) => SmartChekingProvider()),
 ];

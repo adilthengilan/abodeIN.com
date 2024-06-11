@@ -1,7 +1,7 @@
 import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view/room_controling/room_controller_screen.dart';
-import 'package:abodein/src/view_Model/calendar_provider.dart';
+import 'package:abodein/src/view_Model/features_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
@@ -91,7 +91,7 @@ class BookingCalendarPage extends StatelessWidget {
                       ),
                     ),
                     sizedBox(height * 0.02, 0.0),
-                    Consumer<CalendarProvider>(
+                    Consumer<FeaturesProvider>(
                       builder: (context, calendar, child) => TableCalendar(
                         rowHeight: height * 0.07,
                         headerVisible: false,
@@ -144,7 +144,7 @@ class BookingCalendarPage extends StatelessWidget {
         height: height * 0.11,
         color: Colors.transparent,
         surfaceTintColor: Colors.transparent,
-        child: Consumer<CalendarProvider>(
+        child: Consumer<FeaturesProvider>(
           builder: (context, calendar, child) => InkWell(
             onTap: () {
               Navigator.pop(context);
@@ -166,7 +166,7 @@ class BookingCalendarPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Provider.of<CalendarProvider>(context, listen: false)
+                    Provider.of<FeaturesProvider>(context, listen: false)
                                 .selectedDates.length >
                             1
                         ? Row(

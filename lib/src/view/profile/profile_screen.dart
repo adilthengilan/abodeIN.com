@@ -1,7 +1,11 @@
+import 'dart:ui';
+
 import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/src/view/profile/booking_history/booking_history.dart';
 import 'package:abodein/src/view/favorite_screen/favorite_screen.dart';
+import 'package:abodein/src/view/profile/settings.dart/settings_sreen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
+import 'package:abodein/src/view/room_controling/room_controller_screen.dart';
 import 'package:abodein/src/view_Model/profile_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
@@ -16,8 +20,6 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  bool darktheme = false;
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -25,7 +27,7 @@ class _ProfileState extends State<Profile> {
     final profileProvider =
         Provider.of<ProfileProvider>(context, listen: false);
     return Scaffold(
-      backgroundColor: darktheme ? Colors.black : Colors.white,
+      backgroundColor: isDarkMode ? Colors.black : Colors.white,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -57,21 +59,20 @@ class _ProfileState extends State<Profile> {
                 borderRadius: BorderRadius.vertical(
                   bottom: Radius.circular(40),
                 ),
-                // image: darktheme
-                //     ? DecorationImage(
-                //         image: AssetImage("assets/images/Profile_Bg_Image.png"),
-                //         fit: BoxFit.fill,
-                //       )
-                //     : DecorationImage(
-                //         image: AssetImage(
-                //             "assets/images/profile_background_lightTheme.png"),
-                //         fit: BoxFit.cover,
-                //       ),
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: width * 0.046),
                 child: Column(
                   children: [
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //   IconButton(onPressed: (){
+                    //     setState(() {
+                    //       isDarkMode = !isDarkMode;
+                    //     });
+                    //   }, icon: AppIcon(iconData: isDarkMode? Icons.dark_mode: Icons.light_mode_rounded, color: isDarkMode? Colors.blueGrey.shade900: Colors.yellow.shade900, height: height * 0.08))
+                    // ],),
                     Container(
                       height: height * 0.11,
                       width: width * 0.22,
@@ -113,10 +114,27 @@ class _ProfileState extends State<Profile> {
                     ),
                     sizedBox(height * 0.03, 0.0),
                     //===================================================================== User Name ===========================================
-                    Text("John Smith", style: mediumTextStyleLight),
+                    Container(
+                      padding: EdgeInsets.only(left: width * 0.05),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("John Smith", style: mediumTextStyleLight),
+                          sizedBox(0.0, width * 0.015),
+                          Provider.of<ProfileProvider>(context, listen: false)
+                                      .blueTickVerification ==
+                                  false
+                              ? Icon(
+                                  Icons.verified,
+                                  color: Colors.blue,
+                                )
+                              : SizedBox(),
+                        ],
+                      ),
+                    ),
                     Text("+971 52 345 6789", style: smallTextStyle),
                     sizedBox(height * 0.061, 0.0),
-
                     Container(
                       height: height * 0.11,
                       margin: EdgeInsets.symmetric(horizontal: width * 0.04),
@@ -158,12 +176,19 @@ class _ProfileState extends State<Profile> {
                               case 1:
                                 text = 'Account';
                                 icon = Icons.settings_outlined;
-                                onTap = () {};
+                                onTap = () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => SettingsScreen(),
+                                    ),
+                                  );
+                                };
                                 break;
                               default:
                             }
                             return InkWell(
-                              onTap: (){},
+                              onTap: onTap,
                               child: Container(
                                 height: height * 0.085,
                                 width: width * 0.39,
@@ -189,23 +214,21 @@ class _ProfileState extends State<Profile> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      text,
-                                      style: smallTextStyle,
-                                    ),
+                                    Text(text, style: smallTextStyle),
                                     Padding(
-                                      padding: EdgeInsets.symmetric(vertical: 15),
-                                      child: IconButton(
-                                        style: IconButton.styleFrom(
-                                          backgroundColor: Colors.white,
-                                          elevation: 1,
-                                          shadowColor: Colors.white70,
-                                          shape: CircleBorder(),
-                                        ),
-                                        onPressed: () {},
-                                        icon: Icon(
-                                          icon,
-                                          size: height * 0.023,
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 15),
+                                      child: Material(
+                                        shape: CircleBorder(),
+                                        color: Colors.white,
+                                        elevation: 1,
+                                        shadowColor: Colors.white70,
+                                        child: Padding(
+                                          padding: EdgeInsets.all(10.0),
+                                          child: Icon(
+                                            icon,
+                                            size: height * 0.023,
+                                          ),
                                         ),
                                       ),
                                     )
@@ -323,21 +346,8 @@ class _ProfileState extends State<Profile> {
         String text = "";
         Color iconColor = Colors.transparent;
         VoidCallback onPressed = () {};
+        int selectedindex = 0;
         switch (index) {
-          // case 0:
-          //   iconData = Icons.edit_outlined;
-          //   text = "Profile";
-          //   iconColor = Colors.yellow;
-          //   onPressed = () {
-          //     setState(() {
-          //       darktheme = !darktheme;
-          //     });
-          //   };
-          // case 1:
-          //   iconData = Icons.settings_outlined;
-          //   text = "Account";
-          //   iconColor = Colors.blueAccent;
-          //   onPressed = () {};
           case 0:
             iconData = Icons.favorite_border_outlined;
             text = "Favorite";
@@ -352,7 +362,7 @@ class _ProfileState extends State<Profile> {
             };
           case 1:
             iconData = Icons.history;
-            text = "Booking History";
+            text = "Booking";
             iconColor = Colors.green;
             onPressed = () {
               Navigator.push(context,
@@ -362,7 +372,9 @@ class _ProfileState extends State<Profile> {
             iconData = Icons.phone_iphone_outlined;
             text = "Smart Cheking";
             iconColor = Colors.purple;
-            onPressed = () {};
+            onPressed = () {
+              selectedindex == index;
+            };
           case 3:
             iconData = Icons.wallet_giftcard_outlined;
             text = "Reward";
@@ -371,27 +383,27 @@ class _ProfileState extends State<Profile> {
 
           default:
         }
-        return InkWell(
-          onTap: onPressed,
-          child: Container(
-            height: height * 0.035,
-            padding: EdgeInsets.all(height * 0.02),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(2, 1),
-                  blurRadius: 2,
-                  color: Color.fromARGB(222, 228, 228, 228),
-                ),
-                BoxShadow(
-                  offset: Offset(-2, 0),
-                  blurRadius: 2,
-                  color: Color.fromARGB(255, 216, 216, 216),
-                ),
-              ],
-            ),
+        return Container(
+          height: height * 0.035,
+          padding: EdgeInsets.all(height * 0.02),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(2, 1),
+                blurRadius: 2,
+                color: Color.fromARGB(222, 228, 228, 228),
+              ),
+              BoxShadow(
+                offset: Offset(-2, 0),
+                blurRadius: 2,
+                color: Color.fromARGB(255, 216, 216, 216),
+              ),
+            ],
+          ),
+          child: InkWell(
+            onTap: onPressed,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -409,7 +421,7 @@ class _ProfileState extends State<Profile> {
                 Text(
                   //================================= Text ==============================
                   text,
-                  style: darktheme ? whiteSmallTextStyle : smallTextStyle,
+                  style: isDarkMode ? whiteSmallTextStyle : smallTextStyle,
                 ),
               ],
             ),
