@@ -1,3 +1,4 @@
+import 'package:abodein/src/view/About%20us/about_us.dart';
 import 'package:abodein/src/view/About%20us/help_support.dart';
 import 'package:abodein/src/view/About%20us/privacy_policy.dart';
 import 'package:abodein/src/view/profile/booking_history.dart';
@@ -5,7 +6,6 @@ import 'package:abodein/src/view/profile/favorite_screen.dart';
 import 'package:abodein/src/view/profile/profile_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view/rewards%20screen/reward_screen.dart';
-import 'package:abodein/src/view_Model/themeprovider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/cupertino.dart';
@@ -92,10 +92,7 @@ class DrawerScreen extends StatelessWidget {
                 title: " Share",
                 index: 4,
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => HelpAndSupportScreen()));
+                  //()
                 }),
             //========================== About ==============================
             _buildItem(
@@ -105,7 +102,7 @@ class DrawerScreen extends StatelessWidget {
                 index: 4,
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => PrivacyPolicy()));
+                      MaterialPageRoute(builder: (context) => AboutScreen()));
                 }),
 //====================================================== color scheme dark or light mode ==========================================================================
             sizedBox(height * 0.04, width),

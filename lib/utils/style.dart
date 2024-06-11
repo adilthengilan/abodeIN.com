@@ -17,6 +17,13 @@ final TextStyle mediumTextStyle = GoogleFonts.poppins(
     color: Colors.black,
   ),
 );
+final TextStyle mediumTextStylepurple = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.bold,
+    color: Color.fromARGB(255, 155, 25, 138),
+  ),
+);
 final TextStyle mediumLightTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 25,

@@ -1,6 +1,4 @@
-import 'dart:developer';
 
-import 'package:abodein/src/view_Model/Timer_provider.dart';
 import 'package:abodein/src/view_Model/bookingfun_provider.dart';
 import 'package:abodein/src/view_Model/calender_provider.dart';
 import 'package:abodein/src/view_Model/contact_provider.dart';
@@ -14,7 +12,6 @@ import 'package:abodein/src/view_Model/services_category.dart';
 import 'package:abodein/src/view_Model/smart_checking_provider.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
 import 'package:abodein/src/view_Model/tab_provider.dart';
-import 'package:abodein/src/view_Model/themeprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -52,8 +49,8 @@ List<ChangeNotifierProvider<ChangeNotifier>> providers = [
     create: (context) => ContactDetailsProvider(),
   ),
 
-  ChangeNotifierProvider<TabProvider>(
-    create: (context) => TabProvider(),
+  ChangeNotifierProvider<MyBookingsProvider>(
+    create: (context) => MyBookingsProvider(),
   ),
   // ChangeNotifierProvider<TimerProvider>(create: (context) => TimerProvider()),
 ];

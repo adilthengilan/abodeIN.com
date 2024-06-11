@@ -11,34 +11,9 @@ class MyBookingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> bookings = [
-      {
-        'bookingId': '12345',
-        'hotelName': 'Hotel Sunshine',
-        'hotelImage': 'https://via.placeholder.com/80',
-        'checkInDate': '15 Dec 2021',
-        'checkOutDate': '20 Dec 2021',
-        'guestName': 'John Doe',
-        'roomType': 'Deluxe Room',
-        'totalCost': '₹5000',
-        'status': 'confirmed',
-      },
-      {
-        'bookingId': '67890',
-        'hotelName': 'Grand Palace',
-        'hotelImage': 'https://via.placeholder.com/80',
-        'checkInDate': '25 Dec 2021',
-        'checkOutDate': '30 Dec 2021',
-        'guestName': 'Jane Smith',
-        'roomType': 'Suite',
-        'totalCost': '₹8000',
-        'status': 'pending',
-      },
-    ];
-    // .where((booking) => booking['status'] == status).toList();
-
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final myBookings = Provider.of<MyBookingsProvider>(context, listen: false);
     return Scaffold(
         backgroundColor: backgroundColor,
         body: SingleChildScrollView(
@@ -48,9 +23,9 @@ class MyBookingScreen extends StatelessWidget {
               ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: bookings.length,
+                itemCount: myBookings.bookings.length,
                 itemBuilder: (context, index) {
-                  return MyBookingCard(booking: bookings[index]);
+                  return MyBookingCard(booking: myBookings.bookings[index]);
                 },
               ),
             ],
@@ -58,7 +33,10 @@ class MyBookingScreen extends StatelessWidget {
         ));
   }
 
-  Widget appBar(height, width) {
+  Widget appBar(
+    height,
+    width,
+  ) {
     return Container(
       height: height * 0.270,
       width: width,
@@ -89,7 +67,7 @@ class MyBookingScreen extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.only(
-                top: height * 0.03, left: width * 0.03, right: width * 0.03),
+                top: height * 0.04, left: width * 0.03, right: width * 0.03),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -107,7 +85,7 @@ class MyBookingScreen extends StatelessWidget {
           //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Tabs change>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
           Padding(
             padding: EdgeInsets.only(
-                left: width * 0.05, right: width * 0.05, top: height * 0.06),
+                left: width * 0.05, right: width * 0.05, top: height * 0.04),
             child: Container(
               height: height * 0.10,
               decoration: BoxDecoration(
@@ -128,7 +106,7 @@ class MyBookingScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Consumer<TabProvider>(
+                  Consumer<MyBookingsProvider>(
                     builder: (context, provider, child) {
                       return Padding(
                         padding: EdgeInsets.only(top: height * 0.02),
@@ -204,6 +182,7 @@ class MyBookingScreen extends StatelessWidget {
     );
   }
 }
+
 ///////////////////////  BOOKING CARD INCLUDES HOTELNAME,BOOKING ID ,CHECKIN CHEKOUT DATE,PRICE,ETC.......................
 class MyBookingCard extends StatelessWidget {
   final Map<String, dynamic> booking;
@@ -247,8 +226,7 @@ class MyBookingCard extends StatelessWidget {
                     width: width * 0.30,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage(
-                                'assets/images/The Image of Choose Your Room.png'),
+                            image: AssetImage(booking['hotelImage']),
                             fit: BoxFit.fill),
                         borderRadius: BorderRadius.circular(25)),
                   ),
