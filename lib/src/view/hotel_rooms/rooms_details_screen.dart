@@ -1,6 +1,7 @@
 import 'package:abodein/src/view/Booking/booking.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
+import 'package:abodein/src/view_Model/hotel_rooms_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,8 @@ class RoomDetailScreen extends StatelessWidget {
     final height = mediaQuery.height;
 
     return Scaffold(
+      //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  AppBar  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(
@@ -35,29 +38,71 @@ class RoomDetailScreen extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(
+        //       Icons.favorite_border_outlined,
+        //       color: Colors.red,
+        //     ),
+        //     onPressed: () {
+        //       Navigator.pop(context);
+        //     },
+        //   ),
+        // ],
         backgroundColor: Colors.transparent,
       ),
+      //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
       extendBodyBehindAppBar: true,
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Here details image of rooms and other ankle images lists>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
             Container(
               width: width,
-              height: height * 0.4,
+              height: height * 0.5,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(room.imageUrl),
                   fit: BoxFit.cover,
                 ),
-                // borderRadius: BorderRadius.only(
-                //     bottomLeft: Radius.circular(30),
-                //     bottomRight: Radius.circular(30)),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: height * 0.38),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: List.generate(3, (index) {
+                        return Container(
+                          height: height * 0.10,
+                          width: width * 0.3,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              image: DecorationImage(
+                                image: AssetImage(
+                                  'assets/images/rooms_selection.png',
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                              border: Border.all(color: backgroundColor)),
+                        );
+                      }),
+                    ),
+                  ),
+                ],
               ),
             ),
+            //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//////////////////////////////  Room price,type,etc and amenities list
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -72,18 +117,54 @@ class RoomDetailScreen extends StatelessWidget {
                   Text('\$${room.pricePerNight} /per night',
                       style: greyTextstyle),
                   sizedBox(height * 0.02, width),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: List.generate(room.facilities.length, (index) {
-                      return Column(
-                        children: [
-                          Icon(room.facilityIcons[index]),
-                          SizedBox(height: height * 0.005),
-                          Text(room.facilities[index]),
-                        ],
-                      );
-                    }),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: List.generate(room.facilities.length, (index) {
+                        return Column(
+                          children: [
+                            Container(
+                              height: height * 0.06,
+                              width: width * 0.17,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                color: room.color[index],
+                                boxShadow: [
+                                  BoxShadow(
+                                      offset: Offset(-0.3, 1),
+                                      blurRadius: 2,
+                                      blurStyle: BlurStyle.normal,
+                                      spreadRadius: 0,
+                                      color: greyShadeDark
+                                      // color: darktheme
+                                      //     ? Color.fromARGB(255, 165, 223, 254)
+                                      //     : Color.fromARGB(255, 248, 248, 248),
+                                      ),
+                                ],
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  room.facilityIcons[index],
+                                  color: backgroundColor,
+                                  size: 30,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: width * 0.24,
+                              child: Text(
+                                room.facilities[index],
+                                textAlign: TextAlign.center,
+                              ),
+                            )
+                          ],
+                        );
+                      }),
+                    ),
                   ),
+                  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                  //room facilities description/ bullet points of facilities
                   sizedBox(height * 0.02, width),
                   Text('Room facilities:', style: smallTextStyleSemiBold),
                   sizedBox(height * 0.01, width),
@@ -102,6 +183,8 @@ class RoomDetailScreen extends StatelessWidget {
           ],
         ),
       ),
+      //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Book now>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
       bottomNavigationBar: Padding(
         padding: EdgeInsets.only(
           left: width * 0.03,
@@ -122,37 +205,8 @@ class RoomDetailScreen extends StatelessWidget {
               height: height,
               width: width),
         ),
-      ),
+      ), //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     );
-  }
-}
-
-class RoomProvider with ChangeNotifier {
-  Room _room = Room(
-    name: 'Deluxe Room',
-    imageUrl: 'assets/images/The Image of Choose Your Room.png',
-    pricePerNight: 320.0,
-    facilities: ['Free Wifi', 'Free Parking', 'Mini Bar'],
-    facilityIcons: [Icons.wifi, Icons.local_parking_outlined, Icons.local_bar],
-    roomFacilities: [
-      'Tea/Coffee Maker',
-      'Minibar',
-      'Safety Deposit Box',
-      'Telephone',
-      'Air conditioning',
-      'Wake Up Service',
-      'Balcony',
-      'Radio',
-      'Desk',
-      'Ironing Facilities',
-    ],
-  );
-
-  Room get room => _room;
-
-  void updateRoom(Room room) {
-    _room = room;
-    notifyListeners();
   }
 }
 
@@ -163,6 +217,7 @@ class Room {
   final List<String> facilities;
   final List<IconData> facilityIcons;
   final List<String> roomFacilities;
+  final List<Color> color;
 
   Room({
     required this.name,
@@ -171,5 +226,6 @@ class Room {
     required this.facilities,
     required this.facilityIcons,
     required this.roomFacilities,
+    required this.color,
   });
 }

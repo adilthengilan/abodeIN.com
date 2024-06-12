@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HotelDetailePage extends StatelessWidget {
   @override
@@ -65,7 +66,7 @@ class HotelDetailePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                height: height * 0.40,
+                height: height * 0.45,
                 width: width * 0.990,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
@@ -75,43 +76,63 @@ class HotelDetailePage extends StatelessWidget {
                         ),
                         fit: BoxFit.fill)),
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      //===================================================== favourite button =========================================
-                      //                       here marking a hotel as favorite or removing from favorites
-                      //================================================================================================================
-                      Container(
-                        margin: EdgeInsets.all(20),
-                        height: height * 0.04,
-                        width: width * 0.08,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: backgroundColor,
-                          boxShadow: [
-                            BoxShadow(
-                                offset: Offset(-0.3, 1),
-                                blurRadius: 2,
-                                blurStyle: BlurStyle.normal,
-                                spreadRadius: 0,
-                                color: greyShadeDark
-                                // color: darktheme
-                                //     ? Color.fromARGB(255, 165, 223, 254)
-                                //     : Color.fromARGB(255, 248, 248, 248),
-                                ),
-                          ],
-                        ),
-                        child: GestureDetector(
-                            onTap: () {
-                              detailpageProvider.setfavoriteButton();
-                            },
-                            child: Icon(
-                              detailpageProvider.isFavorite
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: Colors.red,
-                            )),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(
+                          left: width * 0.85, top: height * 0.02),
+                      height: height * 0.04,
+                      width: width * 0.08,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: backgroundColor,
+                        boxShadow: [
+                          BoxShadow(
+                              offset: Offset(-0.3, 1),
+                              blurRadius: 2,
+                              blurStyle: BlurStyle.normal,
+                              spreadRadius: 0,
+                              color: greyShadeDark
+                              // color: darktheme
+                              //     ? Color.fromARGB(255, 165, 223, 254)
+                              //     : Color.fromARGB(255, 248, 248, 248),
+                              ),
+                        ],
                       ),
-                    ]),
+                      child: GestureDetector(
+                          onTap: () {
+                            detailpageProvider.setfavoriteButton();
+                          },
+                          child: Icon(
+                            detailpageProvider.isFavorite
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: Colors.red,
+                          )),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: height * 0.28),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: List.generate(3, (index) {
+                          return Container(
+                            height: height * 0.10,
+                            width: width * 0.3,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                    'assets/images/rooms_selection.png',
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                                border: Border.all(color: backgroundColor)),
+                          );
+                        }),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             //=====================================================================================================================================
@@ -147,7 +168,18 @@ class HotelDetailePage extends StatelessWidget {
                       children: [
                         Text("Location", style: blackMediumTextStyle),
                         InkWell(
-                          onTap: () {},
+                          onTap: () async {
+                            const address =
+                                "Maradu, Cochin, Ernakulam, Kochi, India 682304";
+                            final url = Uri.parse(
+                                "https://www.google.com/maps/search/?api=1&query=$address");
+
+                            if (await canLaunchUrl(url)) {
+                              await launchUrl(url);
+                            } else {
+                              throw 'Could not launch $url';
+                            }
+                          },
                           child: Text(
                             "See map",
                             style: smallTextStyle,
@@ -195,8 +227,9 @@ class HotelDetailePage extends StatelessWidget {
         ),
         child: AppTextButton(
             gradient: LinearGradient(colors: [
-              Color.fromARGB(255, 126, 231, 255),
-              Color.fromARGB(255, 25, 158, 202),
+              Color(0xff16d9e3), // Converted from #16d9e3 (starting color)
+              Color(0xff30c7ec), // Converted from #30c7ec (middle color)
+              Color(0xff46aef7),
             ]),
             text: 'Book Now',
             onPressed: () {

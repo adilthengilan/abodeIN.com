@@ -1,9 +1,5 @@
-import 'package:abodein/src/view/About%20us/about_us.dart';
-import 'package:abodein/src/view/About%20us/terms_and_conditions.dart';
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/hotel_rooms/rooms_details_screen.dart';
-import 'package:abodein/src/view/mybooking/my_booking_screen.dart';
-import 'package:abodein/src/view/settings/settings.dart';
 import 'package:abodein/utils/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +22,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          home: MyBookingScreen()),
+          home: RoomsDetailsScreen()),
     );
   }
 }

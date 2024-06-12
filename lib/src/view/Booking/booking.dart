@@ -195,9 +195,8 @@ class Booking extends StatelessWidget {
             height: height,
             width: width,
             gradient: LinearGradient(colors: [
-              Color(0xff16d9e3), // Converted from #16d9e3 (starting color)
-              Color(0xff30c7ec), // Converted from #30c7ec (middle color)
-              Color(0xff46aef7),
+              Color.fromARGB(255, 51, 255, 153),
+              Color.fromARGB(255, 60, 212, 220),
             ])),
       ),
       //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
