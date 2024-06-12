@@ -119,7 +119,7 @@ class MyBookingScreen extends StatelessWidget {
                                 children: [
                                   Icon(Icons.event_available_outlined,
                                       color: provider.selectedIndex == 0
-                                          ? Color.fromARGB(255, 4, 180, 28)
+                                          ? Color.fromARGB(255, 11, 146, 29)
                                           : Colors.grey),
                                   Text(
                                     'Upcoming',
@@ -195,7 +195,7 @@ class MyBookingCard extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return Padding(
       padding: EdgeInsets.only(
-          left: width * 0.04, right: width * 0.04, top: height * 0.03),
+          left: width * 0.04, right: width * 0.04, top: height * 0.01),
       child: Container(
         decoration: BoxDecoration(
           color: backgroundColor,
