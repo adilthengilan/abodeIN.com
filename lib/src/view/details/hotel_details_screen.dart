@@ -32,7 +32,7 @@ class HotelDetailePage extends StatelessWidget {
             },
             child: Icon(
               Icons.arrow_back_ios,
-              color: blackShadeColor,
+              color: backgroundColor,
               size: 30,
             )),
         actions: [

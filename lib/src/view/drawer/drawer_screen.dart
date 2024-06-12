@@ -6,6 +6,7 @@ import 'package:abodein/src/view/profile/favorite_screen.dart';
 import 'package:abodein/src/view/profile/profile_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view/rewards%20screen/reward_screen.dart';
+import 'package:abodein/src/view_Model/theme_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/cupertino.dart';
@@ -217,36 +218,36 @@ class DrawerScreen extends StatelessWidget {
     );
   }
 
-  Widget accounts() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-            height: 60,
-            width: 60,
-            child: Image(
-                image:
-                    AssetImage('assets/images/facebk-removebg-preview.png'))),
-        Container(
-            height: 60,
-            width: 60,
-            child: Image(
-                image: AssetImage('assets/images/xtw-removebg-preview.png'))),
-        Container(
-            height: 50,
-            width: 50,
-            child: Image(
-                image: AssetImage('assets/images/insta-removebg-preview.png'))),
-      ],
-    );
-  }
+  // Widget accounts() {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: [
+  //       Container(
+  //           height: 60,
+  //           width: 60,
+  //           child: Image(
+  //               image:
+  //                   AssetImage('assets/images/facebk-removebg-preview.png'))),
+  //       Container(
+  //           height: 60,
+  //           width: 60,
+  //           child: Image(
+  //               image: AssetImage('assets/images/xtw-removebg-preview.png'))),
+  //       Container(
+  //           height: 50,
+  //           width: 50,
+  //           child: Image(
+  //               image: AssetImage('assets/images/insta-removebg-preview.png'))),
+  //     ],
+  //   );
+  // }
 }
 
 class ThemeToggleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = false;
-
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    bool isDarkMode = themeProvider.isDarkMode;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
       decoration: BoxDecoration(
@@ -268,14 +269,20 @@ class ThemeToggleWidget extends StatelessWidget {
             icon: Icons.wb_sunny,
             label: 'Light',
             isSelected: !isDarkMode,
-            onTap: () {},
+            onTap: () {
+              if (isDarkMode) themeProvider.toggleTheme();
+            },
           ),
           _buildOption(
             context,
             icon: Icons.nights_stay,
             label: 'Dark',
             isSelected: isDarkMode,
-            onTap: () {},
+            onTap: () {
+              if (!isDarkMode) {
+                themeProvider.toggleTheme();
+              }
+            },
           )
         ],
       ),
