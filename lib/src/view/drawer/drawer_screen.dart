@@ -12,6 +12,7 @@ import 'package:abodein/utils/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class DrawerScreen extends StatelessWidget {
   DrawerScreen({super.key});
@@ -93,7 +94,7 @@ class DrawerScreen extends StatelessWidget {
                 title: " Share",
                 index: 4,
                 onTap: () {
-                  //()
+                  Share.share("com.example.abodein");
                 }),
             //========================== About ==============================
             _buildItem(
