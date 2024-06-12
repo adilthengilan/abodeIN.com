@@ -22,7 +22,6 @@ class HotelDetailePage extends StatelessWidget {
     final width = mediaQuery.width;
     final height = mediaQuery.height;
     return Scaffold(
-      extendBody: true,
       backgroundColor: backgroundColor,
       //----------------------------------------------------------------------------- APPBAR
       appBar: AppBar(
@@ -32,107 +31,102 @@ class HotelDetailePage extends StatelessWidget {
               Navigator.pop(context);
             },
             child: Icon(
-              Icons.arrow_back,
+              Icons.arrow_back_ios,
               color: blackShadeColor,
               size: 30,
             )),
-        title: Center(
-          child: Text(
-            'Details',
-            style: mediumTextStyle,
-          ),
-        ),
         actions: [
           Container(
-            margin: EdgeInsets.only(right: width * 0.01),
+            margin: EdgeInsets.only(right: width * 0.03),
+            height: height * 0.04,
+            width: width * 0.08,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: backgroundColor,
+              boxShadow: [
+                BoxShadow(
+                    offset: Offset(-0.3, 1),
+                    blurRadius: 2,
+                    blurStyle: BlurStyle.normal,
+                    spreadRadius: 0,
+                    color: greyShadeDark
+                    // color: darktheme
+                    //     ? Color.fromARGB(255, 165, 223, 254)
+                    //     : Color.fromARGB(255, 248, 248, 248),
+                    ),
+              ],
+            ),
             child: GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
+                  detailpageProvider.setfavoriteButton();
                 },
                 child: Icon(
-                  Icons.notifications_none_outlined,
-                  size: 30,
-                  color: blackShadeColor,
+                  detailpageProvider.isFavorite
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                  color: Colors.red,
                 )),
           ),
         ],
+        // actions: [
+        //   Container(
+        //     margin: EdgeInsets.only(right: width * 0.01),
+        //     child: GestureDetector(
+        //         onTap: () {
+        //           Navigator.pop(context);
+        //         },
+        //         child: Icon(
+        //           Icons.notifications_none_outlined,
+        //           size: 30,
+        //           color: blackShadeColor,
+        //         )),
+        //   ),
+        // ],
       ),
+      extendBodyBehindAppBar: true,
       //-----------------------------------------------------------------------------------------------------------
       body: SingleChildScrollView(
         child: Column(
           children: [
             //=======================  hotel image=======================================
             //============================================================================
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: height * 0.45,
-                width: width * 0.990,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    image: DecorationImage(
-                        image: AssetImage(
-                          'assets/images/Screenshot 2024-05-31 145706.png',
-                        ),
-                        fit: BoxFit.fill)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(
-                          left: width * 0.85, top: height * 0.02),
-                      height: height * 0.04,
-                      width: width * 0.08,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: backgroundColor,
-                        boxShadow: [
-                          BoxShadow(
-                              offset: Offset(-0.3, 1),
-                              blurRadius: 2,
-                              blurStyle: BlurStyle.normal,
-                              spreadRadius: 0,
-                              color: greyShadeDark
-                              // color: darktheme
-                              //     ? Color.fromARGB(255, 165, 223, 254)
-                              //     : Color.fromARGB(255, 248, 248, 248),
-                              ),
-                        ],
+            Container(
+              height: height * 0.50,
+              width: width,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(25),
+                      bottomRight: Radius.circular(25)),
+                  image: DecorationImage(
+                      image: AssetImage(
+                        'assets/images/Screenshot 2024-05-31 145706.png',
                       ),
-                      child: GestureDetector(
-                          onTap: () {
-                            detailpageProvider.setfavoriteButton();
-                          },
-                          child: Icon(
-                            detailpageProvider.isFavorite
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            color: Colors.red,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: height * 0.28),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: List.generate(3, (index) {
-                          return Container(
-                            height: height * 0.10,
-                            width: width * 0.3,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                    'assets/images/rooms_selection.png',
-                                  ),
-                                  fit: BoxFit.cover,
+                      fit: BoxFit.fill)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: height * 0.38),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: List.generate(3, (index) {
+                        return Container(
+                          height: height * 0.10,
+                          width: width * 0.3,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              image: DecorationImage(
+                                image: AssetImage(
+                                  'assets/images/rooms_selection.png',
                                 ),
-                                border: Border.all(color: backgroundColor)),
-                          );
-                        }),
-                      ),
+                                fit: BoxFit.cover,
+                              ),
+                              border: Border.all(color: backgroundColor)),
+                        );
+                      }),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             //=====================================================================================================================================
