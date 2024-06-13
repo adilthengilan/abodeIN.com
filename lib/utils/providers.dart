@@ -13,6 +13,7 @@ import 'package:abodein/src/view_Model/smart_checking_provider.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
 import 'package:abodein/src/view_Model/tab_provider.dart';
 import 'package:abodein/src/view_Model/theme_provider.dart';
+import 'package:abodein/src/view_Model/timer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -58,6 +59,9 @@ List<ChangeNotifierProvider<ChangeNotifier>> providers = [
   ),
   ChangeNotifierProvider<RoomProvider>(
     create: (context) => RoomProvider(),
+  ),
+ChangeNotifierProvider<TimerProvider>(
+    create: (context) => TimerProvider(),
   ),
 
   // ChangeNotifierProvider<TimerProvider>(create: (context) => TimerProvider()),

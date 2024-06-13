@@ -2,6 +2,7 @@ import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/details/hotel_details_screen.dart';
 import 'package:abodein/src/view/drawer/drawer_screen.dart';
 import 'package:abodein/src/view/hotel_rooms/rooms_details_screen.dart';
+import 'package:abodein/src/view/rewards%20screen/reward_screen.dart';
 import 'package:abodein/utils/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,13 +19,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: providers,
+      
       child: MaterialApp(
           title: 'Flutter Demo',
-          theme: ThemeData(
-            useMaterial3: true,
-          ),
+          theme: ThemeData.light(),
+          darkTheme: ThemeData.dark(),
           debugShowCheckedModeBanner: false,
-          home: DrawerScreen()),
+          home: DashBoard()),
     );
   }
 }

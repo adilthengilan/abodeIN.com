@@ -1,8 +1,8 @@
-import 'dart:async';
 
 import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/src/view_Model/login_provider.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
+import 'package:abodein/src/view_Model/timer_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/foundation.dart';
@@ -10,52 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-class RewardScreen extends StatefulWidget {
+class RewardScreen extends StatelessWidget {
   const RewardScreen({super.key});
-
-  @override
-  State<RewardScreen> createState() => _RewardScreenState();
-}
-
-class _RewardScreenState extends State<RewardScreen> {
-  Timer? _timer;
-  Duration _remainingTime = Duration(hours: 10, minutes: 45, seconds: 22);
-
-  @override
-  void initState() {
-    super.initState();
-    _startTimer();
-  }
-
-  void _startTimer() {
-    const oneSecond = Duration(seconds: 1);
-    _timer = Timer.periodic(oneSecond, (Timer timer) {
-      if (_remainingTime.inSeconds == 0) {
-        setState(() {
-          timer.cancel();
-        });
-      } else {
-        setState(() {
-          _remainingTime = Duration(seconds: _remainingTime.inSeconds - 1);
-        });
-      }
-    });
-  }
-
-  String _formatDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
-    String hours = twoDigits(duration.inHours);
-    String minutes = twoDigits(duration.inMinutes.remainder(60));
-    String seconds = twoDigits(duration.inSeconds.remainder(60));
-
-    return "$hours:$minutes:$seconds";
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +102,6 @@ class _RewardScreenState extends State<RewardScreen> {
   }
 
   //======================== Reward Point =================================
-
   Widget _rewardpoint(height, width, addreward) {
     return Container(
       width: width * 0.88,
@@ -194,53 +149,57 @@ class _RewardScreenState extends State<RewardScreen> {
             ),
           ),
           //========================== claim free points
-          Container(
-            margin: EdgeInsets.only(
-              top: height * 0.02,
-              right: width * 0.01,
-            ),
-            height: height * 0.150,
-            width: width * 0.800,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: transparantLightColor,
-            ),
-            child: Padding(
-              padding: EdgeInsets.only(left: width * 0.03, top: height * 0.01),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Free 50 Points",
-                    style: whiteTextStyle,
-                  ),
-                  Text(
-                    'Time Remaining : ${_formatDuration(_remainingTime)}',
-                    style: whiteTextStyle,
-                  ),
-                  sizedbox(height * 0.020, width),
-                  Container(
-                    height: height * 0.05,
-                    width: width * 0.20,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(09),
-                      color: backgroundColor,
-                    ),
-                    child: Center(
-                      child: TextButton(
-                        onPressed: () {
-                          addreward.addRewardPoints(50);
-                        },
-                        child: Text(
-                          "Claim",
-                          style: blueSmallTextButtons,
-                        ),
+          Consumer<TimerProvider>(
+            builder: (context, timerProvider, child) {
+              return Container(
+                margin: EdgeInsets.only(
+                  top: height * 0.02,
+                  right: width * 0.01,
+                ),
+                height: height * 0.150,
+                width: width * 0.800,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: transparantLightColor,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: width * 0.03, top: height * 0.01),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Free 50 Points",
+                        style: whiteTextStyle,
                       ),
-                    ),
-                  )
-                ],
-              ),
-            ),
+                      Text(
+                        'Time Remaining : ${timerProvider.formatDuration(timerProvider.remainingTime)}',
+                        style: whiteTextStyle,
+                      ),
+                      sizedbox(height * 0.020, width),
+                      Container(
+                        height: height * 0.05,
+                        width: width * 0.20,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(09),
+                          color: backgroundColor,
+                        ),
+                        child: Center(
+                          child: TextButton(
+                            onPressed: () {
+                              addreward.addRewardPoints(50);
+                            },
+                            child: Text(
+                              "Claim",
+                              style: blueSmallTextButtons,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }
           ),
         ],
       ),
@@ -248,7 +207,6 @@ class _RewardScreenState extends State<RewardScreen> {
   }
 
   // This is an indicator that displays a list of images with 3 dots.
-
   Widget showingIndicators(height) {
     return Consumer<SplashProvider>(
       builder: (context, value, child) => Row(
