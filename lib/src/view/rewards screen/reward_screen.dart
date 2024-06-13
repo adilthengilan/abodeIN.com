@@ -1,4 +1,3 @@
-
 import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/src/view_Model/login_provider.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
@@ -36,12 +35,11 @@ class RewardScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            //==================================== Reward points
+            // Reward points section
             sizedbox(height * 0.02, width),
             _rewardpoint(height, width, addreward),
 
-            //==================================== Indicators
-
+            // Indicators
             sizedbox(height * 0.02, width),
             showingIndicators(height),
             sizedbox(height * 0.03, width),
@@ -55,17 +53,20 @@ class RewardScreen extends StatelessWidget {
               ],
             ),
 
-            //============================= Reward plans ===================================
-
+            // Reward plans
             TicketContainer(
               onPressed: () {
                 addreward.addRewardPoints(10);
-
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("10 points claimed!"),
+                  ),
+                );
                 Share.share("com.example.abodein");
               },
               text: "Help us grow to get reward",
               images: "assets/images/refer and earn.jpg",
-              title: "Reffer a Friend",
+              title: "Refer a Friend",
               color: [
                 Color(0xffed6ea0), // Converted from #ed6ea0 (starting color)
                 Color(0xffec8c69),
@@ -74,6 +75,11 @@ class RewardScreen extends StatelessWidget {
             TicketContainer(
               onPressed: () {
                 addreward.addRewardPoints(10);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("50 points claimed!"),
+                  ),
+                );
               },
               title: "Book a Hotel",
               text: "Get up 25% off",
@@ -86,6 +92,11 @@ class RewardScreen extends StatelessWidget {
             TicketContainer(
               onPressed: () {
                 addreward.addRewardPoints(10);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("50 points claimed!"),
+                  ),
+                );
               },
               title: "Rate your Experience",
               text: "Get up to 15% off",
@@ -101,7 +112,7 @@ class RewardScreen extends StatelessWidget {
     );
   }
 
-  //======================== Reward Point =================================
+  // Reward Point section
   Widget _rewardpoint(height, width, addreward) {
     return Container(
       width: width * 0.88,
@@ -148,59 +159,72 @@ class RewardScreen extends StatelessWidget {
               style: whiteLightTextStyle,
             ),
           ),
-          //========================== claim free points
-          Consumer<TimerProvider>(
-            builder: (context, timerProvider, child) {
-              return Container(
-                margin: EdgeInsets.only(
-                  top: height * 0.02,
-                  right: width * 0.01,
-                ),
-                height: height * 0.150,
-                width: width * 0.800,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: transparantLightColor,
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(left: width * 0.03, top: height * 0.01),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Free 50 Points",
-                        style: whiteTextStyle,
+          // Claim free points section
+          Consumer<TimerProvider>(builder: (context, timerProvider, child) {
+            return Container(
+              margin: EdgeInsets.only(
+                top: height * 0.02,
+                right: width * 0.01,
+              ),
+              height: height * 0.150,
+              width: width * 0.800,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: transparantLightColor,
+              ),
+              child: Padding(
+                padding:
+                    EdgeInsets.only(left: width * 0.03, top: height * 0.01),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Free 50 Points",
+                      style: whiteTextStyle,
+                    ),
+                    Text(
+                      'Time Remaining : ${timerProvider.formatDuration(timerProvider.remainingTime)}',
+                      style: whiteTextStyle,
+                    ),
+                    sizedbox(height * 0.020, width),
+                    Container(
+                      height: height * 0.05,
+                      width: width * 0.20,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(09),
+                        color: backgroundColor,
                       ),
-                      Text(
-                        'Time Remaining : ${timerProvider.formatDuration(timerProvider.remainingTime)}',
-                        style: whiteTextStyle,
-                      ),
-                      sizedbox(height * 0.020, width),
-                      Container(
-                        height: height * 0.05,
-                        width: width * 0.20,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(09),
-                          color: backgroundColor,
-                        ),
-                        child: Center(
-                          child: TextButton(
-                            onPressed: () {
+                      child: Center(
+                        child: TextButton(
+                          onPressed: () {
+                            if (timerProvider.isTimerFinished) {
                               addreward.addRewardPoints(50);
-                            },
-                            child: Text(
-                              "Claim",
-                              style: blueSmallTextButtons,
-                            ),
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("50 points claimed!"),
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      "Can't claim yet. Time remaining: ${timerProvider.formatDuration(timerProvider.remainingTime)}"),
+                                ),
+                              );
+                            }
+                          },
+                          child: Text(
+                            "Claim",
+                            style: blueSmallTextButtons,
                           ),
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
-              );
-            }
-          ),
+              ),
+            );
+          }),
         ],
       ),
     );

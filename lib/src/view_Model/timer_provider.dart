@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 class TimerProvider with ChangeNotifier {
   Timer? _timer;
   Duration _remainingTime = Duration(hours: 10, minutes: 45, seconds: 22);
+  bool _isTimerFinished = false;
 
   Duration get remainingTime => _remainingTime;
+  bool get isTimerFinished => _isTimerFinished;
 
   TimerProvider() {
     _startTimer();
@@ -15,7 +17,9 @@ class TimerProvider with ChangeNotifier {
     const oneSecond = Duration(seconds: 1);
     _timer = Timer.periodic(oneSecond, (Timer timer) {
       if (_remainingTime.inSeconds == 0) {
+        _isTimerFinished = true;
         timer.cancel();
+        notifyListeners();
       } else {
         _remainingTime = Duration(seconds: _remainingTime.inSeconds - 1);
         notifyListeners();

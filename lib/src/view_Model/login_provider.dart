@@ -27,6 +27,7 @@ class LoginProvider extends ChangeNotifier {
   }
 
   Future<void> addRewardPoints(int points) async {
+    print('Adding reward points: $points'); // Debug log
     _rewardPoints += points;
     await saveRewardPoints();
     notifyListeners();
