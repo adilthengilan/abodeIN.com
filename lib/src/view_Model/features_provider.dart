@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:abodein/src/view/common_Widgets/toast_messege.dart';
 import 'package:abodein/src/view_Model/location_searching.dart/location_searvice.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,8 @@ class FeaturesProvider extends ChangeNotifier {
           if (betweenDates.length <= 28) {
             selectedDates = betweenDates;
           } else {
-            selectedDates.clear(); // Remove the second date if the range is more than 28 days
+            selectedDates
+                .clear(); // Remove the second date if the range is more than 28 days
           }
           final firstDay = DateFormat.d().format(selectedDates[0]);
           final lastDay = DateFormat.d().format(selectedDates.last);
@@ -69,54 +71,77 @@ class FeaturesProvider extends ChangeNotifier {
 
   final GeocodingService _geocodingService = GeocodingService();
   String? currentAddress;
+  Position? currentPosition;
   List<dynamic> searchResults = [];
   List<String> recentLocationHistory = [];
   String locationText = '';
-  bool isLoading = false;
+  bool isLoading = true;
 
   // Handling Location permision from device
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
 
-    // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the
-      // App to enable the location services.
+      print('Location services are disabled. Please enable the services');
       return false;
     }
-
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this also has a
-        // callback for when the user denies permissions).
+        print('Location permissions are denied');
         return false;
       }
     }
-
     if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
+      print(
+          'Location permissions are permanently denied, we cannot request permissions.');
       return false;
     }
-
-    // When we reach here, permissions are granted and we can
-    // continue accessing the position of the device.
     return true;
   }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  Future<void> getCurrentPosition() async {
+    isLoading = true;
+    print('current location');
+    final hasPermission = await _handleLocationPermission();
+    print('Has permission : ${hasPermission}');
+
+    if (!hasPermission) return;
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) {
+      print('latutyrt ${position.latitude}');
+      currentPosition = position;
+      Timer(Duration(seconds: 2), () {
+        getAddressFromLatLng();
+      });
+      print("$isLoading");
+      isLoading = false;
+      print("$isLoading");
+
+      notifyListeners();
+    }).catchError((e) {
+      debugPrint(e);
+    });
+  }
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  //Tarsalating log, lat to human readable language, Location Address
-  Future<void> getAddressFromLatLng(double? latitude, double? longitude) async {
+  // Tarsalating log, lat to human readable language, Location Address
+  Future<void> getAddressFromLatLng() async {
+    print('current latitude ${currentPosition?.latitude}');
     await placemarkFromCoordinates(
-            latitude!, longitude!)
+            currentPosition!.latitude, currentPosition!.longitude)
         .then((List<Placemark> placemarks) {
+      print(
+          'Latitude: ${currentPosition!.latitude} Longitude ${currentPosition!.longitude}');
       Placemark place = placemarks[0];
-      currentAddress = '${place.street}, ${place.subLocality}, ''${place.subAdministrativeArea}, ${place.postalCode}';
+      currentAddress = '${place.street}, ${place.subLocality}, '
+          '${place.subAdministrativeArea}, ${place.postalCode}';
       locationText = currentAddress ?? '';
       notifyListeners();
     }).catchError((e) {
@@ -143,4 +168,16 @@ class FeaturesProvider extends ChangeNotifier {
   }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  void simulateLoading() async {
+    isLoading = true;
+
+    // Simulate a network call or any other asynchronous operation
+    await Future.delayed(Duration(seconds: 3));
+
+    isLoading = false;
+    notifyListeners();
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

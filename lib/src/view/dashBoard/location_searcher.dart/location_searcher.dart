@@ -2,11 +2,9 @@ import 'package:abodein/src/view/common_Widgets/text_field.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/features_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
-import 'package:current_location/model/location.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:current_location/current_location.dart';
 
 class LocationSearchScreen extends StatefulWidget {
   @override
@@ -28,7 +26,8 @@ class LocationSearchScreenState extends State<LocationSearchScreen> {
           Consumer<FeaturesProvider>(
             builder: (context, location, child) => AppSearchBar(
               controller: _searchController,
-              onChange: (o) => location.searchLocations(_searchController.text),
+              onChange: (o) =>
+                  location.searchLocations(_searchController.text),
               suffixIcon: IconButton(
                 padding: EdgeInsets.only(right: width * 0.03),
                 onPressed: () {
@@ -56,9 +55,9 @@ class LocationSearchScreenState extends State<LocationSearchScreen> {
               width: width,
               padding: EdgeInsets.symmetric(horizontal: width * 0.025),
               child: InkWell(
-                onTap: () async {
-                Location? userLocation =  await UserLocation.getValue();
-                location.getAddressFromLatLng(userLocation?.latitude, userLocation?.longitude);
+                onTap: () {
+                  location.getCurrentPosition();
+                  Navigator.pop(context);
                 },
                 child: ListTile(
                   leading: Icon(
@@ -101,8 +100,7 @@ class LocationSearchScreenState extends State<LocationSearchScreen> {
                         final location = locationProvider.searchResults[index];
                         return TextButton(
                           onPressed: () {
-                            locationProvider
-                                .setLocationText(location['display_name']);
+                            locationProvider.setLocationText(location['display_name']);
                             Navigator.pop(context);
                           },
                           child: ListTile(
