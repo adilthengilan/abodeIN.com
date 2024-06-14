@@ -1,9 +1,6 @@
-import 'dart:ui';
-
 import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/src/view/profile/booking_history/booking_history.dart';
 import 'package:abodein/src/view/favorite_screen/favorite_screen.dart';
-import 'package:abodein/src/view/profile/settings.dart/settings_sreen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view/room_controling/room_controller_screen.dart';
 import 'package:abodein/src/view_Model/profile_provider.dart';
@@ -64,15 +61,6 @@ class _ProfileState extends State<Profile> {
                 padding: EdgeInsets.symmetric(horizontal: width * 0.046),
                 child: Column(
                   children: [
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.end,
-                    //   children: [
-                    //   IconButton(onPressed: (){
-                    //     setState(() {
-                    //       isDarkMode = !isDarkMode;
-                    //     });
-                    //   }, icon: AppIcon(iconData: isDarkMode? Icons.dark_mode: Icons.light_mode_rounded, color: isDarkMode? Colors.blueGrey.shade900: Colors.yellow.shade900, height: height * 0.08))
-                    // ],),
                     Container(
                       height: height * 0.11,
                       width: width * 0.22,
@@ -123,8 +111,7 @@ class _ProfileState extends State<Profile> {
                           Text("John Smith", style: mediumTextStyleLight),
                           sizedBox(0.0, width * 0.015),
                           Provider.of<ProfileProvider>(context, listen: false)
-                                      .blueTickVerification ==
-                                  false
+                                      .blueTickVerification
                               ? Icon(
                                   Icons.verified,
                                   color: Colors.blue,
@@ -177,12 +164,6 @@ class _ProfileState extends State<Profile> {
                                 text = 'Account';
                                 icon = Icons.settings_outlined;
                                 onTap = () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => SettingsScreen(),
-                                    ),
-                                  );
                                 };
                                 break;
                               default:

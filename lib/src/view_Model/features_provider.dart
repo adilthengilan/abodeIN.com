@@ -68,8 +68,7 @@ class FeaturesProvider extends ChangeNotifier {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   final GeocodingService _geocodingService = GeocodingService();
-  String? _currentAddress;
-  Position? _currentPosition;
+  String? currentAddress;
   List<dynamic> searchResults = [];
   List<String> recentLocationHistory = [];
   String locationText = '';
@@ -109,39 +108,22 @@ class FeaturesProvider extends ChangeNotifier {
     // continue accessing the position of the device.
     return true;
   }
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  Future<void> getCurrentPosition() async {
-    final hasPermission = await _handleLocationPermission();
-    if (!hasPermission) return;
-    isLoading = false;
-    notifyListeners();
-    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((Position position) {
-      _currentPosition = position;
-      _getAddressFromLatLng(_currentPosition!);
-    }).catchError((e) {
-      debugPrint(e.toString());
-    });
-  }
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   //Tarsalating log, lat to human readable language, Location Address
-  Future<void> _getAddressFromLatLng(Position position) async {
+  Future<void> getAddressFromLatLng(double? latitude, double? longitude) async {
     await placemarkFromCoordinates(
-            _currentPosition!.latitude, _currentPosition!.longitude)
+            latitude!, longitude!)
         .then((List<Placemark> placemarks) {
       Placemark place = placemarks[0];
-      _currentAddress = '${place.street}, ${place.subLocality}, '
-          '${place.subAdministrativeArea}, ${place.postalCode}';
-      locationText = _currentAddress ?? '';
+      currentAddress = '${place.street}, ${place.subLocality}, ''${place.subAdministrativeArea}, ${place.postalCode}';
+      locationText = currentAddress ?? '';
       notifyListeners();
     }).catchError((e) {
       debugPrint(e.toString());
     });
   }
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // on changed function in the search bar, this function will passing user input to Api service and list all the matching in the listview builder
@@ -152,6 +134,7 @@ class FeaturesProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   void setLocationText(locationName) {
@@ -160,14 +143,4 @@ class FeaturesProvider extends ChangeNotifier {
   }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void simulateLoading() async {
-    isLoading = true;
-
-    // Simulate a network call or any other asynchronous operation
-    await Future.delayed(Duration(seconds: 3));
-
-    isLoading = false;
-    notifyListeners();
-  }
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

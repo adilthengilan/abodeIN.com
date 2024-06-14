@@ -1,6 +1,5 @@
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
 import 'package:abodein/src/view_Model/search_provider.dart';
-import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,16 +32,16 @@ class SearchScreen extends StatelessWidget {
     ];
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         toolbarHeight: height * 0.1,
         leadingWidth: width,
         leading: Container(
-          height: height * 0.1, // Adjust height as needed
+          height: height * 0.1, 
           padding: EdgeInsets.only(top: height * 0.02, bottom: height * 0.005),
           child: Consumer<SearchProvider>(
             builder: (context, search, child) => AppSearchBar(
-              onChange: (enteringKey) => search.runSearching(enteringKey,
-                  hotelList), // Uncomment and implement search logic
+              onChange: (enteringKey) => search.runSearching(enteringKey, hotelList),
               prefixIcon: InkWell(
                 onTap: () => Navigator.pop(context),
                 child: Icon(Icons.arrow_back_rounded),
@@ -62,16 +61,18 @@ class SearchScreen extends StatelessWidget {
                 child: ListView.builder(
                   shrinkWrap: true,
                   padding: EdgeInsets.symmetric(horizontal: width * 0.03),
-                  itemCount: search.foundHotels.isEmpty? 1: search.foundHotels.length,
+                  itemCount: search.foundHotels.length,
                   itemBuilder: (context, index) {
                     print(search.foundHotels);
-                    return search.foundHotels.isEmpty
-                        ? InkWell(onTap: (){
-                          search.getCurrentPosition(context);
-                        },
-                        child: ListTile(leading: Icon(Icons.my_location_outlined,color: Colors.black,),title: Text('Arround You',style: smallTextStyleSemiBold)))
-                        : ListTile(leading: Icon(Icons.location_on_outlined),title: Text("${search.foundHotels[index]["title"]}"),
-                          );
+                    return InkWell(
+                      onTap: () {
+                        search.getCurrentPosition(context);
+                      },
+                      child: ListTile(
+                        leading: Icon(Icons.location_on_outlined),
+                        title: Text("${search.foundHotels[index]["title"]}"),
+                      ),
+                    );
                   },
                 ),
               ),

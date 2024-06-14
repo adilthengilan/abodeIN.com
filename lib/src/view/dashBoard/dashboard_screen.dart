@@ -1,12 +1,12 @@
 import 'package:abodein/src/view/booking/calendar.dart';
-import 'package:abodein/src/view/chats/chats_screen.dart';
+import 'package:abodein/src/view/chats/chats_list_screen.dart';
 import 'package:abodein/src/view/common_Widgets/icon.dart';
 import 'package:abodein/src/view/common_Widgets/text_button.dart';
 import 'package:abodein/src/view/dashBoard/events/events_page.dart';
 import 'package:abodein/src/view/dashBoard/location_searcher.dart/location_searcher.dart';
 import 'package:abodein/src/view/dashBoard/top_destination/top_destination.dart';
+import 'package:abodein/src/view/loyality_program/loyality_program.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
-import 'package:abodein/src/view/smart_checking/smart_checking.dart';
 import 'package:abodein/src/view_Model/features_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
@@ -137,7 +137,12 @@ class _DashBoardState extends State<DashBoard> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ManualVerification()),
+            MaterialPageRoute(
+              builder: (context) => LoyalityProgramScreen(
+                height: height,
+                width: width,
+              ),
+            ),
           );
         },
         icon: Icon(Icons.menu),
@@ -153,25 +158,18 @@ class _DashBoardState extends State<DashBoard> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ChatsScreen(height: height,width: width),
+                builder: (context) => ChatsList(height: height, width: width),
               ),
             );
           },
           icon: Icon(IconlyLight.chat),
         ),
-        InkWell(
-          borderRadius: BorderRadius.circular(50),
-          onTap: () {},
-          child: CircleAvatar(
-            radius: height * 0.032,
-            backgroundColor: shadeColor,
-            child: Center(
-              child: AppIcon(
-                iconData: Icons.notifications_outlined,
-                color: greyShadeDark,
-                height: height * 0.03,
-              ),
-            ),
+        IconButton(
+          onPressed: () {},
+          icon: AppIcon(
+            iconData: Icons.notifications_outlined,
+            color: Colors.black87,
+            height: height * 0.03,
           ),
         ),
         sizedBox(0.0, width * 0.04),
@@ -184,7 +182,8 @@ class _DashBoardState extends State<DashBoard> {
 //In the Column Has 3 Containers and a AppTextButton
 //The Three container are indicates, Location searcher, Choosing Dates, Room Count and Persons Count
   Widget LocationDatePersonCountBox(height, width) {
-    final bottomProvider = Provider.of<DashBoardProvider>(context, listen: false);
+    final bottomProvider =
+        Provider.of<DashBoardProvider>(context, listen: false);
     bottomProvider.loadRoomsAndGuestCount();
     return Container(
       width: width,
@@ -268,15 +267,15 @@ class _DashBoardState extends State<DashBoard> {
                       child: Container(
                         height: height * 0.083,
                         width: width,
-                        padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                        padding: EdgeInsets.only(
+                            left: width * 0.05, right: width * 0.02),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(10),
-                          ),
-                          border:
-                              Border(bottom: BorderSide(color: Colors.grey)),
-                          color: Colors.transparent,
-                        ),
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(10),
+                            ),
+                            border:
+                                Border(bottom: BorderSide(color: Colors.grey)),
+                            color: Colors.transparent),
                         child: Row(
                           children: [
                             AppIcon(
@@ -287,8 +286,11 @@ class _DashBoardState extends State<DashBoard> {
                             sizedBox(0.0, width * 0.04),
                             SizedBox(
                               width: width * 0.7,
-                              child: Text(text,
-                                  style: smallTextStyle, maxLines: 1),
+                              child: Text(
+                                text,
+                                style: smallTextStyle,
+                                maxLines: 1,
+                              ),
                             ),
                           ],
                         ),
@@ -356,7 +358,9 @@ class BottomSheetContent extends StatelessWidget {
       ),
       child: Container(
         padding: EdgeInsets.symmetric(
-            horizontal: width * 0.045, vertical: height * 0.02),
+          horizontal: width * 0.045,
+          vertical: height * 0.02,
+        ),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,

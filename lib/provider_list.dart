@@ -1,3 +1,4 @@
+import 'package:abodein/src/view_Model/chat_provider.dart';
 import 'package:abodein/src/view_Model/features_provider.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:abodein/src/view_Model/profile_provider.dart';
@@ -21,4 +22,5 @@ List<ChangeNotifierProvider<ChangeNotifier>> providers = [
   ChangeNotifierProvider<RoomControllerProvider>(create: (context) => RoomControllerProvider()),
   ChangeNotifierProvider<FeaturesProvider>(create: (context) => FeaturesProvider()),
   ChangeNotifierProvider<SmartChekingProvider>(create: (context) => SmartChekingProvider()),
+  ChangeNotifierProvider<ChatProvider>(create: (context) => ChatProvider()),
 ];

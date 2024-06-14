@@ -20,7 +20,7 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: height * 0.065,
       margin: EdgeInsets.symmetric(horizontal: width * 0.06),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -60,13 +60,14 @@ class AppSearchBar extends StatelessWidget {
     required this.width,
     required this.height,
     this.onChange,
-    this.prefixIcon, this.suffixIcon,
+    this.prefixIcon,
+    this.suffixIcon,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height * 0.075,
+      height: height * 0.065,
       width: width ,
       margin: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
       decoration: BoxDecoration(
@@ -92,7 +93,7 @@ class AppSearchBar extends StatelessWidget {
           border: InputBorder.none,
           hintText: hintText,
           hintStyle: smallTextStyle,
-          contentPadding: EdgeInsets.all(height * 0.02),
+          contentPadding: EdgeInsets.all(height * 0.015),
           suffixIcon: suffixIcon,
           prefixIcon: Padding(
             padding: EdgeInsets.only(

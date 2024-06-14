@@ -7,6 +7,7 @@ class AppTextButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final Gradient? gradient;
+  final TextStyle? textStyle;
   final double height;
   final double width;
   const AppTextButton({
@@ -16,6 +17,7 @@ class AppTextButton extends StatelessWidget {
     required this.height,
     required this.width,
     this.gradient,
+    this.textStyle
   });
 
   @override
@@ -23,15 +25,15 @@ class AppTextButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        height: 60,
+        height: height * 0.07,
         width: width * 0.87,
         decoration: BoxDecoration(
-          color:  primarycolor,
+          color: primarycolor,
           gradient: gradient,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Center(
-          child: Text(text, style: buttonTextStyle),
+          child: Text(text, style: textStyle ?? buttonTextStyle),
         ),
       ),
     );
