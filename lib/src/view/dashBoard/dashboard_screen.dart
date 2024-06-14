@@ -225,9 +225,11 @@ class _DashBoardState extends State<DashBoard> {
                     switch (index) {
                       case 0:
                         icon = Icons.search;
-                        text = featuresProvider.locationText == ''
-                            ? 'Where would you like to go?'
-                            : featuresProvider.locationText;
+                        text = featuresProvider.isLoading
+                            ? 'Loading...'
+                            : featuresProvider.locationText == ''
+                                ? 'Where would you like to go?'
+                                : featuresProvider.locationText;
                         iconColor = Colors.blueAccent;
                         onpressed = () async {
                           Navigator.push(

@@ -107,6 +107,8 @@ class FeaturesProvider extends ChangeNotifier {
 
   Future<void> getCurrentPosition() async {
     isLoading = true;
+    notifyListeners();
+
     print('current location');
     final hasPermission = await _handleLocationPermission();
     print('Has permission : ${hasPermission}');
@@ -122,11 +124,10 @@ class FeaturesProvider extends ChangeNotifier {
       print("$isLoading");
       isLoading = false;
       print("$isLoading");
-
-      notifyListeners();
     }).catchError((e) {
       debugPrint(e);
     });
+    notifyListeners();
   }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
