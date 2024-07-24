@@ -66,8 +66,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           right: 10,
                           bottom: 5),
                       child: IntlPhoneField(
+                        style: TextStyle(color: Colors.black),
                         controller: _mobilenumbercontrollor,
-                        decoration: InputDecoration(border: InputBorder.none),
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'phone',
+                            hintStyle: TextStyle(color: Colors.black),
+                            contentPadding: EdgeInsets.only(top: 10)),
                         initialCountryCode:
                             'United Arab Emirates', // Default country code
                         onChanged: (phone) {
@@ -109,11 +114,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 //     builder: (context) => OTPScreen(
                 //           MobileNumber: mobilenumbercontrollor.text,
                 //         )));
+                var number = '${_countryCode}${_mobilenumbercontrollor.text}';
+
                 reg.otpfield == false
                     ? [
                         reg.showotpfield(),
                         FirebaseAuth.instance.verifyPhoneNumber(
-                          phoneNumber: _mobilenumbercontrollor.text,
+                          phoneNumber: number,
                           verificationCompleted: (phoneAuthCredential) {},
                           verificationFailed: (error) {
                             print(

@@ -299,7 +299,7 @@ class Booking extends StatelessWidget {
                                               BorderRadius.circular(12))),
                                   child: Text(
                                     "Save",
-                                    style: whiteSmallTextStyle,
+                                    style: smallTextStyleBlack,
                                   ),
                                 ),
                               ),

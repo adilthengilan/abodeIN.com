@@ -78,7 +78,7 @@ class _CameraViewState extends State<CameraView> {
                   child: Center(
                       child: Text(
                     'Tap here to Start',
-                    style: whiteSmallTextStyle,
+                    style: smallTextStyleBlack,
                   )),
                 ),
               ),

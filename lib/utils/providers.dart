@@ -6,6 +6,9 @@ import 'package:abodein/src/view_model/Smart_Checkin_Provider.dart';
 import 'package:abodein/src/view_model/booking_func.dart';
 import 'package:abodein/src/view_model/bools_provider.dart';
 import 'package:abodein/src/view_model/calendar.dart';
+import 'package:abodein/src/view_model/events_api_connecting/events_api.dart';
+import 'package:abodein/src/view_model/events_api_connecting/hotels_api_connecting.dart';
+import 'package:abodein/src/view_model/features_provider.dart';
 import 'package:abodein/src/view_model/hotel_detail_provider.dart';
 import 'package:abodein/src/view_model/profile_provider.dart';
 import 'package:abodein/src/view_model/registration.dart';
@@ -19,9 +22,6 @@ List<ChangeNotifierProvider<ChangeNotifier>> providers = [
   ),
   ChangeNotifierProvider<MobileNumberAuth>(
       create: (context) => MobileNumberAuth()),
-  ChangeNotifierProvider<ProfileProvider>(
-    create: (context) => ProfileProvider(),
-  ),
   ChangeNotifierProvider<Reg>(
     create: (context) => Reg(),
   ),
@@ -45,5 +45,14 @@ List<ChangeNotifierProvider<ChangeNotifier>> providers = [
   ),
   ChangeNotifierProvider<boolsProvider>(
     create: (context) => boolsProvider(),
+  ),
+  ChangeNotifierProvider<FeaturesProvider>(
+    create: (context) => FeaturesProvider(),
+  ),
+  ChangeNotifierProvider<EventbriteApi>(
+    create: (context) => EventbriteApi(),
+  ),
+  ChangeNotifierProvider<HotelsConnectingApi>(
+    create: (context) => HotelsConnectingApi(),
   )
 ];

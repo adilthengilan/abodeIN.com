@@ -3,6 +3,7 @@ import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/dashBoard/hotel_details_screen/hotel_details_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_Model/splash_provider.dart';
+import 'package:abodein/src/view_model/bools_provider.dart';
 import 'package:abodein/utils/app_colors.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               margin: EdgeInsets.only(top: height * 0.7, left: 0),
               child: Text(
                 "Let's Turn This into A Life",
-                style: whiteSmallTextStyle,
+                style: whiteMediumTextStyle,
                 textAlign: TextAlign.start,
               ),
             ),
@@ -85,14 +86,29 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               top: height * 0.88,
               left: width * 0.1,
               right: width * 0.1,
-              child: Container(
-                height: 60,
-                width: 120,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(50),
-                    color: Color.fromRGBO(214, 212, 212, 0)),
-                child: SlideToUnlocks(),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Bottom_Navigation_Bar(),
+                      ));
+                  final bools =
+                      Provider.of<boolsProvider>(context, listen: false);
+                  bools.toggleentry();
+                  bools.saveSwitchValue();
+                },
+                child: Container(
+                    height: 60,
+                    width: 120,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Color.fromRGBO(255, 255, 255, 0.864)),
+                    child: Center(
+                        child: Text(
+                      'GET START',
+                      style: mediumTextStyle,
+                    ))),
               ))
           // Container(
           //   margin: EdgeInsets.only(top: 730, right: 230),

@@ -1,4 +1,7 @@
 import 'package:abodein/src/view/bottom_navigation_controller.dart';
+import 'package:abodein/src/view/splashScreen/getstarted_screen.dart';
+import 'package:abodein/src/view/splashScreen/splash_screen.dart';
+import 'package:abodein/src/view/theme/themeData.dart';
 import 'package:abodein/utils/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,12 +21,11 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: providers,
       child: MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            useMaterial3: true,
-          ),
+          darkTheme: darkMode,
+          title: 'tuchtrip.com',
+          theme: lightMode,
           debugShowCheckedModeBanner: false,
-          home: Bottom_Navigation_Bar()),
+          home: GetStartedScreen()),
     );
   }
 }

@@ -8,7 +8,7 @@ class AppTextButton extends StatelessWidget {
   final VoidCallback onPressed;
   final double height;
   final double width;
-  final List<Color> color;
+  final List <Color> color;
   const AppTextButton({
     super.key,
     required this.text,
@@ -26,16 +26,15 @@ class AppTextButton extends StatelessWidget {
         height: 60,
         width: width * 0.87,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+          gradient:  LinearGradient(
             begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-            colors: color,
+            end: Alignment.centerRight,colors: color,
           ),
-          // colors: [
-          // Replace these with your desired gradient colors (use Color objects)
-          // const Color(0xfff78ca0), // #f78ca0 (example)
-          // const Color(0xfff9748f), // #f9748f (example)
-          // ],),
+            // colors: [
+              // Replace these with your desired gradient colors (use Color objects)
+              // const Color(0xfff78ca0), // #f78ca0 (example)
+              // const Color(0xfff9748f), // #f9748f (example)
+            // ],),
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -57,7 +56,6 @@ class AppTextButton extends StatelessWidget {
     );
   }
 }
-
 class AppDragButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;

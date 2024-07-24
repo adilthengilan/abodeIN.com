@@ -131,7 +131,7 @@ class _Smart_CheckIN_Face_AuthState extends State<Smart_CheckIN_Face_Auth> {
                       child: Center(
                           child: Text(
                         'Continue',
-                        style: whiteSmallTextStyle,
+                        style: smallTextStyleBlack,
                       )),
                     ),
                   )

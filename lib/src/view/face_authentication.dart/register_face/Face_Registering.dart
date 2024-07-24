@@ -211,7 +211,8 @@ class _EnterDetailsViewState extends State<EnterDetailsView> {
                       _nameController.text, widget.faceFeatures);
                 },
                 height: height,
-                width: width,color: [],
+                width: width,
+                color: [],
               ),
             ),
             sizedBox(height * 0.03, 0.0),
@@ -364,14 +365,14 @@ class IdVerificationCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       sizedBox(height * 0.023, 0.0),
-                      Text('John Smith', style: whiteSmallTextStyle),
+                      Text('John Smith', style: smallTextStyleBlack),
                       sizedBox(height * 0.018, 0.0),
-                      Text('Kl25624**', style: whiteSmallTextStyle),
+                      Text('Kl25624**', style: smallTextStyleBlack),
                       sizedBox(height * 0.018, 0.0),
-                      Text('9446892747', style: whiteSmallTextStyle),
+                      Text('9446892747', style: smallTextStyleBlack),
                       sizedBox(height * 0.018, 0.0),
                       Text("India, Kerala, Calicut",
-                          style: whiteSmallTextStyle),
+                          style: smallTextStyleBlack),
                     ],
                   ),
                 )

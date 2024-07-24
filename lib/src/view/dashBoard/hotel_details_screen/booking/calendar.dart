@@ -98,7 +98,7 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
                     ];
                     return Text(Days[index],
                         style: isDarkMode
-                            ? whiteSmallTextStyle
+                            ? smallTextStyleBlack
                             : smallTextStyleblack);
                   },
                 ),
@@ -144,17 +144,17 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
                         },
                         calendarStyle: CalendarStyle(
                           todayTextStyle: isDarkMode
-                              ? whiteSmallTextStyle
+                              ? smallTextStyleBlack
                               : smallTextStyleblack,
                           todayDecoration:
                               BoxDecoration(color: Colors.transparent),
                           rangeEndTextStyle: whiteLargeTextStyle,
                           disabledTextStyle: TextStyle(color: Colors.grey),
                           defaultTextStyle: isDarkMode
-                              ? whiteSmallTextStyle
+                              ? smallTextStyleBlack
                               : smallTextStyleblack,
                           weekendTextStyle: isDarkMode
-                              ? whiteSmallTextStyle
+                              ? smallTextStyleBlack
                               : smallTextStyleblack,
                           selectedDecoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
@@ -184,62 +184,67 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
         height: height * 0.11,
         color: Colors.transparent,
         surfaceTintColor: Colors.transparent,
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color.fromARGB(255, 66, 230, 148),
-                Color.fromARGB(255, 59, 178, 184),
-              ],
+        child: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color.fromARGB(255, 66, 230, 148),
+                  Color.fromARGB(255, 59, 178, 184),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(15),
             ),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Select',
-                  style: whiteSmallTextStyle,
-                ),
-                sizedBox(0.0, width * 0.03),
-                Provider.of<CalendarProvider>(context, listen: false)
-                            .selectedDates
-                            .length >
-                        1
-                    ? Row(
-                        children: [
-                          Consumer<CalendarProvider>(
-                            builder: (context, calendar, child) => Text(
-                              DateFormat.MMM()
-                                          .format(calendar.selectedDates[0]) ==
-                                      DateFormat.MMM()
-                                          .format(calendar.selectedDates.last)
-                                  ? '${DateFormat.d().format(calendar.selectedDates[0])} - ${DateFormat.d().format(calendar.selectedDates.last)}  ${DateFormat.MMM().format(calendar.selectedDates.last)} ,'
-                                  : '${DateFormat.d().format(calendar.selectedDates[0])} ${DateFormat.MMM().format(calendar.selectedDates[0])}  - ${DateFormat.d().format(calendar.selectedDates.last)} ${DateFormat.MMM().format(calendar.selectedDates.last)} ,',
-                              style: whiteSmallTextStyle,
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Select',
+                    style: smallTextStyleBlack,
+                  ),
+                  sizedBox(0.0, width * 0.03),
+                  Provider.of<CalendarProvider>(context, listen: false)
+                              .selectedDates
+                              .length >
+                          1
+                      ? Row(
+                          children: [
+                            Consumer<CalendarProvider>(
+                              builder: (context, calendar, child) => Text(
+                                DateFormat.MMM().format(
+                                            calendar.selectedDates[0]) ==
+                                        DateFormat.MMM()
+                                            .format(calendar.selectedDates.last)
+                                    ? '${DateFormat.d().format(calendar.selectedDates[0])} - ${DateFormat.d().format(calendar.selectedDates.last)}  ${DateFormat.MMM().format(calendar.selectedDates.last)} ,'
+                                    : '${DateFormat.d().format(calendar.selectedDates[0])} ${DateFormat.MMM().format(calendar.selectedDates[0])}  - ${DateFormat.d().format(calendar.selectedDates.last)} ${DateFormat.MMM().format(calendar.selectedDates.last)} ,',
+                                style: smallTextStyleBlack,
+                              ),
                             ),
-                          ),
-                          sizedBox(0.0, width * 0.02),
-                          Consumer<CalendarProvider>(
-                            builder: (context, calendar, child) => Text(
-                              "${calendar.selectedDates.length - 1}",
-                              style: whiteSmallTextStyle,
+                            sizedBox(0.0, width * 0.02),
+                            Consumer<CalendarProvider>(
+                              builder: (context, calendar, child) => Text(
+                                "${calendar.selectedDates.length - 1}",
+                                style: smallTextStyleBlack,
+                              ),
                             ),
-                          ),
-                          sizedBox(0.0, width * 0.02),
-                          AppIcon(
-                            iconData: Icons.nights_stay,
-                            color: Colors.white,
-                            height: height * 0.025,
-                          ),
-                        ],
-                      )
-                    : SizedBox(),
-              ],
+                            sizedBox(0.0, width * 0.02),
+                            AppIcon(
+                              iconData: Icons.nights_stay,
+                              color: Colors.white,
+                              height: height * 0.025,
+                            ),
+                          ],
+                        )
+                      : SizedBox(),
+                ],
+              ),
             ),
           ),
         ),

@@ -2,11 +2,13 @@ import 'package:abodein/src/view/bottom_navigation_controller.dart';
 import 'package:abodein/src/view/common_Widgets/text_field.dart';
 import 'package:abodein/src/view/dashBoard/dashboard_screen.dart';
 import 'package:abodein/src/view/registration/login_page.dart';
+import 'package:abodein/src/view_model/bools_provider.dart';
 import 'package:abodein/src/view_model/registration.dart';
 import 'package:abodein/utils/style.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class OTPScreen extends StatefulWidget {
   final String MobileNumber;
@@ -93,6 +95,10 @@ class _OTPScreenState extends State<OTPScreen> {
         MaterialPageRoute(
           builder: (context) => Bottom_Navigation_Bar(),
         ));
+
+    final boolspro = Provider.of<boolsProvider>(context, listen: false);
+    boolspro.isLoginedset();
+    boolspro.saveSwitchValue();
     // Perform OTP verification here
     print('Entered OTP:============================ $otp');
   }
@@ -229,5 +235,3 @@ class _OTPTextFieldState extends State<OTPTextField> {
     );
   }
 }
-
-

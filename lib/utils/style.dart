@@ -3,25 +3,25 @@ import "package:google_fonts/google_fonts.dart";
 
 final TextStyle largeTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 31,
+    fontSize: 25,
     fontWeight: FontWeight.bold,
-    color: Color.fromARGB(255, 75, 75, 75),
+    color: Color.fromARGB(255, 0, 0, 0),
   ),
 );
 
 final TextStyle mediumTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: FontWeight.bold,
-    color: Color.fromARGB(255, 75, 75, 75),
+    color: Color.fromARGB(255, 0, 0, 0),
   ),
 );
 
 final TextStyle mediumTextStyleSemiBold = GoogleFonts.poppins(
     textStyle: TextStyle(
-  fontSize: 23,
+  fontSize: 20,
   fontWeight: FontWeight.w600,
-  color: Color.fromARGB(255, 75, 75, 75),
+  color: Color.fromARGB(255, 0, 0, 0),
 ));
 
 final TextStyle mediumTextStyleLight = GoogleFonts.poppins(
@@ -34,7 +34,7 @@ final TextStyle mediumTextStyleLight = GoogleFonts.poppins(
 
 final TextStyle smallTextStylewhite = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.w400,
     color: Color.fromARGB(255, 255, 255, 255),
   ),
@@ -53,7 +53,7 @@ Widget smallTextStylewhitefun(Text, size) {
 
 final TextStyle smallTextStyleblack = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.w400,
     color: Color.fromARGB(255, 0, 0, 0),
   ),
@@ -61,7 +61,7 @@ final TextStyle smallTextStyleblack = GoogleFonts.poppins(
 
 final TextStyle smallTextStyleSemiBold = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.w600,
     color: Color.fromARGB(255, 75, 75, 75),
   ),
@@ -76,7 +76,7 @@ final TextStyle buttonTextStyle = GoogleFonts.poppins(
 
 final TextStyle blueSmallTextButtons = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.w400,
     color: Colors.blue,
   ),
@@ -98,10 +98,10 @@ final TextStyle whiteMediumTextStyle = GoogleFonts.poppins(
   ),
 );
 
-final TextStyle whiteSmallTextStyle = GoogleFonts.poppins(
+final TextStyle smallTextStyleBlack = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 16,
-    color: Colors.white,
+    fontSize: 14,
+    color: Color.fromARGB(255, 255, 255, 255),
     fontWeight: FontWeight.w400,
   ),
 );
