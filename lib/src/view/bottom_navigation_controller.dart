@@ -4,7 +4,9 @@ import 'package:abodein/src/view/profile/profile_screen.dart';
 import 'package:abodein/src/view/reward/reward_screen.dart';
 import 'package:abodein/src/view_Model/dashboard_provider.dart';
 import 'package:abodein/src/view_model/bools_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
@@ -87,77 +89,128 @@ class _Bottom_Navigation_BarState extends State<Bottom_Navigation_Bar> {
   @override
   Widget build(BuildContext context) {
     final bools = Provider.of<boolsProvider>(context);
+    List<String> nms = ['Home', 'Favorites', 'Rewards', 'Profile'];
+    List icons = [
+      IconlyBold.home, Icons.favorite_border, IconlyBold.more_circle,
+      IconlyBold.profile
+
+      // Icon(Icons.home,),
+      // Icon(Icons.favorite_border),
+      // Icon(IconlyBold.discount),
+      // Icon(IconlyBold.profile)
+    ];
     bools.loadSwitchValue();
     return Scaffold(
-      bottomNavigationBar: SalomonBottomBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        currentIndex: bools.bottombarindex,
-        onTap: (int index) {
-          setState(() {
-            bools.bottombarindex = index;
-          });
-        },
-        items: [
-          /// Home
-          SalomonBottomBarItem(
-            icon: Icon(
-              IconlyBold.category,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            title: Text("Home"),
-            selectedColor: Theme.of(context).colorScheme.primary,
-          ),
-
-          /// Likes
-          SalomonBottomBarItem(
-            icon: Icon(
-              IconlyBold.heart,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            title: Text("Favorites"),
-            selectedColor: Theme.of(context).colorScheme.primary,
-          ),
-
-          /// Search
-          SalomonBottomBarItem(
-            icon: Stack(children: [
-              Icon(
-                IconlyBold.activity,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 18),
-                child: Container(
-                  child: Center(
-                    child: Text(
-                      '0',
-                      style:
-                          TextStyle(fontSize: 10, fontWeight: FontWeight.w700),
+      bottomNavigationBar: BottomAppBar(
+        height: 69,
+        child: SizedBox(
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 4,
+            itemBuilder: (context, index) => InkWell(
+              onTap: () {
+                bools.setBottomBarindex(index);
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: 22),
+                child: Row(
+                  children: [
+                    Column(
+                      children: [
+                        Icon(
+                          icons[index],
+                          color: bools.bottombarindex == index
+                              ? Color.fromRGBO(36, 94, 65, 1)
+                              : Colors.grey,
+                        ),
+                        Text(nms[index],
+                            style: GoogleFonts.poppins(
+                                fontSize: 13,
+                                color: bools.bottombarindex == index
+                                    ? Color.fromRGBO(36, 94, 65, 1)
+                                    : Color.fromARGB(255, 160, 160, 160)))
+                      ],
                     ),
-                  ),
-                  height: 10,
-                  width: 10,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
+                    SizedBox(
+                      width: 10,
+                    ),
+                  ],
                 ),
-              )
-            ]),
-            title: Text("Notifications"),
-            selectedColor: Colors.orange,
-          ),
-
-          /// Profile
-          SalomonBottomBarItem(
-            icon: Icon(
-              IconlyBold.user_2,
-              color: Theme.of(context).colorScheme.primary,
+              ),
             ),
-            title: Text("Profile"),
-            selectedColor: Colors.teal,
           ),
-        ],
+        ),
       ),
+
+      // bottomNavigationBar: SalomonBottomBar(
+      //   backgroundColor: Theme.of(context).colorScheme.background,
+      //   currentIndex: bools.bottombarindex,
+      //   onTap: (int index) {
+      //     setState(() {
+      //       bools.bottombarindex = index;
+      //     });
+      //   },
+      //   items: [
+      //     /// Home
+      //     SalomonBottomBarItem(
+      //       icon: Icon(
+      //         IconlyBold.category,
+      //         color: Theme.of(context).colorScheme.primary,
+      //       ),
+      //       title: Text("Home"),
+      //       selectedColor: Theme.of(context).colorScheme.primary,
+      //     ),
+
+      //     /// Likes
+      //     SalomonBottomBarItem(
+      //       icon: Icon(
+      //         IconlyBold.heart,
+      //         color: Theme.of(context).colorScheme.primary,
+      //       ),
+      //       title: Text("Favorites"),
+      //       selectedColor: Theme.of(context).colorScheme.primary,
+      //     ),
+
+      //     /// Search
+      //     SalomonBottomBarItem(
+      //       icon: Stack(children: [
+      //         Icon(
+      //           IconlyBold.activity,
+      //           color: Theme.of(context).colorScheme.primary,
+      //         ),
+      //         Padding(
+      //           padding: EdgeInsets.only(left: 18),
+      //           child: Container(
+      //             child: Center(
+      //               child: Text(
+      //                 '0',
+      //                 style:
+      //                     TextStyle(fontSize: 10, fontWeight: FontWeight.w700),
+      //               ),
+      //             ),
+      //             height: 10,
+      //             width: 10,
+      //             decoration: BoxDecoration(
+      //                 color: Colors.white,
+      //                 borderRadius: BorderRadius.all(Radius.circular(5))),
+      //           ),
+      //         )
+      //       ]),
+      //       title: Text("Notifications"),
+      //       selectedColor: Colors.orange,
+      //     ),
+
+      //     /// Profile
+      //     SalomonBottomBarItem(
+      //       icon: Icon(
+      //         IconlyBold.user_2,
+      //         color: Theme.of(context).colorScheme.primary,
+      //       ),
+      //       title: Text("Profile"),
+      //       selectedColor: Colors.teal,
+      //     ),
+      //   ],
+      // ),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: _screens[bools.bottombarindex],
     );

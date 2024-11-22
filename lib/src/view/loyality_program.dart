@@ -54,14 +54,14 @@ class LoyalityProgramScreen extends StatelessWidget {
               ),
               sizedBox(height * 0.008, width),
               LinearProgressIndicator(
-                color: Colors.deepPurpleAccent,
-                value: 4 / 10,
+                color: Color.fromARGB(255, 50, 119, 38),
+                value: 2 / 3,
                 minHeight: height * 0.025,
-                backgroundColor: Colors.grey,
+                backgroundColor: Color.fromARGB(255, 255, 230, 147),
                 borderRadius: BorderRadius.circular(5),
               ),
-              sizedBox(height * 0.02, width),
-              Text('Tokens', style: mediumTextStyleLight),
+              sizedBox(height * 0.01, width),
+              Text('Tokens', style: mediumTextStyle),
               sizedBox(height * 0.02, width),
               GridView.builder(
                 shrinkWrap: true,
@@ -71,7 +71,7 @@ class LoyalityProgramScreen extends StatelessWidget {
                   crossAxisCount: 2,
                   crossAxisSpacing: 15,
                   mainAxisSpacing: 20,
-                  childAspectRatio: height * 0.0008,
+                  childAspectRatio: height * 0.00075,
                 ),
                 itemBuilder: (context, index) => Container(
                   padding: EdgeInsets.only(
@@ -112,7 +112,7 @@ class LoyalityProgramScreen extends StatelessWidget {
                           style: smallTextStyleBlack,
                           textAlign: TextAlign.center),
                       sizedBox(height * 0.01, 0.0),
-                      Text('Locked', style: smallTextStyleBlack),
+                      Text('Locked!', style: smallTextStyleBlack),
                     ],
                   ),
                 ),

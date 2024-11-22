@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           title: 'tuchtrip.com',
           theme: lightMode,
           debugShowCheckedModeBanner: false,
-          home: GetStartedScreen()),
+          home: Splash_Screen()),
     );
   }
 }

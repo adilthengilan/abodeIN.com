@@ -101,7 +101,7 @@ final TextStyle whiteMediumTextStyle = GoogleFonts.poppins(
 final TextStyle smallTextStyleBlack = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 14,
-    color: Color.fromARGB(255, 255, 255, 255),
+    color: Color.fromARGB(255, 0, 0, 0),
     fontWeight: FontWeight.w400,
   ),
 );

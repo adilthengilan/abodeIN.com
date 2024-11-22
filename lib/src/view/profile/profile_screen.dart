@@ -1,4 +1,5 @@
 import 'package:abodein/src/view/common_Widgets/icon.dart';
+import 'package:abodein/src/view/loyality_program.dart';
 
 import 'package:abodein/src/view/registration/login_page.dart';
 import 'package:abodein/src/view_model/bools_provider.dart';
@@ -310,7 +311,7 @@ class _ProfileState extends State<Profile> {
   // The Profile Buttons Listing in the ListView Builder, it Has 7 buttons, and its Title, Icon, and Icon color it is in a Map List Button Components
   Widget _buildProfileButtonsGridType(height, width, bools) {
     return GridView.builder(
-      itemCount: 4,
+      itemCount: 2,
       shrinkWrap: true,
       padding: EdgeInsets.symmetric(horizontal: width * 0.06),
       physics: NeverScrollableScrollPhysics(),
@@ -344,6 +345,12 @@ class _ProfileState extends State<Profile> {
             text = "Favorite";
             iconColor = Colors.pinkAccent;
             onPressed = () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        LoyalityProgramScreen(height: height, width: width),
+                  ));
               // Navigator.push(
               //   context,
               //   MaterialPageRoute(

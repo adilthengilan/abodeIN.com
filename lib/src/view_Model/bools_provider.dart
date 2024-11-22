@@ -49,8 +49,6 @@ class boolsProvider extends ChangeNotifier {
     isDarkMode = prefs.getBool('DarkMode') ?? false;
     isLogined = prefs.getBool('Login') ?? false;
     firstentry = prefs.getBool('firstentry') ?? false;
-    print('Logined Successfully');
-    print(firstentry);
     notifyListeners();
   }
 
@@ -59,7 +57,7 @@ class boolsProvider extends ChangeNotifier {
     await prefs.setBool('DarkMode', isDarkMode);
     await prefs.setBool('Login', isLogined);
     await prefs.setBool('firstentry', firstentry);
-    print('saved----------------');
+    // print('saved----------------');
     notifyListeners();
   }
 }

@@ -94,9 +94,10 @@ class HotelBoxList extends StatelessWidget {
     final bools = Provider.of<boolsProvider>(context);
 
     return SizedBox(
-      height: scrollDirectionVertical ? height : height * 0.42,
+      height: height * 0.45,
       width: width,
       child: ListView.builder(
+        shrinkWrap: true,
         itemCount: itemCount,
         scrollDirection:
             scrollDirectionVertical ? Axis.vertical : Axis.horizontal,
@@ -134,7 +135,7 @@ class HotelBoxList extends StatelessWidget {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                 ],
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -144,8 +145,8 @@ class HotelBoxList extends StatelessWidget {
                     width: width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                          topRight: Radius.circular(15)),
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10)),
                       image: DecorationImage(
                           fit: BoxFit.cover, image: AssetImage(image[index])),
                     ),
@@ -189,45 +190,129 @@ class HotelBoxList extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              width: width * 0.61,
-                              child: Text(
-                                "Hotel Niagara Popo",
-                                style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                    fontSize: width * 0.05,
-                                    fontWeight: FontWeight.w700,
-                                    letterSpacing: -0.3,
-                                    color: Colors.black,
+                            // SizedBox(
+                            //   width: width * 0.61,
+                            //   child: Text(
+                            //     "Hotel Niagara Popo",
+                            //     style: GoogleFonts.poppins(
+                            //       textStyle: TextStyle(
+                            //         fontSize: width * 0.05,
+                            //         fontWeight: FontWeight.w700,
+                            //         letterSpacing: -0.3,
+                            //         color: Colors.black,
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
+                            // sizedBox(height * 0.007, 0.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: width * 0.03),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      // Row(
+                                      //   children: List.generate(
+                                      //     5,
+                                      //     (index) => ratingStarIcon(height),
+                                      //   ),
+                                      // ),
+                                      SizedBox(
+                                        width: width * 0.33,
+                                        child: Text(
+                                          'Baithan',
+                                          style: GoogleFonts.montserrat(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Text(
+                                        'Dubai',
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 12),
+                                      ),
+                                      // Text(
+                                      //   'Cashback: \$${120}',
+                                      //   style: GoogleFonts.montserrat(
+                                      //       fontSize: 12),
+                                      // ),
+                                    ],
                                   ),
                                 ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: width * 0.03),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      sizedBox(height * 0.01, 0.0),
+                                      Text(
+                                        '\AED-${1999}',
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        'Including taxes and fees',
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 12),
+                                      ),
+                                      Text(
+                                        'For 1 Night',
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: width * 0.02, right: width * 0.02),
+                              child: Divider(
+                                color: Colors.grey,
                               ),
                             ),
-                            sizedBox(height * 0.007, 0.0),
-                            Text(
-                              'New York, USA',
-                              style: smallTextStyleblack,
-                            ),
-                            sizedBox(height * 0.015, 0.0),
-                          ],
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            sizedBox(height * 0.01, 0.0),
-                            Text(
-                              '\$1,599',
-                              style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
-                                  fontSize: width * 0.046,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                            Padding(
+                              padding: EdgeInsets.only(left: width * 0.04),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.payment,
+                                    size: 14,
+                                  ),
+                                  Text(
+                                    'Pay Now',
+                                    style: GoogleFonts.montserrat(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500),
+                                  )
+                                ],
                               ),
-                            ),
-                            Text("1 night"),
+                            )
                           ],
                         ),
+                        // Column(
+                        //   mainAxisAlignment: MainAxisAlignment.end,
+                        //   children: [
+                        //     sizedBox(height * 0.01, 0.0),
+                        //     Text(
+                        //       '\$1,599',
+                        //       style: GoogleFonts.poppins(
+                        //         textStyle: TextStyle(
+                        //           fontSize: width * 0.046,
+                        //           color: Colors.black,
+                        //           fontWeight: FontWeight.w700,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     Text("1 night"),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),
@@ -239,4 +324,12 @@ class HotelBoxList extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget ratingStarIcon(height) {
+  return Icon(
+    Icons.star,
+    color: Colors.orange,
+    size: height * 0.02,
+  );
 }

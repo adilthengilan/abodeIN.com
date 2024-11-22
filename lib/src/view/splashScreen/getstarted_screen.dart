@@ -73,13 +73,21 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             ),
           ),
           Center(
-            child: Container(
-              margin: EdgeInsets.only(top: 0, left: 0),
-              child: Text(
-                "Book Your Tickets\n  To Your FUTURE",
-                style: whiteLargeTextStyle,
-                textAlign: TextAlign.start,
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(10)),
+                  margin: EdgeInsets.only(top: 0, left: 0),
+                  child: Text(
+                    "  Book Your Tickets  \n     To Your FUTURE ",
+                    style: whiteLargeTextStyle,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+              ],
             ),
           ),
           Positioned(
@@ -166,8 +174,9 @@ class _VideoBackgroundPageState extends State<VideoBackgroundPage> {
       ..initialize().then((_) {
         setState(() {});
       });
-    _controller.setLooping(true);
     _initializeVideoPlayerFuture = _controller.play();
+
+    _controller.setLooping(true);
   }
 
   @override
